@@ -29,22 +29,24 @@ def reading_function(parameters_rf):
 	global N_RUNS
 	filename = "PSC_ALL"
 	filepath_psc = "PSC/" + filename + ".txt"
+
 ### For testing (loading past results instead of running simulation)
 #	with open("Results/all_data.pkl","r") as f:
 #		all_data = pickle.load(f)
 #	with open("Results/unrecognized.pkl","r") as f:
 #		unrecognized_words = pickle.load(f)
 ###
-        # Run the simulation
-        (lexicon, all_data, unrecognized_words) = reading_simulation(filepath_psc, parameters_rf)
-        # Evaluate run and retrieve error-metric
-        distance = get_scores(filename, all_data, unrecognized_words)
+	# Run the simulation
+
+	(lexicon, all_data, unrecognized_words) = reading_simulation(filepath_psc, parameters_rf)
+	# Evaluate run and retrieve error-metric
+	distance = get_scores(filename, all_data, unrecognized_words)
 
         # Save parameters when distance is better than previous
-        write_out = pd.DataFrame(np.array([names, parameters_rf]).T)
-        if distance < OLD_DISTANCE:
-                write_out.to_csv(str(distance)+"_"+pm.tuning_measure+"parameters.txt", index=False, header=["name", "value"])
-                OLD_DISTANCE = distance
+	write_out = pd.DataFrame(np.array([names, parameters_rf]).T)
+	if distance < OLD_DISTANCE:
+        	write_out.to_csv(str(distance)+"_"+pm.tuning_measure+"parameters.txt", index=False, header=["name", "value"])
+        	OLD_DISTANCE = distance
 
 	p = ""
 
@@ -53,13 +55,13 @@ def reading_function(parameters_rf):
 		p += str(param)
 		p += "\n"
 
-        # Save distances for plotting convergence
-        with open("dist.txt", "a") as f:
-                f.write("run "+str(N_RUNS)+": "+str(int(distance))+"\n")
+	# Save distances for plotting convergence
+	with open("dist.txt", "a") as f:
+		f.write("run "+str(N_RUNS)+": "+str(int(distance))+"\n")
 		f.write(p)
 		f.write("\n")
-        N_RUNS += 1
-        return distance
+	N_RUNS += 1 
+	return distance
 
 if pm.language == "german":
 	filename = "PSC_ALL"

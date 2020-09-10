@@ -850,7 +850,12 @@ def reading_simulation(filename, parameters):
                     recognWrdsFittingLen_np = recognized_lexicon_np * np.array([int(is_similar_word_length(x, this_word)) for x in lexicon])
             ##        wrdsFittingLen_np = np.where(is_similar_word_length(recognWrds_w_length, desired_length))
                     # fast check whether there is at least one 1 in wrdsFittingLen_np
-                    if sum(recognWrdsFittingLen_np):
+
+                    #if sum(recognWrdsFittingLen_np): ##NS remove temporarily to obtain highest_word
+		    ##NS first word does not reach 1 in wrdsFittingLen_np  
+		    test=True 
+		    if test == True:
+
                         # PK find the word with the highest activation in all words that have a similar length
                         highest = np.argmax(recognWrdsFittingLen_np * lexicon_word_activity_np)
                         highest_word = lexicon[highest]
