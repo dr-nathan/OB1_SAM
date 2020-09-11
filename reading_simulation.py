@@ -824,6 +824,11 @@ def reading_simulation(filename, parameters):
 
 			# Enter any recognized word to the 'recognized words indices' list for the current fixation.
             # MM: creates array that is 1 if act(word)>thres, 0 otherwise
+            print("thresholds: ",min(lexicon_thresholds_np),max(lexicon_thresholds_np))
+
+            print("activations: ",min(lexicon_word_activity_np), max(lexicon_word_activity_np))
+
+
             recognized_lexicon_np = np.where(lexicon_word_activity_np > lexicon_thresholds_np)[0]
             # MM: array w. indices of recogn. words, not sure whethre this still has a function
             recognized_indices = np.asarray(all_data[fixation_counter]['recognized words indices'], dtype=int)
@@ -847,6 +852,10 @@ def reading_simulation(filename, parameters):
                     this_word = individual_words[word_index]
                     # MM: array with 1=wrd act above threshold, & wrd has approx same len
                     # as to-be-recogn wrd (with 15% margin) & 0 otherwise
+                    print("recognized lexicon: " ,np.shape(recognized_lexicon_np))
+                    print("np array similar length: " ,np.shape(np.array([int(is_similar_word_length(x, this_word)) for x in lexicon])))
+                    print(np.shape(this_word))
+
                     recognWrdsFittingLen_np = recognized_lexicon_np * np.array([int(is_similar_word_length(x, this_word)) for x in lexicon])
             ##        wrdsFittingLen_np = np.where(is_similar_word_length(recognWrds_w_length, desired_length))
 
