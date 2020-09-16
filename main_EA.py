@@ -121,12 +121,12 @@ def main():
 		creator.create("Individual", list, fitness=creator.FitnessMin)
 
 		def high(x):
-#			return x*2
-			return x*1.33
+			return x*2
+			#return x*1.33
 
 		def low(x):
-#			return x/2
-			return x*0.75
+			return x/2
+			#return x*0.75
 
 		def same(x):
 			return x
@@ -149,9 +149,10 @@ def main():
 		def initPopulation(pcls, ind_init):
 			global start_params
 			print("Initializing pop with "+str(start_params))
-			n_params = 5
+			n_params = 3 #number of params to optimize 
 			combinaties = [list(x) for x in list(itertools.product([same, high, low], repeat=n_params))]
 #			start_params = [4.0, 1.29, 7.0, 4.9, 2.2]
+			start_params = [0.0044, -0.0001, -0.002] 
 			contents = [[y(z) for y, z in zip(x, start_params)] for x in combinaties]
 			return pcls(ind_init(c) for c in contents)
 
@@ -207,6 +208,7 @@ def main():
 			# Evaluate first population
 			print("Start evaluation gen 0")
 #			fits = Parallel(n_jobs=8)(delayed(toolbox.evaluate)(ind) for ind in population)
+			#flirp=flurp
 			fits = [toolbox.evaluate(ind) for ind in population]
 			print("Finished evaluation")
 			#toolbox.map(toolbox.evaluate, population)
@@ -246,6 +248,7 @@ def main():
 #			offspring = toolbox.population_guess()
 			print("Starting evaluation "+str(gen+1))
 #			fits = Parallel(n_jobs=8)(delayed(toolbox.evaluate)(ind) for ind in offspring)
+			#flirp = flurp
 			fits = [toolbox.evaluate(ind) for ind in offspring]
 			print("Finished evaluation")
 			# toolbox.map(toolbox.evaluate, population)

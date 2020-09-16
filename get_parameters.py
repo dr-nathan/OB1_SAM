@@ -10,17 +10,17 @@ def get_params(pm):
 	#bounds.append((-0.95,-0.01))
 	#names.append("decay")
 
-	#parameters.append(pm.bigram_to_word_excitation)
-	#bounds.append((0, None))
-	#names.append("bigram_to_word_excitation")
+	parameters.append(pm.bigram_to_word_excitation)
+	bounds.append((0, None))
+	names.append("bigram_to_word_excitation")
 
-	#parameters.append(pm.bigram_to_word_inhibition)
-	#bounds.append((None, 0))
-	#names.append("bigram_to_word_inhibition")
+	parameters.append(pm.bigram_to_word_inhibition)
+	bounds.append((None, 0))
+	names.append("bigram_to_word_inhibition")
 
-	#parameters.append(pm.word_inhibition)
-	#bounds.append((None, 0))
-	#names.append("word_inhibition")
+	parameters.append(pm.word_inhibition)
+	bounds.append((None, 0))
+	names.append("word_inhibition")
 
 	#parameters.append(pm.max_activity)
 	#bounds.append((0, 5))
@@ -78,12 +78,12 @@ def get_params(pm):
 #	bounds.append((0.5, 5))
 #	names.append("distribution_param")
 
-	parameters.append(pm.wordfreq_p)
-	bounds.append((1,15))
-	names.append("wordfreq_p")
+	#parameters.append(pm.wordfreq_p)
+	#bounds.append((1,15))
+	#names.append("wordfreq_p")
 
-	parameters.append(pm.wordpred_p)
-	bounds.append((1,15))
-	names.append("wordpred_p")
+	#parameters.append(pm.wordpred_p)
+	#bounds.append((1,15))
+	#names.append("wordpred_p")
 
         return parameters, bounds, names

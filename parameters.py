@@ -6,12 +6,12 @@ __author__ = 'Sam van Leipsig, Phillip Kersten'
 print("Parameters Initialised")
 
 # Control-flow parameters
-run_exp = True  # Should the reading simulation run?
+run_exp = False  # Should the reading simulation run?
 analyze_results = True  # Should the results be analyzed?
-optimize = False  # Should the parameters be optimized?
+optimize = True  # Should the parameters be optimized?
 
 language = "german"  # german, dutch
-use_grammar_prob = True # True for using grammar probabilities, False for using cloze, overwritten by uniform_pred
+use_grammar_prob = False # True for using grammar probabilities, False for using cloze, overwritten by uniform_pred
 uniform_pred = False  # Overwrites cloze/grammar probabilities with 0.25 for all words
 
 include_sacc_type_sse = True  # Include the sse score based on the saccade type probability plot
