@@ -1,3 +1,0 @@
-name,value
-wordfreq_p,5.6
-wordpred_p,1.0
