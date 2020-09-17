@@ -102,7 +102,7 @@ def main():
 		# EA parameters
 		pop_size = 15
 		multi_processing = True
-		gens = 7
+		gens = 1 #7
 		tournament_size = 5
 		cx_prob = 0.2
 		if testing:
@@ -148,12 +148,16 @@ def main():
 
 		def initPopulation(pcls, ind_init):
 			global start_params
-			print("Initializing pop with "+str(start_params))
 			n_params = 3 #number of params to optimize 
 			combinaties = [list(x) for x in list(itertools.product([same, high, low], repeat=n_params))]
 #			start_params = [4.0, 1.29, 7.0, 4.9, 2.2]
-			start_params = [0.0044, -0.0001, -0.002] 
+			print(combinaties)			
+			start_params = [0.0044, -0.0001, -0.002]
+			print("Initializing pop with "+str(start_params))
+ 
 			contents = [[y(z) for y, z in zip(x, start_params)] for x in combinaties]
+			print(contents)
+#			flirp = flurp
 			return pcls(ind_init(c) for c in contents)
 
 		def load_pop(pcls, ind_init):
@@ -192,7 +196,7 @@ def main():
 #			print("STARTING FROM "+str(fname)+" AS STARTING POPULATION")
 #			toolbox.register("population_guess", load_pop, list, toolbox.individual_guess)
 
-		toolbox.register("population_guess", initPopulationSingle, list, toolbox.individual_guess)
+		toolbox.register("population_guess", initPopulation, list, toolbox.individual_guess)
 		population = toolbox.population_guess()
 
 		print(population)
