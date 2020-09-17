@@ -102,7 +102,7 @@ def main():
 		# EA parameters
 		pop_size = 15
 		multi_processing = True
-		gens = 1 #7
+		gens = 7 #7
 		tournament_size = 5
 		cx_prob = 0.2
 		if testing:
