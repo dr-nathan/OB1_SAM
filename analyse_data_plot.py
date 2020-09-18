@@ -121,7 +121,7 @@ def plot_recognized_cycles(df_alldata):
     df_grpby_recognized_cycle = df_recognized[['regressed','refixated','forward','wordskipped','recognition cycle']].groupby('recognition cycle').sum()
     fig = plt.figure('Recognized cycles')
     plt.title('Saccade type for cycle of recognition')
-    df_grpby_recognized_cycle.plot(ax=fig.gca())
+    df_grpby_recognized_cycle.astype(int).plot(ax=fig.gca())
     plt.savefig("plots/recognized_cycles.png",dpi=300)
     plt.close()
 
