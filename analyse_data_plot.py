@@ -284,7 +284,7 @@ def plot_offset(df_alldata,exp_landing_positions):
     plt.xlabel('Initial landing position')
     plt.ylabel('Fixation probability')
     df_alldata_firstpass = df_alldata[(df_alldata['refixated']==False) | df_alldata['regressed']==False] #/max(df_alldata['foveal word text index'])
-    print(df_alldata_firstpass.head(10))
+    print(df_alldata_firstpass['relative landing position'].head(10))
     # df_alldata_firstpass['relative landing position'].map(round).hist(normed=True,alpha=0.2, color = 'b')
     # exp_landing_positions.map(round).hist(normed=True,alpha=0.2, color = 'g')
     #ewma(exp_landing_positions, span=35).plot(style='k')
