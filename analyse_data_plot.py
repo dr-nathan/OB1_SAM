@@ -288,7 +288,7 @@ def plot_offset(df_alldata,exp_landing_positions):
     # df_alldata_firstpass['relative landing position'].map(round).hist(normed=True,alpha=0.2, color = 'b')
     # exp_landing_positions.map(round).hist(normed=True,alpha=0.2, color = 'g')
     #ewma(exp_landing_positions, span=35).plot(style='k')
-    df_alldata_firstpass['relative landing position'].plot(kind = 'kde',color = 'b',bw_method=0.4)
+    df_alldata_firstpass['relative landing position'].astype(int).plot(kind = 'kde',color = 'b',bw_method=0.4)
     exp_landing_positions.plot(kind = 'kde',color = 'g',bw_method=0.4)
     plt.xlim(-7,7)
     plt.legend(['Sim.','Exp.'])
