@@ -284,6 +284,7 @@ def plot_offset(df_alldata,exp_landing_positions):
     plt.xlabel('Initial landing position')
     plt.ylabel('Fixation probability')
     df_alldata_firstpass = df_alldata[(df_alldata['refixated']==False) | df_alldata['regressed']==False] #/max(df_alldata['foveal word text index'])
+    print(df_alldata_firstpass.head(10))
     # df_alldata_firstpass['relative landing position'].map(round).hist(normed=True,alpha=0.2, color = 'b')
     # exp_landing_positions.map(round).hist(normed=True,alpha=0.2, color = 'g')
     #ewma(exp_landing_positions, span=35).plot(style='k')
@@ -564,7 +565,7 @@ def plot_lagsuccessor(df_alldata_no_regr,df_single_fixation,freqbins,predbins,di
         axes[1,1].set_xticks([0,1,2])
         axes[1,1].set_xlabel('Predictability')
         axes[1,1].set_xticklabels(['Low','Med','High'])
-        
+
     elif SF_OR_GD == "SF":
         fixdur_measure = "single fixation duration"
         plt.setp(axes, ylim=(190,240))
