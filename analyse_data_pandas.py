@@ -52,6 +52,7 @@ def get_results(input_text_filename,input_file_all_data,input_file_unrecognized_
                 if pm.language == "german":
                     textfile = get_stimulus_text_from_file(input_text_filename)
                     textsplitbyspace = textfile.split(" ")
+                    print("german!")
                 # Dutch mode
                 if pm.language == "dutch":
                     textsplitbyspace = pickle.load(open(input_text_filename))
@@ -61,6 +62,7 @@ def get_results(input_text_filename,input_file_all_data,input_file_unrecognized_
                     if word.strip()!="":
                         individual_words.append(word.strip())
                 df_individual_words = pd.DataFrame(individual_words)
+                print(df_individual_words)
 
                 if pm.language == "german":
                     df_freq_pred = exp.get_freq_and_pred()
@@ -70,7 +72,7 @@ def get_results(input_text_filename,input_file_all_data,input_file_unrecognized_
                         df_freq_pred["pred"][:] = 0.25
 
                 if pm.language == "dutch":
-                    df_freq_pred = pickle.load(open("Data/nederlands/freq500_2.pkl","r"))  # TODO 
+                    df_freq_pred = pickle.load(open("Data/nederlands/freq500_2.pkl","r"))  # TODO
                     df_freq_pred = pd.DataFrame.from_dict(df_freq_pred, orient="index", columns=["freq"])
                     df_freq_pred["pred"] = np.zeros(len(df_freq_pred))
                     df_freq_pred["pred"][:] = 0.1
@@ -169,6 +171,8 @@ def get_results(input_text_filename,input_file_all_data,input_file_unrecognized_
             ## landing position
             exp_landing_positions, exp_refixprob_by_rlpos, exp_SF_grpby_rlpos = exp.get_landing_postition()
             mod.plot_by_relative_landing_pos(df_single_fixation, df_alldata_grouped_all,exp_refixprob_by_rlpos,exp_SF_grpby_rlpos)
+            print(df_alldata)
+            print(exp_landing_positions)
             mod.plot_offset(df_alldata,exp_landing_positions)
 
             ## Other
@@ -232,4 +236,3 @@ def get_results(input_text_filename,input_file_all_data,input_file_unrecognized_
             ## Fixation durations histograms
             exp_FD_dict = exp.get_saccade_durations()
             mod.plot_FD_hists(total_viewing_time,gaze_durations,df_single_fixation,first_fixation,second_fixation,df_FD_only_regr,exp_FD_dict)
-
