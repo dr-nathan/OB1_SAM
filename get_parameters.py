@@ -78,12 +78,12 @@ def get_params(pm):
 #	bounds.append((0.5, 5))
 #	names.append("distribution_param")
 
-	parameters.append(pm.wordfreq_p)
-	bounds.append((1,15))
-	names.append("wordfreq_p")
+#	parameters.append(pm.wordfreq_p)
+#	bounds.append((1,15))
+#	names.append("wordfreq_p")
 
-	parameters.append(pm.wordpred_p)
-	bounds.append((1,15))
-	names.append("wordpred_p")
+#	parameters.append(pm.wordpred_p)
+#	bounds.append((1,15))
+#	names.append("wordpred_p")
 
         return parameters, bounds, names
