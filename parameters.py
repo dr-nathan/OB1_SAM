@@ -49,8 +49,8 @@ print("-------------------")
 ## Monoweight = 1
 decay = -0.053
 bigram_to_word_excitation = 0.0044
-bigram_to_word_inhibition = -0.0001
-word_inhibition = -0.002
+bigram_to_word_inhibition = -0.0002
+word_inhibition = -0.001
 
 letPerDeg = .3
 min_activity = 0.0

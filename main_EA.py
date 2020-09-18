@@ -100,7 +100,7 @@ def main():
 
 	if pm.optimize:
 		# EA parameters
-		pop_size = 15
+		pop_size = 27 #15
 		multi_processing = True
 		gens = 7 #7
 		tournament_size = 5
@@ -121,11 +121,11 @@ def main():
 		creator.create("Individual", list, fitness=creator.FitnessMin)
 
 		def high(x):
-			return x*2
+			return x*10 #2
 			#return x*1.33
 
 		def low(x):
-			return x/2
+			return x/10 #2
 			#return x*0.75
 
 		def same(x):
@@ -151,13 +151,10 @@ def main():
 			n_params = 3 #number of params to optimize 
 			combinaties = [list(x) for x in list(itertools.product([same, high, low], repeat=n_params))]
 #			start_params = [4.0, 1.29, 7.0, 4.9, 2.2]
-			print(combinaties)			
 			start_params = [0.0044, -0.0001, -0.002]
 			print("Initializing pop with "+str(start_params))
- 
 			contents = [[y(z) for y, z in zip(x, start_params)] for x in combinaties]
 			print(contents)
-#			flirp = flurp
 			return pcls(ind_init(c) for c in contents)
 
 		def load_pop(pcls, ind_init):
@@ -212,7 +209,6 @@ def main():
 			# Evaluate first population
 			print("Start evaluation gen 0")
 #			fits = Parallel(n_jobs=8)(delayed(toolbox.evaluate)(ind) for ind in population)
-			#flirp=flurp
 			fits = [toolbox.evaluate(ind) for ind in population]
 			print("Finished evaluation")
 			#toolbox.map(toolbox.evaluate, population)
