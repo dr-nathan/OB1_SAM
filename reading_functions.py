@@ -1,5 +1,4 @@
 # CHANGED
-
 __author__ = 'Sam van Leipsig'
 import parameters as pm
 import numpy as np
@@ -11,12 +10,12 @@ import math
 def my_print(*args):
     if pm.print_all:
         for i in args:
-            print i,
-        print
+            print(i)
+        print("")
 
 
-def is_similar_word_length(word1,word2):
-    return abs(len(word1)-len(word2)) < (0.15* max(len(word1),len(word2)))
+def is_similar_word_length(word1, word2):
+    return abs(len(word1)-len(word2)) < (0.15 * max(len(word1), len(word2)))
 
 
 # returns the word center position of a surrounding word
@@ -36,19 +35,17 @@ def getMidwordPositionForSurroundingWord(word_position,rightWordEdgeLetterIndexe
 #---------------------------------------------------------------------------
 
 #should always ensure that the maximum possible value of the threshold doesn't exceed the maximum allowable word activity
-def get_threshold(word,word_freq_dict,max_frequency,word_pred_dict,freq_p,pred_p,len_p,start_p):
-    word_frequency_multiplier = 1 # from 0-1, inverse of frequency
+def get_threshold(word,word_freq_dict,max_frequency,freq_p,max_threshold):  #word_pred_dict,pred_p
+    # let threshold be fun of word freq. freq_p weighs how strongly freq is (1=max, then thresh. 0 for most freq. word; <1 means less havy weighting)
+    word_threshold = max_threshold # from 0-1, inverse of frequency, scaled to 0(highest freq)-1(lowest freq)
     if pm.frequency_flag:
         try:
             word_frequency = word_freq_dict[word]
-            word_frequency_multiplier = ((freq_p * max_frequency) - word_frequency) / (freq_p * max_frequency)
+            word_threshold = max_threshold * ((max_frequency/freq_p) - word_frequency) / (max_frequency/freq_p)
         except KeyError:
             pass
-    if pm.linear:
-        return (word_frequency_multiplier) * (len_p * len(word)) + start_p
-    else:
         #return (word_frequency_multiplier * word_predictability_multiplier) * (pm.start_nonlin - (pm.nonlin_scaler*(math.exp(pm.wordlen_nonlin*len(word)))))
-        return (word_frequency_multiplier) * (pm.start_nonlin - (pm.nonlin_scaler*(math.exp(pm.wordlen_nonlin*len(word)))))
+        return (word_threshold)
 
 
 def normalize_pred_values(pred_p,pred_values):
@@ -70,6 +67,6 @@ def calc_saccade_error(saccade_distance,optimal_distance,saccErr_scaler,saccErr_
 
 def norm_distribution(mu,sigma,distribution_param,recognized):
     if recognized:
-        return int(round(np.random.normal(mu-distribution_param,sigma,1)))
+        return int(np.round(np.random.normal(mu-distribution_param,sigma,1)))
     else:
-        return int(round(np.random.normal(mu,sigma,1)))
+        return int(np.round(np.random.normal(mu,sigma,1)))

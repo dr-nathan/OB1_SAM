@@ -48,9 +48,9 @@ print("-------------------")
 
 ## Monoweight = 1
 decay = -0.053
-bigram_to_word_excitation = 0.0044
-bigram_to_word_inhibition = -0.0002
-word_inhibition = -0.001
+bigram_to_word_excitation = 0.5 # inp. divded by #ngrams, so this param estimates excit per word [diff from paper]
+bigram_to_word_inhibition = -0.1
+word_inhibition = -0.002 # -0.002
 
 letPerDeg = .3
 min_activity = 0.0
@@ -59,16 +59,16 @@ max_activity = 1.3
 ## Attentional width
 max_attend_width = 5.0
 min_attend_width = 3.0
-attention_skew = 0.10111 # 4  #2.39 (optimal) # 1 equals symmetrical distribution # 4 (paper) # 0.10111091566085817 (EA)
-bigram_gap = 3 # 6 (optimal) # 3 (paper)
+attention_skew = 7.9  # 1 equals symmetrical distribution # 4 (paper)
+bigram_gap = 3  # How many in btw letters still lead to bigram? 6 (optimal) # 3 (paper)
 min_overlap = 2
 refix_size = 0.2
-salience_position = 0.7605 # 1.29 # 5 (optimal) # 1.29 (paper) # 0.7605561652753674 (EA)
-corpora_repeats = 0
+salience_position = 4.99  # 1.29 # 5 (optimal) # 1.29 (paper)
+corpora_repeats = 0 # how many times should corpus be repeated? (simulates diff. subjects)
 
 
 ## Model settings
-frequency_flag = True
+frequency_flag = True # use word freq in threshold
 prediction_flag = True
 similarity_based_recognition = True
 use_saccade_error = True
@@ -80,19 +80,22 @@ pauze_allocation_errors = False
 use_boundary_task = False
 
 ## Saccade error
-sacc_optimal_distance = 15.3615  # 3.1 # 7.0 # 8.0 (optimal) # 7.0 (paper) # 15.361500000000003 (EA)
+sacc_optimal_distance = 9.99  # 3.1 # 7.0 # 8.0 (optimal) # 7.0 (paper)
 saccErr_scaler = 0.2  # to determine avg error for distance difference
 saccErr_sigma = 0.17 # basic sigma
 saccErr_sigma_scaler = 0.06 # effect of distance on sigma
 
 ## Fixation duration# s
-mu, sigma = 10.6993, 6.389 # 10.09 , 5.36 # 4.9, 2.2 # 5.46258 (optimal), 4 # 4.9, 2.2 (paper) # 10.6993519565625, 6.3890415969187515 (EA)
+mu, sigma = 10.09 , 5.36 # 4.9, 2.2 # 5.46258 (optimal), 4 # 4.9, 2.2 (paper)
 distribution_param = 5.0  #1.1
 
 ## Threshold parameters
+max_threshold = 1
+wordfreq_p = 0.4 # Max prop decrease in thresh. for highest-freq wrd [different definition than in papers]
+wordpred_p = 0.4 # Currently not used
+
+## Threshold parameters
 linear = False
-wordfreq_p = 5.5 # 1 # 9 (optimal) # 5.5 (paper)
-wordpred_p = 1.0 # 1.0
 
 #linear
 start_lin = 0.057
