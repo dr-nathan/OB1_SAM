@@ -120,7 +120,7 @@ def plot_recognized_cycles(df_alldata):
     df_grpby_recognized_cycle = df_recognized[['regressed','refixated','forward','wordskipped','recognition cycle']].groupby('recognition cycle').sum()
     fig = plt.figure('Recognized cycles')
     plt.title('Saccade type for cycle of recognition')
-    df_grpby_recognized_cycle.plot(ax=fig.gca())
+    df_grpby_recognized_cycle.astype(int).plot(ax=fig.gca())
     plt.savefig("plots/recognized_cycles.png",dpi=300)
 
 def plot_unrecognizedwords_bytype(df_alldata_grouped_all,df_unrecognized_words):
@@ -277,7 +277,7 @@ def plot_offset(df_alldata,exp_landing_positions):
     # df_alldata_firstpass['relative landing position'].map(round).hist(normed=True,alpha=0.2, color = 'b')
     # exp_landing_positions.map(round).hist(normed=True,alpha=0.2, color = 'g')
     #ewma(exp_landing_positions, span=35).plot(style='k')
-    df_alldata_firstpass['relative landing position'].plot(kind = 'kde',color = 'b',bw_method=0.4)
+    df_alldata_firstpass['relative landing position'].astype(int).plot(kind = 'kde',color = 'b',bw_method=0.4)
     exp_landing_positions.plot(kind = 'kde',color = 'g',bw_method=0.4)
     plt.xlim(-7,7)
     plt.legend(['Sim.','Exp.'])
