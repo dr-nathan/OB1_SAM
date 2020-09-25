@@ -59,7 +59,7 @@ max_activity = 1.3
 ## Attentional width
 max_attend_width = 5.0
 min_attend_width = 3.0
-attention_skew = 7.9  # 1 equals symmetrical distribution # 4 (paper)
+attention_skew = 4  # 1 equals symmetrical distribution # 4 (paper)
 bigram_gap = 3  # How many in btw letters still lead to bigram? 6 (optimal) # 3 (paper)
 min_overlap = 2
 refix_size = 0.2
@@ -72,10 +72,10 @@ frequency_flag = True # use word freq in threshold
 prediction_flag = True
 similarity_based_recognition = True
 use_saccade_error = True
-use_attendposition_change = True
+use_attendposition_change = True # attend width influenced by predictability next wrd
 visualise = False
 slow_word_activity = False
-print_all = False
+print_all = True
 pauze_allocation_errors = False
 use_boundary_task = False
 
