@@ -25,9 +25,9 @@ def reading_simulation(filename, parameters):
     # This is needed for unpacking suggested parameters when tuning
     if any(parameters):
 #        pm.decay = parameters[0]
-#        pm.bigram_to_word_excitation = parameters[1]
-#        pm.bigram_to_word_inhibition = parameters[2]
-#        pm.word_inhibition = parameters[3]
+        pm.bigram_to_word_excitation = parameters[0]
+        pm.bigram_to_word_inhibition = parameters[1]
+        pm.word_inhibition = parameters[2]
 #        pm.max_activity = parameters[4]
 #        pm.max_attend_width = int(parameters[5])
 #        pm.min_attend_width = int(parameters[6])
