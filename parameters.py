@@ -75,7 +75,7 @@ use_saccade_error = True
 use_attendposition_change = True # attend width influenced by predictability next wrd
 visualise = False
 slow_word_activity = False
-print_all = True
+print_all = False
 pauze_allocation_errors = False
 use_boundary_task = False
 
@@ -98,13 +98,13 @@ wordpred_p = 0.4 # Currently not used
 linear = False
 
 #linear
-start_lin = 0.057
-wordlen_lin = 0.006
+#start_lin = 0.057
+#wordlen_lin = 0.006
 
 ## Monoweight = 1
-start_nonlin = 0.134
-nonlin_scaler = 0.22
-wordlen_nonlin = -0.44
+#start_nonlin = 0.134
+#nonlin_scaler = 0.22
+#wordlen_nonlin = -0.44
 
 #Nonlinear
 ## Monoweight = 2

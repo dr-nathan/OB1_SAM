@@ -57,6 +57,7 @@ def main():
 			print("Returning: "+str(distance))
 			return (distance,)
 		try:
+			print("-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-running simulation -.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.")
 			# Run the simulation
 			(lexicon, all_data, unrecognized_words) = reading_simulation(filepath_psc, parameters_rf)
 			# Evaluate run and retrieve error-metric
@@ -77,6 +78,7 @@ def main():
 	if pm.language == "german":
 		filename = "PSC_ALL"
 		filepath_psc = "PSC/" + filename + ".txt"
+
 	# The reading model reads dutch but there is no data to compare it to yet
 	if pm.language == "dutch":
 		raise NotImplementedError
@@ -123,11 +125,11 @@ def main():
 		creator.create("Individual", list, fitness=creator.FitnessMin)
 
 		def high(x):
-			return x*2 #2
+			return x*10 #2
 			#return x*1.33
 
 		def low(x):
-			return x/2 #2
+			return x/10 #2
 			#return x*0.75
 
 		def same(x):

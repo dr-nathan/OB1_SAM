@@ -25,7 +25,7 @@ def reading_simulation(filename, parameters):
     # This is needed for unpacking suggested parameters when tuning
     if any(parameters):
 #        pm.decay = parameters[0]
-        pm.bigram_to_word_excitation = parameters[0]
+	pm.bigram_to_word_excitation = parameters[0]
         pm.bigram_to_word_inhibition = parameters[1]
         pm.word_inhibition = parameters[2]
 #        pm.max_activity = parameters[4]
@@ -50,7 +50,6 @@ def reading_simulation(filename, parameters):
 #        pm.wordfreq_p = parameters[0]
 #        pm.wordpred_p = parameters[1]
         pass
-
 
     lexicon = []
     lengtes = []
@@ -675,7 +674,6 @@ def reading_simulation(filename, parameters):
                         pass  # predictability too low
                 else:
                     attendposition_change_counter += 1
-
         # ----------------------------------------------------------------------------
             # Now, calculate word activity as a result of stimulus' ngram activities.
             # Because multiplied with unitActivations, only active (in stimulus) are used
@@ -813,12 +811,12 @@ def reading_simulation(filename, parameters):
                         highest_word = lexicon[highest]
                         new_recognized_words[highest] = 1
                         recognized_position_flag[word_index] = True
-                        my_print('word in text: ' + str(this_word),
-                                 'cycle:' + str(amount_of_cycles),
-                                 "highest activation: " + str(lexicon[highest]) +
-                                 " at " + str(lexicon_word_activity_np[highest]),
-                                 "word_index: " + str(word_index)
-                                 )
+                       # my_print('word in text: ' + str(this_word),
+                       #          'cycle:' + str(amount_of_cycles),
+                       #          "highest activation: " + str(lexicon[highest]) +
+                       #          " at " + str(lexicon_word_activity_np[highest]),
+                       #          "word_index: " + str(word_index)
+                       #          )
                         alldata_recognized_append(highest)
                         # MM: if the recognized word is equal to the stimulus word...
                         if this_word == highest_word:
@@ -1019,9 +1017,9 @@ def reading_simulation(filename, parameters):
             # Make sure that attention is integer
             AttentionPosition = np.round(AttentionPosition)
             amount_of_cycles += 1
-
+	print("made it till the end of the cycle?") #NS 
     # ----------------------------End of cycle--------------------------------------------------
-        #if(fixation>2): flirp=flurp
+        #if(fixation>2): 
 
         # After the last cycle, the fixation duration can be calculated.
         fixation_duration = amount_of_cycles * CYCLE_SIZE
@@ -1190,6 +1188,7 @@ def reading_simulation(filename, parameters):
         if not recognized_word_at_position_flag[position]:
             unrecognized_words_append((individual_words[position], position))
     # -----------------------------------------------------------------------------------------------------
+    print("YEAHHHH")#NS
 
     # END OF READING. Return all_data and the list of unrecognized words.
     print(N_in_allocated, N1_in_allocated)
