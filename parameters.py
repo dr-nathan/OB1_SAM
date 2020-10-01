@@ -48,9 +48,9 @@ print("-------------------")
 
 ## Monoweight = 1
 decay = -0.053
-bigram_to_word_excitation = 0.5 # inp. divded by #ngrams, so this param estimates excit per word [diff from paper]
-bigram_to_word_inhibition = -0.1
-word_inhibition = -0.002 # -0.002
+bigram_to_word_excitation = 4.5 # inp. divded by #ngrams, so this param estimates excit per word [diff from paper]
+bigram_to_word_inhibition = -1.1
+word_inhibition = -0.022 # -0.002
 
 letPerDeg = .3
 min_activity = 0.0
