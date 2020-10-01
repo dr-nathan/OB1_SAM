@@ -784,7 +784,7 @@ def is_similar_word_length(word1,word2):
 
 def plot_word_similarity(df_alldata_grouped_all,max_wordlength):
     lexicon_file_name = "Data/Lexicon.dat"
-    with open (lexicon_file_name,"r") as lex:
+    with open (lexicon_file_name,"rb") as lex:
         lexicon = pickle.load(lex)
         df_lexicon = pd.DataFrame(lexicon)
         df_lexicon.rename(columns={0: 'foveal word'},inplace=True)
