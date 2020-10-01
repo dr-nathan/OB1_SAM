@@ -813,12 +813,12 @@ def reading_simulation(filename, parameters):
                         highest_word = lexicon[highest]
                         new_recognized_words[highest] = 1
                         recognized_position_flag[word_index] = True
-                        my_print('word in text: ' + str(this_word),
-                                 'cycle:' + str(amount_of_cycles),
-                                 "highest activation: " + str(lexicon[highest]) +
-                                 " at " + str(lexicon_word_activity_np[highest]),
-                                 "word_index: " + str(word_index)
-                                 )
+                        # my_print('word in text: ' + str(this_word),
+                        #          'cycle:' + str(amount_of_cycles),
+                        #          "highest activation: " + str(lexicon[highest]) +
+                        #          " at " + str(lexicon_word_activity_np[highest]),
+                        #          "word_index: " + str(word_index)
+                        #          )
                         alldata_recognized_append(highest)
                         # MM: if the recognized word is equal to the stimulus word...
                         if this_word == highest_word:
