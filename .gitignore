@@ -9,7 +9,6 @@ test_lagsuccessor*
 speed_test*
 *lation_cycle.py
 !*.py
-plots*
 Data*
 __pycache*
 *.pkl
