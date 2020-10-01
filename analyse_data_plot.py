@@ -277,7 +277,7 @@ def plot_offset(df_alldata,exp_landing_positions):
     # df_alldata_firstpass['relative landing position'].map(round).hist(normed=True,alpha=0.2, color = 'b')
     # exp_landing_positions.map(round).hist(normed=True,alpha=0.2, color = 'g')
     #ewma(exp_landing_positions, span=35).plot(style='k')
-    df_alldata_firstpass['relative landing position'].plot(kind = 'kde',color = 'b',bw_method=0.4)
+    df_alldata_firstpass['relative landing position'].astype(int).plot(kind = 'kde',color = 'b',bw_method=0.4)
     exp_landing_positions.plot(kind = 'kde',color = 'g',bw_method=0.4)
     plt.xlim(-7,7)
     plt.legend(['Sim.','Exp.'])
@@ -547,7 +547,7 @@ def plot_lagsuccessor(df_alldata_no_regr,df_single_fixation,freqbins,predbins,di
         axes[1,1].set_xticks([0,1,2])
         axes[1,1].set_xlabel('Predictability')
         axes[1,1].set_xticklabels(['Low','Med','High'])
-        
+
     elif SF_OR_GD == "SF":
         fixdur_measure = "single fixation duration"
         plt.setp(axes, ylim=(190,240))
