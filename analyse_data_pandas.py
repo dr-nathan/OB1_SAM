@@ -19,18 +19,20 @@ import analyse_data_transformation as trans
 import parameters as pm
 
 
-def get_results(input_text_filename, input_file_all_data, input_file_unrecognized_words):
-    with open(input_file_all_data, "r") as f:
+
+def get_results(input_text_filename,input_file_all_data,input_file_unrecognized_words):
+    with open(input_file_all_data,"r") as f:
         with open(input_file_unrecognized_words,"r") as g:
             all_data = pickle.load(f)
             if not os.path.exists("Plots/"):
                 os.makedirs("Plots/")
 
             ## Parameters
-            freqbins  = np.arange(-0.0, 8, 2.0)
-            predbins = np.arange(-0.0, 1.01, 0.333)
-            distancebins = np.arange(-0.0, 20, 2.0)
-            neighborbins = np.arange(0, 10, 3)
+            freqbins  = np.arange(-0.0,8,2.0)
+            predbins = np.arange(-0.0,1.01,0.333)
+            distancebins = np.arange(-0.0,20,2.0)
+            neighborbins = np.arange(0,10,3)
+
 
             if pm.use_boundary_task:
                 df_boundary_task = pd.read_pickle('Data/boundary_task_DF.pkl')
@@ -50,6 +52,7 @@ def get_results(input_text_filename, input_file_all_data, input_file_unrecognize
                 if pm.language == "german":
                     textfile = get_stimulus_text_from_file(input_text_filename)
                     textsplitbyspace = textfile.split(" ")
+                    print("german!")
                 # Dutch mode
                 if pm.language == "dutch":
                     textsplitbyspace = pickle.load(open(input_text_filename))
@@ -59,6 +62,7 @@ def get_results(input_text_filename, input_file_all_data, input_file_unrecognize
                     if word.strip()!="":
                         individual_words.append(word.strip())
                 df_individual_words = pd.DataFrame(individual_words)
+                print(df_individual_words)
 
                 if pm.language == "german":
                     df_freq_pred = exp.get_freq_and_pred()
@@ -68,7 +72,7 @@ def get_results(input_text_filename, input_file_all_data, input_file_unrecognize
                         df_freq_pred["pred"][:] = 0.25
 
                 if pm.language == "dutch":
-                    df_freq_pred = pickle.load(open("Data/nederlands/freq500_2.pkl","r"))  # TODO 
+                    df_freq_pred = pickle.load(open("Data/nederlands/freq500_2.pkl","r"))  # TODO
                     df_freq_pred = pd.DataFrame.from_dict(df_freq_pred, orient="index", columns=["freq"])
                     df_freq_pred["pred"] = np.zeros(len(df_freq_pred))
                     df_freq_pred["pred"][:] = 0.1
@@ -77,15 +81,13 @@ def get_results(input_text_filename, input_file_all_data, input_file_unrecognize
                 #print(df_freq_pred)
                 # TODO fix
                 #import copy_reg
-                df_freq_pred = df_freq_pred.iloc[0:len(df_individual_words), :]
-                df_individual_words = pd.concat([df_individual_words, df_freq_pred],
-                                                axis=1, join_axes=[df_individual_words.index])
-                df_individual_words = df_individual_words.drop(['word'], 1)
-                df_individual_words.rename(columns={'0': 'foveal word', 'f': 'freq'}, inplace=True)
+                df_freq_pred = df_freq_pred.iloc[0:len(df_individual_words),:]
+                df_individual_words = pd.concat([df_individual_words,df_freq_pred],axis=1,join_axes=[df_individual_words.index])
+                df_individual_words = df_individual_words.drop(['word'],1)
+                df_individual_words.rename(columns={'0':'foveal word','f':'freq'}, inplace=True)
                 df_individual_words_base = df_individual_words.copy()
-                for i in range(0, pm.corpora_repeats):
-                    df_individual_words = pd.concat([df_individual_words,df_individual_words_base],
-                                                    axis=0, ignore_index=True)
+                for i in range(0,pm.corpora_repeats):
+                    df_individual_words = pd.concat([df_individual_words,df_individual_words_base],axis=0, ignore_index=True)
 
             # df_alldata.groupby('foveal word text index').filter(lambda x: len(x)>1 and sequential(x))
 
@@ -94,7 +96,7 @@ def get_results(input_text_filename, input_file_all_data, input_file_unrecognize
             df_alldata['word length'] = df_alldata['foveal word'].map(len)
             df_alldata = trans.correct_wordskips(df_alldata)
             df_alldata = trans.correct_offset(df_alldata)
-            df_alldata_no_regr = df_alldata[(df_alldata['regressed'] == False)]  ## There are no refixations after a regression!
+            df_alldata_no_regr = df_alldata[(df_alldata['regressed']==False)]  ## There are no refixations after a regression!
 
             ## Word measures by cycle, grouped by word length
             word_measures_bylen_dict = trans.make_word_measures_bylength(df_alldata)
@@ -108,8 +110,9 @@ def get_results(input_text_filename, input_file_all_data, input_file_unrecognize
             singlefirst_fixation_selection =  singlefirst_fixation_grouped.apply(lambda x: x.index[0]).values
             df_single_first_fixation = df_alldata_no_regr.loc[singlefirst_fixation_selection,:]
 
+
             ## Create complete dataset including wordskips
-            df_individual_words.reset_index  # index is now the same as foveal word text index
+            df_individual_words.reset_index ## index is now the same as foveal word text index
             df_alldata_to_group = df_alldata.drop(['word length','foveal word','recognized words indices','fixation word activities', 'word activities per cycle', 'stimulus'],1)
             df_alldata_grouped_max = df_alldata_to_group.groupby('foveal word text index', as_index= True).max()
             df_alldata_grouped_all = pd.concat([df_individual_words,df_alldata_grouped_max], axis=1, join_axes=[df_individual_words.index])
@@ -133,11 +136,12 @@ def get_results(input_text_filename, input_file_all_data, input_file_unrecognize
             df_alldata_grouped_neighbors = mod2.get_neighbor_data(df_alldata_no_regr)
             ## This threw an error so I used this fix to repair the file:
             ## https://stackoverflow.com/questions/556269/importerror-no-module-named-copy-reg-pickle/53942341#53942341
-            mod2.plot_GD_byneighbors(df_alldata_grouped_neighbors, neighborbins)
+            mod2.plot_GD_byneighbors(df_alldata_grouped_neighbors,neighborbins)
             if pm.use_boundary_task:
                 ## Boundary task
                 df_SF_boundary_task, df_GD_boundary_task = mod2.preprocess_boundary_task(df_single_first_fixation, df_alldata_no_regr, df_individual_words)
-                mod2.plot_boundary_task(df_SF_boundary_task, df_GD_boundary_task)
+                mod2.plot_boundary_task(df_SF_boundary_task,df_GD_boundary_task)
+
 
             ## Plot word activation measures per cycle
             # mod.plot_activity_percycle_bylenght(word_measures_bylen_dict['activity'], word_measures_bylen_dict['threshold'])
@@ -149,11 +153,13 @@ def get_results(input_text_filename, input_file_all_data, input_file_unrecognize
             #mod.plot_wordactivity_grouped(df_wordactivity,df_single_fixation,freqbins,predbins)
             #mod.word_activity_threshold(df_wordactivity)
 
+
             ## Unrecognized
             unrecognized_words = pickle.load(g)
             df_unrecognised_words = trans.unrecognized_words(unrecognized_words)
             mod.plot_unrecognizedwords(df_alldata,df_alldata_grouped_all,df_unrecognised_words)
             mod.plot_unrecognizedwords_bytype(df_alldata_grouped_all,df_unrecognised_words)
+
 
             ## Saccade distance
             mod.plot_saccdistance(df_alldata_no_regr, exp.get_sacc_distance())
@@ -165,6 +171,8 @@ def get_results(input_text_filename, input_file_all_data, input_file_unrecognize
             ## landing position
             exp_landing_positions, exp_refixprob_by_rlpos, exp_SF_grpby_rlpos = exp.get_landing_postition()
             mod.plot_by_relative_landing_pos(df_single_fixation, df_alldata_grouped_all,exp_refixprob_by_rlpos,exp_SF_grpby_rlpos)
+            print(df_alldata)
+            print(exp_landing_positions)
             mod.plot_offset(df_alldata,exp_landing_positions)
 
             ## Other
@@ -187,6 +195,7 @@ def get_results(input_text_filename, input_file_all_data, input_file_unrecognize
             ## FOR TESTING
             mod.sse_sacctypeprob_bygroup(df_alldata_grouped_all,exp_sacctype_grpby_prob_dict,freqbins,predbins)
 
+
             ## Fixdur wordskips
             # mod.analyse_fixdur_aroundwordskip(df_alldata,df_unrecognised_words)
             # mod.fastvsslow_words(df_single_fixation)
@@ -206,7 +215,8 @@ def get_results(input_text_filename, input_file_all_data, input_file_unrecognize
             # print df_SF_wordskipeffect[df_SF_wordskipeffect['next frequency']<=2.0].groupby('before wordskip')['fixation duration'].mean()
             # print df_SF_wordskipeffect.groupby('after wordskip')['fixation duration'].mean()
 
-            ## Lag Successor
+
+            # ## Lag Successor
             wordlength_limit = 16
             ## TODO insert wordlength limit and gaze duration in get_lagsuccessor
             exp_SF_lagsucc_dict, exp_GD_lagsucc_dict = exp.get_lagsuccessor(freqbins,predbins)
@@ -215,12 +225,14 @@ def get_results(input_text_filename, input_file_all_data, input_file_unrecognize
             mod.plot_lagsuccessor(df_alldata_no_regr,df_single_fixation,freqbins,predbins,exp_SF_lagsucc_dict, "SF", wordlength_limit)
             mod.plot_lagsuccessor(df_alldata_no_regr,gaze_durations,freqbins,predbins,exp_GD_lagsucc_dict, "GD", wordlength_limit)
 
+
+
             ## Fixation duration by group
             exp_FD_bylength_dict, exp_FD_byfreq_dict, exp_FD_bypred_dict = exp.get_FD_bygroup(freqbins,predbins)
             mod_FD_bylength_dict, mod_FD_byfreq_dict, mod_FD_bypred_dict  = trans.make_FD_bygroup(df_alldata_no_regr,df_alldata,df_single_fixation,freqbins,predbins)
             mod.plot_FD_bygroup(mod_FD_bylength_dict,mod_FD_byfreq_dict,mod_FD_bypred_dict,exp_FD_bylength_dict,exp_FD_byfreq_dict,exp_FD_bypred_dict)
 
+
             ## Fixation durations histograms
             exp_FD_dict = exp.get_saccade_durations()
             mod.plot_FD_hists(total_viewing_time,gaze_durations,df_single_fixation,first_fixation,second_fixation,df_FD_only_regr,exp_FD_dict)
-
