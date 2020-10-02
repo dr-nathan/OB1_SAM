@@ -377,7 +377,7 @@ def plot_sacctypeprob_bygroup(df_alldata_grouped_all,exp_sacctype_grpby_prob_dic
     groupsizes_pred = df_sacctypes.drop(['word length','freq','pred'],1).groupby(word_pred_groups_sacc).size()
     print(groupsizes_length)
 
-    fig, axes = plt.subplots(nrows=1, ncols=3, figsize=(15,5),sharey=True)
+    fig, axes = plt.subplots(nrows=1, ncols=3, figsize=(15,5),sharey=False)
     fig.canvas.set_window_title('Grouped saccade type prob')
     fig.suptitle('Saccade type probability',fontsize= 20)
     df_sacctypes_grpby_length_prob = df_sacctypes_grpby_length.div(groupsizes_length, axis=0)
@@ -393,12 +393,14 @@ def plot_sacctypeprob_bygroup(df_alldata_grouped_all,exp_sacctype_grpby_prob_dic
     axes[1].set_xlabel('Log frequency')
     axes[1].set_xticks([0,1,2])
     axes[1].set_xticklabels(['Low','Medium',"High"])
+    axes[1].set_ylim([0,0.6])
     axes[1].legend(['Sim. Regressions','Sim. Refixations','Sim. Wordskips','Exp. Regressions','Exp. Refixations','Exp. Wordskips'], loc=2,prop={'size':12})
     df_sacctypes_grpby_pred_prob.plot(ax=axes[2], style = ['g','r','b'])
     exp_sacctype_grpby_prob_dict['pred'].plot(ax=axes[2],style = ['g--','r--','b--'])
     axes[2].set_xticks([0,1,2])
     axes[2].set_xlabel('Predictability')
     axes[2].set_xticklabels(['Low','Med','High'])
+    axes[2].set_ylim([0,0.5])
     axes[2].legend(['Sim. Regressions','Sim. Refixations','Sim. Wordskips','Exp. Regressions','Exp. Refixations','Exp. Wordskips'], loc=2,prop={'size':12})
     plt.savefig('plots/saccade_types_grouped.png', dpi=300)
 
