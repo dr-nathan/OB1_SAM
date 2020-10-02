@@ -125,12 +125,12 @@ def main():
 		creator.create("Individual", list, fitness=creator.FitnessMin)
 
 		def high(x):
-			return x*2
-			#return x*1.33
+			#return x*2
+			return x*1.33
 
 		def low(x):
-			return x/2
-			#return x*0.75
+			#return x/2
+			return x*0.75
 
 		def same(x):
 			return x
@@ -155,7 +155,7 @@ def main():
 			n_params = 3 #number of params to optimize 
 			combinaties = [list(x) for x in list(itertools.product([same, high, low], repeat=n_params))]
 #			start_params = [4.0, 1.29, 7.0, 4.9, 2.2]
-			start_params = [4.5, -1.1, -0.022]
+			start_params = [2.18, -0.55, -0.011]
 			print("Initializing pop with "+str(start_params))
 			contents = [[y(z) for y, z in zip(x, start_params)] for x in combinaties]
 			print(contents)
