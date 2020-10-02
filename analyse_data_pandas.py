@@ -24,8 +24,8 @@ def get_results(input_text_filename,input_file_all_data,input_file_unrecognized_
     with open(input_file_all_data,"r") as f:
         with open(input_file_unrecognized_words,"r") as g:
             all_data = pickle.load(f)
-            if not os.path.exists("Plots/"):
-                os.makedirs("Plots/")
+            if not os.path.exists("plots/"):
+                os.makedirs("plots/")
 
             ## Parameters
             freqbins  = np.arange(-0.0,8,2.0)
