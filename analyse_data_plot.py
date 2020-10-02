@@ -389,7 +389,7 @@ def plot_sacctypeprob_bygroup(df_alldata_grouped_all,exp_sacctype_grpby_prob_dic
     exp_sacctype_grpby_prob_dict['length'].plot(ax=axes[0], style = ['g--','r--','b--'])
     df_sacctypes_grpby_freq_prob.plot(ax=axes[1], style = ['g','r','b'])
     axes[0].legend(['Sim. Regressions','Sim. Refixations','Sim. Wordskips','Exp. Regressions','Exp. Refixations','Exp. Wordskips'], loc=2,prop={'size':12})
-    exp_sacctype_grpby_prob_dict['freq'].plot(ax=axes[1], style = ['r--','g--','b--'])
+    exp_sacctype_grpby_prob_dict['freq'].plot(ax=axes[1], style = ['g--','r--','b--'])
     axes[1].set_xlabel('Log frequency')
     axes[1].set_xticks([0,1,2])
     axes[1].set_xticklabels(['Low','Medium',"High"])
