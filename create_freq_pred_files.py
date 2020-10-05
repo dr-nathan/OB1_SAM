@@ -5,8 +5,8 @@ import codecs
 from read_saccade_data import get_words, get_pred
 
 # Detect text encoding
-# rawdata=open("texts/frequency_german.txt","r").read()
-# print chardet.detect(rawdata)
+rawdata=open("Texts/frequency_german.txt","r").read()
+print chardet.detect(rawdata)
 
 #to prevent unicode errors
 # 'utf-8' 'cp1252' 'ISO-8859-1'
