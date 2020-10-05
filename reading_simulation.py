@@ -66,8 +66,8 @@ def reading_simulation(filename, parameters):
 #        textsplitbyspace = textsplitbyspace[:1000]
     for word in textsplitbyspace:
         if word.strip() != "":
-            new_word = str(word.strip()).encode('latin1')  # make sure words are unicode (numpy.unicode_ can cause errors)
-           # new_word = np.unicode(word.strip()) #For Python2
+           # new_word = str(word.strip())  # make sure words are unicode (numpy.unicode_ can cause errors)
+            new_word = np.unicode_(word.strip()) #For Python2
 	    individual_words.append(new_word)
             lengtes.append(len(word))
 
@@ -806,20 +806,23 @@ def reading_simulation(filename, parameters):
                     #my_print("np array similar length: " ,np.array([int(is_similar_word_length(x, this_word)) for x in lexicon]))
                     recognWrdsFittingLen_np = above_tresh_lexicon_np * np.array([int(is_similar_word_length(x, this_word)) for x in lexicon])
                     #my_print(recognWrdsFittingLen_np)
-
+		    print("RecognWrds: ", sum(recognWrdsFittingLen_np))
                     # fast check whether there is at least one 1 in wrdsFittingLen_np
                     if sum(recognWrdsFittingLen_np):
     		            # PK find the word with the highest activation in all words that have a similar length
                         highest = np.argmax(recognWrdsFittingLen_np * lexicon_word_activity_np)
                         highest_word = lexicon[highest]
+			print("highest idx: ", highest)
+			print("highest: ", highest_word)
                         new_recognized_words[highest] = 1
                         recognized_position_flag[word_index] = True
-                        my_print('word in text: ' + str(this_word),
-                                 'cycle:' + str(amount_of_cycles),
-                                 "highest activation: " + str(lexicon[highest]) +
-                                 " at " +"%.3f" % (lexicon_word_activity_np[highest]),
-                                 "word_index: " + str(word_index)
-                                 )
+                        #my_print('word in text: ' + (this_word),
+                        #         'cycle:' + str(amount_of_cycles),
+                        #         "highest activation: " + str(lexicon[highest]) +
+                                 #" at " +"%.3f" % (lexicon_word_activity_np[highest]),
+                         #        " at " + str(lexicon_word_activity_np[highest]),
+			#	 "word_index: " + str(word_index)
+                         #        )
                         alldata_recognized_append(highest)
                         # MM: if the recognized word is equal to the stimulus word...
                         if this_word == highest_word:
