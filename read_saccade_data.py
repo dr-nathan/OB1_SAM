@@ -221,7 +221,7 @@ def get_lagsuccessor(freqbins, predbins):
     SF_nextpred_groups = pd.cut(saccade_data['next pred'], predbins)
     df_SF_lagsucc_dict['lag pred'] = saccade_data.groupby(SF_previouspred_groups)['SFD'].agg(np.mean)
     df_SF_lagsucc_dict['succ pred'] = saccade_data.groupby(SF_nextpred_groups)['SFD'].agg(np.mean)
-    
+
     df_GD_lagsucc_dict = {}
     df_GD_lagsucc_dict['lag length'] = saccade_data.groupby('previous length')['GZD'].agg(np.mean)
     df_GD_lagsucc_dict['succ length'] = saccade_data.groupby('next length')['GZD'].agg(np.mean)
@@ -331,7 +331,8 @@ def get_freq_pred_files():
     #C:/Users/SAM/PycharmProjects/StageVu/
     output_word_frequency_map = "Data/PSCall_frequency_map.dat"
     with open (output_word_frequency_map,"r") as f:
-        word_freq_dict = pickle.load(f)
+        word_freq_dict = pickle.load(f, encoding="latin1") # For Python3
+        #word_freq_dict = pickle.load(f)
     output_word_predictions_map = "Data/PSCall_predictions_map.dat"
     with open (output_word_predictions_map,"r") as p:
         word_pred_dict = pickle.load(p)
