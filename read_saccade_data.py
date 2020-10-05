@@ -328,7 +328,6 @@ def get_grouped_sacctype_prob(freqbins,predbins):
 
 def get_freq_pred_files():
     ## hardcoded to take freq/pred from all psc's
-    #C:/Users/SAM/PycharmProjects/StageVu/
     output_word_frequency_map = "Data/PSCall_frequency_map.dat"
     with open (output_word_frequency_map,"r") as f:
         word_freq_dict = pickle.load(f, encoding="latin1") # For Python3
