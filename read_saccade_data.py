@@ -330,8 +330,8 @@ def get_freq_pred_files():
     ## hardcoded to take freq/pred from all psc's
     output_word_frequency_map = "Data/PSCall_frequency_map.dat"
     with open (output_word_frequency_map,"r") as f:
-        word_freq_dict = pickle.load(f, encoding="latin1") # For Python3
-        #word_freq_dict = pickle.load(f)
+        #word_freq_dict = pickle.load(f, encoding="latin1") # For Python3
+        word_freq_dict = pickle.load(f)
     output_word_predictions_map = "Data/PSCall_predictions_map.dat"
     with open (output_word_predictions_map,"r") as p:
         word_pred_dict = pickle.load(p)

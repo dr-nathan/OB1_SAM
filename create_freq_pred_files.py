@@ -1,7 +1,7 @@
 import numpy as np
 import pickle
 import codecs
-#import chardet
+import chardet
 from read_saccade_data import get_words, get_pred
 
 # Detect text encoding

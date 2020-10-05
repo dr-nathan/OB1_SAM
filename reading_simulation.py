@@ -66,8 +66,9 @@ def reading_simulation(filename, parameters):
 #        textsplitbyspace = textsplitbyspace[:1000]
     for word in textsplitbyspace:
         if word.strip() != "":
-            new_word = np.unicode(word.strip())  # make sure words are unicode (numpy.unicode_ can cause errors)
-            individual_words.append(new_word)
+            new_word = str(word.strip()).encode('latin1')  # make sure words are unicode (numpy.unicode_ can cause errors)
+           # new_word = np.unicode(word.strip()) #For Python2
+	    individual_words.append(new_word)
             lengtes.append(len(word))
 
     p = re.compile(r'\b\w+\b', re.UNICODE)
@@ -799,7 +800,7 @@ def reading_simulation(filename, parameters):
                     # MM first find len unrecogn. word in stim
                     desired_length = len(individual_words[word_index])
                     this_word = individual_words[word_index]
-
+		    print("this word: " , this_word)
                     # MM: recognWrdsFittingLen_np: array with 1=wrd act above threshold, & approx same len
                     # as to-be-recogn wrd (with 15% margin), 0=otherwise
                     #my_print("np array similar length: " ,np.array([int(is_similar_word_length(x, this_word)) for x in lexicon]))
@@ -816,7 +817,7 @@ def reading_simulation(filename, parameters):
                         my_print('word in text: ' + str(this_word),
                                  'cycle:' + str(amount_of_cycles),
                                  "highest activation: " + str(lexicon[highest]) +
-                                 " at " + str(lexicon_word_activity_np[highest]),
+                                 " at " +"%.3f" % (lexicon_word_activity_np[highest]),
                                  "word_index: " + str(word_index)
                                  )
                         alldata_recognized_append(highest)
