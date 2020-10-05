@@ -807,18 +807,18 @@ def reading_simulation(filename, parameters):
                     #my_print(recognWrdsFittingLen_np)
 
                     # fast check whether there is at least one 1 in wrdsFittingLen_np
-                    if sum(recognWrdsFittingLen_np): ##NS remove temporarily to obtain highest_word
+                    if sum(recognWrdsFittingLen_np):
     		            # PK find the word with the highest activation in all words that have a similar length
                         highest = np.argmax(recognWrdsFittingLen_np * lexicon_word_activity_np)
                         highest_word = lexicon[highest]
                         new_recognized_words[highest] = 1
                         recognized_position_flag[word_index] = True
-                        # my_print('word in text: ' + str(this_word),
-                        #          'cycle:' + str(amount_of_cycles),
-                        #          "highest activation: " + str(lexicon[highest]) +
-                        #          " at " + str(lexicon_word_activity_np[highest]),
-                        #          "word_index: " + str(word_index)
-                        #          )
+                        my_print('word in text: ' + str(this_word),
+                                 'cycle:' + str(amount_of_cycles),
+                                 "highest activation: " + str(lexicon[highest]) +
+                                 " at " + str(lexicon_word_activity_np[highest]),
+                                 "word_index: " + str(word_index)
+                                 )
                         alldata_recognized_append(highest)
                         # MM: if the recognized word is equal to the stimulus word...
                         if this_word == highest_word:

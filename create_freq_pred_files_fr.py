@@ -25,7 +25,7 @@ convert_dict = {0:decode_ISO,4:comma_to_dot, 5:comma_to_dot, 9:comma_to_dot}
 #{column:comma_to_dot for column in [4,5,9]}
 
 ## Get selected columns from text
-freqlist_arrays = np.genfromtxt("Texts/frequency_german.txt", dtype=[('Word','U30'),('FreqCount','i4'), ('CUMfreqcount','i4'),('Subtlex','f4'), ('lgSubtlex','f4'), ('lgGoogle','f4')],
+freqlist_arrays = np.genfromtxt("Texts/frequency_french.txt", dtype=[('Word','U30'),('FreqCount','i4'), ('CUMfreqcount','i4'),('Subtlex','f4'), ('lgSubtlex','f4'), ('lgGoogle','f4')],
                                     usecols = (0,1,3,4,5,9), converters= convert_dict , skip_header=1, delimiter="\t")
 
 freqthreshold = 1.5
@@ -58,7 +58,7 @@ def create_freq_file(freqlist_arrays, freqthreshold, nr_highfreqwords):
     for line_number in xrange(nr_highfreqwords):
         file_freq_dict[unicode((freq_words[line_number][0]).lower())] = freq_words[line_number][1]
 
-    output_file_frequency_map = "Data\PSCall_frequency_map.dat"
+    output_file_frequency_map = "Data\frequency_map_fr.dat"
     with open (output_file_frequency_map,"w") as f:
         pickle.dump(file_freq_dict,f)
 
@@ -66,7 +66,7 @@ def create_freq_file(freqlist_arrays, freqthreshold, nr_highfreqwords):
 def create_pred_file():
     file_pred_dict = get_pred()
 
-    output_file_predictions_map = "Data\PSCall_predictions_map.dat"
+    output_file_predictions_map = "Data\predictions_map_fr.dat"
     with open (output_file_predictions_map,"w") as f:
 	    pickle.dump(file_pred_dict,f)
 
