@@ -779,6 +779,8 @@ def reading_simulation(filename, parameters):
 		# Enter any recognized word to the 'recognized words indices' list for the current fixation.
             # MM: creates array that is 1 if act(word)>thres, 0 otherwise
             above_tresh_lexicon_np = np.where(lexicon_word_activity_np > lexicon_thresholds_np,1,0)
+            print(lexicon_thresholds_np)
+            print("above thresh: ", above_tresh_lexicon_np)
             # MM: array w. indices of recogn. words, not sure whether this still has a function
             recognized_indices = np.asarray(all_data[fixation_counter]['recognized words indices'], dtype=int)
             my_print("above thresh. in lexicon: " + str(np.sum(above_tresh_lexicon_np)))
@@ -800,20 +802,20 @@ def reading_simulation(filename, parameters):
                     # MM first find len unrecogn. word in stim
                     desired_length = len(individual_words[word_index])
                     this_word = individual_words[word_index]
-		    print("this word: " , this_word)
+		            print("this word: " , this_word)
                     # MM: recognWrdsFittingLen_np: array with 1=wrd act above threshold, & approx same len
                     # as to-be-recogn wrd (with 15% margin), 0=otherwise
                     #my_print("np array similar length: " ,np.array([int(is_similar_word_length(x, this_word)) for x in lexicon]))
                     recognWrdsFittingLen_np = above_tresh_lexicon_np * np.array([int(is_similar_word_length(x, this_word)) for x in lexicon])
                     #my_print(recognWrdsFittingLen_np)
-		    print("RecognWrds: ", sum(recognWrdsFittingLen_np))
+		            print("RecognWrds: ", sum(recognWrdsFittingLen_np))
                     # fast check whether there is at least one 1 in wrdsFittingLen_np
                     if sum(recognWrdsFittingLen_np):
     		            # PK find the word with the highest activation in all words that have a similar length
                         highest = np.argmax(recognWrdsFittingLen_np * lexicon_word_activity_np)
                         highest_word = lexicon[highest]
-			print("highest idx: ", highest)
-			print("highest: ", highest_word)
+			            print("highest idx: ", highest)
+			            print("highest: ", highest_word)
                         new_recognized_words[highest] = 1
                         recognized_position_flag[word_index] = True
                         #my_print('word in text: ' + (this_word),
@@ -821,7 +823,7 @@ def reading_simulation(filename, parameters):
                         #         "highest activation: " + str(lexicon[highest]) +
                                  #" at " +"%.3f" % (lexicon_word_activity_np[highest]),
                          #        " at " + str(lexicon_word_activity_np[highest]),
-			#	 "word_index: " + str(word_index)
+			              #	 "word_index: " + str(word_index)
                          #        )
                         alldata_recognized_append(highest)
                         # MM: if the recognized word is equal to the stimulus word...
