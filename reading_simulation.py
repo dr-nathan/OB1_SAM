@@ -780,7 +780,7 @@ def reading_simulation(filename, parameters):
             # MM: creates array that is 1 if act(word)>thres, 0 otherwise
             above_tresh_lexicon_np = np.where(lexicon_word_activity_np > lexicon_thresholds_np,1,0)
             print(lexicon_word_activity_np)
-            print(lexicon_thresholds_np)
+            #print(lexicon_thresholds_np)
             #print("above thresh: ", above_tresh_lexicon_np)
             # MM: array w. indices of recogn. words, not sure whether this still has a function
             recognized_indices = np.asarray(all_data[fixation_counter]['recognized words indices'], dtype=int)
