@@ -62,6 +62,8 @@ def main():
 			(lexicon, all_data, unrecognized_words) = reading_simulation(filepath_psc, parameters_rf)
 			# Evaluate run and retrieve error-metric
 			distance = get_scores(filename, all_data, unrecognized_words)
+			distance = distance*len(unrecognized_words)
+			print("distance: " , distance)
 			print("xxxxxxxxxxxxxxxxxxxxxxxxxxxx ran simulation xxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
 		except:
 			print("Reading function error: returning distance=99999999")
