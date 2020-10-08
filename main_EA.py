@@ -63,6 +63,7 @@ def main():
 			# Evaluate run and retrieve error-metric
 			distance = get_scores(filename, all_data, unrecognized_words)
 			distance = distance*len(unrecognized_words)
+			print("len unrecognized words: ", len(unrecognized_words)
 			print("distance: " , distance)
 			print("xxxxxxxxxxxxxxxxxxxxxxxxxxxx ran simulation xxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
 		except:
