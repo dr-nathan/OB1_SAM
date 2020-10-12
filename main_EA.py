@@ -57,15 +57,14 @@ def main():
 			print("Returning: "+str(distance))
 			return (distance,)
 		try:
-			print("-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-running simulation -.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.")
 			# Run the simulation
 			(lexicon, all_data, unrecognized_words) = reading_simulation(filepath_psc, parameters_rf)
 			# Evaluate run and retrieve error-metric
 			distance = get_scores(filename, all_data, unrecognized_words)
 			distance = distance*len(unrecognized_words)
-			print("len unrecognized words: ", len(unrecognized_words)
-			print("distance: " , distance)
-			print("xxxxxxxxxxxxxxxxxxxxxxxxxxxx ran simulation xxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+			#print("len unrecognized words: ", len(unrecognized_words))
+			#print("distance: " , distance)
+
 		except:
 			print("Reading function error: returning distance=99999999")
 			distance = 99999999.0
@@ -107,7 +106,7 @@ def main():
 
 	if pm.optimize:
 		# EA parameters
-		pop_size = 27 #15
+		pop_size = 256 #15
 		multi_processing = True
 		gens = 7 #7
 		tournament_size = 5
@@ -128,12 +127,12 @@ def main():
 		creator.create("Individual", list, fitness=creator.FitnessMin)
 
 		def high(x):
-			#return x*2
-			return x*1.33
+			return x*10
+			#return x*1.33
 
 		def low(x):
-			#return x/2
-			return x*0.75
+			return x/10
+			#return x*0.75
 
 		def same(x):
 			return x
@@ -155,10 +154,10 @@ def main():
 
 		def initPopulation(pcls, ind_init):
 			global start_params
-			n_params = 3 #number of params to optimize 
+			n_params = 4 #number of params to optimize 
 			combinaties = [list(x) for x in list(itertools.product([same, high, low], repeat=n_params))]
 #			start_params = [4.0, 1.29, 7.0, 4.9, 2.2]
-			start_params = [2.18, -0.55, -0.011]
+			start_params = [-0.2, 2.18, -0.55, -0.011]
 			print("Initializing pop with "+str(start_params))
 			contents = [[y(z) for y, z in zip(x, start_params)] for x in combinaties]
 			print(contents)

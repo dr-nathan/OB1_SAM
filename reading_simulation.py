@@ -24,10 +24,10 @@ def reading_simulation(filename, parameters):
 
     # This is needed for unpacking suggested parameters when tuning
     if any(parameters):
-#        pm.decay = parameters[0]
-	pm.bigram_to_word_excitation = parameters[0]
-        pm.bigram_to_word_inhibition = parameters[1]
-        pm.word_inhibition = parameters[2]
+        pm.decay = parameters[0]
+	pm.bigram_to_word_excitation = parameters[1]
+        pm.bigram_to_word_inhibition = parameters[2]
+        pm.word_inhibition = parameters[3]
 #        pm.max_activity = parameters[4]
 #        pm.max_attend_width = int(parameters[5])
 #        pm.min_attend_width = int(parameters[6])
@@ -1017,7 +1017,6 @@ def reading_simulation(filename, parameters):
             # Make sure that attention is integer
             AttentionPosition = np.round(AttentionPosition)
             amount_of_cycles += 1
-	print("made it till the end of the cycle?") #NS 
     # ----------------------------End of cycle--------------------------------------------------
         #if(fixation>2): 
 
@@ -1188,7 +1187,6 @@ def reading_simulation(filename, parameters):
         if not recognized_word_at_position_flag[position]:
             unrecognized_words_append((individual_words[position], position))
     # -----------------------------------------------------------------------------------------------------
-    print("YEAHHHH")#NS
 
     # END OF READING. Return all_data and the list of unrecognized words.
     print(N_in_allocated, N1_in_allocated)

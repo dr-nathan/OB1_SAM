@@ -6,9 +6,9 @@ def get_params(pm):
 	bounds = []
 	names = []
 
-	#parameters.append(pm.decay)
-	#bounds.append((-0.95,-0.01))
-	#names.append("decay")
+	parameters.append(pm.decay)
+	bounds.append((-0.95,-0.01))
+	names.append("decay")
 
 	parameters.append(pm.bigram_to_word_excitation)
 	bounds.append((0, None))
