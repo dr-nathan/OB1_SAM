@@ -6,9 +6,9 @@ __author__ = 'Sam van Leipsig, Phillip Kersten'
 print("Parameters Initialised")
 
 # Control-flow parameters
-run_exp = False  # Should the reading simulation run?
+run_exp = True  # Should the reading simulation run?
 analyze_results = True  # Should the results be analyzed?
-optimize = True  # Should the parameters be optimized?
+optimize = False  # Should the parameters be optimized?
 
 language = "german"  # german, dutch
 use_grammar_prob = False # True for using grammar probabilities, False for using cloze, overwritten by uniform_pred
