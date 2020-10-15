@@ -779,12 +779,12 @@ def reading_simulation(filename, parameters):
 		# Enter any recognized word to the 'recognized words indices' list for the current fixation.
             # MM: creates array that is 1 if act(word)>thres, 0 otherwise
             above_tresh_lexicon_np = np.where(lexicon_word_activity_np > lexicon_thresholds_np,1,0)
-            print(lexicon_word_activity_np)
+            #print(lexicon_word_activity_np)
             #print(lexicon_thresholds_np)
             #print("above thresh: ", above_tresh_lexicon_np)
             # MM: array w. indices of recogn. words, not sure whether this still has a function
             recognized_indices = np.asarray(all_data[fixation_counter]['recognized words indices'], dtype=int)
-            my_print("above thresh. in lexicon: " + str(np.sum(above_tresh_lexicon_np)))
+            #my_print("above thresh. in lexicon: " + str(np.sum(above_tresh_lexicon_np)))
             #my_print("recognized lexicon: ", above_tresh_lexicon_np)
 
             # MM: array of zeros of len as lexicon, which will get 1 if wrd recognized
@@ -809,7 +809,7 @@ def reading_simulation(filename, parameters):
                     #my_print("np array similar length: " ,np.array([int(is_similar_word_length(x, this_word)) for x in lexicon]))
                     recognWrdsFittingLen_np = above_tresh_lexicon_np * np.array([int(is_similar_word_length(x, this_word)) for x in lexicon])
                     #my_print(recognWrdsFittingLen_np)
-                    print("RecognWrds: ", sum(recognWrdsFittingLen_np))
+                    #print("RecognWrds: ", sum(recognWrdsFittingLen_np))
                     # fast check whether there is at least one 1 in wrdsFittingLen_np
                     if sum(recognWrdsFittingLen_np):
     		            # PK find the word with the highest activation in all words that have a similar length
