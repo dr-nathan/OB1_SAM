@@ -6,17 +6,17 @@ __author__ = 'Sam van Leipsig, Phillip Kersten'
 print("Parameters Initialised")
 
 # Control-flow parameters
-run_exp = True  # Should the reading simulation run?
+run_exp = False  # Should the reading simulation run?
 analyze_results = True  # Should the results be analyzed?
-optimize = False  # Should the parameters be optimized?
+optimize = True  # Should the parameters be optimized?
 
 language = "german"  # german, dutch
-use_grammar_prob = False  # True for using grammar probabilities, False for using cloze, overwritten by uniform_pred
+use_grammar_prob = False # True for using grammar probabilities, False for using cloze, overwritten by uniform_pred
 uniform_pred = False  # Overwrites cloze/grammar probabilities with 0.25 for all words
 
 include_sacc_type_sse = True  # Include the sse score based on the saccade type probability plot
 sacc_type_objective = "total"  # If "total" all subplots will be included in the final sse,
-                               # single objectives can be "length", "freq" or "pred"
+                               #  single objectives can be "length", "freq" or "pred"
 
 include_sacc_dist_sse = True  # Include the SSE score derived from the saccade_distance.png plot
 
@@ -52,9 +52,9 @@ bigram_to_word_excitation = 2.18 # inp. divded by #ngrams, so this param estimat
 bigram_to_word_inhibition = -0.55
 word_inhibition = -0.011 # -0.002
 
-letPerDeg = .3  # visual degrees per letter (even though name suggests opposite)
-min_activity = 0.0  # what's the min activity of a word node? Leave at 0
-max_activity = 1.3  # what's the max activity of a word node? Act grows asympt to that max.
+letPerDeg = .3
+min_activity = 0.0
+max_activity = 1.3
 
 ## Attentional width
 max_attend_width = 5.0
@@ -75,7 +75,7 @@ use_saccade_error = True
 use_attendposition_change = True # attend width influenced by predictability next wrd
 visualise = False
 slow_word_activity = False
-print_all = True
+print_all = False
 pauze_allocation_errors = False
 use_boundary_task = False
 
@@ -92,4 +92,25 @@ distribution_param = 5.0  #1.1
 ## Threshold parameters
 max_threshold = 1
 wordfreq_p = 0.4 # Max prop decrease in thresh. for highest-freq wrd [different definition than in papers]
-wordpred_p = 0.4 # same logic as wordfreq_p
+wordpred_p = 0.4 # Currently not used
+
+## Threshold parameters
+linear = False
+
+use_sentence_task = True
+use_flanker_task = False
+
+#linear
+#start_lin = 0.057
+#wordlen_lin = 0.006
+
+## Monoweight = 1
+#start_nonlin = 0.134
+#nonlin_scaler = 0.22
+#wordlen_nonlin = -0.44
+
+#Nonlinear
+## Monoweight = 2
+# start_nonlin = 0.143
+# nonlin_scaler = 0.21
+# wordlen_nonlin = -0.8
