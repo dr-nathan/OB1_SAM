@@ -39,7 +39,7 @@ import struct
 OLD_DISTANCE = np.inf
 N_RUNS = 0
 testing = False  # If this is true the reading function is not carried out and returns random numbers (intended for testing the EA)
-fname = ""  # File name specifying the location of the last saved generation from which should be started, if empty evaluation starts from beginning
+fname = "gen_3.txt"  # File name specifying the location of the last saved generation from which should be started, if empty evaluation starts from beginning
 generation = 0
 #start_params = [0.10111091566085817, 0.7605561652753674, 15.361500000000003, 10.6993519565625, 6.3890415969187515]
 
@@ -193,13 +193,13 @@ def main():
 
 		toolbox.register("individual_guess", initIndividual, creator.Individual)
 
-#		if not fname:
-#			toolbox.register("population_guess", initPopulation, list, toolbox.individual_guess)
-#		else:
-#			print("STARTING FROM "+str(fname)+" AS STARTING POPULATION")
-#			toolbox.register("population_guess", load_pop, list, toolbox.individual_guess)
+		if not fname:
+			toolbox.register("population_guess", initPopulation, list, toolbox.individual_guess)
+		else:
+			print("STARTING FROM "+str(fname)+" AS STARTING POPULATION")
+			toolbox.register("population_guess", load_pop, list, toolbox.individual_guess)
 
-		toolbox.register("population_guess", initPopulation, list, toolbox.individual_guess)
+#		toolbox.register("population_guess", initPopulation, list, toolbox.individual_guess)
 		population = toolbox.population_guess()
 
 		print(population)
@@ -228,7 +228,7 @@ def main():
 		# Main evolution loop
 		for gen in range(gens):
 			generation += 1
-			#pop_size /= 2
+			pop_size /= 2
 			print("Gen:"+str(gen+1))
 			print("Pop-size:"+str(pop_size))
 			# If generation is restarted we skip past generations and load the fitness from the output-file

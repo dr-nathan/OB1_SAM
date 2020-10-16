@@ -299,8 +299,8 @@ def reading_simulation(filename, parameters):
     while not end_of_text:
         # GS Level - reading, end of text not reached yet (^t^t)
         my_print("***********************************")
-        my_print("offset: "+str(OffsetFromWordCenter)+",  attendWidth:"+str(attendWidth))
-        print('fixation_pos-'+str(fixation))
+#        my_print("offset: "+str(OffsetFromWordCenter)+",  attendWidth:"+str(attendWidth))
+#        print('fixation_pos-'+str(fixation))
 
         # make sure that fixation does not go over the end of the text
         fixation = min(fixation, TOTAL_WORDS-1)
@@ -822,12 +822,12 @@ def reading_simulation(filename, parameters):
                         if this_word == highest_word:
                             alldata_truerecognized_append(highest)
                             recognized_word_at_position_flag[word_index] = True
-                    try:
-                        print("actual word: "+str(individual_words[word_index]))
-                        print("highest activation: "+str(lexicon[highest])+", "+str(lexicon_word_activity_np[highest]))
-                        print("\n")
-                    except:
-                        print("Encoding error")
+ #                   try:
+ #                       print("actual word: "+str(individual_words[word_index]))
+ #                       print("highest activation: "+str(lexicon[highest])+", "+str(lexicon_word_activity_np[highest]))
+ #                       print("\n")
+ #                   except:
+ #                       print("Encoding error")
 
             # -------------------------------------------------------------------------------------------------
             # Word selection and Attentional shift
