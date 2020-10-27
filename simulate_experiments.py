@@ -493,7 +493,6 @@ def simulate_experiments(parameters):
                 ### RT = moment in cycle
 
             amount_of_cycles_before_end_of_trial += 1
-        lexicon_word_activity_np = 0
         print("end of trial")
 
     # END OF EXPERIMENT. Return all data and a list of unrecognized words
