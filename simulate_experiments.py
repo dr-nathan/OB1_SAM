@@ -461,7 +461,7 @@ def simulate_experiments(parameters):
                 if this_word == highest_word:
                     alldata_truerecognized_append(highest)
             try:
-                print("actual word: "+ target_word)
+                print("target word: "+ target_word)
                 print("highest activation: "+str(lexicon[highest])+", "+str(lexicon_word_activity_np[highest]))
                 print("\n")
             except:
