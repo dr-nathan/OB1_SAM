@@ -243,6 +243,24 @@ def simulate_experiments(parameters):
 
     lexicon_word_activity_np[lexicon_word_activity_np < pm.min_activity] = pm.min_activity
 
+    #print(all_data)
+    all_data.append({})
+
+    all_data[trial] = {'stimulus': [],
+                        'word activities per cycle': [],
+                        'fixation duration': 0,
+                        'recognized words indices': [],
+                        'attentional width': attendWidth,
+                        'exact recognized words positions': [],
+                        'eye position': 0,
+                        'word threshold': 0,
+                        'word frequency': 0,
+                        'word predictability': 0}
+
+    my_print('attendWidth: '+str(attendWidth))
+    #print(len(stim['all']))
+
+    shift = False
 
 
     # BEGIN EXPERIMENT
@@ -250,47 +268,13 @@ def simulate_experiments(parameters):
     for trial in range(0,len(stim['all'])):
         print("trial: ", trial)
 
-
-        all_data.append({})
-
-        all_data[trial] = {'stimulus': [],
-                            'condition': [],
-                            'word activities per cycle': [],
-                            'fixation duration': 0,
-                            'recognized words indices': [],
-                            'attentional width': attendWidth,
-                            'exact recognized words positions': [],
-                            'eye position': 0,
-                            'word threshold': 0,
-                            'word frequency': 0,
-                            'word predictability': 0}
-
-        my_print('attendWidth: '+str(attendWidth))
-        #print(len(stim['all']))
-
-        shift = False
-
         stimulus = stim['all'][trial]
         print("stimulus: " , stimulus)
         #print(len(stimulus.split(" ")))
 
-        if pm.use_sentence_task:
-            ncycles = 8 #8 cycles = 200 ms
-            target_word = stimulus.split(" ")[stim['target'][trial]-1] #read in target cue from file
-        if pm.use_flanker_task:
-            ncycles = 6 #6 cycles = 150 ms
-            target_word = stimulus.split(" ")[len(stimulus.split(" ")) // 2 + len(stimulus.split(" ")) // 2 - 1] #find center word -- could probably be coded more efficient
-
-        print("target: ", target_word)
-
-
         # store trial info in all_data
-        all_data[trial]['stimulus'] = target_word
+        all_data[trial]['stimulus'] = stimulus
 
-        # also add info on trial condition (read in from file? might be easiest)
-        all_data[trial]['condition'] = stim['condition'][trial]
-
-        # everything below is still coded to potentially store/look at activations for all the words in the stimulus, and not only our target
         for word in range(len(stimulus.split(" "))):
             # "Word activities per cycle" is a dict containing the stimulus' words.
             # For every word there is a list that will keep track of the activity per cycle.
@@ -317,7 +301,14 @@ def simulate_experiments(parameters):
         amount_of_cycles = 0
         amount_of_cycles_before_end_of_trial = 0
             ### stimulus on screen for 150 ms (flanker) or 200 ms (sentence)
+        if pm.use_sentence_task:
+            ncycles = 8 #8 cycles = 200 ms
+            target_word = stimulus.split(" ")[stim['target'][trial]-1] #read in target cue from file
+        if pm.use_flanker_task:
+            ncycles = 6 #6 cycles = 150 ms
+            target_word = stimulus.split(" ")[len(stimulus.split(" ")) // 2 + len(stimulus.split(" ")) // 2 - 1] #find center word -- could probably be coded more efficient
 
+        print("target: ", target_word)
         while amount_of_cycles_before_end_of_trial < ncycles:
 
             unitActivations = {}  # reset after each trials
@@ -441,31 +432,31 @@ def simulate_experiments(parameters):
             alldata_recognized_append = all_data[trial]['recognized words indices'].append
             alldata_truerecognized_append = all_data[trial]['exact recognized words positions'].append
 
-            #but here we only look at the target word
-            #for word_index in range(len(stimulus.split(" "))):
-            desired_length = len(target_word)
-            this_word = target_word
+
+            for word_index in range(len(stimulus.split(" "))):
+                desired_length = len(stimulus[word_index])
+                this_word = stimulus.split(" ")[word_index]
                 # MM: recognWrdsFittingLen_np: array with 1=wrd act above threshold, & approx same len
                 # as to-be-recogn wrd (with 15% margin), 0=otherwise
-            recognWrdsFittingLen_np = above_tresh_lexicon_np * np.array([int(is_similar_word_length(x, this_word)) for x in lexicon])
+                recognWrdsFittingLen_np = above_tresh_lexicon_np * np.array([int(is_similar_word_length(x, this_word)) for x in lexicon])
 
-            # fast check whether there is at least one 1 in wrdsFittingLen_np
-            if sum(recognWrdsFittingLen_np):
-		    # PK find the word with the highest activation in all words that have a similar length
-                highest = np.argmax(recognWrdsFittingLen_np * lexicon_word_activity_np)
-                highest_word = lexicon[highest]
-                new_recognized_words[highest] = 1
+                # fast check whether there is at least one 1 in wrdsFittingLen_np
+                if sum(recognWrdsFittingLen_np):
+		            # PK find the word with the highest activation in all words that have a similar length
+                    highest = np.argmax(recognWrdsFittingLen_np * lexicon_word_activity_np)
+                    highest_word = lexicon[highest]
+                    new_recognized_words[highest] = 1
 
-                alldata_recognized_append(highest)
-                # MM: if the recognized word is equal to the stimulus word...
-                if this_word == highest_word:
-                    alldata_truerecognized_append(highest)
-            try:
-                print("actual word: "+ target_word)
-                print("highest activation: "+str(lexicon[highest])+", "+str(lexicon_word_activity_np[highest]))
-                print("\n")
-            except:
-                print("Encoding error")
+                    alldata_recognized_append(highest)
+                    # MM: if the recognized word is equal to the stimulus word...
+                    if this_word == highest_word:
+                        alldata_truerecognized_append(highest)
+                try:
+                    print("actual word: "+str(stimulus.split(" ")[word_index]))
+                    print("highest activation: "+str(lexicon[highest])+", "+str(lexicon_word_activity_np[highest]))
+                    print("\n")
+                except:
+                    print("Encoding error")
             ### determine target word (= only word on screen, or word in center)
 
             ### save activation for target word  for every cycle
@@ -485,7 +476,7 @@ def simulate_experiments(parameters):
 
             amount_of_cycles_before_end_of_trial += 1
 
-        print("end of trial")
+            print("end of trial")
 
     # END OF EXPERIMENT. Return all data and a list of unrecognized words
     return lexicon, all_data, unrecognized_words

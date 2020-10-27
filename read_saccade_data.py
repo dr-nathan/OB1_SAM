@@ -337,6 +337,17 @@ def get_freq_pred_files():
         word_pred_dict = pickle.load(p)
     return word_freq_dict, word_pred_dict
 
+def get_freq_pred_files_fr():
+    ## hardcoded to take freq/pred from all psc's
+    output_word_frequency_map = "Data/frequency_map_fr.dat"
+    with open (output_word_frequency_map,"r") as f:
+        #word_freq_dict = pickle.load(f, encoding="latin1") # For Python3
+        word_freq_dict = pickle.load(f)
+    output_word_predictions_map = "Data/predictions_map_fr.dat"
+    with open (output_word_predictions_map,"r") as p:
+        word_pred_dict = pickle.load(p)
+    return word_freq_dict, word_pred_dict
+
 def get_saccade_data_df():
     convert_dict = {0:decode_ISO}
     convert_dict = {column:comma_to_dot for column in [0,1,2,3,4,5]}
@@ -386,6 +397,20 @@ def get_words():
     convert_dict = {0:decode_ISO}
     my_data = np.genfromtxt("Texts/PSCall_freq_pred.txt", names =True, dtype=['U20'], converters= convert_dict, usecols=(0), skip_header=0, delimiter="\t")
     cleaned_words = np.empty([len(my_data),1],dtype='U20')
+    print(cleaned_words)
     for i,word in enumerate(my_data):
         cleaned_words[i] = word.replace(".","").lower()
+    return cleaned_words
+
+def get_words_sentence():
+    convert_dict = {0:decode_ISO}
+    my_data = np.genfromtxt("Texts/Sentence_freq_pred.txt", names =None, dtype=['U20'], usecols=(0), delimiter="\t")
+    #my_data = np.genfromtxt("Texts/Sentence_freq_pred.txt", names =None, dtype=['U20'], converters= convert_dict, usecols=(0), delimiter="\t")
+
+    print(my_data)
+    cleaned_words = np.empty([len(my_data),1],dtype='U20')
+    for i,word in enumerate(my_data):
+        print(word)
+        #cleaned_words[i] = word.replace(".","").lower()
+        cleaned_words[i] = word
     return cleaned_words

@@ -1,12 +1,12 @@
 import numpy as np
 import pickle
 import codecs
-import chardet
+#import chardet
 from read_saccade_data import get_words, get_pred
 
 # Detect text encoding
 rawdata=open("Texts/frequency_german.txt","r").read()
-print chardet.detect(rawdata)
+#print chardet.detect(rawdata)
 
 #to prevent unicode errors
 # 'utf-8' 'cp1252' 'ISO-8859-1'
@@ -46,6 +46,7 @@ def create_freq_file(freqlist_arrays, freqthreshold, nr_highfreqwords):
         frequency_words_np[i] = line[0].replace(".","").lower()
 
     cleaned_psc_words = get_words()
+    print(cleened_psc_words)
     overlapping_words = np.intersect1d(cleaned_psc_words,frequency_words_np, assume_unique=False)
 
     ## IMPORTANT TO USE unicode() to place in dictionary, to replace NUMPY.UNICODE!!
@@ -59,16 +60,16 @@ def create_freq_file(freqlist_arrays, freqthreshold, nr_highfreqwords):
         file_freq_dict[unicode((freq_words[line_number][0]).lower())] = freq_words[line_number][1]
 
     output_file_frequency_map = "Data\PSCall_frequency_map.dat"
-    with open (output_file_frequency_map,"w") as f:
-        pickle.dump(file_freq_dict,f)
+    #with open (output_file_frequency_map,"w") as f:
+    #    pickle.dump(file_freq_dict,f)
 
 
 def create_pred_file():
     file_pred_dict = get_pred()
 
     output_file_predictions_map = "Data\PSCall_predictions_map.dat"
-    with open (output_file_predictions_map,"w") as f:
-	    pickle.dump(file_pred_dict,f)
+    #with open (output_file_predictions_map,"w") as f:
+	#    pickle.dump(file_pred_dict,f)
 
 create_freq_file(freqlist_arrays,freqthreshold,nr_highfreqwords)
 create_pred_file()

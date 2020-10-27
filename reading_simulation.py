@@ -120,10 +120,20 @@ def reading_simulation(filename, parameters):
 
     # Make lexicon. Makes sure lexicon contains no double words.
     # Makes sure it contains no double words.
-    n_known_words = len(lexicon)  # MM: nr of words known to model
+
     for word in individual_words:
         if word not in lexicon:
             lexicon.append(word)
+
+    if(len(word_freq_dict)>0):
+        for freq_word in word_freq_dict.keys():
+            if freq_word.lower() not in lexicon:
+                lexicon.append(freq_word.lower())
+    lexicon_file_name = 'Data/Lexicon.dat'
+    with open(lexicon_file_name,"w") as f:
+        pickle.dump(lexicon,f)
+
+    n_known_words = len(lexicon)  # MM: nr of words known to model
 
     # Make lexicon dependent variables
     LEXICON_SIZE = len(lexicon)
@@ -716,8 +726,10 @@ def reading_simulation(filename, parameters):
                         crt_fixation_word_activities[1] = abs(wordBigramsInhibitionInput)
                     break
             # MM: divide input by nr ngrams, because otherwise long wrds always a lot of input
+            print(len(word_input_np))
             word_input_np = word_input_np / np.array(N_ngrams_lexicon)
 
+#            print(word_input_np)
         # ----------------------------------------------------------------------------
 
             # Below: subtract the word-to-word inhibition. First add inhibition
@@ -794,6 +806,7 @@ def reading_simulation(filename, parameters):
             alldata_recognized_append = all_data[fixation_counter]['recognized words indices'].append
             allocated_append = allocated_dict[fixation].append
             alldata_truerecognized_append = all_data[fixation_counter]['exact recognized words positions'].append
+
 
             for word_index in range(max(fixation - 2, 0), min(fixation + 3, len(individual_words))):
                 # TODO PK: this has to be adjusted for the first few words, otherwise word_index is negative

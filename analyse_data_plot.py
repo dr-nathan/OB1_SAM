@@ -121,7 +121,7 @@ def plot_recognized_cycles(df_alldata):
     fig = plt.figure('Recognized cycles')
     plt.title('Saccade type for cycle of recognition')
     df_grpby_recognized_cycle.astype(int).plot(ax=fig.gca())
-    plt.savefig("plots/recognized_cycles.png",dpi=300)
+    plt.savefig("./plots/recognized_cycles.png",dpi=300)
 
 def plot_unrecognizedwords_bytype(df_alldata_grouped_all,df_unrecognized_words):
     unrecognized_index = df_unrecognized_words.iloc[:,1].values
@@ -143,7 +143,7 @@ def plot_unrecognizedwords_bytype(df_alldata_grouped_all,df_unrecognized_words):
     plt.ylim(0,0.5)
     plt.bar(range(len(unrecognized_dict)),unrecognized_dict.values(),align='center',width=0.5,alpha=0.5)
     plt.xticks(range(len(unrecognized_dict)),unrecognized_dict.keys())
-    plt.savefig("plots/plot_unrecognizedwords_bytype.png",dpi=300)
+    plt.savefig("./plots/plot_unrecognizedwords_bytype.png",dpi=300)
 
 
 
@@ -174,7 +174,7 @@ def plot_groupsize_distribution(df_alldata_grouped_all,freqbins,predbins):
         #group.groupby('word length')['foveal word'].count().plot(kind='line',ax=axes[1,1],alpha=0.4,rot=1,sharex=False)
     axes[1,1].legend(predbins+0.25)
     fig.delaxes(axes[1,2])
-    plt.savefig("plots/groupsize_distribution.png",dpi=300)
+    plt.savefig("./plots/groupsize_distribution.png",dpi=300)
 
 
 def plot_freqpred_bylength(df_alldata):
@@ -186,7 +186,7 @@ def plot_freqpred_bylength(df_alldata):
     scalefreq = lambda i: ((i-minfreq)/(maxfreq-minfreq))
     df_temp.loc[:,'word frequency'] = df_temp['word frequency'].map(scalefreq)
     df_temp.groupby('word length').mean().plot(ax = fig.gca())
-    plt.savefig("plots/freqpred_bylen.png", dpi=300)
+    plt.savefig("./plots/freqpred_bylen.png", dpi=300)
 
 
 def plot_unrecognizedwords(df_alldata,df_alldata_grouped_all,df_unrecognized_words):
@@ -197,7 +197,7 @@ def plot_unrecognizedwords(df_alldata,df_alldata_grouped_all,df_unrecognized_wor
     nr_unrecognized = str(int(len(df_unrecognized_words)/float(max(df_alldata['foveal word text index']))*100.))
     plt.title("Unrecognized words, ("+nr_unrecognized+"% of total)")
     df_unrecognized_words_by_length_relative.plot(kind='bar')
-    plt.savefig('plots/unrecognized_words.png', dpi=300)
+    plt.savefig('./plots/unrecognized_words.png', dpi=300)
 
 
 def plot_attendwidth(df_alldata):
@@ -206,7 +206,7 @@ def plot_attendwidth(df_alldata):
     plt.title("Attentional width")
     df_alldata['attentional width'].hist(bins=attendwidthbins)
     print ("not 5 width skip", len(df_alldata[(df_alldata['attentional width'] != 5) & (df_alldata['after wordskip']==True)]))
-    plt.savefig('plots/attentional_width', dpi=300)
+    plt.savefig('./plots/attentional_width', dpi=300)
 
 
 def plot_saccdistance(df_alldata_no_regr,exp_saccade_distance):
@@ -223,7 +223,7 @@ def plot_saccdistance(df_alldata_no_regr,exp_saccade_distance):
     sacc_distance.plot(style = 'b')
     exp_saccade_distance.plot(style = 'g--')
     plt.legend(['Sim.','Exp.'])
-    plt.savefig('plots/saccade_distance.png', dpi=300)
+    plt.savefig('./plots/saccade_distance.png', dpi=300)
 
 
 def sse_saccdistance(df_alldata_no_regr,exp_saccade_distance):
@@ -243,7 +243,7 @@ def sse_saccdistance(df_alldata_no_regr,exp_saccade_distance):
     sse_dist = (((sacc_distance-exp_saccade_distance)*3000)**2).sum()
     plt.xlabel("SSE:"+str(int(sse_dist)))
     t = time()
-    plt.savefig(str(t)+'sse_saccdist.png', dpi=300)
+    plt.savefig('./plots/' + str(t)+'sse_saccdist.png', dpi=300)
     return sse_dist
 
 
@@ -264,7 +264,7 @@ def plot_saccdistance2(df_alldata_no_regr, exp_saccade_distance):
     exp_saccade_distance['single'].plot(style = 'g--')
     exp_saccade_distance['wordskipped'].plot(style = 'y--')
     plt.legend(['Sim. SF','Sim. Skip','Exp. SF','Exp. Skip'])
-    plt.savefig('plots/saccade_distance2.png', dpi=300)
+    plt.savefig('./plots/saccade_distance2.png', dpi=300)
 
 
 def plot_offset(df_alldata,exp_landing_positions):
@@ -283,7 +283,7 @@ def plot_offset(df_alldata,exp_landing_positions):
     plt.legend(['Sim.','Exp.'])
     print(df_alldata_firstpass['relative landing position'].mean(),exp_landing_positions.mean())
     print("Refixated (Offset, saccade error):",df_alldata[df_alldata['refixated']==False]['Offset'].mean(), df_alldata[df_alldata['refixated']==False]['saccade error'].mean())
-    plt.savefig("plots/offset.png",dpi=300)
+    plt.savefig("./plots/offset.png",dpi=300)
 
 
 #TODO plot previous saccdistance by
@@ -296,7 +296,7 @@ def plot_saccadedistance_bytype(df_alldata):
     df_alldata[df_alldata['refixated']==True].groupby('saccade distance')['fixation duration'].count().plot()
     df_alldata[df_alldata['forward']==True].groupby('saccade distance')['fixation duration'].count().plot()
     plt.legend(['after wordskip','regressed','refixation','forward'])
-    plt.savefig('plots/saccade_distance_by_type.png', dpi=300)
+    plt.savefig('./plots/saccade_distance_by_type.png', dpi=300)
     # SF_saccdistance_groups = pd.cut(df_single_fixation['saccade distance'], distancebins)
     # df_SF_bydistance = df_single_fixation.groupby(SF_saccdistance_groups)['fixation duration'].mean()
     # plt.figure(18)
@@ -314,7 +314,7 @@ def plot_saccerror(df_alldata):
     saccErr_groups = pd.cut(df_alldata['saccade error'], saccErr_bins)
     saccade_errors = df_alldata['saccade error'].groupby(saccErr_groups).count()/max(df_alldata['foveal word text index'])
     saccade_errors.plot()
-    plt.savefig('plots/saccade_error.png', dpi=300)
+    plt.savefig('./plots/saccade_error.png', dpi=300)
 
 
 def plot_saccerror_type(df_alldata):
@@ -324,7 +324,7 @@ def plot_saccerror_type(df_alldata):
     df_alldata['saccade_type_by_error'].hist(bins=8)
     xrange = int(max(df_alldata['saccade_type_by_error'].unique()))
     plt.xticks(range(xrange+1),['No error','refixated','forward','after wordskip'], size='large', alpha=0.5, ha='center')
-    plt.savefig('plots/saccade_type_by_error.png', dpi=300)
+    plt.savefig('./plots/saccade_type_by_error.png', dpi=300)
 
 
 def plot_refix_types(df_alldata):
@@ -333,7 +333,7 @@ def plot_refix_types(df_alldata):
     plt.title('Refixations types')
     df_alldata[df_alldata['refixation type']>0]['refixation type'].hist(alpha=0.5,bins=3)
     plt.xticks((1,2,3),['Not recognized','Activity','Saccade error'],alpha=0.5)
-    plt.savefig('plots/refixation_types.png', dpi=300)
+    plt.savefig('./plots/refixation_types.png', dpi=300)
 
 
 def plot_saccadetype_probabilities(df_alldata_grouped_all,exp_sacc_dict):
@@ -356,7 +356,7 @@ def plot_saccadetype_probabilities(df_alldata_grouped_all,exp_sacc_dict):
     plt.legend(['Rayner','Exp.','Simulation'])
     plt.ylabel('Fixation probability')
     plt.xticks(x+barwidth, ['regressed','refixated','single','wordskip'], size='medium')
-    plt.savefig('plots/saccade_type_probabilities.png', dpi=300)
+    plt.savefig('./plots/saccade_type_probabilities.png', dpi=300)
 
 ##todo make freq/word frequency consistent
 def plot_sacctypeprob_bygroup(df_alldata_grouped_all,exp_sacctype_grpby_prob_dict,freqbins,predbins):
@@ -402,7 +402,7 @@ def plot_sacctypeprob_bygroup(df_alldata_grouped_all,exp_sacctype_grpby_prob_dic
     axes[2].set_xticklabels(['Low','Med','High'])
     axes[2].set_ylim([0,0.5])
     axes[2].legend(['Sim. Regressions','Sim. Refixations','Sim. Wordskips','Exp. Regressions','Exp. Refixations','Exp. Wordskips'], loc=2,prop={'size':12})
-    plt.savefig('plots/saccade_types_grouped.png', dpi=300)
+    plt.savefig('./plots/saccade_types_grouped.png', dpi=300)
 
 
 def sse_sacctypeprob_bygroup(df_alldata_grouped_all,exp_sacctype_grpby_prob_dict,freqbins,predbins):
@@ -470,7 +470,7 @@ def sse_sacctypeprob_bygroup(df_alldata_grouped_all,exp_sacctype_grpby_prob_dict
     axes[2].set_xticklabels(['Low','Med','High'])
     axes[2].legend(['Sim. Regressions','Sim. Refixations','Sim. Wordskips','Exp. Regressions','Exp. Refixations','Exp. Wordskips'], loc=2,prop={'size':12})
 
-    plt.savefig(str(t)+'_pred_sse.png', dpi=300)
+    plt.savefig('./plots/' +str(t)+'_pred_sse.png', dpi=300)
     plt.close()
 
     print("SSE saccade_type_prob:")
@@ -583,7 +583,7 @@ def plot_lagsuccessor(df_alldata_no_regr,df_single_fixation,freqbins,predbins,di
     # df_SF_successor_length.plot(ax=axes2[2,2], kind='line',title='Successor, word N+1',sharex=False)
     # exp_SF_lagsucc_dict['succ length'].plot(ax=axes2[2,2], style = 'g--', kind='line',title='Successor, word N+1',sharex=False)
 
-    plt.savefig('plots/Lag_and_successor_effects.png', dpi=300)
+    plt.savefig('./plots/Lag_and_successor_effects.png', dpi=300)
 
 
 def plot_wordactivity_atshift_bylength(df_alldata_no_regr):
@@ -595,7 +595,7 @@ def plot_wordactivity_atshift_bylength(df_alldata_no_regr):
     fig = plt.figure('Word activity at shift')
     df_wordactivity_shift.plot(ax = fig.gca(), kind='line')
     plt.title('Word activities vs threshold at shift cycle')
-    plt.savefig('plots/Word_activity_atshift.png', dpi=300)
+    plt.savefig('./plots/Word_activity_atshift.png', dpi=300)
 
 
 def word_activity_threshold(df_wordactivity):
@@ -626,7 +626,7 @@ def plot_wordactivity_grouped(df_wordactivity,df_single_fixation,freqbins,predbi
     df_wordactivity_grpby_freq.plot(ax=axes1[1],title='Mean word activity for word frequency')
     df_wordactivity_grpby_pred.plot(ax=axes1[2],title='Mean word activity for word predictability')
     df_wordactivity_grpby_FD.plot(ax=axes1[3],title='Mean word activity for SF duration')
-    plt.savefig('plots/word_activity_grouped.png', dpi=300)
+    plt.savefig('./plots/word_activity_grouped.png', dpi=300)
 
 
 def plot_FD_bygroup(mod_FD_bylength_dict,mod_FD_byfreq_dict,mod_FD_bypred_dict,exp_FD_bylength_dict,exp_FD_byfreq_dict,exp_FD_bypred_dict):
@@ -657,7 +657,7 @@ def plot_FD_bygroup(mod_FD_bylength_dict,mod_FD_byfreq_dict,mod_FD_bypred_dict,e
     ax.set_xticklabels(['Low','Medium','High'])
     ax.set_ylim(150,500)
     plt.legend(['SF','SFexp','GD','GDexp','TVT','TVTexp'])
-    plt.savefig('plots/Fixation_durations_grouped.png', dpi=300)
+    plt.savefig('./plots/Fixation_durations_grouped.png', dpi=300)
 
     # ax = plt.subplot(223)
     # ax.set_title("Fixation duration by word predictability")
@@ -778,7 +778,7 @@ def plot_FD_hists(total_viewing_time,gaze_durations,df_single_fixations,first_fi
     exp_FD_dict['RD'].plot(alpha=0.5, kind = 'density',color = 'g',sharex=False,bw_method=band_width)
     ax.set_xlabel('Fixation duration')
 
-    plt.savefig('plots/Fixation_durations.png', dpi=300)
+    plt.savefig('./plots/Fixation_durations.png', dpi=300)
 
 
 def is_similar_word_length(word1,word2):
@@ -808,7 +808,7 @@ def plot_word_similarity(df_alldata_grouped_all,max_wordlength):
         plt.ylabel("Word proportion")
         plt.xlabel("Word length")
         plt.plot(df_is_similar.index,df_is_similar.sum(axis=1)/len(lexicon)) #important to sum columns for each row/index
-    plt.savefig("plots/word_similarity.png", dpi=300)
+    plt.savefig("./plots/word_similarity.png", dpi=300)
 
 
 def plot_activity_percycle_bylenght(df_only_word_activity_grpby_length,df_only_word_threshold_grpby_length):
@@ -825,7 +825,7 @@ def plot_activity_percycle_bylenght(df_only_word_activity_grpby_length,df_only_w
     df_only_word_threshold_grpby_length.loc[[6,7,8,9],:].T.plot(ax=axes[1], style = ['b--','g--','r--','y--'], legend=False,xlim=(0,15))
     df_only_word_activity_grpby_length.loc[[10,11,12,13],:].T.plot(ax=axes[2], style = ['b','g','r','y'],xlim=(0,15))
     df_only_word_threshold_grpby_length.loc[[10,11,12,13],:].T.plot(ax=axes[2], style = ['b--','g--','r--','y--'], legend=False,xlim=(0,15))
-    plt.savefig("plots/plot_activity_percycle_bylenght.png", dpi=300)
+    plt.savefig("./plots/plot_activity_percycle_bylenght.png", dpi=300)
 
 
 def plot_exc_inh_percycle_bylength(df_only_word_excitation_grpby_length,df_only_word_inhibition_grpby_length):
@@ -842,7 +842,7 @@ def plot_exc_inh_percycle_bylength(df_only_word_excitation_grpby_length,df_only_
     df_only_word_inhibition_grpby_length.loc[[6,7,8,9],:].T.plot(ax=axes2[1], style = ['b--','g--','r--','y--'], legend=False,xlim=(0,15))
     df_only_word_excitation_grpby_length.loc[[10,11,12,13],:].T.plot(ax=axes2[2], style = ['b','g','r','y'],xlim=(0,15))
     df_only_word_inhibition_grpby_length.loc[[10,11,12,13],:].T.plot(ax=axes2[2], style = ['b--','g--','r--','y--'], legend=False,xlim=(0,15))
-    plt.savefig("plots/exc_inh_bylength.png",dpi=300)
+    plt.savefig("./plots/exc_inh_bylength.png",dpi=300)
 
 def plot_realactivity_decay_bylength(df_only_word_realactivity_grpby_length, df_only_word_decay_grpby_length):
     fig3, axes3 = plt.subplots(nrows=1, ncols=3, figsize=(20,7))
@@ -858,7 +858,7 @@ def plot_realactivity_decay_bylength(df_only_word_realactivity_grpby_length, df_
     df_only_word_decay_grpby_length.loc[[6,7,8,9],:].T.plot(ax=axes3[1], style = ['b--','g--','r--','y--'], legend=False,xlim=(0,15))
     df_only_word_realactivity_grpby_length.loc[[10,11,12,13],:].T.plot(ax=axes3[2], style = ['b','g','r','y'],xlim=(0,15))
     df_only_word_decay_grpby_length.loc[[10,11,12,13],:].T.plot(ax=axes3[2], style = ['b--','g--','r--','y--'], legend=False,xlim=(0,15))
-    plt.savefig("plots/plot_realactivity_decay_bylength.png",dpi=300)
+    plt.savefig("./plots/plot_realactivity_decay_bylength.png",dpi=300)
 
 
 def plot_overlapmatrix_by(df_alldata_grouped_all,freqbins):
