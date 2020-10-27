@@ -28,9 +28,9 @@ def simulate_experiments(parameters):
 
     # generate / read in stimuli list from file (fixed items for both experiments)
     if pm.use_sentence_task:
-        stim = pd.read_table('E:/Projects/2020_reading/OB1_SAM/Stimuli/Sentence_stimuli_all_csv.csv', sep=',')
+        stim = pd.read_table('./Stimuli/Sentence_stimuli_all_csv.csv', sep=',')
     elif pm.use_flanker_task:
-        stim = pd.read_table('E:/Projects/2020_reading/OB1_SAM/Stimuli/Flanker_stimuli_all_csv.csv', sep=',')
+        stim = pd.read_table('./Stimuli/Flanker_stimuli_all_csv.csv', sep=',')
 
 
     individual_words = []
@@ -466,7 +466,6 @@ def simulate_experiments(parameters):
                 print("\n")
             except:
                 print("Encoding error")
-            ### determine target word (= only word on screen, or word in center)
 
             ### save activation for target word  for every cycle
 
