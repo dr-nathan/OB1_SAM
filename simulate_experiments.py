@@ -241,7 +241,6 @@ def simulate_experiments(parameters):
     if pm.visualise:
         Visualise_reading
 
-    lexicon_word_activity_np[lexicon_word_activity_np < pm.min_activity] = pm.min_activity
 
 
 
@@ -281,6 +280,9 @@ def simulate_experiments(parameters):
         lexicon_activewords_np = np.zeros((LEXICON_SIZE), dtype=int)
         word_input_np = np.zeros((LEXICON_SIZE), dtype=float)
         lexicon_thresholds_np = np.zeros((LEXICON_SIZE), dtype=float)
+
+        lexicon_word_activity_np[lexicon_word_activity_np < pm.min_activity] = pm.min_activity
+
 
         if pm.use_sentence_task:
             ncycles = 8 #8 cycles = 200 ms
