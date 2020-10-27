@@ -94,7 +94,7 @@ def simulate_experiments(parameters):
     lexicon_word_bigrams_set = {}
     lexicon_index_dict = {}
 
-    # Lexicon word measures
+    # Lexicon word measures ## MOVE TO INSIDE TRIAL LOOP? TO RESET AFTER EVERY TRIAL
     lexicon_word_activity_np = np.zeros((LEXICON_SIZE), dtype=float)
     lexicon_word_inhibition_np = np.zeros((LEXICON_SIZE), dtype=float)
     lexicon_word_inhibition_np2 = np.zeros((LEXICON_SIZE), dtype=float)
@@ -273,6 +273,14 @@ def simulate_experiments(parameters):
         stimulus = stim['all'][trial]
         print("stimulus: " , stimulus)
         #print(len(stimulus.split(" ")))
+
+        # Lexicon word measures
+        lexicon_word_activity_np = np.zeros((LEXICON_SIZE), dtype=float)
+        lexicon_word_inhibition_np = np.zeros((LEXICON_SIZE), dtype=float)
+        lexicon_word_inhibition_np2 = np.zeros((LEXICON_SIZE), dtype=float)
+        lexicon_activewords_np = np.zeros((LEXICON_SIZE), dtype=int)
+        word_input_np = np.zeros((LEXICON_SIZE), dtype=float)
+        lexicon_thresholds_np = np.zeros((LEXICON_SIZE), dtype=float)
 
         if pm.use_sentence_task:
             ncycles = 8 #8 cycles = 200 ms
@@ -483,7 +491,7 @@ def simulate_experiments(parameters):
                 ### RT = moment in cycle
 
             amount_of_cycles_before_end_of_trial += 1
-
+        lexicon_word_activity_np = 0
         print("end of trial")
 
     # END OF EXPERIMENT. Return all data and a list of unrecognized words
