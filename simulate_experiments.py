@@ -259,7 +259,7 @@ def simulate_experiments(parameters):
                             'recognized words indices': [],
                             'attentional width': attendWidth,
                             'exact recognized words positions': [],
-                            'eye position': 0,
+                            'eye position': 3,
                             'word threshold': 0,
                             'word frequency': 0,
                             'word predictability': 0}
