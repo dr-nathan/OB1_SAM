@@ -726,7 +726,6 @@ def reading_simulation(filename, parameters):
                         crt_fixation_word_activities[1] = abs(wordBigramsInhibitionInput)
                     break
             # MM: divide input by nr ngrams, because otherwise long wrds always a lot of input
-            print(len(word_input_np))
             word_input_np = word_input_np / np.array(N_ngrams_lexicon)
 
 #            print(word_input_np)
