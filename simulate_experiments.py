@@ -10,7 +10,7 @@ from collections import defaultdict
 import re
 from reading_common import stringToBigramsAndLocations, calcBigramExtInput, calcMonogramExtInput, get_stimulus_text_from_file, calc_word_attention_right
 from reading_functions import my_print, get_threshold, getMidwordPositionForSurroundingWord, is_similar_word_length, \
-    calc_saccade_error, norm_distribution, normalize_pred_values
+    calc_saccade_error, norm_distribution, normalize_pred_values, middle_char, index_middle_char
 from read_saccade_data import get_freq_pred_files_fr, get_freq_and_syntax_pred
 import numpy as np
 import pickle
@@ -81,7 +81,7 @@ def simulate_experiments(parameters):
     with open(lexicon_file_name,"w") as f:
         pickle.dump(lexicon,f)
 
-    n_known_words = len(lexicon)  # MM: nr of words known to model
+    n_known_words = len(lexicon)  # nr of words known to model
     # Make lexicon dependent variables
     LEXICON_SIZE = len(lexicon)
 
@@ -94,14 +94,14 @@ def simulate_experiments(parameters):
     lexicon_word_bigrams_set = {}
     lexicon_index_dict = {}
 
-    # Lexicon word measures ## MOVE TO INSIDE TRIAL LOOP? TO RESET AFTER EVERY TRIAL
+    # Lexicon word measures ## MOVE TO INSIDE TRIAL LOOP? TO RESET AFTER EVERY
+    # MM: Or implement ITIs to make residual act realistic? So simply loop with x time steps, and only decay..
     lexicon_word_activity_np = np.zeros((LEXICON_SIZE), dtype=float)
     lexicon_word_inhibition_np = np.zeros((LEXICON_SIZE), dtype=float)
     lexicon_word_inhibition_np2 = np.zeros((LEXICON_SIZE), dtype=float)
     lexicon_activewords_np = np.zeros((LEXICON_SIZE), dtype=int)
     word_input_np = np.zeros((LEXICON_SIZE), dtype=float)
     lexicon_thresholds_np = np.zeros((LEXICON_SIZE), dtype=float)
-
 
 
     word_thresh_dict = {}
@@ -117,7 +117,7 @@ def simulate_experiments(parameters):
         except KeyError:
             word_freq_dict[word] = 0
 
-    # MM: list with trheshold values for words in lexicon
+    # list with trheshold values for words in lexicon
     for i, word in enumerate(lexicon):
         lexicon_thresholds_np[i] = get_threshold(word,
                                                  word_freq_dict,
@@ -225,7 +225,7 @@ def simulate_experiments(parameters):
     trial = 0
     trial_counter = 0  # The iterator that increases +1 with every trial,
     attendWidth = 4.0
-    EyePosition = 0
+    EyePosition = 0	# MM: dit is begin van stim, dus helemaal links
     AttentionPosition = 0
     CYCLE_SIZE = 25  # milliseconds that one model cycle is supposed to last (brain time, not model time)
     allocated_dict = defaultdict(list)  # MM: dictionary that will contain allocated words
@@ -248,9 +248,15 @@ def simulate_experiments(parameters):
     # loop over trials
     for trial in range(0,len(stim['all'])):
         print("trial: ", trial)
-
-
         all_data.append({})
+
+        stimulus = stim['all'][trial]
+        print("stimulus: " , stimulus)
+
+        print(middle_char(stimulus))
+        #update EyePosition
+        EyePosition = index_middle_char(stimulus)
+        print("eye position: " , EyePosition)
 
         all_data[trial] = {'stimulus': [],
                             'condition': [],
@@ -259,18 +265,16 @@ def simulate_experiments(parameters):
                             'recognized words indices': [],
                             'attentional width': attendWidth,
                             'exact recognized words positions': [],
-                            'eye position': 3,
+                            'eye position': EyePosition,
                             'word threshold': 0,
                             'word frequency': 0,
                             'word predictability': 0}
 
         my_print('attendWidth: '+str(attendWidth))
-        #print(len(stim['all']))
 
         shift = False
 
-        stimulus = stim['all'][trial]
-        print("stimulus: " , stimulus)
+
         #print(len(stimulus.split(" ")))
 
         # Lexicon word measures
@@ -283,19 +287,22 @@ def simulate_experiments(parameters):
 
         lexicon_word_activity_np[lexicon_word_activity_np < pm.min_activity] = pm.min_activity
 
-
         if pm.use_sentence_task:
             ncycles = 8 #8 cycles = 200 ms
             target_word = stimulus.split(" ")[stim['target'][trial]-1] #read in target cue from file
         if pm.use_flanker_task:
             ncycles = 6 #6 cycles = 150 ms
-            target_word = stimulus.split(" ")[len(stimulus.split(" ")) // 2 + len(stimulus.split(" ")) // 2 - 1] #find center word -- could probably be coded more efficient
+            print("len stim: ", len(stimulus.split(" ")))
+            print(len(stimulus.split(" ")) // 2)
+            print(len(stimulus.split(" ")) // 2 + len(stimulus.split(" ")) // 2 - 1)
+            target_word = stimulus.split(" ")[len(stimulus.split(" ")) // 2 + len(stimulus.split(" ")) // 2 - 1] #find center word -- could probably be coded more efficient.
+			# MM: komt dit goed uit bij 3 wrd? Is het niet len(stimulus.split(" ")) // 2? 3->1, wat gegeven 0,1,2 middelste is, 5->2, weer middelste
 
         print("target: ", target_word)
 
 
         # store trial info in all_data
-        all_data[trial]['stimulus'] = target_word
+        all_data[trial]['stimulus'] = target_word   # MM: why not call target word 'target'? or load stim into 'stimulus'?
 
         # also add info on trial condition (read in from file? might be easiest)
         all_data[trial]['condition'] = stim['condition'][trial]
@@ -370,6 +377,7 @@ def simulate_experiments(parameters):
 
             ### activation of word nodes
             # taking nr of ngrams, word-to-word inhibition etc. into account
+            # MM: dit moet toch met een sum in 1 keer te doen zijn?
             wordBigramsInhibitionInput = 0
             for bigram in allBigrams:
                 wordBigramsInhibitionInput += pm.bigram_to_word_inhibition * \
@@ -385,6 +393,7 @@ def simulate_experiments(parameters):
                     # (Fast) Bigram & Monogram activations
                     bigram_intersect_list = allBigrams_set.intersection(
                                             lexicon_word_bigrams[lexicon_word])
+					# MM: kan dit niet ook met item-by-item vector multiplication ipv loop?
                     for bigram in bigram_intersect_list:
                         wordExcitationInput += pm.bigram_to_word_excitation * \
                                                unitActivations[bigram]
@@ -435,7 +444,7 @@ def simulate_experiments(parameters):
                                                                     pm.decay
 
             #print(crt_trial_word_activities_np)
-		# Enter any recognized word to the 'recognized words indices' list for the current fixation.
+			# Enter any recognized word to the 'recognized words indices' list for the current fixation.
             # MM: creates array that is 1 if act(word)>thres, 0 otherwise
             above_tresh_lexicon_np = np.where(lexicon_word_activity_np > lexicon_thresholds_np,1,0)
 
