@@ -94,15 +94,13 @@ def simulate_experiments(parameters):
     lexicon_word_bigrams_set = {}
     lexicon_index_dict = {}
 
-    # Lexicon word measures ## MOVE TO INSIDE TRIAL LOOP? TO RESET AFTER EVERY
-    # MM: Or implement ITIs to make residual act realistic? So simply loop with x time steps, and only decay..
+    # Lexicon word measures
     lexicon_word_activity_np = np.zeros((LEXICON_SIZE), dtype=float)
     lexicon_word_inhibition_np = np.zeros((LEXICON_SIZE), dtype=float)
     lexicon_word_inhibition_np2 = np.zeros((LEXICON_SIZE), dtype=float)
     lexicon_activewords_np = np.zeros((LEXICON_SIZE), dtype=int)
     word_input_np = np.zeros((LEXICON_SIZE), dtype=float)
     lexicon_thresholds_np = np.zeros((LEXICON_SIZE), dtype=float)
-
 
     word_thresh_dict = {}
     # for each word, compute threshold based on freq and pred
@@ -133,13 +131,13 @@ def simulate_experiments(parameters):
         individual_to_lexicon_indices[i] = lexicon.index(word)
 
     # lexicon bigram dict
-    N_ngrams_lexicon = []  # GS list with amount of ngrams per word in lexicon
+    N_ngrams_lexicon = []  # list with amount of ngrams per word in lexicon
     for word in range(LEXICON_SIZE):
         lexicon[word] = " "+lexicon[word]+" "
         [all_word_bigrams, bigramLocations] = stringToBigramsAndLocations(lexicon[word])
         lexicon[word] = lexicon[word][1:(len(lexicon[word]) - 1)]  # to get rid of spaces again
         lexicon_word_bigrams[lexicon[word]] = all_word_bigrams
-        N_ngrams_lexicon.append(len(all_word_bigrams) + len(lexicon[word]))  # GS append to list of N ngrams
+        N_ngrams_lexicon.append(len(all_word_bigrams) + len(lexicon[word]))  # append to list of N ngrams
 
     print("Amount of words in lexicon: ", LEXICON_SIZE)
     print("Amount of words in text:", TOTAL_WORDS)
@@ -150,7 +148,7 @@ def simulate_experiments(parameters):
     print ("Setting up word-to-word inhibition grid...")
     # Set up the list of word inhibition pairs, with amount of bigram/monograms
     # overlaps for every pair. Initialize inhibition matrix with false.
-    word_inhibition_matrix = np.zeros((LEXICON_SIZE, LEXICON_SIZE), dtype=bool)  # PK this matrix was not initialized
+    word_inhibition_matrix = np.zeros((LEXICON_SIZE, LEXICON_SIZE), dtype=bool)
     word_overlap_matrix = np.zeros((LEXICON_SIZE, LEXICON_SIZE), dtype=int)
 
     complete_selective_word_inhibition = True
@@ -158,7 +156,7 @@ def simulate_experiments(parameters):
 
     for other_word in range(LEXICON_SIZE):
         for word in range(LEXICON_SIZE):
-            # GS Take word length into account here instead of below, where act of lexicon words is determinied
+            # Take word length into account here (instead of below, where act of lexicon words is determinied)
             if not is_similar_word_length(lexicon[word], lexicon[other_word]) or lexicon[word] == lexicon[other_word]:
                 continue
             else:
@@ -185,7 +183,7 @@ def simulate_experiments(parameters):
                 # take into account both bigrams and monograms for inhibition counters (equally)
                 total_overlap_counter = bigram_overlap_counter + monogram_overlap_counter
 
-                # GS if word or other word is larger than the initial lexicon
+                # if word or other word is larger than the initial lexicon
                 # (without PSC), overlap counter = 0, because words that are not
                 # known should not inhibit
                 if word >= n_known_words or other_word >= n_known_words:
@@ -214,7 +212,8 @@ def simulate_experiments(parameters):
     print("BEGIN EXPERIMENT")
     print("")
 
-# Initialize Parameters
+
+    # Initialize Parameters
     regression = False
     wordskip = False
     refixation = False
@@ -225,12 +224,14 @@ def simulate_experiments(parameters):
     trial = 0
     trial_counter = 0  # The iterator that increases +1 with every trial,
     attendWidth = 4.0
-    EyePosition = 0	# MM: dit is begin van stim, dus helemaal links
+    EyePosition = 0	#
     AttentionPosition = 0
     CYCLE_SIZE = 25  # milliseconds that one model cycle is supposed to last (brain time, not model time)
-    allocated_dict = defaultdict(list)  # MM: dictionary that will contain allocated words
+
+    allocated_dict = defaultdict(list)  # dictionary that will contain allocated words
     # defaultdict = dict that creates new entry each time that key does not yet exist.
     # (list): new entry will be empty list
+
     salience_position_new = pm.salience_position
     previous_lexicon_values = None
     reset_pred_previous = False
@@ -241,9 +242,6 @@ def simulate_experiments(parameters):
     if pm.visualise:
         Visualise_reading
 
-
-
-
     # BEGIN EXPERIMENT
     # loop over trials
     for trial in range(0,len(stim['all'])):
@@ -253,9 +251,8 @@ def simulate_experiments(parameters):
         stimulus = stim['all'][trial]
         print("stimulus: " , stimulus)
 
-        print(middle_char(stimulus))
         #update EyePosition
-        EyePosition = index_middle_char(stimulus)
+        EyePosition = len(stimulus)//2
         print("eye position: " , EyePosition)
 
         all_data[trial] = {'stimulus': [],
@@ -277,13 +274,15 @@ def simulate_experiments(parameters):
 
         #print(len(stimulus.split(" ")))
 
-        # Lexicon word measures
-        lexicon_word_activity_np = np.zeros((LEXICON_SIZE), dtype=float)
-        lexicon_word_inhibition_np = np.zeros((LEXICON_SIZE), dtype=float)
-        lexicon_word_inhibition_np2 = np.zeros((LEXICON_SIZE), dtype=float)
-        lexicon_activewords_np = np.zeros((LEXICON_SIZE), dtype=int)
-        word_input_np = np.zeros((LEXICON_SIZE), dtype=float)
-        lexicon_thresholds_np = np.zeros((LEXICON_SIZE), dtype=float)
+
+
+        # # Lexicon word measures
+        # lexicon_word_activity_np = np.zeros((LEXICON_SIZE), dtype=float)
+        # lexicon_word_inhibition_np = np.zeros((LEXICON_SIZE), dtype=float)
+        # lexicon_word_inhibition_np2 = np.zeros((LEXICON_SIZE), dtype=float)
+        # lexicon_activewords_np = np.zeros((LEXICON_SIZE), dtype=int)
+        # word_input_np = np.zeros((LEXICON_SIZE), dtype=float)
+        # lexicon_thresholds_np = np.zeros((LEXICON_SIZE), dtype=float)
 
         lexicon_word_activity_np[lexicon_word_activity_np < pm.min_activity] = pm.min_activity
 
@@ -419,7 +418,8 @@ def simulate_experiments(parameters):
 
             # Combine word inhibition and input, and update word activity
             lexicon_total_input_np = np.add(lexicon_word_inhibition_np, word_input_np)
-            # MM: now comes the formula for computing word activity.
+
+            # now comes the formula for computing word activity.
             # pm.decay has a neg value, that's why it's here added, not subtracted
             #my_print("before:"+str(lexicon_word_activity_np[individual_to_lexicon_indices[fixation]]))
             lexicon_word_activity_new = ((pm.max_activity - lexicon_word_activity_np) * lexicon_total_input_np) + \
@@ -443,20 +443,19 @@ def simulate_experiments(parameters):
             crt_trial_word_activities_np[amount_of_cycles, 6] = (crt_word_activity_np - pm.min_activity) * \
                                                                     pm.decay
 
-            #print(crt_trial_word_activities_np)
 			# Enter any recognized word to the 'recognized words indices' list for the current fixation.
-            # MM: creates array that is 1 if act(word)>thres, 0 otherwise
+            # creates array that is 1 if act(word)>thres, 0 otherwise
             above_tresh_lexicon_np = np.where(lexicon_word_activity_np > lexicon_thresholds_np,1,0)
 
-            # MM: array w. indices of recogn. words, not sure whether this still has a function
+            # array w. indices of recogn. words, not sure whether this still has a function
             recognized_indices = np.asarray(all_data[trial]['recognized words indices'], dtype=int)
             #my_print("above thresh. in lexicon: " + str(np.sum(above_tresh_lexicon_np)))
             #my_print("recognized lexicon: ", above_tresh_lexicon_np)
 
-            # MM: array of zeros of len as lexicon, which will get 1 if wrd recognized
+            # array of zeros of len as lexicon, which will get 1 if wrd recognized
             new_recognized_words = np.zeros(LEXICON_SIZE)
 
-            # MM: Below functions defined to append arrays. Not sure why this is efficient
+            # Below functions defined to append arrays. Not sure why this is efficient
             alldata_recognized_append = all_data[trial]['recognized words indices'].append
             alldata_truerecognized_append = all_data[trial]['exact recognized words positions'].append
 
@@ -470,7 +469,7 @@ def simulate_experiments(parameters):
 
             # fast check whether there is at least one 1 in wrdsFittingLen_np
             if sum(recognWrdsFittingLen_np):
-		    # PK find the word with the highest activation in all words that have a similar length
+		    # find the word with the highest activation in all words that have a similar length
                 highest = np.argmax(recognWrdsFittingLen_np * lexicon_word_activity_np)
                 highest_word = lexicon[highest]
                 new_recognized_words[highest] = 1
@@ -503,6 +502,9 @@ def simulate_experiments(parameters):
 
             amount_of_cycles_before_end_of_trial += 1
         print("end of trial")
+
+        # MM: Or implement ITIs to make residual act realistic? So simply loop with x time steps, and only decay..
+
 
     # END OF EXPERIMENT. Return all data and a list of unrecognized words
     return lexicon, all_data, unrecognized_words
