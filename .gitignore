@@ -12,3 +12,4 @@ speed_test*
 Data*
 __pycache*
 *.pkl
+*.pyc
