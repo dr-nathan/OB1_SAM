@@ -53,7 +53,7 @@ def main():
 	def reading_function(parameters_rf):
 		global OLD_DISTANCE
 		global N_RUNS
-		filename = "PSCshort3"
+		filename = "PSC_ALL"
 		filepath_psc = "PSC/" + filename + ".txt"
 		if testing:
 			distance = random.randint(1000000, 5000000)
@@ -61,16 +61,16 @@ def main():
 			print("TESTING, READING FUNCTION IS NOT BEING EXECUTED")
 			print("Returning: "+str(distance))
 			return (distance,)
-		try:
-			# Run the simulation
-			(lexicon, all_data, unrecognized_words) = reading_simulation(filepath_psc, parameters_rf)
-			# Evaluate run and retrieve error-metric
-			distance = get_scores(filename, all_data, unrecognized_words)
-		except:
-			print("Reading function error: returning distance=99999999")
-			distance = 99999999.0
-			N_RUNS += 1
-			return (distance,)
+		#try:
+		# Run the simulation
+		(lexicon, all_data, unrecognized_words) = reading_simulation(filepath_psc, parameters_rf)
+		# Evaluate run and retrieve error-metric
+		distance = get_scores(filename, all_data, unrecognized_words)
+		#except:
+		#	print("Reading function error: returning distance=99999999")
+		#	distance = 99999999.0
+		#	N_RUNS += 1
+		#	return (distance,)
 		N_RUNS += 1
 		global generation
 		with open("result_EA.txt","a") as f:
@@ -78,7 +78,7 @@ def main():
 		return (distance,unrecognized_words)
 
 	if pm.language == "german":
-		filename = "PSCshort3"
+		filename = "PSC_ALL"
 		filepath_psc = "PSC/" + filename + ".txt"
 	# The reading model reads dutch but there is no data to compare it to yet
 	if pm.language == "dutch":
@@ -153,10 +153,10 @@ def main():
 
 		def initPopulation(pcls, ind_init):
 			global start_params
-			print("Initializing pop with "+str(start_params))
 			n_params = 2
 			combinaties = [list(x) for x in list(itertools.product([same, high, low], repeat=n_params))]
 			start_params = [2.18, 10.09]
+			print("Initializing pop with "+str(start_params))
 			contents = [[y(z) for y, z in zip(x, start_params)] for x in combinaties]
 			return pcls(ind_init(c) for c in contents)
 
@@ -196,7 +196,7 @@ def main():
 #			print("STARTING FROM "+str(fname)+" AS STARTING POPULATION")
 #			toolbox.register("population_guess", load_pop, list, toolbox.individual_guess)
 
-		toolbox.register("population_guess", initPopulationSingle, list, toolbox.individual_guess)
+		toolbox.register("population_guess", initPopulation, list, toolbox.individual_guess)
 		population = toolbox.population_guess()
 
 		print(population)
