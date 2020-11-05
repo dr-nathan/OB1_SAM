@@ -66,6 +66,7 @@ def main():
 		(lexicon, all_data, unrecognized_words) = reading_simulation(filepath_psc, parameters_rf)
 		# Evaluate run and retrieve error-metric
 		distance = get_scores(filename, all_data, unrecognized_words)
+		
 		#except:
 		#	print("Reading function error: returning distance=99999999")
 		#	distance = 99999999.0
@@ -212,7 +213,7 @@ def main():
 			# Evaluate first population
 			print("Start evaluation gen 0")
 #			fits = Parallel(n_jobs=8)(delayed(toolbox.evaluate)(ind) for ind in population)
-			fits = [toolbox.evaluate(ind) for ind in population]
+			fits, unrecog_words = [toolbox.evaluate(ind) for ind in population] ##NS add unrecog_words
 			print("Finished evaluation")
 			#toolbox.map(toolbox.evaluate, population)
 			for ind, fit in zip(population, fits):
@@ -251,13 +252,14 @@ def main():
 #			offspring = toolbox.population_guess()
 			print("Starting evaluation "+str(gen+1))
 #			fits = Parallel(n_jobs=8)(delayed(toolbox.evaluate)(ind) for ind in offspring)
-			fits = [toolbox.evaluate(ind) for ind in offspring]
+			fits, unrecog_words = [toolbox.evaluate(ind) for ind in offspring] #NS add unrecog_words
 			print("Finished evaluation")
 			# toolbox.map(toolbox.evaluate, population)
 			save=""
 			for ind, fit in zip(offspring, fits):
 				ind.fitness.values = fit
 			population[:] = offspring
+			np.savetxt("gen_"+str(gen+1)+"unrecognized_words.txt", unrecog_words) #NS
 			np.savetxt("gen_"+str(gen+1)+".txt", population)
 
 	time_elapsed = time.time()-start_time
