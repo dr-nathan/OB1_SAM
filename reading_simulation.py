@@ -118,14 +118,22 @@ def reading_simulation(filename, parameters):
 
     # Make lexicon. Makes sure lexicon contains no double words.
     # Makes sure it contains no double words.
-    n_known_words = len(lexicon)  # MM: nr of words known to model
+    #n_known_words = len(lexicon)  # MM: nr of words known to model
     for word in individual_words:
         if word not in lexicon:
             lexicon.append(word)
 
+    if(len(word_freq_dict)>0):
+        for freq_word in word_freq_dict.keys():
+            if freq_word.lower() not in lexicon:
+                lexicon.append(freq_word.lower())
+    lexicon_file_name='Data/Lexicon.dat'
+    with open(lexicon_file_name, "w") as f:
+        pickle.dump(lexicon,f)
     # Make lexicon dependent variables
     LEXICON_SIZE = len(lexicon)
 
+    n_known_words = len(lexicon)
     # Normalize word inhibition to the size of the lexicon.
     lexicon_normalized_word_inhibition = (100.0/LEXICON_SIZE) * pm.word_inhibition
 

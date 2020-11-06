@@ -76,7 +76,13 @@ def main():
 		global generation
 		with open("result_EA.txt","a") as f:
 			f.write(str(generation) + " " + str(distance) + "\n" + str(parameters_rf) + "\n\n")
-		return (distance,unrecognized_words)
+
+		with open("unrecognized_words_EA.txt", "w") as f:
+			f.write(str(generation) + "\n")
+			for w in unrecognized_words:
+				f.write('%s\n' %str(w))
+			f.write("\n\n")
+		return (distance,)
 
 	if pm.language == "german":
 		filename = "PSC_ALL"
@@ -213,7 +219,7 @@ def main():
 			# Evaluate first population
 			print("Start evaluation gen 0")
 #			fits = Parallel(n_jobs=8)(delayed(toolbox.evaluate)(ind) for ind in population)
-			fits, unrecog_words = [toolbox.evaluate(ind) for ind in population] ##NS add unrecog_words
+			fits = [toolbox.evaluate(ind) for ind in population] 
 			print("Finished evaluation")
 			#toolbox.map(toolbox.evaluate, population)
 			for ind, fit in zip(population, fits):
@@ -252,7 +258,7 @@ def main():
 #			offspring = toolbox.population_guess()
 			print("Starting evaluation "+str(gen+1))
 #			fits = Parallel(n_jobs=8)(delayed(toolbox.evaluate)(ind) for ind in offspring)
-			fits, unrecog_words = [toolbox.evaluate(ind) for ind in offspring] #NS add unrecog_words
+			fits = [toolbox.evaluate(ind) for ind in offspring] 
 			print("Finished evaluation")
 			# toolbox.map(toolbox.evaluate, population)
 			save=""
