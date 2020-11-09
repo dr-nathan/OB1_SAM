@@ -61,17 +61,18 @@ def main():
 			print("TESTING, READING FUNCTION IS NOT BEING EXECUTED")
 			print("Returning: "+str(distance))
 			return (distance,)
-		#try:
-		# Run the simulation
-		(lexicon, all_data, unrecognized_words) = reading_simulation(filepath_psc, parameters_rf)
+		try:
+			#Run the simulation
+			(lexicon, all_data, unrecognized_words) = reading_simulation(filepath_psc, parameters_rf)
 		# Evaluate run and retrieve error-metric
-		distance = get_scores(filename, all_data, unrecognized_words)
-		
-		#except:
-		#	print("Reading function error: returning distance=99999999")
-		#	distance = 99999999.0
-		#	N_RUNS += 1
-		#	return (distance,)
+			distance = get_scores(filename, all_data, unrecognized_words)
+
+		except:
+			print("Reading function error: returning distance=99999999")
+			distance = 99999999.0
+			N_RUNS += 1
+			return (distance,)
+
 		N_RUNS += 1
 		global generation
 		with open("result_EA.txt","a") as f:
@@ -99,11 +100,11 @@ def main():
 		# Run the reading model
 		(lexicon, all_data, unrecognized_words) = reading_simulation(filepath_psc, parameters=[])
 		# Save results: all_data...
-		all_data_file = open(output_file_all_data,"wb")
+		all_data_file = open(output_file_all_data,"w")
 		pickle.dump(all_data, all_data_file)
 		all_data_file.close()
 		# ...and unrecognized words
-		unrecognized_file = open(output_file_unrecognized_words, "wb")
+		unrecognized_file = open(output_file_unrecognized_words, "w")
 		pickle.dump(unrecognized_words, unrecognized_file)
 		unrecognized_file.close()
 
@@ -197,13 +198,13 @@ def main():
 
 		toolbox.register("individual_guess", initIndividual, creator.Individual)
 
-#		if not fname:
-#			toolbox.register("population_guess", initPopulation, list, toolbox.individual_guess)
-#		else:
-#			print("STARTING FROM "+str(fname)+" AS STARTING POPULATION")
-#			toolbox.register("population_guess", load_pop, list, toolbox.individual_guess)
+		if not fname:
+			toolbox.register("population_guess", initPopulation, list, toolbox.individual_guess)
+		else:
+			print("STARTING FROM "+str(fname)+" AS STARTING POPULATION")
+			toolbox.register("population_guess", load_pop, list, toolbox.individual_guess)
 
-		toolbox.register("population_guess", initPopulation, list, toolbox.individual_guess)
+		#toolbox.register("population_guess", initPopulation, list, toolbox.individual_guess)
 		population = toolbox.population_guess()
 
 		print(population)
@@ -219,7 +220,7 @@ def main():
 			# Evaluate first population
 			print("Start evaluation gen 0")
 #			fits = Parallel(n_jobs=8)(delayed(toolbox.evaluate)(ind) for ind in population)
-			fits = [toolbox.evaluate(ind) for ind in population] 
+			fits = [toolbox.evaluate(ind) for ind in population]
 			print("Finished evaluation")
 			#toolbox.map(toolbox.evaluate, population)
 			for ind, fit in zip(population, fits):
@@ -258,14 +259,14 @@ def main():
 #			offspring = toolbox.population_guess()
 			print("Starting evaluation "+str(gen+1))
 #			fits = Parallel(n_jobs=8)(delayed(toolbox.evaluate)(ind) for ind in offspring)
-			fits = [toolbox.evaluate(ind) for ind in offspring] 
+			fits = [toolbox.evaluate(ind) for ind in offspring]
 			print("Finished evaluation")
 			# toolbox.map(toolbox.evaluate, population)
 			save=""
 			for ind, fit in zip(offspring, fits):
 				ind.fitness.values = fit
 			population[:] = offspring
-			np.savetxt("gen_"+str(gen+1)+"unrecognized_words.txt", unrecog_words) #NS
+			np.savetxt("gen_"+str(gen+1)+"unrecognized_words.txt", unrecognized_words) #NS
 			np.savetxt("gen_"+str(gen+1)+".txt", population)
 
 	time_elapsed = time.time()-start_time

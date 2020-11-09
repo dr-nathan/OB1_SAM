@@ -39,7 +39,7 @@ import struct
 OLD_DISTANCE = np.inf
 N_RUNS = 0
 testing = False  # If this is true the reading function is not carried out and returns random numbers (intended for testing the EA)
-fname = "gen_3.txt"  # File name specifying the location of the last saved generation from which should be started, if empty evaluation starts from beginning
+fname = ""  # File name specifying the location of the last saved generation from which should be started, if empty evaluation starts from beginning
 generation = 0
 #start_params = [0.10111091566085817, 0.7605561652753674, 15.361500000000003, 10.6993519565625, 6.3890415969187515]
 

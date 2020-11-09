@@ -715,6 +715,9 @@ def reading_simulation(filename, parameters):
                     word_input_np[lexicon_ix] = wordExcitationInput + wordBigramsInhibitionInput
 
                     if lexicon_word == individual_words[fixation]:
+			print("lexicon word: ", lexicon_word)
+			print("indiv word fix: ", individual_words[fixation])
+			print("word exc: ", wordExcitationInput)
                         crt_fixation_word_activities_np[amount_of_cycles, 0] = wordExcitationInput
                         crt_fixation_word_activities_np[amount_of_cycles, 1] = abs(wordBigramsInhibitionInput)
                         crt_fixation_word_activities[0] = wordExcitationInput
