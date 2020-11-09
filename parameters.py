@@ -7,7 +7,7 @@ print("Parameters Initialised")
 
 # Control-flow parameters
 run_exp = True  # Should the reading simulation run?
-analyze_results = True  # Should the results be analyzed?
+analyze_results = False  # Should the results be analyzed?
 optimize = False  # Should the parameters be optimized?
 
 language = "german"  # german, dutch
@@ -75,7 +75,7 @@ use_saccade_error = True
 use_attendposition_change = True # attend width influenced by predictability next wrd
 visualise = False
 slow_word_activity = False
-print_all = True
+print_all = False
 pauze_allocation_errors = False
 use_boundary_task = False
 

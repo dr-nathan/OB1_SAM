@@ -27,7 +27,7 @@ N_RUNS = 0
 def reading_function(parameters_rf):
 	global OLD_DISTANCE
 	global N_RUNS
-	filename = "PSC_ALL"
+	filename = "PSCshort3"
 	filepath_psc = "PSC/" + filename + ".txt"
 
 ### For testing (loading past results instead of running simulation)
@@ -64,7 +64,7 @@ def reading_function(parameters_rf):
 	return distance
 
 if pm.language == "german":
-	filename = "PSC_ALL"
+	filename = "PSCshort3"
 	filepath_psc = "PSC/" + filename + ".txt"
 # The reading model reads dutch but there is no data to compare it to yet
 if pm.language == "dutch":
@@ -85,6 +85,7 @@ if pm.run_exp:
 	unrecognized_file = open(output_file_unrecognized_words, "w")
 	pickle.dump(unrecognized_words, unrecognized_file)
 	unrecognized_file.close()
+
 
 if pm.analyze_results:
 	get_results(filepath_psc,output_file_all_data,output_file_unrecognized_words)
