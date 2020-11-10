@@ -266,7 +266,7 @@ def main():
 			for ind, fit in zip(offspring, fits):
 				ind.fitness.values = fit
 			population[:] = offspring
-			np.savetxt("gen_"+str(gen+1)+"unrecognized_words.txt", unrecognized_words) #NS
+			#np.savetxt("gen_"+str(gen+1)+"unrecognized_words.txt", unrecognized_words) #NS
 			np.savetxt("gen_"+str(gen+1)+".txt", population)
 
 	time_elapsed = time.time()-start_time

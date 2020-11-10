@@ -7,7 +7,7 @@ print("Parameters Initialised")
 
 # Control-flow parameters
 run_exp = False  # Should the reading simulation run?
-analyze_results = True  # Should the results be analyzed?
+analyze_results = False  # Should the results be analyzed?
 optimize = True  # Should the parameters be optimized?
 
 language = "german"  # german, dutch
