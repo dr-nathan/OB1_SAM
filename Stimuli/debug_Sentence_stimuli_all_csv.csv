@@ -1,0 +1,50 @@
+﻿item_nr,all,target,condition
+1,attendez-nous là,1,normal
+2,avez-vous faim?,1,normal
+3,c'est pour vous,1,normal
+4,c'est quoi?,1,normal
+5,c'est tout?,1,normal
+6,c'est très gentil,1,scrambled
+7,c’est combien?,1,scrambled
+8,c’est grave?,1,scrambled
+9,ça n'est pas grave,1,scrambled
+10,ce n’est pas comme ça,1,scrambled
+11,combien cela coûte?,1,scrambled
+12,comment as-tu passé... ?,2,normal
+13,comment t'appelles-tu?,2,normal
+14,comment vas-tu?,2,normal
+15,depuis quand?,2,normal
+16,il est prêt,2,normal
+17,il veut y aller,2,normal
+18,j'ai déjà dit que,2,normal
+19,j’attends mes amis,2,scrambled
+20,je ne comprends pas,2,scrambled
+21,je ne sais pas,2,scrambled
+22,je serai à,2,scrambled
+23,je suis arrivé,2,scrambled
+24,je suis désolé,2,scrambled
+25,je suis perdu,3,normal
+26,je suis près de,3,normal
+27,je te tiens au courant,3,normal
+28,je vais être en retard,3,normal
+29,ne t'inquiète pas!,3,normal
+30,nous parlerons plus tard,3,normal
+31,où on se retrouve?,3,normal
+32,où pouvons-nous manger?,3,scrambled
+33,où sont les toilettes?,3,scrambled
+34,où veux-tu dîner?,3,scrambled
+35,parlez-vous anglais?,3,scrambled
+36,pas du tout,3,scrambled
+37,pas pour moi,3,scrambled
+38,peux-tu m'aider?,4,normal
+39,pourquoi pas?,4,normal
+40,pourriez-vous répéter?,4,normal
+41,puis-je faire ça?,4,normal
+42,qu'est-ce qui se passe?,4,normal
+43,qu’est-ce que vous recommandez?,4,normal
+44,que voulez-vous faire?,4,scrambled
+45,qui est-ce?,4,scrambled
+46,quoi de neuf?,4,scrambled
+47,tu vas y aller,4,scrambled
+48,va-t'en!,4,scrambled
+49,viens avec moi!,4,scrambled

@@ -32,6 +32,7 @@ def simulate_experiments(parameters):
     elif pm.use_flanker_task:
         stim = pd.read_table('./Stimuli/Flanker_stimuli_all_csv.csv', sep=',')
 
+    print(stim.head(10))
 
     individual_words = []
     lengtes=[]
@@ -239,21 +240,22 @@ def simulate_experiments(parameters):
     N1_in_allocated = 0
     to_pauze = False
 
+
     if pm.visualise:
         Visualise_reading
 
     # BEGIN EXPERIMENT
     # loop over trials
     for trial in range(0,len(stim['all'])):
-        print("trial: ", trial)
+        print("trial: "+ str(trial))
         all_data.append({})
 
         stimulus = stim['all'][trial]
-        print("stimulus: " , stimulus)
+        print("stimulus: " + stimulus)
 
         #update EyePosition
         EyePosition = len(stimulus)//2
-        print("eye position: " , EyePosition)
+        print("eye position: " + str(EyePosition))
 
         all_data[trial] = {'stimulus': [],
                             'condition': [],
@@ -273,8 +275,6 @@ def simulate_experiments(parameters):
 
 
         #print(len(stimulus.split(" ")))
-
-
 
         # # Lexicon word measures
         # lexicon_word_activity_np = np.zeros((LEXICON_SIZE), dtype=float)
@@ -297,11 +297,12 @@ def simulate_experiments(parameters):
             target_word = stimulus.split(" ")[len(stimulus.split(" ")) // 2 + len(stimulus.split(" ")) // 2 - 1] #find center word -- could probably be coded more efficient.
 			# MM: komt dit goed uit bij 3 wrd? Is het niet len(stimulus.split(" ")) // 2? 3->1, wat gegeven 0,1,2 middelste is, 5->2, weer middelste
 
-        print("target: ", target_word)
-
+        print("target: "+ target_word)
+        print("\n")
 
         # store trial info in all_data
         all_data[trial]['stimulus'] = target_word   # MM: why not call target word 'target'? or load stim into 'stimulus'?
+        # NS: initially I wamted to save both the stimulus (flankers + target) and the target information separately. Eventually I decided to go for the easier/faster fix. In case anyone in the future ever needs to take flanker information into account, this can be useful.
 
         # also add info on trial condition (read in from file? might be easiest)
         all_data[trial]['condition'] = stim['condition'][trial]
@@ -329,7 +330,7 @@ def simulate_experiments(parameters):
         allMonograms_set = set(allMonograms)
 
         # enter the cycle-loop that builds word activity with every cycle
-
+        recognized = False
         amount_of_cycles = 0
         amount_of_cycles_before_end_of_trial = 0
             ### stimulus on screen for 150 ms (flanker) or 200 ms (sentence)
@@ -364,7 +365,7 @@ def simulate_experiments(parameters):
                                                                 AttentionPosition,
                                                                 attendWidth,
                                                                 shift,
-                                                                amount_of_cycles)
+                                                                amount_of_cycles_before_end_of_trial)
                 else:
                     unitActivations[ngram] = calcMonogramExtInput(ngram,
                                                                   bigramsToLocations,
@@ -372,7 +373,7 @@ def simulate_experiments(parameters):
                                                                   AttentionPosition,
                                                                   attendWidth,
                                                                   shift,
-                                                                  amount_of_cycles)
+                                                                  amount_of_cycles_before_end_of_trial)
 
             ### activation of word nodes
             # taking nr of ngrams, word-to-word inhibition etc. into account
@@ -436,14 +437,14 @@ def simulate_experiments(parameters):
             crt_word_total_input_np = lexicon_total_input_np[trial_lexicon_index]
             crt_word_activity_np = lexicon_word_activity_np[trial_lexicon_index]
             crt_trial_word_activities[2] = abs(lexicon_word_inhibition_np[trial_lexicon_index])
-            crt_trial_word_activities_np[amount_of_cycles, 2] = abs(lexicon_word_inhibition_np\
+            crt_trial_word_activities_np[amount_of_cycles_before_end_of_trial, 2] = abs(lexicon_word_inhibition_np\
                                                                            [trial_lexicon_index])
-            crt_trial_word_activities_np[amount_of_cycles, 5] = (pm.max_activity - crt_word_activity_np) * \
+            crt_trial_word_activities_np[amount_of_cycles_before_end_of_trial, 5] = (pm.max_activity - crt_word_activity_np) * \
                                                                     crt_word_total_input_np
-            crt_trial_word_activities_np[amount_of_cycles, 6] = (crt_word_activity_np - pm.min_activity) * \
+            crt_trial_word_activities_np[amount_of_cycles_before_end_of_trial, 6] = (crt_word_activity_np - pm.min_activity) * \
                                                                     pm.decay
 
-			# Enter any recognized word to the 'recognized words indices' list for the current fixation.
+			# Enter any recognized word to the 'recognized words indices' list
             # creates array that is 1 if act(word)>thres, 0 otherwise
             above_tresh_lexicon_np = np.where(lexicon_word_activity_np > lexicon_thresholds_np,1,0)
 
@@ -462,10 +463,10 @@ def simulate_experiments(parameters):
             #but here we only look at the target word
             #for word_index in range(len(stimulus.split(" "))):
             desired_length = len(target_word)
-            this_word = target_word
-                # MM: recognWrdsFittingLen_np: array with 1=wrd act above threshold, & approx same len
-                # as to-be-recogn wrd (with 15% margin), 0=otherwise
-            recognWrdsFittingLen_np = above_tresh_lexicon_np * np.array([int(is_similar_word_length(x, this_word)) for x in lexicon])
+
+            # MM: recognWrdsFittingLen_np: array with 1=wrd act above threshold, & approx same len
+            # as to-be-recogn wrd (with 15% margin), 0=otherwise
+            recognWrdsFittingLen_np = above_tresh_lexicon_np * np.array([int(is_similar_word_length(x, target_word)) for x in lexicon])
 
             # fast check whether there is at least one 1 in wrdsFittingLen_np
             if sum(recognWrdsFittingLen_np):
@@ -476,17 +477,21 @@ def simulate_experiments(parameters):
 
                 alldata_recognized_append(highest)
                 # MM: if the recognized word is equal to the stimulus word...
-                if this_word == highest_word:
+                if target_word == highest_word:
                     alldata_truerecognized_append(highest)
+                    recognized = True
+
+            if recognized == False:
+                amount_of_cycles = amount_of_cycles_before_end_of_trial
+
             try:
-                print("target word: "+ target_word)
+                #print("target word: "+ target_word)
                 print("highest activation: "+str(lexicon[highest])+", "+str(lexicon_word_activity_np[highest]))
-                print("\n")
+                #print("\n")
             except:
                 print("Encoding error")
 
             ### save activation for target word  for every cycle
-
             ## NS: not yet implemented, potentially interesting for the future
             ### "evaluate" response
                 ## e.g. through the Bayesian model Martijn mentioned (forgot to write it down),
@@ -501,10 +506,17 @@ def simulate_experiments(parameters):
                 ### RT = moment in cycle
 
             amount_of_cycles_before_end_of_trial += 1
+        print("\n")
+
+        reaction_time = amount_of_cycles * CYCLE_SIZE
+        print("reaction time: " + str(reaction_time) +" ms")
+
         print("end of trial")
+        print("----------------")
+        print("\n")
+
 
         # MM: Or implement ITIs to make residual act realistic? So simply loop with x time steps, and only decay..
-
 
     # END OF EXPERIMENT. Return all data and a list of unrecognized words
     return lexicon, all_data, unrecognized_words
