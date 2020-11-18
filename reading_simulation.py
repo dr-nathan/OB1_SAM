@@ -24,10 +24,10 @@ def reading_simulation(filename, parameters):
 
     # This is needed for unpacking suggested parameters when tuning
     if any(parameters):
-       # pm.decay = parameters[0]
-	pm.bigram_to_word_excitation = parameters[0]
-       # pm.bigram_to_word_inhibition = parameters[2]
-       # pm.word_inhibition = parameters[3]
+#        pm.decay = parameters[0]
+#        pm.bigram_to_word_excitation = parameters[1]
+#        pm.bigram_to_word_inhibition = parameters[2]
+#        pm.word_inhibition = parameters[3]
 #        pm.max_activity = parameters[4]
 #        pm.max_attend_width = int(parameters[5])
 #        pm.min_attend_width = int(parameters[6])
@@ -44,12 +44,13 @@ def reading_simulation(filename, parameters):
 #        pm.saccErr_sigma = abs(parameters[0])
 #        pm.saccErr_sigma_scaler = parameters[1]
 
-        pm.mu = parameters[1]
+#        pm.mu = parameters[3]
 #        pm.sigma = parameters[4]
 #        pm.distribution_param = parameters[5]
 #        pm.wordfreq_p = parameters[0]
 #        pm.wordpred_p = parameters[1]
         pass
+
 
     lexicon = []
     lengtes = []
@@ -65,8 +66,9 @@ def reading_simulation(filename, parameters):
 #        textsplitbyspace = textsplitbyspace[:1000]
     for word in textsplitbyspace:
         if word.strip() != "":
-            new_word = np.unicode(word.strip())  # make sure words are unicode (numpy.unicode_ can cause errors)
-            individual_words.append(new_word)
+           # new_word = str(word.strip())  # make sure words are unicode (numpy.unicode_ can cause errors)
+            new_word = np.unicode_(word.strip()) #For Python2
+	    individual_words.append(new_word)
             lengtes.append(len(word))
 
     p = re.compile(r'\b\w+\b', re.UNICODE)
@@ -118,7 +120,7 @@ def reading_simulation(filename, parameters):
 
     # Make lexicon. Makes sure lexicon contains no double words.
     # Makes sure it contains no double words.
-    #n_known_words = len(lexicon)  # MM: nr of words known to model
+
     for word in individual_words:
         if word not in lexicon:
             lexicon.append(word)
@@ -127,13 +129,15 @@ def reading_simulation(filename, parameters):
         for freq_word in word_freq_dict.keys():
             if freq_word.lower() not in lexicon:
                 lexicon.append(freq_word.lower())
-    lexicon_file_name='Data/Lexicon.dat'
-    with open(lexicon_file_name, "w") as f:
+    lexicon_file_name = 'Data/Lexicon.dat'
+    with open(lexicon_file_name,"w") as f:
         pickle.dump(lexicon,f)
+
+    n_known_words = len(lexicon)  # MM: nr of words known to model
+
     # Make lexicon dependent variables
     LEXICON_SIZE = len(lexicon)
 
-    n_known_words = len(lexicon)
     # Normalize word inhibition to the size of the lexicon.
     lexicon_normalized_word_inhibition = (100.0/LEXICON_SIZE) * pm.word_inhibition
 
@@ -307,8 +311,8 @@ def reading_simulation(filename, parameters):
     while not end_of_text:
         # GS Level - reading, end of text not reached yet (^t^t)
         my_print("***********************************")
-#        my_print("offset: "+str(OffsetFromWordCenter)+",  attendWidth:"+str(attendWidth))
-#        print('fixation_pos-'+str(fixation))
+        my_print("offset: "+str(OffsetFromWordCenter)+",  attendWidth:"+str(attendWidth))
+        print('fixation_pos-'+str(fixation))
 
         # make sure that fixation does not go over the end of the text
         fixation = min(fixation, TOTAL_WORDS-1)
@@ -682,6 +686,7 @@ def reading_simulation(filename, parameters):
                         pass  # predictability too low
                 else:
                     attendposition_change_counter += 1
+
         # ----------------------------------------------------------------------------
             # Now, calculate word activity as a result of stimulus' ngram activities.
             # Because multiplied with unitActivations, only active (in stimulus) are used
@@ -715,9 +720,6 @@ def reading_simulation(filename, parameters):
                     word_input_np[lexicon_ix] = wordExcitationInput + wordBigramsInhibitionInput
 
                     if lexicon_word == individual_words[fixation]:
-			print("lexicon word: ", lexicon_word)
-			print("indiv word fix: ", individual_words[fixation])
-			print("word exc: ", wordExcitationInput)
                         crt_fixation_word_activities_np[amount_of_cycles, 0] = wordExcitationInput
                         crt_fixation_word_activities_np[amount_of_cycles, 1] = abs(wordBigramsInhibitionInput)
                         crt_fixation_word_activities[0] = wordExcitationInput
@@ -726,6 +728,7 @@ def reading_simulation(filename, parameters):
             # MM: divide input by nr ngrams, because otherwise long wrds always a lot of input
             word_input_np = word_input_np / np.array(N_ngrams_lexicon)
 
+#            print(word_input_np)
         # ----------------------------------------------------------------------------
 
             # Below: subtract the word-to-word inhibition. First add inhibition
@@ -784,12 +787,72 @@ def reading_simulation(filename, parameters):
             all_data[fixation_counter]['fixation word activities'].append(crt_fixation_word_activities)
             all_data[fixation_counter]['fixation word activities np'] = crt_fixation_word_activities_np
 
-		# Enter any recognized word to the 'recognized words indices' list for the current fixation.
+            ### GS added this 11-11
+
+            recognized_lexicon_np = np.where(lexicon_word_activity_np>lexicon_thresholds_np)[0] #GS line 777
+            #todo can maybe be faster, not from all_data
+            recognized_indices = np.asarray(all_data[fixation_counter]['recognized words indices'], dtype=int) #GS not missing in new
+            already_recognized_words_selection = np.in1d(recognized_lexicon_np,recognized_indices) #GS
+            new_recognized_words = recognized_lexicon_np[~already_recognized_words_selection] #GS
+            alldata_recognized_append = all_data[fixation_counter]['recognized words indices'].append #GS not missing in new
+            allocated_append = allocated_dict[fixation].append #GS not missing in new
+            alldata_truerecognized_append = all_data[fixation_counter]['exact recognized words positions'].append #GS not missing in new
+
+            for word in new_recognized_words: #GS line 786
+                my_print('recognized: ',amount_of_cycles,'cycle,',lexicon[word],lexicon_word_activity_np[word]/lexicon_thresholds_np[word],'(ratio crt. activity to threshold)')
+                alldata_recognized_append(word) #GS
+                # if yes, words are considered recognized based on similarity of word lengths
+                # otherwise, words are considered recognized only if they match exactly
+                # TODO think about regressions, should N be excluded from N-1 when regressed?
+                if pm.similarity_based_recognition: #GS line 792
+                    # set the recognition flag to any of the words in a similar if they fulfill the word length distance condition
+                    if is_similar_word_length(individual_words[fixation],lexicon[word]): #GS
+                        # todo refixations cause problems, because might be that during refix N+1 is recognized before N
+                        # maybe just exclude the word during refixation
+                        #not N-2, N-1,
+                        if word not in already_allocated and not all_data[fixation_counter]['refixated']: #GS
+                            if not recognized_position_flag[fixation] or (amount_of_cycles < 1 and not len(allocated_dict[fixation])): #GS
+                                allocated_append(word) #GS
+                                recognized_position_flag[fixation] = True #GS
+                                #todo remove last appended before actual saccade, maybe == N+1
+                                my_print(('+++ 0',lexicon[word],' recognized instead ',individual_words[fixation]))
+                            elif shift and fixation+1 < TOTAL_WORDS and is_similar_word_length(individual_words[fixation+1],lexicon[word]): #GS
+                                #not N-2, N-1, N
+                                if word not in already_allocated: #GS
+                                    recognized_position_flag[fixation+1] = True #GS
+                                    my_print(('+++ +1',lexicon[word],' recognized instead ',individual_words[fixation+1])) #GS
+                                    if fixation-1 >= 0 and is_similar_word_length(individual_words[fixation-1],lexicon[word]): #GS
+                                        if word not in allocated_dict[fixation-2]: #GS
+                                            recognized_position_flag[fixation-1] = True #GS
+                                            my_print(('+++ -1',lexicon[word],' recognized instead ',individual_words[fixation-1]))
+                                if individual_to_lexicon_indices[fixation] == word: #GS line 824
+                                    alldata_truerecognized_append(fixation) #GS
+                                    recognized_word_at_position_flag[fixation] = True #GS
+                                    #assert(individual_words[fixation] == lexicon[word])
+                                elif(fixation+1<TOTAL_WORDS and individual_to_lexicon_indices[fixation+1] == word): #GS
+                                    alldata_truerecognized_append(fixation+1) #GS
+                                    recognized_word_at_position_flag[fixation+1] = True #GS
+                                    #assert(individual_words[fixation+1] == lexicon[word])
+                                elif(fixation-1>=0 and individual_to_lexicon_indices[fixation-1] == word): #GS line 832
+                                    alldata_truerecognized_append(fixation-1) #GS
+                                    recognized_word_at_position_flag[fixation-1] = True #GS
+                                else:
+                                    #use -1 to represent words that are not in the vicinity
+                                    alldata_truerecognized_append(-1) #GS
+#                            else:
+#                                sys.exit("No dissimilar length recognition") #GS
+"""
+            # update GS
+
+		    # Enter any recognized word to the 'recognized words indices' list for the current fixation.
             # MM: creates array that is 1 if act(word)>thres, 0 otherwise
             above_tresh_lexicon_np = np.where(lexicon_word_activity_np > lexicon_thresholds_np,1,0)
+            #print(lexicon_word_activity_np)
+            #print(lexicon_thresholds_np)
+            #print("above thresh: ", above_tresh_lexicon_np)
             # MM: array w. indices of recogn. words, not sure whether this still has a function
             recognized_indices = np.asarray(all_data[fixation_counter]['recognized words indices'], dtype=int)
-            my_print("above thresh. in lexicon: " + str(np.sum(above_tresh_lexicon_np)))
+            #my_print("above thresh. in lexicon: " + str(np.sum(above_tresh_lexicon_np)))
             #my_print("recognized lexicon: ", above_tresh_lexicon_np)
 
             # MM: array of zeros of len as lexicon, which will get 1 if wrd recognized
@@ -800,7 +863,9 @@ def reading_simulation(filename, parameters):
             allocated_append = allocated_dict[fixation].append
             alldata_truerecognized_append = all_data[fixation_counter]['exact recognized words positions'].append
 
+
             for word_index in range(max(fixation - 2, 0), min(fixation + 3, len(individual_words))):
+
                 # TODO PK: this has to be adjusted for the first few words, otherwise word_index is negative
                 # Workaround for negative indexes
                 if not recognized_position_flag[word_index]:
@@ -808,38 +873,39 @@ def reading_simulation(filename, parameters):
                     # MM first find len unrecogn. word in stim
                     desired_length = len(individual_words[word_index])
                     this_word = individual_words[word_index]
-
+                    #print("this word: " , this_word)
                     # MM: recognWrdsFittingLen_np: array with 1=wrd act above threshold, & approx same len
                     # as to-be-recogn wrd (with 15% margin), 0=otherwise
                     #my_print("np array similar length: " ,np.array([int(is_similar_word_length(x, this_word)) for x in lexicon]))
                     recognWrdsFittingLen_np = above_tresh_lexicon_np * np.array([int(is_similar_word_length(x, this_word)) for x in lexicon])
                     #my_print(recognWrdsFittingLen_np)
-
+                    #print("RecognWrds: ", sum(recognWrdsFittingLen_np))
                     # fast check whether there is at least one 1 in wrdsFittingLen_np
-                    if sum(recognWrdsFittingLen_np): ##NS remove temporarily to obtain highest_word
+                    if sum(recognWrdsFittingLen_np):
     		            # PK find the word with the highest activation in all words that have a similar length
                         highest = np.argmax(recognWrdsFittingLen_np * lexicon_word_activity_np)
                         highest_word = lexicon[highest]
                         new_recognized_words[highest] = 1
                         recognized_position_flag[word_index] = True
-                       # my_print('word in text: ' + str(this_word),
-                       #          'cycle:' + str(amount_of_cycles),
-                       #          "highest activation: " + str(lexicon[highest]) +
-                       #          " at " + str(lexicon_word_activity_np[highest]),
-                       #          "word_index: " + str(word_index)
-                       #          )
+                        #my_print('word in text: ' + (this_word),
+                        #         'cycle:' + str(amount_of_cycles),
+                        #         "highest activation: " + str(lexicon[highest]) +
+                        #" at " +"%.3f" % (lexicon_word_activity_np[highest]),
+                        #        " at " + str(lexicon_word_activity_np[highest]),
+                        #"word_index: " + str(word_index)
+                        #        )
                         alldata_recognized_append(highest)
                         # MM: if the recognized word is equal to the stimulus word...
                         if this_word == highest_word:
                             alldata_truerecognized_append(highest)
                             recognized_word_at_position_flag[word_index] = True
- #                   try:
- #                       print("actual word: "+str(individual_words[word_index]))
- #                       print("highest activation: "+str(lexicon[highest])+", "+str(lexicon_word_activity_np[highest]))
- #                       print("\n")
- #                   except:
- #                       print("Encoding error")
-
+                    try:
+                        print("actual word: "+str(individual_words[word_index]))
+                        print("highest activation: "+str(lexicon[highest])+", "+str(lexicon_word_activity_np[highest]))
+                        print("\n")
+                    except:
+                        print("Encoding error")
+"""
             # -------------------------------------------------------------------------------------------------
             # Word selection and Attentional shift
 
@@ -1028,8 +1094,9 @@ def reading_simulation(filename, parameters):
             # Make sure that attention is integer
             AttentionPosition = np.round(AttentionPosition)
             amount_of_cycles += 1
+
     # ----------------------------End of cycle--------------------------------------------------
-        #if(fixation>2): 
+        #if(fixation>2): flirp=flurp
 
         # After the last cycle, the fixation duration can be calculated.
         fixation_duration = amount_of_cycles * CYCLE_SIZE
