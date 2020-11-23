@@ -27,7 +27,7 @@ N_RUNS = 0
 def reading_function(parameters_rf):
 	global OLD_DISTANCE
 	global N_RUNS
-	filename = "PSCshort3"
+	filename = "PSC_ALL"
 	filepath_psc = "PSC/" + filename + ".txt"
 
 ### For testing (loading past results instead of running simulation)
@@ -64,7 +64,7 @@ def reading_function(parameters_rf):
 	return distance
 
 if pm.language == "german":
-	filename = "PSCshort3"
+	filename = "PSC_ALL"
 	filepath_psc = "PSC/" + filename + ".txt"
 # The reading model reads dutch but there is no data to compare it to yet
 if pm.language == "dutch":
