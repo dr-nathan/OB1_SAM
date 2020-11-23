@@ -106,7 +106,7 @@ def main():
 
 	if pm.optimize:
 		# EA parameters
-		pop_size = 256 #15
+		pop_size = 15
 		multi_processing = True
 		gens = 7 #7
 		tournament_size = 5
@@ -127,11 +127,11 @@ def main():
 		creator.create("Individual", list, fitness=creator.FitnessMin)
 
 		def high(x):
-			return x*10
+			return x*2
 			#return x*1.33
 
 		def low(x):
-			return x/10
+			return x/2
 			#return x*0.75
 
 		def same(x):
@@ -154,10 +154,10 @@ def main():
 
 		def initPopulation(pcls, ind_init):
 			global start_params
-			n_params = 4 #number of params to optimize 
+			n_params = 3 #number of params to optimize 
 			combinaties = [list(x) for x in list(itertools.product([same, high, low], repeat=n_params))]
 #			start_params = [4.0, 1.29, 7.0, 4.9, 2.2]
-			start_params = [-0.2, 2.18, -0.55, -0.011]
+			start_params = [2.18, -0.55, -0.011]
 			print("Initializing pop with "+str(start_params))
 			contents = [[y(z) for y, z in zip(x, start_params)] for x in combinaties]
 			print(contents)
@@ -228,7 +228,7 @@ def main():
 		# Main evolution loop
 		for gen in range(gens):
 			generation += 1
-			pop_size /= 2
+			#pop_size /= 2
 			print("Gen:"+str(gen+1))
 			print("Pop-size:"+str(pop_size))
 			# If generation is restarted we skip past generations and load the fitness from the output-file
@@ -239,7 +239,7 @@ def main():
 					with open("result_EA.txt","r") as f:
 						print("Reading fitness fom file...")
 						fits = [float(x.replace("\n","").split(" ")[1]) for x in f.readlines() if str(start_gen)+" " in x]
-					pop_size = len(fits) / 2
+					#pop_size = len(fits) / 2
 					print("Updated pop_size to: "+str(pop_size))
 					for ind, fit in zip(population, fits):
 						print("Reinitializing:\n"+str(ind)+"\nwith fitness\n"+str(fit))

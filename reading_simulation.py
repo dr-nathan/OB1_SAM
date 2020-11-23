@@ -68,7 +68,7 @@ def reading_simulation(filename, parameters):
         if word.strip() != "":
            # new_word = str(word.strip())  # make sure words are unicode (numpy.unicode_ can cause errors)
             new_word = np.unicode_(word.strip()) #For Python2
-	        individual_words.append(new_word)
+	    individual_words.append(new_word)
             lengtes.append(len(word))
 
     p = re.compile(r'\b\w+\b', re.UNICODE)
@@ -839,9 +839,10 @@ def reading_simulation(filename, parameters):
                                 else:
                                     #use -1 to represent words that are not in the vicinity
                                     alldata_truerecognized_append(-1) #GS
+
 #                            else:
 #                                sys.exit("No dissimilar length recognition") #GS
-"""
+	    """
             # update GS
 
 		    # Enter any recognized word to the 'recognized words indices' list for the current fixation.
@@ -905,7 +906,7 @@ def reading_simulation(filename, parameters):
                         print("\n")
                     except:
                         print("Encoding error")
-"""
+	    """
             # -------------------------------------------------------------------------------------------------
             # Word selection and Attentional shift
 
