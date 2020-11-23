@@ -55,7 +55,7 @@ def reading_function(parameters_rf):
 		p += str(param)
 		p += "\n"
 
-	print("len unrecogn: ", len(unrecognized_words))
+#	print("len unrecogn: ", len(unrecognized_words))
 
 	# Save distances for plotting convergence
 	with open("dist.txt", "a") as f:
@@ -64,11 +64,6 @@ def reading_function(parameters_rf):
 		f.write("\n")
 	N_RUNS += 1 
 	return distance
-
-	with open("unrecognized.txt", "w") as f:
-		f.write("Total unrecognized: " + str(len(unrecognized_words)))
-		f.write("\n")
-		f.write(unrecognized_words)
 
 
 if pm.language == "german":
@@ -93,6 +88,15 @@ if pm.run_exp:
 	unrecognized_file = open(output_file_unrecognized_words, "w")
 	pickle.dump(unrecognized_words, unrecognized_file)
 	unrecognized_file.close()
+
+	print(str(len(unrecognized_words))+ " unrecognized words")
+
+	with open("unrecognized.txt", "w") as f:
+                f.write("Total unrecognized: " + str(len(unrecognized_words)))
+                f.write("\n")
+                for uword in unrecognized_words:
+                        f.write(str(uword))
+                f.write("\n")
 
 
 if pm.analyze_results:
