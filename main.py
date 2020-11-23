@@ -65,6 +65,12 @@ def reading_function(parameters_rf):
 	N_RUNS += 1 
 	return distance
 
+	with open("unrecognized.txt", "w") as f:
+		f.write("Total unrecognized: " + str(len(unrecognized_words)))
+		f.write("\n")
+		f.write(unrecognized_words)
+
+
 if pm.language == "german":
 	filename = "PSC_ALL"
 	filepath_psc = "PSC/" + filename + ".txt"
