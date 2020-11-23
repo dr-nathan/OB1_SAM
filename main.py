@@ -55,6 +55,8 @@ def reading_function(parameters_rf):
 		p += str(param)
 		p += "\n"
 
+	print("len unrecogn: ", len(unrecognized_words))
+
 	# Save distances for plotting convergence
 	with open("dist.txt", "a") as f:
 		f.write("run "+str(N_RUNS)+": "+str(int(distance))+"\n")
