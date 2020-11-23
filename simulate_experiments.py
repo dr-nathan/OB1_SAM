@@ -40,11 +40,11 @@ def simulate_experiments(parameters):
     textsplitbyspace = set(stim['all'].str.replace('[^a-zA-Z ]', '').str.lower().str.split(' ').sum())
 
     for word in textsplitbyspace:
-        print(word)
+        #print(word)
         if word.strip() != "":
             new_word = np.unicode_(word.strip()) #For Python2
-        individual_words.append(new_word)
-        lengtes.append(len(word))
+            individual_words.append(new_word)
+            lengtes.append(len(word))
 
     # load dictionaries (French Lexicon Project database) and generate list of individual words
     if pm.language == "french":
@@ -130,6 +130,7 @@ def simulate_experiments(parameters):
     individual_to_lexicon_indices = np.zeros((len(individual_words)),dtype=int)
     for i, word in enumerate(individual_words):
         individual_to_lexicon_indices[i] = lexicon.index(word)
+        #print(individual_to_lexicon_indices)
 
     # lexicon bigram dict
     N_ngrams_lexicon = []  # list with amount of ngrams per word in lexicon
@@ -291,11 +292,13 @@ def simulate_experiments(parameters):
             target_word = stimulus.split(" ")[stim['target'][trial]-1] #read in target cue from file
         if pm.use_flanker_task:
             ncycles = 6 #6 cycles = 150 ms
-            print("len stim: ", len(stimulus.split(" ")))
-            print(len(stimulus.split(" ")) // 2)
-            print(len(stimulus.split(" ")) // 2 + len(stimulus.split(" ")) // 2 - 1)
-            target_word = stimulus.split(" ")[len(stimulus.split(" ")) // 2 + len(stimulus.split(" ")) // 2 - 1] #find center word -- could probably be coded more efficient.
-			# MM: komt dit goed uit bij 3 wrd? Is het niet len(stimulus.split(" ")) // 2? 3->1, wat gegeven 0,1,2 middelste is, 5->2, weer middelste
+            print(stimulus.split())
+            print("len stim: ", len(stimulus.split()))
+            print(len(stimulus.split()) // 2)
+            if len(stimulus.split())>1:
+                target_word = stimulus.split()[1]
+            elif len(stimulus.split())==1:
+                target_word = stimulus.split()[0]
 
         print("target: "+ target_word)
         print("\n")
@@ -308,11 +311,11 @@ def simulate_experiments(parameters):
         all_data[trial]['condition'] = stim['condition'][trial]
 
         # everything below is still coded to potentially store/look at activations for all the words in the stimulus, and not only our target
-        for word in range(len(stimulus.split(" "))):
+        for word in range(len(stimulus.split())):
             # "Word activities per cycle" is a dict containing the stimulus' words.
             # For every word there is a list that will keep track of the activity per cycle.
             all_data[trial]['word activities per cycle'].append(
-                {stimulus.split(" ")[word]: []}
+                {stimulus.split()[word]: []}
             )
 
         crt_trial_word_activities_np = np.zeros((25,7),dtype=float)
@@ -351,7 +354,7 @@ def simulate_experiments(parameters):
             lexicon_word_inhibition_np2.fill(0.0)
             lexicon_activewords_np.fill(False)
 
-            crt_trial_word_activities = [0] * len(stimulus.split(" ")) #placeholder, different length for different stimuli (can be 1-5 words, depending on task and condition)
+            crt_trial_word_activities = [0] * len(stimulus.split()) #placeholder, different length for different stimuli (can be 1-5 words, depending on task and condition)
 
 
             ### Calculate ngram activity
@@ -389,7 +392,7 @@ def simulate_experiments(parameters):
             # This is where input is computed (excit is specific to word, inhib same for all)
             for lexicon_ix, lexicon_word in enumerate(lexicon):
                 wordExcitationInput = 0
-                for ln in range(1, len(stimulus.split(' '))):
+                for ln in range(1, len(stimulus.split())):
                     # (Fast) Bigram & Monogram activations
                     bigram_intersect_list = allBigrams_set.intersection(
                                             lexicon_word_bigrams[lexicon_word])
@@ -434,6 +437,7 @@ def simulate_experiments(parameters):
 
             ## Save current word activities (per cycle)
             trial_lexicon_index = individual_to_lexicon_indices[trial]
+            print("Trial_lexicon_index: ", trial_lexicon_index)
             crt_word_total_input_np = lexicon_total_input_np[trial_lexicon_index]
             crt_word_activity_np = lexicon_word_activity_np[trial_lexicon_index]
             crt_trial_word_activities[2] = abs(lexicon_word_inhibition_np[trial_lexicon_index])
@@ -456,9 +460,9 @@ def simulate_experiments(parameters):
             # array of zeros of len as lexicon, which will get 1 if wrd recognized
             new_recognized_words = np.zeros(LEXICON_SIZE)
 
-            # Below functions defined to append arrays. Not sure why this is efficient
-            alldata_recognized_append = all_data[trial]['recognized words indices'].append
-            alldata_truerecognized_append = all_data[trial]['exact recognized words positions'].append
+            # # Below functions defined to append arrays. Not sure why this is efficient #NS REMOVED
+            # alldata_recognized_append = all_data[trial]['recognized words indices'].append
+            # alldata_truerecognized_append = all_data[trial]['exact recognized words positions'].append
 
             #but here we only look at the target word
             #for word_index in range(len(stimulus.split(" "))):
@@ -475,10 +479,10 @@ def simulate_experiments(parameters):
                 highest_word = lexicon[highest]
                 new_recognized_words[highest] = 1
 
-                alldata_recognized_append(highest)
+                all_data[trial]['recognized words indices'].append(highest)
                 # MM: if the recognized word is equal to the stimulus word...
                 if target_word == highest_word:
-                    alldata_truerecognized_append(highest)
+                    all_data[trial]['exact recognized words positions'].append(highest)
                     recognized = True
 
             if recognized == False:
@@ -515,7 +519,7 @@ def simulate_experiments(parameters):
         print("----------------")
         print("\n")
 
-
+    print(all_data.head(10))
         # MM: Or implement ITIs to make residual act realistic? So simply loop with x time steps, and only decay..
 
     # END OF EXPERIMENT. Return all data and a list of unrecognized words

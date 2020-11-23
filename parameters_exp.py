@@ -5,6 +5,11 @@ import time
 __author__ = 'Sam van Leipsig, Phillip Kersten'
 print("Parameters Initialised")
 
+
+
+use_sentence_task = True
+use_flanker_task = False
+
 # Control-flow parameters
 run_exp = True  # Should the reading simulation run?
 analyze_results = False  # Should the results be analyzed?
@@ -97,8 +102,6 @@ wordpred_p = 0.4 # Currently not used
 ## Threshold parameters
 linear = False
 
-use_sentence_task = True
-use_flanker_task = False
 
 #linear
 #start_lin = 0.057

@@ -25,9 +25,9 @@ def reading_simulation(filename, parameters):
     # This is needed for unpacking suggested parameters when tuning
     if any(parameters):
 #        pm.decay = parameters[0]
-#        pm.bigram_to_word_excitation = parameters[1]
-#        pm.bigram_to_word_inhibition = parameters[2]
-#        pm.word_inhibition = parameters[3]
+        pm.bigram_to_word_excitation = parameters[0]
+        pm.bigram_to_word_inhibition = parameters[1]
+        pm.word_inhibition = parameters[2]
 #        pm.max_activity = parameters[4]
 #        pm.max_attend_width = int(parameters[5])
 #        pm.min_attend_width = int(parameters[6])
@@ -68,7 +68,7 @@ def reading_simulation(filename, parameters):
         if word.strip() != "":
            # new_word = str(word.strip())  # make sure words are unicode (numpy.unicode_ can cause errors)
             new_word = np.unicode_(word.strip()) #For Python2
-	    individual_words.append(new_word)
+            individual_words.append(new_word)
             lengtes.append(len(word))
 
     p = re.compile(r'\b\w+\b', re.UNICODE)
@@ -841,7 +841,8 @@ def reading_simulation(filename, parameters):
                                     alldata_truerecognized_append(-1) #GS
 #                            else:
 #                                sys.exit("No dissimilar length recognition") #GS
-"""
+
+            """
             # update GS
 
 		    # Enter any recognized word to the 'recognized words indices' list for the current fixation.
@@ -905,7 +906,7 @@ def reading_simulation(filename, parameters):
                         print("\n")
                     except:
                         print("Encoding error")
-"""
+                        """
             # -------------------------------------------------------------------------------------------------
             # Word selection and Attentional shift
 
