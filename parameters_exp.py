@@ -5,14 +5,19 @@ import time
 __author__ = 'Sam van Leipsig, Phillip Kersten'
 print("Parameters Initialised")
 
+
+
+use_sentence_task = True
+use_flanker_task = False
+
 # Control-flow parameters
 run_exp = True  # Should the reading simulation run?
-analyze_results = True  # Should the results be analyzed?
+analyze_results = False  # Should the results be analyzed?
 optimize = False  # Should the parameters be optimized?
 
-language = "german"  # german, dutch
+language = "french"  # german, dutch
 use_grammar_prob = False # True for using grammar probabilities, False for using cloze, overwritten by uniform_pred
-uniform_pred = False  # Overwrites cloze/grammar probabilities with 0.25 for all words
+uniform_pred = True  # Overwrites cloze/grammar probabilities with 0.25 for all words
 
 include_sacc_type_sse = True  # Include the sse score based on the saccade type probability plot
 sacc_type_objective = "total"  # If "total" all subplots will be included in the final sse,
@@ -47,10 +52,10 @@ print("-------------------")
 
 
 ## Monoweight = 1
-decay = -0.2 #-0.053
-bigram_to_word_excitation = 4.36 # inp. divded by #ngrams, so this param estimates excit per word [diff from paper]
-bigram_to_word_inhibition = -1.1
-word_inhibition = -0.0055 # -0.002
+decay = -0.08 #-0.053
+bigram_to_word_excitation = 2.18 # inp. divded by #ngrams, so this param estimates excit per word [diff from paper]
+bigram_to_word_inhibition = -0.55
+word_inhibition = -0.011 # -0.002
 
 letPerDeg = .3
 min_activity = 0.0
@@ -97,8 +102,6 @@ wordpred_p = 0.4 # Currently not used
 ## Threshold parameters
 linear = False
 
-use_sentence_task = True
-use_flanker_task = False
 
 #linear
 #start_lin = 0.057

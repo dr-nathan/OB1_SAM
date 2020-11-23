@@ -70,3 +70,9 @@ def norm_distribution(mu,sigma,distribution_param,recognized):
         return int(np.round(np.random.normal(mu-distribution_param,sigma,1)))
     else:
         return int(np.round(np.random.normal(mu,sigma,1)))
+
+def middle_char(txt):
+   return txt[(len(txt)-1)//2:(len(txt)+2)//2]
+
+def index_middle_char(txt):
+    return ((len(txt))//2)

@@ -25,9 +25,9 @@ def reading_simulation(filename, parameters):
     # This is needed for unpacking suggested parameters when tuning
     if any(parameters):
 #        pm.decay = parameters[0]
-        pm.bigram_to_word_excitation = parameters[0]
-        pm.bigram_to_word_inhibition = parameters[1]
-        pm.word_inhibition = parameters[2]
+#        pm.bigram_to_word_excitation = parameters[1]
+#        pm.bigram_to_word_inhibition = parameters[2]
+#        pm.word_inhibition = parameters[3]
 #        pm.max_activity = parameters[4]
 #        pm.max_attend_width = int(parameters[5])
 #        pm.min_attend_width = int(parameters[6])
@@ -68,7 +68,7 @@ def reading_simulation(filename, parameters):
         if word.strip() != "":
            # new_word = str(word.strip())  # make sure words are unicode (numpy.unicode_ can cause errors)
             new_word = np.unicode_(word.strip()) #For Python2
-            individual_words.append(new_word)
+	    individual_words.append(new_word)
             lengtes.append(len(word))
 
     p = re.compile(r'\b\w+\b', re.UNICODE)
@@ -787,65 +787,7 @@ def reading_simulation(filename, parameters):
             all_data[fixation_counter]['fixation word activities'].append(crt_fixation_word_activities)
             all_data[fixation_counter]['fixation word activities np'] = crt_fixation_word_activities_np
 
-            ### GS added this 11-11
-
-            recognized_lexicon_np = np.where(lexicon_word_activity_np>lexicon_thresholds_np)[0] #GS line 777
-            #todo can maybe be faster, not from all_data
-            recognized_indices = np.asarray(all_data[fixation_counter]['recognized words indices'], dtype=int) #GS not missing in new
-            already_recognized_words_selection = np.in1d(recognized_lexicon_np,recognized_indices) #GS
-            new_recognized_words = recognized_lexicon_np[~already_recognized_words_selection] #GS
-            alldata_recognized_append = all_data[fixation_counter]['recognized words indices'].append #GS not missing in new
-            allocated_append = allocated_dict[fixation].append #GS not missing in new
-            alldata_truerecognized_append = all_data[fixation_counter]['exact recognized words positions'].append #GS not missing in new
-
-            for word in new_recognized_words: #GS line 786
-                my_print('recognized: ',amount_of_cycles,'cycle,',lexicon[word],lexicon_word_activity_np[word]/lexicon_thresholds_np[word],'(ratio crt. activity to threshold)')
-                alldata_recognized_append(word) #GS
-                # if yes, words are considered recognized based on similarity of word lengths
-                # otherwise, words are considered recognized only if they match exactly
-                # TODO think about regressions, should N be excluded from N-1 when regressed?
-                if pm.similarity_based_recognition: #GS line 792
-                    # set the recognition flag to any of the words in a similar if they fulfill the word length distance condition
-                    if is_similar_word_length(individual_words[fixation],lexicon[word]): #GS
-                        # todo refixations cause problems, because might be that during refix N+1 is recognized before N
-                        # maybe just exclude the word during refixation
-                        #not N-2, N-1,
-                        if word not in already_allocated and not all_data[fixation_counter]['refixated']: #GS
-                            if not recognized_position_flag[fixation] or (amount_of_cycles < 1 and not len(allocated_dict[fixation])): #GS
-                                allocated_append(word) #GS
-                                recognized_position_flag[fixation] = True #GS
-                                #todo remove last appended before actual saccade, maybe == N+1
-                                my_print(('+++ 0',lexicon[word],' recognized instead ',individual_words[fixation]))
-                            elif shift and fixation+1 < TOTAL_WORDS and is_similar_word_length(individual_words[fixation+1],lexicon[word]): #GS
-                                #not N-2, N-1, N
-                                if word not in already_allocated: #GS
-                                    recognized_position_flag[fixation+1] = True #GS
-                                    my_print(('+++ +1',lexicon[word],' recognized instead ',individual_words[fixation+1])) #GS
-                                    if fixation-1 >= 0 and is_similar_word_length(individual_words[fixation-1],lexicon[word]): #GS
-                                        if word not in allocated_dict[fixation-2]: #GS
-                                            recognized_position_flag[fixation-1] = True #GS
-                                            my_print(('+++ -1',lexicon[word],' recognized instead ',individual_words[fixation-1]))
-                                if individual_to_lexicon_indices[fixation] == word: #GS line 824
-                                    alldata_truerecognized_append(fixation) #GS
-                                    recognized_word_at_position_flag[fixation] = True #GS
-                                    #assert(individual_words[fixation] == lexicon[word])
-                                elif(fixation+1<TOTAL_WORDS and individual_to_lexicon_indices[fixation+1] == word): #GS
-                                    alldata_truerecognized_append(fixation+1) #GS
-                                    recognized_word_at_position_flag[fixation+1] = True #GS
-                                    #assert(individual_words[fixation+1] == lexicon[word])
-                                elif(fixation-1>=0 and individual_to_lexicon_indices[fixation-1] == word): #GS line 832
-                                    alldata_truerecognized_append(fixation-1) #GS
-                                    recognized_word_at_position_flag[fixation-1] = True #GS
-                                else:
-                                    #use -1 to represent words that are not in the vicinity
-                                    alldata_truerecognized_append(-1) #GS
-#                            else:
-#                                sys.exit("No dissimilar length recognition") #GS
-
-            """
-            # update GS
-
-		    # Enter any recognized word to the 'recognized words indices' list for the current fixation.
+		# Enter any recognized word to the 'recognized words indices' list for the current fixation.
             # MM: creates array that is 1 if act(word)>thres, 0 otherwise
             above_tresh_lexicon_np = np.where(lexicon_word_activity_np > lexicon_thresholds_np,1,0)
             #print(lexicon_word_activity_np)
@@ -866,7 +808,6 @@ def reading_simulation(filename, parameters):
 
 
             for word_index in range(max(fixation - 2, 0), min(fixation + 3, len(individual_words))):
-
                 # TODO PK: this has to be adjusted for the first few words, otherwise word_index is negative
                 # Workaround for negative indexes
                 if not recognized_position_flag[word_index]:
@@ -906,7 +847,7 @@ def reading_simulation(filename, parameters):
                         print("\n")
                     except:
                         print("Encoding error")
-                        """
+
             # -------------------------------------------------------------------------------------------------
             # Word selection and Attentional shift
 

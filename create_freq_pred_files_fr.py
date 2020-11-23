@@ -2,7 +2,7 @@ import numpy as np
 import pickle
 import codecs
 #import chardet
-from read_saccade_data import get_words, get_pred
+from read_saccade_data import get_words, get_words_sentence, get_pred
 
 # Detect text encoding
 # rawdata=open("texts/frequency_german.txt","r").read()
@@ -21,32 +21,32 @@ encode_uft8 = lambda x: x.encode("utf-8",errors="strict")
 to_lowercase = lambda x: x.lower()
 
 ## Set converters
-convert_dict = {0:decode_ISO,4:comma_to_dot, 5:comma_to_dot, 9:comma_to_dot}
+convert_dict = {0:decode_ISO}
 #{column:comma_to_dot for column in [4,5,9]}
 
 ## Get selected columns from text
-freqlist_arrays = np.genfromtxt("Texts/frequency_french.txt", dtype=[('Word','U30'),('FreqCount','i4'), ('CUMfreqcount','i4'),('Subtlex','f4'), ('lgSubtlex','f4'), ('lgGoogle','f4')],
-                                    usecols = (0,1,3,4,5,9), converters= convert_dict , skip_header=1, delimiter="\t")
+freqlist_arrays = np.genfromtxt("Texts/frequency_french.txt", dtype=[('Word','U30'),('cfreqmovies','f4'), ('lcfreqmovies','f4'),('cfreqbooks','f4'), ('lcfreqbooks','f4')],
+                                    usecols = (0,7,8,9,10), converters= convert_dict , skip_header=1, delimiter="\t", filling_values = 0)
 
 freqthreshold = 1.5
 nr_highfreqwords = 200
 
 def create_freq_file(freqlist_arrays, freqthreshold, nr_highfreqwords):
-    ## Sort arrays ascending on subtlex by million
-    freqlist_arrays = np.sort(freqlist_arrays,order='lgSubtlex')[::-1]
-    select_by_freq = np.sum(freqlist_arrays['lgSubtlex']>freqthreshold)
+    ## Sort arrays ascending on frequency
+    freqlist_arrays = np.sort(freqlist_arrays,order='lcfreqmovies')[::-1]
+    select_by_freq = np.sum(freqlist_arrays['cfreqmovies']>freqthreshold)
     freqlist_arrays = freqlist_arrays[0:select_by_freq]
 
     ## Clean and select frequency words and frequency
-    freq_words = freqlist_arrays[['Word','lgSubtlex']]
+    freq_words = freqlist_arrays[['Word','lcfreqmovies']]
     frequency_words_np = np.empty([len(freq_words),1],dtype='U20')
     frequency_words_dict  = {}
     for i,line in enumerate(freq_words):
         frequency_words_dict[line[0].replace(".","").lower()] = line[1]
         frequency_words_np[i] = line[0].replace(".","").lower()
 
-    cleaned_psc_words = get_words()
-    overlapping_words = np.intersect1d(cleaned_psc_words,frequency_words_np, assume_unique=False)
+    cleaned_words = get_words_sentence()
+    overlapping_words = np.intersect1d(cleaned_words,frequency_words_np, assume_unique=False)
 
     ## IMPORTANT TO USE unicode() to place in dictionary, to replace NUMPY.UNICODE!!
     ## Match PSC and freq words and put in dictionary with freq
@@ -57,16 +57,17 @@ def create_freq_file(freqlist_arrays, freqthreshold, nr_highfreqwords):
     ## Put top freq words in dict, can use np.shape(array)[0]):
     for line_number in xrange(nr_highfreqwords):
         file_freq_dict[unicode((freq_words[line_number][0]).lower())] = freq_words[line_number][1]
+    print(file_freq_dict)
 
-    output_file_frequency_map = "Data\frequency_map_fr.dat"
+    output_file_frequency_map = "Data/frequency_map_fr.dat"
     with open (output_file_frequency_map,"w") as f:
         pickle.dump(file_freq_dict,f)
 
 
 def create_pred_file():
-    file_pred_dict = get_pred()
-
-    output_file_predictions_map = "Data\predictions_map_fr.dat"
+    #file_pred_dict = get_pred()
+    file_pred_dict = np.repeat(0.25, 539)
+    output_file_predictions_map = "Data/predictions_map_fr.dat"
     with open (output_file_predictions_map,"w") as f:
 	    pickle.dump(file_pred_dict,f)
 
