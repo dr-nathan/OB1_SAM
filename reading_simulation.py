@@ -63,10 +63,10 @@ def reading_simulation(filename, parameters):
         textsplitbyspace = textfile.split(" ")
     if ".pkl" in filename:
         textsplitbyspace = pickle.load(open(filename))
-#        textsplitbyspace = textsplitbyspace[:1000]
+
     for word in textsplitbyspace:
         if word.strip() != "":
-           # new_word = str(word.strip())  # make sure words are unicode (numpy.unicode_ can cause errors)
+            #new_word = str(word.strip())  # make sure words are unicode (numpy.unicode_ can cause errors)
             new_word = np.unicode_(word.strip()) #For Python2
             individual_words.append(new_word)
             lengtes.append(len(word))
