@@ -44,8 +44,11 @@ def get_threshold(word,word_freq_dict,max_frequency,freq_p,max_threshold):  #wor
             word_threshold = max_threshold * ((max_frequency/freq_p) - word_frequency) / (max_frequency/freq_p)
         except KeyError:
             pass
+        #GS Only lower threshold for short words
+        if len(word) < 4:
+            word_threshold = word_threshold/3
         #return (word_frequency_multiplier * word_predictability_multiplier) * (pm.start_nonlin - (pm.nonlin_scaler*(math.exp(pm.wordlen_nonlin*len(word)))))
-        return (word_threshold)
+        return (word_threshold/1.4)
 
 
 def normalize_pred_values(pred_p,pred_values):
