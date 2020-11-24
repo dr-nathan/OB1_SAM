@@ -1298,6 +1298,6 @@ def reading_simulation(filename, parameters):
 
     # END OF READING. Return all_data and the list of unrecognized words.
     print(N_in_allocated, N1_in_allocated)
-    return lexicon, all_data, unrecognized_words, highest_act_words, act_above_threshold, read_words
+    return lexicon, all_data, unrecognized_words #, highest_act_words, act_above_threshold, read_words
     # GS these can be used for some debugging checks
     #highest_act_words, act_above_threshold, read_words
