@@ -106,7 +106,7 @@ def main():
 
 	if pm.optimize:
 		# EA parameters
-		pop_size = 15
+		pop_size = 256
 		multi_processing = True
 		gens = 7 #7
 		tournament_size = 5
@@ -228,7 +228,7 @@ def main():
 		# Main evolution loop
 		for gen in range(gens):
 			generation += 1
-			#pop_size /= 2
+			pop_size /= 2
 			print("Gen:"+str(gen+1))
 			print("Pop-size:"+str(pop_size))
 			# If generation is restarted we skip past generations and load the fitness from the output-file
