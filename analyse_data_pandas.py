@@ -154,11 +154,15 @@ def get_results(input_text_filename,input_file_all_data,input_file_unrecognized_
             #mod.word_activity_threshold(df_wordactivity)
 
 
+
             ## Unrecognized
             unrecognized_words = pickle.load(g)
-            df_unrecognised_words = trans.unrecognized_words(unrecognized_words)
-            mod.plot_unrecognizedwords(df_alldata,df_alldata_grouped_all,df_unrecognised_words)
-            mod.plot_unrecognizedwords_bytype(df_alldata_grouped_all,df_unrecognised_words)
+            try:
+                df_unrecognised_words = trans.unrecognized_words(unrecognized_words)
+                mod.plot_unrecognizedwords(df_alldata,df_alldata_grouped_all,df_unrecognised_words)
+                mod.plot_unrecognizedwords_bytype(df_alldata_grouped_all,df_unrecognised_words)
+            except:
+                print("No unrecognized words")
 
 
             ## Saccade distance
