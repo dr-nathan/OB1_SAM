@@ -28,24 +28,24 @@ def simulate_experiments(parameters):
 
     # generate / read in stimuli list from file (fixed items for both experiments)
     if pm.use_sentence_task:
-        stim = pd.read_table('./Stimuli/Sentence_stimuli_all_csv.csv', sep=',')
+        stim = pd.read_table('./Stimuli/debug_Sentence_stimuli_all_csv.csv', sep=',')
     elif pm.use_flanker_task:
         stim = pd.read_table('./Stimuli/Flanker_stimuli_all_csv.csv', sep=',')
 
-    print(stim.head(10))
-
+    #print(stim.head(10))
+    stim['all'] = stim['all'].astype(str)
     individual_words = []
     lengtes=[]
 #    textsplitbyspace = stim["all"].str.split(" ")
     textsplitbyspace = set(stim['all'].str.replace('[^a-zA-Z ]', '').str.lower().str.split(' ').sum())
 
     for word in textsplitbyspace:
-        #print(word)
         if word.strip() != "":
-            new_word = np.unicode_(word.strip()) #For Python2
+            new_word = str(word.strip()) #For Python2
             individual_words.append(new_word)
             lengtes.append(len(word))
 
+    print(individual_words)
     # load dictionaries (French Lexicon Project database) and generate list of individual words
     if pm.language == "french":
         word_freq_dict, word_pred_values = get_freq_pred_files_fr() # only freq?
@@ -70,6 +70,7 @@ def simulate_experiments(parameters):
 
     # make experiment lexicon (= dictionary + words in experiment)
     # make sure it contains no double words
+
     for word in individual_words:
         if word not in lexicon:
             lexicon.append(word)
@@ -78,6 +79,7 @@ def simulate_experiments(parameters):
         for freq_word in word_freq_dict.keys():
             if freq_word.lower() not in lexicon:
                 lexicon.append(freq_word.lower())
+
     lexicon_file_name = 'Data/Lexicon_fr.dat'
     with open(lexicon_file_name,"w") as f:
         pickle.dump(lexicon,f)
@@ -130,7 +132,6 @@ def simulate_experiments(parameters):
     individual_to_lexicon_indices = np.zeros((len(individual_words)),dtype=int)
     for i, word in enumerate(individual_words):
         individual_to_lexicon_indices[i] = lexicon.index(word)
-        #print(individual_to_lexicon_indices)
 
     # lexicon bigram dict
     N_ngrams_lexicon = []  # list with amount of ngrams per word in lexicon
@@ -437,33 +438,35 @@ def simulate_experiments(parameters):
             lexicon_word_activity_np[lexicon_word_activity_np > pm.max_activity] = pm.max_activity
 
             ## Save current word activities (per cycle)
-            trial_lexicon_index = individual_to_lexicon_indices[trial]
-            print("Trial_lexicon_index: ", trial_lexicon_index)
-            crt_word_total_input_np = lexicon_total_input_np[trial_lexicon_index]
-            crt_word_activity_np = lexicon_word_activity_np[trial_lexicon_index]
-            crt_trial_word_activities[2] = abs(lexicon_word_inhibition_np[trial_lexicon_index])
+
+            #print([idx for idx, element in enumerate(lexicon) if element == target_word])
+            target_lexicon_index = individual_to_lexicon_indices[[idx for idx, element in enumerate(lexicon) if element == target_word]]
+            #print(target_lexicon_index[:])
+            #print("Target_lexicon_index: ", target_lexicon_index)
+            crt_word_total_input_np = lexicon_total_input_np[target_lexicon_index]
+            crt_word_activity_np = lexicon_word_activity_np[target_lexicon_index]
+            crt_trial_word_activities[2] = abs(lexicon_word_inhibition_np[target_lexicon_index])
             crt_trial_word_activities_np[amount_of_cycles_before_end_of_trial, 2] = abs(lexicon_word_inhibition_np\
-                                                                           [trial_lexicon_index])
+                                                                           [target_lexicon_index])
             crt_trial_word_activities_np[amount_of_cycles_before_end_of_trial, 5] = (pm.max_activity - crt_word_activity_np) * \
                                                                     crt_word_total_input_np
             crt_trial_word_activities_np[amount_of_cycles_before_end_of_trial, 6] = (crt_word_activity_np - pm.min_activity) * \
                                                                     pm.decay
 
+
 			# Enter any recognized word to the 'recognized words indices' list
             # creates array that is 1 if act(word)>thres, 0 otherwise
             above_tresh_lexicon_np = np.where(lexicon_word_activity_np > lexicon_thresholds_np,1,0)
+            msk = np.array([above_tresh_lexicon_np], dtype=bool)
 
             # array w. indices of recogn. words, not sure whether this still has a function
             recognized_indices = np.asarray(all_data[trial]['recognized words indices'], dtype=int)
-            #my_print("above thresh. in lexicon: " + str(np.sum(above_tresh_lexicon_np)))
-            #my_print("recognized lexicon: ", above_tresh_lexicon_np)
+            #print(above_tresh_lexicon_np)
+            my_print("above thresh. in lexicon: " + str(np.sum(above_tresh_lexicon_np)))
+            my_print("recognized lexicon: ", above_tresh_lexicon_np)
 
             # array of zeros of len as lexicon, which will get 1 if wrd recognized
             new_recognized_words = np.zeros(LEXICON_SIZE)
-
-            # # Below functions defined to append arrays. Not sure why this is efficient #NS REMOVED
-            # alldata_recognized_append = all_data[trial]['recognized words indices'].append
-            # alldata_truerecognized_append = all_data[trial]['exact recognized words positions'].append
 
             #but here we only look at the target word
             #for word_index in range(len(stimulus.split(" "))):
@@ -481,10 +484,12 @@ def simulate_experiments(parameters):
                 new_recognized_words[highest] = 1
 
                 all_data[trial]['recognized words indices'].append(highest)
-                # MM: if the recognized word is equal to the stimulus word...
-                if target_word == highest_word:
-                    all_data[trial]['exact recognized words positions'].append(highest)
+                # NS if the target word is in recognized words:
+                print([lexicon[i] for i in np.where(lexicon_word_activity_np > lexicon_thresholds_np)[0][:]])
+                if target_word in [lexicon[i] for i in np.where(lexicon_word_activity_np > lexicon_thresholds_np)[0][:]]:
+                    all_data[trial]['exact recognized words positions'].append(np.where(lexicon_word_activity_np > lexicon_thresholds_np)[0][:])
                     recognized = True
+                    print("target: " + target_word)
 
             if recognized == False:
                 amount_of_cycles = amount_of_cycles_before_end_of_trial
@@ -495,6 +500,8 @@ def simulate_experiments(parameters):
                 #print("\n")
             except:
                 print("Encoding error")
+
+
 
             ### save activation for target word  for every cycle
             ## NS: not yet implemented, potentially interesting for the future
@@ -512,8 +519,11 @@ def simulate_experiments(parameters):
 
             amount_of_cycles_before_end_of_trial += 1
         print("\n")
+        unrecognized_words = []
+        if recognized == False:
+            unrecognized_words.append(target_word)
 
-        reaction_time = amount_of_cycles * CYCLE_SIZE
+        reaction_time = (amount_of_cycles * CYCLE_SIZE)+300 #CHECK WHAT AVERAGE NON-DECISION TIME IS? OR RESPONSE EXECUTION TIME?
         print("reaction time: " + str(reaction_time) +" ms")
         all_data[trial]['reaction time'].append(reaction_time)
 
@@ -521,7 +531,7 @@ def simulate_experiments(parameters):
         print("----------------")
         print("\n")
 
-    print(all_data.head(10))
+    print(all_data)
         # MM: Or implement ITIs to make residual act realistic? So simply loop with x time steps, and only decay..
 
     # END OF EXPERIMENT. Return all data and a list of unrecognized words

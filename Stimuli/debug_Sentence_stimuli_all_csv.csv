@@ -1,50 +1,50 @@
-ï»¿item_nr,all,target,condition
-1,attendez-nous lÃ ,1,normal
-2,avez-vous faim?,1,normal
-3,c'est pour vous,1,normal
-4,c'est quoi?,1,normal
-5,c'est tout?,1,normal
-6,c'est trÃ¨s gentil,1,scrambled
-7,câ€™est combien?,1,scrambled
-8,câ€™est grave?,1,scrambled
-9,Ã§a n'est pas grave,1,scrambled
-10,ce nâ€™est pas comme Ã§a,1,scrambled
-11,combien cela coÃ»te?,1,scrambled
-12,comment as-tu passÃ©... ?,2,normal
-13,comment t'appelles-tu?,2,normal
-14,comment vas-tu?,2,normal
-15,depuis quand?,2,normal
-16,il est prÃªt,2,normal
-17,il veut y aller,2,normal
-18,j'ai dÃ©jÃ  dit que,2,normal
-19,jâ€™attends mes amis,2,scrambled
+item_nr,all,target,condition
+1,je ne comprends pas,1,normal
+2,je ne sais pas,1,normal
+3,je serai à,1,normal
+4,je suis arrivé,1,normal
+5,je suis désolé,1,normal
+6,je suis perdu,1,scrambled
+7,je suis près de,1,scrambled
+8,je te tiens au courant,1,scrambled
+9,je vais être en retard,1,scrambled
+10,je ne comprends pas,1,scrambled
+11,je ne sais pas,1,scrambled
+12,je serai à,2,normal
+13,je suis arrivé,2,normal
+14,je suis désolé,2,normal
+15,je suis perdu,2,normal
+16,je suis près de,2,normal
+17,je te tiens au courant,2,normal
+18,je vais être en retard,2,normal
+19,je attends mes amis,2,scrambled
 20,je ne comprends pas,2,scrambled
 21,je ne sais pas,2,scrambled
-22,je serai Ã ,2,scrambled
-23,je suis arrivÃ©,2,scrambled
-24,je suis dÃ©solÃ©,2,scrambled
+22,je serai à,2,scrambled
+23,je suis arrivé,2,scrambled
+24,je suis désolé,2,scrambled
 25,je suis perdu,3,normal
-26,je suis prÃ¨s de,3,normal
-27,je te tiens au courant,3,normal
-28,je vais Ãªtre en retard,3,normal
-29,ne t'inquiÃ¨te pas!,3,normal
-30,nous parlerons plus tard,3,normal
-31,oÃ¹ on se retrouve?,3,normal
-32,oÃ¹ pouvons-nous manger?,3,scrambled
-33,oÃ¹ sont les toilettes?,3,scrambled
-34,oÃ¹ veux-tu dÃ®ner?,3,scrambled
-35,parlez-vous anglais?,3,scrambled
-36,pas du tout,3,scrambled
-37,pas pour moi,3,scrambled
-38,peux-tu m'aider?,4,normal
-39,pourquoi pas?,4,normal
-40,pourriez-vous rÃ©pÃ©ter?,4,normal
-41,puis-je faire Ã§a?,4,normal
-42,qu'est-ce qui se passe?,4,normal
-43,quâ€™est-ce que vous recommandez?,4,normal
-44,que voulez-vous faire?,4,scrambled
-45,qui est-ce?,4,scrambled
-46,quoi de neuf?,4,scrambled
-47,tu vas y aller,4,scrambled
-48,va-t'en!,4,scrambled
-49,viens avec moi!,4,scrambled
+26,je ne comprends pas,3,normal
+27,je ne sais pas,3,normal
+28,je te tiens au courant,3,normal
+29,je ne comprends pas,3,normal
+30,je ne sais pas,3,normal
+31,je suis perdu,3,normal
+32,je ne comprends pas,3,scrambled
+33,je ne sais pas,3,scrambled
+34,je vais en retard,3,scrambled
+35,je ne comprends pas,3,scrambled
+36,je ne sais pas,3,scrambled
+37,je serai pas,3,scrambled
+38,je te tiens au courant,4,normal
+39,je vais être en retard,4,normal
+40,je te tiens au courant,4,normal
+41,je vais être en retard,4,normal
+42,je te tiens au courant,4,normal
+43,je vais être en retard,4,normal
+44,je attends mes amis,4,scrambled
+45,je ne comprends pas,4,scrambled
+46,je te tiens au courant,4,scrambled
+47,je vais être en retard,4,scrambled
+48,je te tiens au courant,4,scrambled
+49,je vais être en retard,4,scrambled

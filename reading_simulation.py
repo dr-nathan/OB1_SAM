@@ -183,6 +183,7 @@ def reading_simulation(filename, parameters):
     individual_to_lexicon_indices = np.zeros((len(individual_words)),dtype=int)
     for i, word in enumerate(individual_words):
         individual_to_lexicon_indices[i] = lexicon.index(word)
+    print(individual_to_lexicon_indices[10:40])
 
     ## lexicon bigram dict
     N_ngrams_lexicon = []  # GS list with amount of ngrams per word in lexicon

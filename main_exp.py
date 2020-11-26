@@ -39,6 +39,20 @@ if pm.run_exp:
 	pickle.dump(unrecognized_words, unrecognized_file)
 	unrecognized_file.close()
 
+	with open("unrecognized.txt", "w") as f:
+                f.write("Total unrecognized: " + str(len(unrecognized_words)))
+                f.write("\n")
+                for uword in unrecognized_words:
+                        f.write(str(uword))
+                f.write("\n")
+
+	with open("alldata.txt", "w") as f:
+                f.write("\n")
+                for uword in all_data:
+                        f.write(str(uword))
+                f.write("\n")
+
+
 if pm.analyze_results:
 	get_results(filepath_psc,output_file_all_data,output_file_unrecognized_words)
 
