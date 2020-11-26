@@ -157,11 +157,13 @@ def get_results(input_text_filename,input_file_all_data,input_file_unrecognized_
 
             ## Unrecognized
             unrecognized_words = pickle.load(g)
+            print(np.size(unrecognized_words), " = size of unrecognized words")
+            print(np.shape(unrecognized_words), " = shape of unrecognized words")
             try:
                 df_unrecognised_words = trans.unrecognized_words(unrecognized_words)
                 mod.plot_unrecognizedwords(df_alldata,df_alldata_grouped_all,df_unrecognised_words)
                 mod.plot_unrecognizedwords_bytype(df_alldata_grouped_all,df_unrecognised_words)
-            except:
+            except: #if there are no unrecognized words
                 print("No unrecognized words")
 
 

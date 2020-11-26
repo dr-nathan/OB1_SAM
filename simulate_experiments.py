@@ -268,7 +268,8 @@ def simulate_experiments(parameters):
                             'eye position': EyePosition,
                             'word threshold': 0,
                             'word frequency': 0,
-                            'word predictability': 0}
+                            'word predictability': 0,
+                            'reaction time': []}
 
         my_print('attendWidth: '+str(attendWidth))
 
@@ -514,6 +515,7 @@ def simulate_experiments(parameters):
 
         reaction_time = amount_of_cycles * CYCLE_SIZE
         print("reaction time: " + str(reaction_time) +" ms")
+        all_data[trial]['reaction time'].append(reaction_time)
 
         print("end of trial")
         print("----------------")
