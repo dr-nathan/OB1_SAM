@@ -337,15 +337,24 @@ def get_freq_pred_files():
         word_pred_dict = pickle.load(p)
     return word_freq_dict, word_pred_dict
 
-def get_freq_pred_files_fr():
+def get_freq_pred_files_fr(task):
     ## hardcoded to take freq/pred from all psc's
     output_word_frequency_map = "Data/frequency_map_fr.dat"
     with open (output_word_frequency_map,"r") as f:
         #word_freq_dict = pickle.load(f, encoding="latin1") # For Python3
         word_freq_dict = pickle.load(f)
     output_word_predictions_map = "Data/predictions_map_fr.dat"
+
     with open (output_word_predictions_map,"r") as p:
         word_pred_dict = pickle.load(p)
+    # print(word_freq_dict)
+
+    # w = open("Texts/"+ task + "_freq_pred.txt","w")
+    # for k, v in word_freq_dict.items():
+    #     w.write(str(k).encode('utf-8').strip() + '\t'+ str(v) + '\n')
+    #     w.close()
+
+    # print(word_freq_dict)
     return word_freq_dict, word_pred_dict
 
 def get_saccade_data_df():
@@ -377,6 +386,14 @@ def get_freq_and_pred():
     convert_dict = {0:decode_ISO,1:comma_to_dot, 2:comma_to_dot}
     # Changed this, old code threw an decode error
     my_data = pd.read_csv("Texts/PSCall_freq_pred.txt",delimiter="\t")
+#    my_data = np.genfromtxt("Texts/PSCall_freq_pred.txt", names =True,encoding="latin-1",  dtype=['U2','f4','f4'], converters = convert_dict, skip_header=0, delimiter="\t")
+    predictions_dict = {}
+    return my_data
+
+def get_freq_and_pred_fr(task):
+    convert_dict = {0:decode_ISO,1:comma_to_dot, 2:comma_to_dot}
+    # Changed this, old code threw an decode error
+    my_data = pd.read_csv("Texts/"+ task + "_freq_pred.txt",delimiter="\t")
 #    my_data = np.genfromtxt("Texts/PSCall_freq_pred.txt", names =True,encoding="latin-1",  dtype=['U2','f4','f4'], converters = convert_dict, skip_header=0, delimiter="\t")
     predictions_dict = {}
     return my_data

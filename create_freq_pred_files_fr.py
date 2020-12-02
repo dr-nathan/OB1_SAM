@@ -52,7 +52,7 @@ def create_freq_file(freqlist_arrays, freqthreshold, nr_highfreqwords):
     ## Match PSC and freq words and put in dictionary with freq
     file_freq_dict = {}
     for i,word in enumerate(overlapping_words):
-        file_freq_dict[unicode(word.lower())] = frequency_words_dict[word]
+        file_freq_dict[unicode(word.lower()).encode('utf-8').strip()] = frequency_words_dict[word.encode('utf-8').strip()]
 
     ## Put top freq words in dict, can use np.shape(array)[0]):
     for line_number in xrange(nr_highfreqwords):

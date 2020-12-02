@@ -7,7 +7,7 @@ import multiprocessing as mp
 import pickle
 import cProfile
 import pstats
-from analyse_data_pandas import get_results
+from analyse_data_pandas import get_results, get_results_simulation
 import pickle
 import scipy
 import time
@@ -54,7 +54,7 @@ if pm.run_exp:
 
 
 if pm.analyze_results:
-	get_results(filepath_psc,output_file_all_data,output_file_unrecognized_words)
+	get_results_simulation(output_file_all_data,output_file_unrecognized_words)
 
 time_elapsed = time.time()-start_time
 print("Time elapsed: "+str(time_elapsed))

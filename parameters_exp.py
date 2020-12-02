@@ -12,7 +12,7 @@ use_flanker_task = False
 
 # Control-flow parameters
 run_exp = True  # Should the reading simulation run?
-analyze_results = False  # Should the results be analyzed?
+analyze_results = True  # Should the results be analyzed?
 optimize = False  # Should the parameters be optimized?
 
 language = "french"  # german, dutch
@@ -52,19 +52,19 @@ print("-------------------")
 
 
 ## Monoweight = 1
-decay = -0.08 #-0.053
-bigram_to_word_excitation = 2.18 # inp. divded by #ngrams, so this param estimates excit per word [diff from paper]
+decay = -0.053 #-0.053
+bigram_to_word_excitation = 0.5#2.18 # inp. divded by #ngrams, so this param estimates excit per word [diff from paper]
 bigram_to_word_inhibition = -0.55
-word_inhibition = -0.011 # -0.002
+word_inhibition = -0.002 # -0.002
 
 letPerDeg = .3
 min_activity = 0.0
-max_activity = 1.3
+max_activity = 2.3
 
 ## Attentional width
 max_attend_width = 5.0
 min_attend_width = 3.0
-attention_skew = 4  # 1 equals symmetrical distribution # 4 (paper)
+attention_skew = 1  # 1 equals symmetrical distribution # 4 (paper)
 bigram_gap = 3  # How many in btw letters still lead to bigram? 6 (optimal) # 3 (paper)
 min_overlap = 2
 refix_size = 0.2
@@ -80,7 +80,7 @@ use_saccade_error = True
 use_attendposition_change = True # attend width influenced by predictability next wrd
 visualise = False
 slow_word_activity = False
-print_all = False
+print_all = True
 pauze_allocation_errors = False
 use_boundary_task = False
 
@@ -95,7 +95,7 @@ mu, sigma = 10.09 , 5.36 # 4.9, 2.2 # 5.46258 (optimal), 4 # 4.9, 2.2 (paper)
 distribution_param = 5.0  #1.1
 
 ## Threshold parameters
-max_threshold = 1
+max_threshold = 2
 wordfreq_p = 0.4 # Max prop decrease in thresh. for highest-freq wrd [different definition than in papers]
 wordpred_p = 0.4 # Currently not used
 
