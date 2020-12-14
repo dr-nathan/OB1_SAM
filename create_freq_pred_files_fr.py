@@ -1,8 +1,9 @@
 import numpy as np
 import pickle
 import codecs
+import parameters_exp as pm
 #import chardet
-from read_saccade_data import get_words, get_words_sentence, get_pred
+from read_saccade_data import get_words, get_words_task, get_pred
 
 # Detect text encoding
 # rawdata=open("texts/frequency_german.txt","r").read()
@@ -21,7 +22,7 @@ encode_uft8 = lambda x: x.encode("utf-8",errors="strict")
 to_lowercase = lambda x: x.lower()
 
 ## Set converters
-convert_dict = {0:decode_ISO}
+convert_dict = {0:decode_ISO, 0:encode_uft8}
 #{column:comma_to_dot for column in [4,5,9]}
 
 ## Get selected columns from text
@@ -31,7 +32,13 @@ freqlist_arrays = np.genfromtxt("Texts/frequency_french.txt", dtype=[('Word','U3
 freqthreshold = 1.5
 nr_highfreqwords = 200
 
-def create_freq_file(freqlist_arrays, freqthreshold, nr_highfreqwords):
+if pm.use_sentence_task:
+    task = "Sentence"
+elif pm.use_flanker_task:
+    task = "Flanker"
+
+
+def create_freq_file(freqlist_arrays, freqthreshold, nr_highfreqwords, task=task):
     ## Sort arrays ascending on frequency
     freqlist_arrays = np.sort(freqlist_arrays,order='lcfreqmovies')[::-1]
     select_by_freq = np.sum(freqlist_arrays['cfreqmovies']>freqthreshold)
@@ -45,7 +52,8 @@ def create_freq_file(freqlist_arrays, freqthreshold, nr_highfreqwords):
         frequency_words_dict[line[0].replace(".","").lower()] = line[1]
         frequency_words_np[i] = line[0].replace(".","").lower()
 
-    cleaned_words = get_words_sentence()
+
+    cleaned_words = get_words_task(task)
     overlapping_words = np.intersect1d(cleaned_words,frequency_words_np, assume_unique=False)
 
     ## IMPORTANT TO USE unicode() to place in dictionary, to replace NUMPY.UNICODE!!
@@ -57,17 +65,18 @@ def create_freq_file(freqlist_arrays, freqthreshold, nr_highfreqwords):
     ## Put top freq words in dict, can use np.shape(array)[0]):
     for line_number in xrange(nr_highfreqwords):
         file_freq_dict[unicode((freq_words[line_number][0]).lower())] = freq_words[line_number][1]
-    print(file_freq_dict)
 
-    output_file_frequency_map = "Data/frequency_map_fr.dat"
+    output_file_frequency_map = "Data/" + task + "_frequency_map_fr.dat"
+    print(output_file_frequency_map)
     with open (output_file_frequency_map,"w") as f:
         pickle.dump(file_freq_dict,f)
+        print("dumped")
 
 
-def create_pred_file():
+def create_pred_file(task=task):
     #file_pred_dict = get_pred()
     file_pred_dict = np.repeat(0.25, 539)
-    output_file_predictions_map = "Data/predictions_map_fr.dat"
+    output_file_predictions_map = "Data/" + task + "_predictions_map_fr.dat"
     with open (output_file_predictions_map,"w") as f:
 	    pickle.dump(file_pred_dict,f)
 

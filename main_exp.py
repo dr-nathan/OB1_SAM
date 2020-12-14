@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-# CHANGED
+# 1-10-2020 Noor Seijdel
+# In this file, "simulate_experiments" is called and the results are stored 
+
 from reading_simulation import reading_simulation
 from simulate_experiments import simulate_experiments
 from analyse_data_pandas import get_results

@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-# 1-10-2020
+# 1-10-2020 Noor Seijdel
 # OB1 is a reading-model that simulates the processes behind reading in the brain.
 # Here we simulate performance on two experimental word-recognition tasks:
 # a flanker task and a sentence reading task
@@ -16,6 +16,7 @@ import numpy as np
 import pickle
 import parameters_exp as pm
 import sys
+#import create_freq_pred_files_fr
 if pm.visualise:
     import Visualise_reading
 import pandas as pd
@@ -28,24 +29,35 @@ def simulate_experiments(parameters):
 
     # generate / read in stimuli list from file (fixed items for both experiments)
     if pm.use_sentence_task:
-        stim = pd.read_table('./Stimuli/debug_Sentence_stimuli_all_csv.csv', sep=',')
+        #stim = pd.read_table('./Stimuli/Sentence_stimuli_all_csv.csv', sep=',')
+        stim = pd.read_table('./Stimuli/debug_Sentence_stimuli_all_csv.csv', sep=',', encoding='utf-8')
+        stim['all'] = stim['all'].astype('unicode')
+        print(stim['all'])
+        #stim['all'] = stim['all'].str.encode('utf-8')
         task = "Sentence"
+
     elif pm.use_flanker_task:
-        stim = pd.read_table('./Stimuli/Flanker_stimuli_all_csv.csv', sep=',')
+        stim = pd.read_table('./Stimuli/debug_Flanker_stimuli_all_csv.csv', sep=',')
         task = "Flanker"
+        stim['all'] = stim['all'].astype('unicode')
+        stim = stim[stim['condition'].str.startswith(('word'))].reset_index()
 
     #print(stim.head(10))
-    stim['all'] = stim['all'].astype(str)
     individual_words = []
     lengtes=[]
-#    textsplitbyspace = stim["all"].str.split(" ")
-    textsplitbyspace = set(stim['all'].str.replace('[^a-zA-Z ]', '').str.lower().str.split(' ').sum())
 
+    textsplitbyspace = list(stim['all'].str.split(' ', expand=True).stack().unique()) #stim['all'].str.split(expand=True).stack()#.reset_index(level = 0, name="all")
+    #textsplitbyspace = set(stim['all'].str.lower().str.split(' ').sum())
+    print(textsplitbyspace)
     for word in textsplitbyspace:
         if word.strip() != "":
-            new_word = str(word.strip()) #For Python2
+            new_word = word.strip() #For Python2
             individual_words.append(new_word)
             lengtes.append(len(word))
+
+    with open('./Texts/' + task + '_freq_pred.txt', 'w') as f:
+        for word in individual_words:
+            f.write('%s\n' % word.encode('utf-8'))
 
     print(individual_words)
     # load dictionaries (French Lexicon Project database) and generate list of individual words
@@ -60,10 +72,12 @@ def simulate_experiments(parameters):
         print("Replacing pred values with .25")
         word_pred_values[:] = 0.25
 
+    print(word_freq_dict)
+
     max_frequency_key = max(word_freq_dict, key=word_freq_dict.get)
     max_frequency = word_freq_dict[max_frequency_key]
     print("Length text: " + str(len(individual_words)) + "\nLength pred: " + str(len(word_pred_values)))
-    word_pred_values = word_pred_values[0:len(individual_words)]
+    #word_pred_values = word_pred_values[0:len(individual_words)]
 
     # Make individual words dependent variables
     TOTAL_WORDS = len(individual_words)
@@ -228,7 +242,7 @@ def simulate_experiments(parameters):
     end_of_text = False  # Is set to true when end of text is reached.
     trial = 0
     trial_counter = 0  # The iterator that increases +1 with every trial,
-    attendWidth = 4.0
+    attendWidth = 8.0
     EyePosition = 0	#
     AttentionPosition = 0
     CYCLE_SIZE = 25  # milliseconds that one model cycle is supposed to last (brain time, not model time)
@@ -257,9 +271,13 @@ def simulate_experiments(parameters):
         stimulus = stim['all'][trial]
         print("stimulus: " + stimulus)
 
+        stimulus_padded = " " + stimulus + " "
+
         #update EyePosition
         EyePosition = len(stimulus)//2
         print("eye position: " + str(EyePosition))
+
+        AttentionPosition = EyePosition
 
         all_data[trial] = {'stimulus': [],
                             'target': [],
@@ -271,6 +289,7 @@ def simulate_experiments(parameters):
                             #'attentional width': attendWidth,
                             #'exact recognized words positions': [],
                             'eye position': EyePosition,
+                            'attention position': AttentionPosition,
                             'word threshold': 0,
                             'word frequency': 0,
                             'word predictability': 0,
@@ -282,9 +301,13 @@ def simulate_experiments(parameters):
 
         shift = False
 
+        lexicon_word_inhibition_np = np.zeros((LEXICON_SIZE), dtype=float)
+        lexicon_total_input_np = np.zeros((LEXICON_SIZE), dtype=float)
+        lexicon_word_activity_new = np.zeros((LEXICON_SIZE), dtype=float)
+        lexicon_word_activity_np = np.zeros((LEXICON_SIZE), dtype=float)
+        crt_word_activity_np = 0
 
         #print(len(stimulus.split(" ")))
-
         # # Lexicon word measures
         # lexicon_word_activity_np = np.zeros((LEXICON_SIZE), dtype=float)
         # lexicon_word_inhibition_np = np.zeros((LEXICON_SIZE), dtype=float)
@@ -296,11 +319,11 @@ def simulate_experiments(parameters):
         lexicon_word_activity_np[lexicon_word_activity_np < pm.min_activity] = pm.min_activity
 
         if pm.use_sentence_task:
-            ncycles = 24#8 #8 cycles = 200 ms
+            ncycles = 32#8 #8 cycles = 200 ms
             target = stimulus.split(" ")[stim['target'][trial]-1] #read in target cue from file
             all_data[trial]['position']=stim['target'][trial]
         if pm.use_flanker_task:
-            ncycles = 24#6 #6 cycles = 150 ms
+            ncycles = 32#6 #6 cycles = 150 ms
             print(stimulus.split())
             print("len stim: ", len(stimulus.split()))
             print(len(stimulus.split()) // 2)
@@ -314,8 +337,7 @@ def simulate_experiments(parameters):
 
         # store trial info in all_data
         all_data[trial]['stimulus'] = stimulus
-        all_data[trial]['target'] = target   # MM: why not call target word 'target'? or load stim into 'stimulus'?
-        # NS: initially I wamted to save both the stimulus (flankers + target) and the target information separately. Eventually I decided to go for the easier/faster fix. In case anyone in the future ever needs to take flanker information into account, this can be useful.
+        all_data[trial]['target'] = target
 
         # also add info on trial condition (read in from file? might be easiest)
         all_data[trial]['condition'] = stim['condition'][trial]
@@ -329,18 +351,20 @@ def simulate_experiments(parameters):
         #     )
 
         crt_trial_word_activities_np = np.zeros((25,7),dtype=float)
-        # get allNgrams for current trial
-        [allNgrams, bigramsToLocations] = stringToBigramsAndLocations(stimulus)
-        allMonograms = []
-        allBigrams = []
 
-        for ngram in allNgrams:
-            if len(ngram) == 2:
-                allBigrams.append(ngram)
-            else:
-                allMonograms.append(ngram)
-        allBigrams_set = set(allBigrams)
-        allMonograms_set = set(allMonograms)
+
+        # # get allNgrams for current trial ## moved to inside the loop
+        # [allNgrams, bigramsToLocations] = stringToBigramsAndLocations(stimulus_padded)
+        # allMonograms = []
+        # allBigrams = []
+        #
+        # for ngram in allNgrams:
+        #     if len(ngram) == 2:
+        #         allBigrams.append(ngram)
+        #     else:
+        #         allMonograms.append(ngram)
+        # allBigrams_set = set(allBigrams)
+        # allMonograms_set = set(allMonograms)
 
         # enter the cycle-loop that builds word activity with every cycle
         recognized = False
@@ -349,6 +373,27 @@ def simulate_experiments(parameters):
             ### stimulus on screen for 150 ms (flanker) or 200 ms (sentence)
 
         while amount_of_cycles_before_end_of_trial < ncycles:
+            # get allNgrams for current trial
+            [allNgrams, bigramsToLocations] = stringToBigramsAndLocations(stimulus_padded)
+            allMonograms = []
+            allBigrams = []
+
+            for ngram in allNgrams:
+                if len(ngram) == 2:
+                    allBigrams.append(ngram)
+                else:
+                    allMonograms.append(ngram)
+            allBigrams_set = set(allBigrams)
+            print(allBigrams)
+            print(allBigrams_set)
+            allMonograms_set = set(allMonograms)
+            #print(allMonograms_set)
+            if amount_of_cycles_before_end_of_trial < 8 or amount_of_cycles_before_end_of_trial > 16:
+                [allNgrams, bigramsToLocations] = stringToBigramsAndLocations("")
+                allMonograms = []
+                allBigrams = []
+                allBigrams_set = set(allBigrams)
+                allMonograms_set = set(allMonograms)
 
             unitActivations = {}  # reset after each trials
             lexicon_activewords = []
@@ -366,10 +411,9 @@ def simulate_experiments(parameters):
 
             crt_trial_word_activities = [0] * len(stimulus.split()) #placeholder, different length for different stimuli (can be 1-5 words, depending on task and condition)
 
-
             ### Calculate ngram activity
-
             # MM: could also be done above at start fix, and then again after attention shift. is constant in btw shifts
+            #print(allNgrams)
             for ngram in allNgrams:
                 if len(ngram) == 2:
                     unitActivations[ngram] = calcBigramExtInput(ngram,
@@ -393,7 +437,7 @@ def simulate_experiments(parameters):
             # MM: dit moet toch met een sum in 1 keer te doen zijn?
             wordBigramsInhibitionInput = 0
             for bigram in allBigrams:
-                print("bigram: "+ bigram)
+                #print("bigram: "+ bigram)
                 wordBigramsInhibitionInput += pm.bigram_to_word_inhibition * \
                                               unitActivations[bigram]
             for monogram in allMonograms:
@@ -403,7 +447,7 @@ def simulate_experiments(parameters):
             # This is where input is computed (excit is specific to word, inhib same for all)
             for lexicon_ix, lexicon_word in enumerate(lexicon):
                 wordExcitationInput = 0
-                for ln in range(1, len(stimulus.split())):
+                for ln in range(0, len(stimulus.split())):
                     # (Fast) Bigram & Monogram activations
                     bigram_intersect_list = allBigrams_set.intersection(
                                             lexicon_word_bigrams[lexicon_word])
@@ -417,9 +461,15 @@ def simulate_experiments(parameters):
 
                     word_input_np[lexicon_ix] = wordExcitationInput + wordBigramsInhibitionInput
 
-
+            #print(wordExcitationInput)
+            #print(wordBigramsInhibitionInput)
+            #print(len(word_input_np))
+            #print(len(N_ngrams_lexicon))
+            #print(np.array(N_ngrams_lexicon))
             # MM: divide input by nr ngrams, because otherwise long wrds always a lot of input
-            #word_input_np = word_input_np / np.array(N_ngrams_lexicon) #NS
+
+            word_input_np = word_input_np / np.array(N_ngrams_lexicon) #NS
+            #print("word input divided by ngrams: " + str(word_input_np))
 
             # Active words selection vector (makes computations efficient)
             lexicon_activewords_np[(lexicon_word_activity_np > 0.0) | (word_input_np > 0.0)] = True
@@ -438,9 +488,11 @@ def simulate_experiments(parameters):
             # now comes the formula for computing word activity.
             # pm.decay has a neg value, that's why it's here added, not subtracted
             #my_print("before:"+str(lexicon_word_activity_np[individual_to_lexicon_indices[fixation]]))
+            #print(lexicon_word_activity_np)
             lexicon_word_activity_new = ((pm.max_activity - lexicon_word_activity_np) * lexicon_total_input_np) + \
                                         ((lexicon_word_activity_np - pm.min_activity) * pm.decay)
             lexicon_word_activity_np = np.add(lexicon_word_activity_np, lexicon_word_activity_new)
+            #print(lexicon_word_activity_np)
 
             #my_print("after:"+str( lexicon_word_activity_np[individual_to_lexicon_indices[fixation]]))
             # Correct activity beyond minimum and maximum activity to min and max
@@ -448,14 +500,16 @@ def simulate_experiments(parameters):
             lexicon_word_activity_np[lexicon_word_activity_np > pm.max_activity] = pm.max_activity
 
             ## Save current word activities (per cycle)
-
             #print([idx for idx, element in enumerate(lexicon) if element == target_word])
+            #print(target)
             target_lexicon_index = individual_to_lexicon_indices[[idx for idx, element in enumerate(lexicon) if element == target]]
+            #print(target_lexicon_index)
             #print(target_lexicon_index[:])
             #print("Target_lexicon_index: ", target_lexicon_index)
             crt_word_total_input_np = lexicon_total_input_np[target_lexicon_index]
             crt_word_activity_np = lexicon_word_activity_np[target_lexicon_index]
-            # print(crt_word_activity_np)
+
+            #print(crt_word_activity_np)
             # crt_trial_word_activities[2] = abs(lexicon_word_inhibition_np[target_lexicon_index])
             # print(crt_trial_word_activities)
             # crt_trial_word_activities_np[amount_of_cycles_before_end_of_trial, 2] = abs(lexicon_word_inhibition_np\
@@ -465,10 +519,16 @@ def simulate_experiments(parameters):
             # crt_trial_word_activities_np[amount_of_cycles_before_end_of_trial, 6] = (crt_word_activity_np - pm.min_activity) * \
             #                                                         pm.decay
 
-
             total_activity = 0
-            for word in range(len(stimulus.split())):
-                total_activity += lexicon_word_activity_np[lexicon_index_dict[stimulus.split()[word]]]
+
+            print("len: " + str(len(stimulus.split())))
+            #print(lexicon_index_dict)
+            #print(stimulus)
+            if (len(stimulus.split())) > 0:
+                for word in range(len(stimulus.split())):
+                    total_activity += lexicon_word_activity_np[lexicon_index_dict[stimulus.split()[word]]]
+            else:
+                total_activity += lexicon_word_activity_np[lexicon_index_dict[stimulus.split()[0]]]
 
             all_data[trial]['stimulus activity per cycle'].append(total_activity)
 
