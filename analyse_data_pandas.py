@@ -244,6 +244,8 @@ def get_results(input_text_filename,input_file_all_data,input_file_unrecognized_
 
 
 def get_results_simulation(input_file_all_data,input_file_unrecognized_words):
+    import parameters_exp as pm
+
     with open(input_file_all_data,"r") as f:
         with open(input_file_unrecognized_words,"r") as g:
             all_data = pickle.load(f)
@@ -260,7 +262,7 @@ def get_results_simulation(input_file_all_data,input_file_unrecognized_words):
             if pm.use_sentence_task:
                 stim = pd.read_table('./Stimuli/debug_Sentence_stimuli_all_csv.csv', sep=',')
                 task = "Sentence"
-            elif pm.use_flanker_task:
+            if pm.use_flanker_task:
                 stim = pd.read_table('./Stimuli/debug_Flanker_stimuli_all_csv.csv', sep=',')
                 task = "Flanker"
 
@@ -303,7 +305,8 @@ def get_results_simulation(input_file_all_data,input_file_unrecognized_words):
             ## Init dataframe
             df_alldata = pd.DataFrame(all_data)
             print(df_alldata)
-            df_alldata.to_pickle('alldata' + task + ".pkl")
+            print(task)
+            df_alldata.to_pickle('alldata_' + task + ".pkl")
             df_alldata['word length'] = df_alldata['target'].map(len)
             df_alldata = trans.correct_wordskips(df_alldata)
             df_alldata = trans.correct_offset(df_alldata)
