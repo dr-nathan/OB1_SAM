@@ -261,15 +261,15 @@ def get_results_simulation(input_file_all_data,input_file_unrecognized_words):
                 stim = pd.read_table('./Stimuli/debug_Sentence_stimuli_all_csv.csv', sep=',')
                 task = "Sentence"
             elif pm.use_flanker_task:
-                stim = pd.read_table('./Stimuli/Flanker_stimuli_all_csv.csv', sep=',')
+                stim = pd.read_table('./Stimuli/debug_Flanker_stimuli_all_csv.csv', sep=',')
                 task = "Flanker"
 
             #print(stim.head(10))
             stim['all'] = stim['all'].astype(str)
             individual_words = []
             lengtes=[]
-        #    textsplitbyspace = stim["all"].str.split(" ")
-            textsplitbyspace = set(stim['all'].str.replace('[^a-zA-Z ]', '').str.lower().str.split(' ').sum())
+            #textsplitbyspace = stim["all"].str.split(" ")
+            textsplitbyspace = list(stim['all'].str.split(' ', expand=True).stack().unique())
 
             for word in textsplitbyspace:
                 if word.strip() != "":
