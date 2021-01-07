@@ -16,7 +16,6 @@ import numpy as np
 import pickle
 import parameters_exp as pm
 import sys
-import create_freq_pred_files_fr
 #import create_freq_pred_files_fr
 if pm.visualise:
     import Visualise_reading
