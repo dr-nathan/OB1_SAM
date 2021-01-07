@@ -16,6 +16,7 @@ import numpy as np
 import pickle
 import parameters_exp as pm
 import sys
+import create_freq_pred_files_fr
 #import create_freq_pred_files_fr
 if pm.visualise:
     import Visualise_reading
@@ -29,21 +30,23 @@ def simulate_experiments(parameters):
 
     # generate / read in stimuli list from file (fixed items for both experiments)
     if pm.use_sentence_task:
-        #stim = pd.read_table('./Stimuli/Sentence_stimuli_all_csv.csv', sep=',')
+        # MM: what's the structure of stim? --> NS: Stim is een csv file met een aantal kolommen (de stimulus, conditie, item nummer)
+        #NS: "debug_" to use fake stimuli
         stim = pd.read_table('./Stimuli/debug_Sentence_stimuli_all_csv.csv', sep=',', encoding='utf-8')
         stim['all'] = stim['all'].astype('unicode')
         print(stim['all'])
-        #stim['all'] = stim['all'].str.encode('utf-8')
         task = "Sentence"
+        ncycles = 32 #800 ms
+        stimcycles = 8 #stimulus on screen for 200 ms (sentence)
 
     elif pm.use_flanker_task:
         stim = pd.read_table('./Stimuli/debug_Flanker_stimuli_all_csv2.csv', sep=',')
-        task = "Flanker"
         stim['all'] = stim['all'].astype('unicode')
         stim = stim[stim['condition'].str.startswith(('word'))].reset_index()
+        task = "Flanker"
+        ncycles = 32
+        stimcycles = 6 #stimulus on screen for 150 ms (flanker)
 
-
-    #print(stim.head(10))
     individual_words = []
     lengtes=[]
 
@@ -55,6 +58,7 @@ def simulate_experiments(parameters):
             individual_words.append(new_word)
             lengtes.append(len(word))
 
+    # #NS only needed this file once to generate freq pred files
     # with open('./Texts/' + task + '_freq_pred.txt', 'w') as f:
     #     for word in individual_words:
     #         f.write('%s\n' % word.encode('utf-8'))
@@ -233,16 +237,12 @@ def simulate_experiments(parameters):
 
 
     # Initialize Parameters
-    regression = False
-    wordskip = False
-    refixation = False
-    forward = False
     saccade_distance = 0  # Amount of characters
     fixation_duration = 0
     end_of_text = False  # Is set to true when end of text is reached.
     trial = 0
     trial_counter = 0  # The iterator that increases +1 with every trial,
-    attendWidth = 8.0
+    attendWidth = 6.0
     EyePosition = 0	#
     AttentionPosition = 0
     CYCLE_SIZE = 25  # milliseconds that one model cycle is supposed to last (brain time, not model time)
@@ -319,16 +319,9 @@ def simulate_experiments(parameters):
         lexicon_word_activity_np[lexicon_word_activity_np < pm.min_activity] = pm.min_activity
 
         if pm.use_sentence_task:
-            ncycles = 32 #800 ms
-            stimcycles = 8### stimulus on screen for 150 ms (flanker) or 200 ms (sentence)
             target = stimulus.split(" ")[stim['target'][trial]-1] #read in target cue from file
             all_data[trial]['position']=stim['target'][trial]
         if pm.use_flanker_task:
-            ncycles = 32
-            stimcycles = 6#6 #6 cycles = 150 ms
-            print(stimulus.split())
-            print("len stim: ", len(stimulus.split()))
-            print(len(stimulus.split()) // 2)
             if len(stimulus.split())>1:
                 target = stimulus.split()[1]
             elif len(stimulus.split())==1:
@@ -348,7 +341,7 @@ def simulate_experiments(parameters):
 
         # enter the cycle-loop that builds word activity with every cycle
         recognized = False
-        amount_of_cycles = 0
+        amount_of_cycles = 0 #NS might be a bit redundant, but I use this one to track at which cycle the word is recognized
         amount_of_cycles_before_end_of_trial = 0
 
         while amount_of_cycles_before_end_of_trial < ncycles:
@@ -364,10 +357,11 @@ def simulate_experiments(parameters):
                 else:
                     allMonograms.append(ngram)
             allBigrams_set = set(allBigrams)
-            print(allBigrams)
-            print(allBigrams_set)
+            # print(allBigrams)
+            # print(allBigrams_set)
             allMonograms_set = set(allMonograms)
-            #print(allMonograms_set)
+
+            # MM: deze snap ik niet. Waarom <8, >16? --> NS: Op deze manier is de stimulus pas na 8 cycles (200 ms) "in beeld", en verdwijnt hij weer na 16 cycles
             if amount_of_cycles_before_end_of_trial < 8 or amount_of_cycles_before_end_of_trial > 16:
                 [allNgrams, bigramsToLocations] = stringToBigramsAndLocations("") #NS remove stimulus
                 allMonograms = []
@@ -519,7 +513,6 @@ def simulate_experiments(parameters):
                 highest_word = lexicon[highest]
                 new_recognized_words[highest] = 1
 
-                #all_data[trial]['recognized words indices'].append(highest)
                 # NS if the target word is in recognized words:
                 #print([lexicon[i] for i in np.where(lexicon_word_activity_np > lexicon_thresholds_np)[0][:]])
                 if target in [lexicon[i] for i in np.where(lexicon_word_activity_np > lexicon_thresholds_np)[0][:]]:

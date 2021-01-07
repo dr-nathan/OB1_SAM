@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # 1-10-2020 Noor Seijdel
-# In this file, "simulate_experiments" is called and the results are stored 
+# In this file, "simulate_experiments" is called and the results are stored
 
 from reading_simulation import reading_simulation
 from simulate_experiments import simulate_experiments
@@ -48,7 +48,7 @@ if pm.run_exp:
                         f.write(str(uword))
                 f.write("\n")
 
-	with open("alldata.txt", "w") as f:
+	with open("alldata" + str(it)+ ".txt", "w") as f:
                 f.write("\n")
                 for uword in all_data:
                         f.write(str(uword))
@@ -56,7 +56,8 @@ if pm.run_exp:
 
 
 if pm.analyze_results:
-	get_results_simulation(output_file_all_data,output_file_unrecognized_words)
+	get_results_simulation(output_file_all_data,output_file_unrecognized_words,it)
+
 
 time_elapsed = time.time()-start_time
 print("Time elapsed: "+str(time_elapsed))
