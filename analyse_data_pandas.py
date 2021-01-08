@@ -246,8 +246,8 @@ def get_results(input_text_filename,input_file_all_data,input_file_unrecognized_
 def get_results_simulation(input_file_all_data,input_file_unrecognized_words):
     import parameters_exp as pm
 
-    with open(input_file_all_data,"r") as f:
-        with open(input_file_unrecognized_words,"r") as g:
+    with open(input_file_all_data,"rb") as f:
+        with open(input_file_unrecognized_words,"rb") as g:
             all_data = pickle.load(f)
             if not os.path.exists("plots/"):
                 os.makedirs("plots/")

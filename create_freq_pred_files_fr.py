@@ -22,7 +22,7 @@ encode_uft8 = lambda x: x.encode("utf-8",errors="strict")
 to_lowercase = lambda x: x.lower()
 
 ## Set converters
-convert_dict = {0:decode_ISO, 0:encode_uft8}
+convert_dict = {0:decode_ISO}#, 0:encode_uft8}
 #{column:comma_to_dot for column in [4,5,9]}
 
 ## Get selected columns from text
@@ -55,20 +55,20 @@ def create_freq_file(freqlist_arrays, freqthreshold, nr_highfreqwords, task=task
 
     cleaned_words = get_words_task(task)
     overlapping_words = np.intersect1d(cleaned_words,frequency_words_np, assume_unique=False)
+    print("overlapping:", overlapping_words)
 
-    ## IMPORTANT TO USE unicode() to place in dictionary, to replace NUMPY.UNICODE!!
-    ## Match PSC and freq words and put in dictionary with freq
+    ## Match task and freq words and put in dictionary with freq
     file_freq_dict = {}
     for i,word in enumerate(overlapping_words):
-        file_freq_dict[unicode(word.lower()).encode('utf-8').strip()] = frequency_words_dict[word.encode('utf-8').strip()]
+        file_freq_dict[(word.lower()).strip()] = frequency_words_dict[word.strip()]
 
     ## Put top freq words in dict, can use np.shape(array)[0]):
-    for line_number in xrange(nr_highfreqwords):
-        file_freq_dict[unicode((freq_words[line_number][0]).lower())] = freq_words[line_number][1]
+    for line_number in range(nr_highfreqwords):
+        file_freq_dict[((freq_words[line_number][0]).lower())] = freq_words[line_number][1]
 
     output_file_frequency_map = "Data/" + task + "_frequency_map_fr.dat"
     print(output_file_frequency_map)
-    with open (output_file_frequency_map,"w") as f:
+    with open (output_file_frequency_map,"wb") as f:
         pickle.dump(file_freq_dict,f)
         print("dumped")
 
@@ -77,7 +77,7 @@ def create_pred_file(task=task):
     #file_pred_dict = get_pred()
     file_pred_dict = np.repeat(0.25, 539)
     output_file_predictions_map = "Data/" + task + "_predictions_map_fr.dat"
-    with open (output_file_predictions_map,"w") as f:
+    with open (output_file_predictions_map,"wb") as f:
 	    pickle.dump(file_pred_dict,f)
 
 create_freq_file(freqlist_arrays,freqthreshold,nr_highfreqwords)

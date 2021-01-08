@@ -37,6 +37,9 @@ def simulate_experiments(parameters):
         task = "Sentence"
         ncycles = 32 #800 ms
         stimcycles = 8 #stimulus on screen for 200 ms (sentence)
+        attendWidth = 20.0 #Because the stimuli contain four words
+        pm.bigram_to_word_excitation = 2.18
+
 
     elif pm.use_flanker_task:
         stim = pd.read_table('./Stimuli/debug_Flanker_stimuli_all_csv2.csv', sep=',')
@@ -45,6 +48,8 @@ def simulate_experiments(parameters):
         task = "Flanker"
         ncycles = 32
         stimcycles = 6 #stimulus on screen for 150 ms (flanker)
+        attendWidth = 8.0
+
 
     individual_words = []
     lengtes=[]
@@ -100,7 +105,7 @@ def simulate_experiments(parameters):
                 lexicon.append(freq_word.lower())
 
     lexicon_file_name = 'Data/Lexicon_fr.dat'
-    with open(lexicon_file_name,"w") as f:
+    with open(lexicon_file_name,"wb") as f:
         pickle.dump(lexicon,f)
 
     n_known_words = len(lexicon)  # nr of words known to model
@@ -241,7 +246,6 @@ def simulate_experiments(parameters):
     end_of_text = False  # Is set to true when end of text is reached.
     trial = 0
     trial_counter = 0  # The iterator that increases +1 with every trial,
-    attendWidth = 6.0
     EyePosition = 0	#
     AttentionPosition = 0
     CYCLE_SIZE = 25  # milliseconds that one model cycle is supposed to last (brain time, not model time)
@@ -500,7 +504,7 @@ def simulate_experiments(parameters):
 
             #but here we only look at the target word
             desired_length = len(target)
-
+            #print("Target length: " + str(desired_length))
             # MM: recognWrdsFittingLen_np: array with 1=wrd act above threshold, & approx same len
             # as to-be-recogn wrd (with 15% margin), 0=otherwise
             recognWrdsFittingLen_np = above_tresh_lexicon_np * np.array([int(is_similar_word_length(x, target)) for x in lexicon])
@@ -528,7 +532,7 @@ def simulate_experiments(parameters):
                 print("highest activation: "+str(lexicon[highest])+", "+str(lexicon_word_activity_np[highest]))
                 #print("\n")
             except:
-                print("Encoding error")
+                print("")
 
             ## NS: not yet implemented, potentially interesting for the future
             ### "evaluate" response

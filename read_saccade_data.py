@@ -19,6 +19,7 @@ comma_to_dot = lambda s: float(s.replace(",","."))
 remove_dot = lambda s: s.replace(".","")
 decode_ISO= lambda x: x.decode('ISO-8859-1', errors="strict").encode("utf-8")
 encode_uft8 = lambda x: x.encode("utf-8",errors="strict")
+decode_uft8 = lambda x: x.decode("utf-8",errors="strict")
 
 
 freqbins  = np.arange(0,7,1)
@@ -340,12 +341,12 @@ def get_freq_pred_files():
 
 def get_freq_pred_files_fr(task): ## NS added for experiment simulations (flanker task and sentence reading task)
     output_word_frequency_map = "Data/"+task+ "_frequency_map_fr.dat"
-    with open (output_word_frequency_map,"r") as f:
-        #word_freq_dict = pickle.load(f, encoding="latin1") # For Python3
-        word_freq_dict = pickle.load(f)
+    with open (output_word_frequency_map,"rb") as f:
+        word_freq_dict = pickle.load(f)#, encoding="utf-8") # For Python3
+        #word_freq_dict = pickle.load(f)
     output_word_predictions_map = "Data/"+task+ "_predictions_map_fr.dat"
 
-    with open (output_word_predictions_map,"r") as p:
+    with open (output_word_predictions_map,"rb") as p:
         word_pred_dict = pickle.load(p)
     return word_freq_dict, word_pred_dict
 
@@ -415,11 +416,11 @@ def get_words():
 def get_words_task(task):  ## NS added for experiment simulations (flanker task and sentence reading task)
     #f = file("Texts/" +task + "_freq_pred.txt", 'r')
     #my_data = f.read().decode('utf8')
-    my_data = np.genfromtxt("Texts/" +task + "_freq_pred.txt".encode(), dtype=['U20'])
+    convert_dict = {0:decode_uft8}
+    my_data = np.genfromtxt("Texts/" +task + "_freq_pred.txt", converters=convert_dict)#, dtype=['U20'])
     print(my_data)
     #print(np.char.decode(my_data))
     cleaned_words = np.empty([len(my_data),1],dtype='U20')
     for i,word in enumerate(my_data):
-        print(word)
         cleaned_words[i] = word
     return cleaned_words

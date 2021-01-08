@@ -7,8 +7,8 @@ import time
 
 print("Parameters Initialised")
 
-use_sentence_task = True
-use_flanker_task = False
+use_sentence_task = False
+use_flanker_task = True
 
 # Control-flow parameters
 run_exp = True  # Should the reading simulation run?

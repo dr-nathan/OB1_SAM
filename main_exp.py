@@ -33,11 +33,11 @@ if pm.run_exp:
 	# Run the reading model
 	(lexicon, all_data, unrecognized_words) = simulate_experiments(parameters=[])
 	# Save results: all_data...
-	all_data_file = open(output_file_all_data,"w")
+	all_data_file = open(output_file_all_data,"wb")
 	pickle.dump(all_data, all_data_file)
 	all_data_file.close()
 	# ...and unrecognized words
-	unrecognized_file = open(output_file_unrecognized_words, "w")
+	unrecognized_file = open(output_file_unrecognized_words, "wb")
 	pickle.dump(unrecognized_words, unrecognized_file)
 	unrecognized_file.close()
 
@@ -45,10 +45,10 @@ if pm.run_exp:
                 f.write("Total unrecognized: " + str(len(unrecognized_words)))
                 f.write("\n")
                 for uword in unrecognized_words:
-                        f.write(str(uword))
+                        f.write(uword)
                 f.write("\n")
 
-	with open("alldata" + str(it)+ ".txt", "w") as f:
+	with open("alldata.txt", "w") as f:
                 f.write("\n")
                 for uword in all_data:
                         f.write(str(uword))
@@ -56,7 +56,7 @@ if pm.run_exp:
 
 
 if pm.analyze_results:
-	get_results_simulation(output_file_all_data,output_file_unrecognized_words,it)
+	get_results_simulation(output_file_all_data,output_file_unrecognized_words)
 
 
 time_elapsed = time.time()-start_time
