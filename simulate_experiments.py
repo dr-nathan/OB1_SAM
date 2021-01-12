@@ -31,7 +31,7 @@ def simulate_experiments(parameters):
     if pm.use_sentence_task:
         # MM: what's the structure of stim? --> NS: Stim is een csv file met een aantal kolommen (de stimulus, conditie, item nummer)
         #NS: "debug_" to use fake stimuli
-        stim = pd.read_table('./Stimuli/debug_Sentence_stimuli_all_csv.csv', sep=',', encoding='utf-8')
+        stim = pd.read_table('./Stimuli/Sentence_stimuli_all_csv.csv', sep=',', encoding='utf-8')
         stim['all'] = stim['all'].astype('unicode')
         print(stim['all'])
         task = "Sentence"
@@ -42,13 +42,13 @@ def simulate_experiments(parameters):
 
 
     elif pm.use_flanker_task:
-        stim = pd.read_table('./Stimuli/debug_Flanker_stimuli_all_csv2.csv', sep=',')
+        stim = pd.read_table('./Stimuli/Flanker_stimuli_all_csv.csv', sep=',')
         stim['all'] = stim['all'].astype('unicode')
         stim = stim[stim['condition'].str.startswith(('word'))].reset_index()
         task = "Flanker"
         ncycles = 32
         stimcycles = 6 #stimulus on screen for 150 ms (flanker)
-        attendWidth = 8.0
+        attendWidth = 2.0
 
 
     individual_words = []
@@ -62,10 +62,10 @@ def simulate_experiments(parameters):
             individual_words.append(new_word)
             lengtes.append(len(word))
 
-    # #NS only needed this file once to generate freq pred files
-    # with open('./Texts/' + task + '_freq_pred.txt', 'w') as f:
-    #     for word in individual_words:
-    #         f.write('%s\n' % word.encode('utf-8'))
+    #NS only needed this file once to generate freq pred files
+    with open('./Texts/' + task + '_freq_pred.txt', 'w') as f:
+        for word in individual_words:
+            f.write('%s\n' % word)#.encode('utf-8'))
 
     print(individual_words)
     # load dictionaries (French Lexicon Project database) and generate list of individual words
@@ -324,6 +324,7 @@ def simulate_experiments(parameters):
         if pm.use_sentence_task:
             target = stimulus.split(" ")[stim['target'][trial]-1] #read in target cue from file
             all_data[trial]['position']=stim['target'][trial]
+            all_data[trial]['item_nr']=stim['item_nr'][trial]
         if pm.use_flanker_task:
             if len(stimulus.split())>1:
                 target = stimulus.split()[1]

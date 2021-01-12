@@ -417,7 +417,10 @@ def get_words_task(task):  ## NS added for experiment simulations (flanker task 
     #f = file("Texts/" +task + "_freq_pred.txt", 'r')
     #my_data = f.read().decode('utf8')
     convert_dict = {0:decode_uft8}
-    my_data = np.genfromtxt("Texts/" +task + "_freq_pred.txt", converters=convert_dict)#, dtype=['U20'])
+    if task =="Sentence":
+        my_data = np.genfromtxt("Texts/" +task + "_freq_pred.txt", dtype='unicode')#converters=convert_dict,dtype='unicode')# dtype=['U20'])
+    elif task == "Flanker":
+        my_data = np.genfromtxt("Texts/" +task + "_freq_pred.txt",converters=convert_dict)#,dtype='unicode')# dtype=['U20'])
     print(my_data)
     #print(np.char.decode(my_data))
     cleaned_words = np.empty([len(my_data),1],dtype='U20')
