@@ -8,7 +8,7 @@ import time
 print("Parameters Initialised")
 
 use_sentence_task = False
-use_flanker_task = True
+use_flanker_task = False
 
 # Control-flow parameters
 run_exp = True  # Should the reading simulation run?
@@ -63,7 +63,7 @@ max_activity = 1.3
 ## Attentional width
 max_attend_width = 5.0
 min_attend_width = 3.0
-attention_skew = 4  # 1 equals symmetrical distribution # 4 (paper)
+attention_skew = 1  # 1 equals symmetrical distribution # 4 (paper)
 bigram_gap = 3  # How many in btw letters still lead to bigram? 6 (optimal) # 3 (paper)
 min_overlap = 2
 refix_size = 0.2

@@ -260,10 +260,10 @@ def get_results_simulation(input_file_all_data,input_file_unrecognized_words):
 
             # generate / read in stimuli list from file (fixed items for both experiments)
             if pm.use_sentence_task:
-                stim = pd.read_table('./Stimuli/debug_Sentence_stimuli_all_csv.csv', sep=',')
+                stim = pd.read_table('./Stimuli/Sentence_stimuli_all_csv.csv', sep=',')
                 task = "Sentence"
             if pm.use_flanker_task:
-                stim = pd.read_table('./Stimuli/debug_Flanker_stimuli_all_csv.csv', sep=',')
+                stim = pd.read_table('./Stimuli/Flanker_stimuli_all_csv.csv', sep=',')
                 task = "Flanker"
 
             #print(stim.head(10))

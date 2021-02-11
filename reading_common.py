@@ -32,6 +32,7 @@ def getNgramEdgePositionWeight(ngram,ngramLocations,stimulus_space_locations):
             ngramEdgePositionWeight=1.
         elif (first+1) in stimulus_space_locations or (second-1) in stimulus_space_locations:
             ngramEdgePositionWeight=1.
+
     else:
         letter_location = ngramLocations
         #One letter word
@@ -125,12 +126,20 @@ def calcAcuity(eye_eccentricity,letPerDeg):
     # Parameters from Harvey & Dumoulin (2007); 35.55556 is to make acuity at 0 degs eq. to 1
     return (1/35.555556)/(0.018*(eye_eccentricity*letPerDeg+1/0.64))
 
+def findMiddle(input_list):
+    middle = float(len(input_list))/2
+    if middle % 2 != 0:
+        return input_list[int(middle - .5)]
+    else:
+        return (input_list[int(middle)], input_list[int(middle-1)])
 
 #parameters shift and amount of cycles are used only for reading
 def calcBigramExtInput(bigram, bigrLocsStimulus, EyePosition, AttentionPosition, attendWidth, shift = True, amount_of_cycles=0):
     sumExtInput=0
     # Here we look up all instances of same bigram. Act of all is summed (this is somewhat of a questionable assumption, perhaps max() would be better
     locations = bigrLocsStimulus[bigram]
+
+
     #todo check if locations weights multiplier is correct fixated words
     for bigram_letter_locations in locations:
         bigram_locations_weight_multiplier = bigram_letter_locations[2]
@@ -159,6 +168,51 @@ def calcBigramExtInput(bigram, bigrLocsStimulus, EyePosition, AttentionPosition,
 
     return sumExtInput
 
+#parameters shift and amount of cycles are used only for reading
+def calcBigramExtInput_exp(bigram, bigrLocsStimulus, EyePosition, AttentionPosition, attendWidth, shift = True, amount_of_cycles=0):
+    sumExtInput=0
+    extInputs = []
+    # Here we look up all instances of same bigram. Act of all is summed (this is somewhat of a questionable assumption, perhaps max() would be better
+    locations = bigrLocsStimulus[bigram]
+
+    #todo check if locations weights multiplier is correct fixated words
+    for bigram_letter_locations in locations:
+
+        bigram_locations_weight_multiplier = bigram_letter_locations[2]
+
+        # Bigram activity depends on distance of bigram letters to the centre of attention and fixation
+        # and left/right is skewed using negative/positve att_ecc
+
+        attention_eccentricity1=bigram_letter_locations[0]-AttentionPosition
+        attention_eccentricity2=bigram_letter_locations[1]-AttentionPosition
+
+        eye_eccentricity1= abs(bigram_letter_locations[0]-EyePosition)
+        eye_eccentricity2= abs(bigram_letter_locations[1]-EyePosition)
+
+        attention1=get_attention_skewed(attendWidth, attention_eccentricity1,pm.attention_skew)
+        attention2=get_attention_skewed(attendWidth, attention_eccentricity2,pm.attention_skew)
+
+        # Parameters from Harvey & Dumoulin (2007); 35.55556 is to make acuity at 0 degs eq. to 1
+        visualAccuity1 = calcAcuity(eye_eccentricity1,pm.letPerDeg)
+        visualAccuity2 = calcAcuity(eye_eccentricity2,pm.letPerDeg)
+
+        extInput1 = attention1*visualAccuity1
+        extInput2 = attention2*visualAccuity2
+        extInput=math.sqrt(extInput1*extInput2)
+
+        extInputs.append(extInput * bigram_locations_weight_multiplier)
+
+    # ### NS originally: sum
+    # sumExtInput=sum(extInputs)
+
+    # ### NS only take max extInputs?
+    # sumExtInput=max(extInputs)
+    # ### NS Do not count double bigrams as strong?
+    sumExtInput=sum(extInputs)/math.sqrt(len(extInputs))
+
+
+    return sumExtInput
+
 
 def calcMonogramExtInput(monogram,bigrLocsStimulus,EyePosition, AttentionPosition, attendWidth, shift = True, amount_of_cycles=0):
     sumExtInput=0
@@ -177,6 +231,33 @@ def calcMonogramExtInput(monogram,bigrLocsStimulus,EyePosition, AttentionPositio
 
         extInput = attention1*visualAccuity1
         sumExtInput += extInput * monogram_locations_weight_multiplier
+
+    return sumExtInput
+
+def calcMonogramExtInput_exp(monogram,bigrLocsStimulus,EyePosition, AttentionPosition, attendWidth, shift = True, amount_of_cycles=0):
+    sumExtInput=0
+    extInputs=[]
+    # Here we look up all instances of same monogram. Act of all is summed
+    locations = bigrLocsStimulus[monogram]
+
+    for monogram_position in locations:
+        monogram_locations_weight_multiplier = monogram_position[1]
+        # Monogram activity depends on distance of bigram letters to the centre of attention and fixation
+
+        attention_eccentricity1=monogram_position[0]-AttentionPosition
+        eye_eccentricity1= abs(monogram_position[0]-EyePosition)
+
+        attention1=get_attention_skewed(attendWidth, attention_eccentricity1,pm.attention_skew)
+        visualAccuity1 = calcAcuity(eye_eccentricity1,pm.letPerDeg)
+
+        extInput = attention1*visualAccuity1
+        extInputs.append(extInput * bigram_locations_weight_multiplier)
+
+    #sumExtInput=sum(extInputs)
+    # ### NS only take max extInputs?
+    # sumExtInput=max(extInputs)
+    # ### NS Do not count double bigrams as strong?
+    sumExtInput=sum(extInputs)/math.sqrt(len(extInputs))
 
     return sumExtInput
 

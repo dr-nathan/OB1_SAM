@@ -32,53 +32,70 @@ freqlist_arrays = np.genfromtxt("Texts/frequency_french.txt", dtype=[('Word','U3
 freqthreshold = 1.5
 nr_highfreqwords = 200
 
-if pm.use_sentence_task:
-    task = "Sentence"
-elif pm.use_flanker_task:
-    task = "Flanker"
+# if pm.use_sentence_task:
+#     task = "Sentence"
+# elif pm.use_flanker_task:
+#     task = "Flanker"
+
+tasks = ["Flanker", "Sentence"]
+
+for exp in tasks:
+
+    if exp == "Flanker":
+        task = "Flanker"
+        pm.use_flanker_task = True
+        pm.use_sentence_task = False
+
+    elif exp == "Sentence":
+        task="Sentence"
+        pm.use_sentence_task = True
+        pm.use_flanker_task = False
 
 
-def create_freq_file(freqlist_arrays, freqthreshold, nr_highfreqwords, task=task):
-    ## Sort arrays ascending on frequency
-    freqlist_arrays = np.sort(freqlist_arrays,order='lcfreqmovies')[::-1]
-    select_by_freq = np.sum(freqlist_arrays['cfreqmovies']>freqthreshold)
-    freqlist_arrays = freqlist_arrays[0:select_by_freq]
+    def create_freq_file(freqlist_arrays, freqthreshold, nr_highfreqwords, task=task):
+        ## Sort arrays ascending on frequency
+        freqlist_arrays = np.sort(freqlist_arrays,order='lcfreqmovies')[::-1]
+        select_by_freq = np.sum(freqlist_arrays['cfreqmovies']>freqthreshold)
+        freqlist_arrays = freqlist_arrays[0:select_by_freq]
 
-    ## Clean and select frequency words and frequency
-    freq_words = freqlist_arrays[['Word','lcfreqmovies']]
-    frequency_words_np = np.empty([len(freq_words),1],dtype='U20')
-    frequency_words_dict  = {}
-    for i,line in enumerate(freq_words):
-        frequency_words_dict[line[0].replace(".","").lower()] = line[1]
-        frequency_words_np[i] = line[0].replace(".","").lower()
-
-
-    cleaned_words = get_words_task(task)
-    overlapping_words = np.intersect1d(cleaned_words,frequency_words_np, assume_unique=False)
-    print("overlapping:", overlapping_words)
-
-    ## Match task and freq words and put in dictionary with freq
-    file_freq_dict = {}
-    for i,word in enumerate(overlapping_words):
-        file_freq_dict[(word.lower()).strip()] = frequency_words_dict[word.strip()]
-
-    ## Put top freq words in dict, can use np.shape(array)[0]):
-    for line_number in range(nr_highfreqwords):
-        file_freq_dict[((freq_words[line_number][0]).lower())] = freq_words[line_number][1]
-
-    output_file_frequency_map = "Data/" + task + "_frequency_map_fr.dat"
-    print(output_file_frequency_map)
-    with open (output_file_frequency_map,"wb") as f:
-        pickle.dump(file_freq_dict,f)
-        print("dumped")
+        ## Clean and select frequency words and frequency
+        freq_words = freqlist_arrays[['Word','lcfreqmovies']]
+        frequency_words_np = np.empty([len(freq_words),1],dtype='U20')
+        frequency_words_dict  = {}
+        for i,line in enumerate(freq_words):
+            frequency_words_dict[line[0].replace(".","").lower()] = line[1]
+            frequency_words_np[i] = line[0].replace(".","").lower()
 
 
-def create_pred_file(task=task):
-    #file_pred_dict = get_pred()
-    file_pred_dict = np.repeat(0.25, 539)
-    output_file_predictions_map = "Data/" + task + "_predictions_map_fr.dat"
-    with open (output_file_predictions_map,"wb") as f:
-	    pickle.dump(file_pred_dict,f)
+        cleaned_words = get_words_task(task)
+        overlapping_words = np.intersect1d(cleaned_words,frequency_words_np, assume_unique=False)
+        print("overlapping:", overlapping_words)
 
-create_freq_file(freqlist_arrays,freqthreshold,nr_highfreqwords)
-create_pred_file()
+        ## Match task and freq words and put in dictionary with freq
+        file_freq_dict = {}
+        for i,word in enumerate(overlapping_words):
+            file_freq_dict[(word.lower()).strip()] = frequency_words_dict[word.strip()]
+
+        ## Put top freq words in dict, can use np.shape(array)[0]):
+        for line_number in range(nr_highfreqwords):
+            file_freq_dict[((freq_words[line_number][0]).lower())] = freq_words[line_number][1]
+
+        output_file_frequency_map = "Data/" + task + "_frequency_map_fr.dat"
+        print(output_file_frequency_map)
+        with open (output_file_frequency_map,"wb") as f:
+            pickle.dump(file_freq_dict,f)
+            print("dumped")
+
+
+    def create_pred_file(task=task):
+        #file_pred_dict = get_pred()
+        file_pred_dict = np.repeat(0.25, 539)
+        output_file_predictions_map = "Data/" + task + "_predictions_map_fr.dat"
+        with open (output_file_predictions_map,"wb") as f:
+    	    pickle.dump(file_pred_dict,f)
+
+
+
+
+    create_freq_file(freqlist_arrays,freqthreshold,nr_highfreqwords)
+    create_pred_file()
