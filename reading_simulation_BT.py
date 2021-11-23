@@ -1,7 +1,7 @@
 # Author: J.J. Snell & S.G. van Leipsig
 # supervised by dr. M. Meeter
 # 01-07-15
-# Reading simulation involving Open Bigram processing
+# Reading simulation involving Open Bigram processing, for the Boundary task
 
 from __future__ import division
 from collections import defaultdict

@@ -1,112 +1,117 @@
 # -*- coding: utf-8 -*-
-# CHANGED
-from reading_simulation import reading_simulation
-from analyse_data_pandas import get_results
-import multiprocessing as mp
-import pickle
-import cProfile
-import pstats
-from analyse_data_pandas import get_results
-import pickle
-import scipy
+# 1-10-2020 Noor Seijdel
+# In this file, "simulate_experiments" is called and the results are stored
+
+#NV: Merged main and main_exp into this file. Specify what tasks to run in parameters. If any of the experimental tasks are chosen, run body of main_exp, of PSC is chosen, run body of what used to be main.py
+import pickle 
 import time
 import numpy as np
-from get_scores import get_scores
-import parameters as pm
-import pandas as pd
-from get_parameters import get_params
+import scipy
 
-# Get parameters for tuning
-parameters, bounds, names = get_params(pm)
+from simulate_experiments import simulate_experiments
+from get_parameters import get_params #for optimizing
+from analyse_data_pandas import get_results_simulation
+from parameters import return_params
+from reading_simulation import reading_simulation
+from reading_function_optimize import reading_function
+from analyse_data_pandas import get_results
 
-# Init distance variables for the reading function used in tuning
-OLD_DISTANCE = np.inf
-N_RUNS = 0
+pm=return_params() #NV: get all parameters as an object
+task=pm.task_to_run #NV: get name
 
-# Reading function for tuning (called by scipy's L-BFGS-B optimizing function)
-def reading_function(parameters_rf):
-	global OLD_DISTANCE
-	global N_RUNS
-	filename = "PSC_ALL"
-	filepath_psc = "PSC/" + filename + ".txt"
+print("Task:"+task)
 
-### For testing (loading past results instead of running simulation)
-#	with open("Results/all_data.pkl","r") as f:
-#		all_data = pickle.load(f)
-#	with open("Results/unrecognized.pkl","r") as f:
-#		unrecognized_words = pickle.load(f)
-###
-	# Run the simulation
+print("_----PARAMETERS----_")
+print("reading in " + pm.language)
+if pm.uniform_pred: #NV: added uniform pred, which overwrites the 2 others if set to true (line18)
+    print("Using uniform 0.25 probabilities")
+elif pm.use_grammar_prob:
+    print("Using syntax probabilities")
+else:
+    print("Using cloze probabilities")
+if pm.optimize:
+    print("Using: "+pm.tuning_measure)
+    if any(pm.objective):
+        print("Single Objective: "+pm.tuning_measure+" of "+pm.objective)
+    else:
+        print("Using total "+pm.tuning_measure)
+    print("Step-size: "+str(pm.epsilon))
+print("-------------------")
 
-	(lexicon, all_data, unrecognized_words) = reading_simulation(filepath_psc, parameters_rf)
-	# Evaluate run and retrieve error-metric
-	distance = get_scores(filename, all_data, unrecognized_words)
+output_file_all_data, output_file_unrecognized_words = ("Results/alldata_"+task+".pkl","Results/unrecognized_"+task+".pkl") #NV: changed this to 1 line
 
-        # Save parameters when distance is better than previous
-	write_out = pd.DataFrame(np.array([names, parameters_rf]).T)
-	if distance < OLD_DISTANCE:
-        	write_out.to_csv(str(distance)+"_"+pm.tuning_measure+"parameters.txt", index=False, header=["name", "value"])
-        	OLD_DISTANCE = distance
-
-	p = ""
-
-	for param, name in zip(parameters_rf, names):
-		p += name +": "
-		p += str(param)
-		p += "\n"
-
-#	print("len unrecogn: ", len(unrecognized_words))
-
-	# Save distances for plotting convergence
-	with open("dist.txt", "a") as f:
-		f.write("run "+str(N_RUNS)+": "+str(int(distance))+"\n")
-		f.write(p)
-		f.write("\n")
-	N_RUNS += 1 
-	return distance
-
-
-if pm.language == "german":
-	filename = "PSC_ALL"
-	filepath_psc = "PSC/" + filename + ".txt"
-# The reading model reads dutch but there is no data to compare it to yet
-if pm.language == "dutch":
-	raise NotImplementedError
-	filename = "PSC/words_dutch.pkl"
-
-output_file_all_data, output_file_unrecognized_words = ("Results/all_data"+pm.language+".pkl","Results/unrecognized"+pm.language+".pkl")
 start_time = time.time()
 
-if pm.run_exp:
-	# Run the reading model
-	(lexicon, all_data, unrecognized_words) = reading_simulation(filepath_psc, parameters=[])
-	# Save results: all_data...
-	all_data_file = open(output_file_all_data,"w")
-	pickle.dump(all_data, all_data_file)
-	all_data_file.close()
-	# ...and unrecognized words
-	unrecognized_file = open(output_file_unrecognized_words, "w")
-	pickle.dump(unrecognized_words, unrecognized_file)
-	unrecognized_file.close()
+if pm.is_experiment: #NV: if the task is an experiment
+    if pm.run_exp:
+        # Run experiment simulation
+        (lexicon, all_data, unrecognized_words) = simulate_experiments(task, pm)
+        # Save results: all_data... 
+        with open(output_file_all_data,"wb") as all_data_file: #NV: Changed syntax of writing to file.
+            pickle.dump(all_data, all_data_file)
+        # ...and unrecognized words
+        with open(output_file_unrecognized_words, "wb") as unrecognized_file:
+            pickle.dump(unrecognized_words, unrecognized_file)
 
-	print(str(len(unrecognized_words))+ " unrecognized words")
+        #NV: write unrecognized and recognized words also to text file. For consulting manually?
+        with open("Results/unrecognized.txt", "w") as f:
+                    f.write("Total unrecognized: " + str(len(unrecognized_words)))
+                    f.write("\n")
+                    for uword in unrecognized_words:
+                            f.write(uword)
+                    f.write("\n")
+                    
+        with open("Results/alldata.txt", "w") as f:
+                    f.write("\n")
+                    for uword in all_data:
+                            f.write(str(uword))
+                    f.write("\n")
+                    
+    if pm.analyze_results: #NV: what does this do exactly?
+        get_results_simulation(task,output_file_all_data,output_file_unrecognized_words) 
+    
+    if pm.optimize: #NV: not coded yet (that i know of: check copies)
+        pass
+                
+else: #NV: if not a task, run simulation of text reading (german, PSC)
 
-	with open("unrecognized.txt", "w") as f:
-                f.write("Total unrecognized: " + str(len(unrecognized_words)))
-                f.write("\n")
-                for uword in unrecognized_words:
-                        f.write(str(uword))
-                f.write("\n")
+    
+    if pm.language == "german":
+        filename = "PSCmini" #"PSC_ALL"
+        filepath_psc = "PSC/" + filename + ".txt"
+    # The reading model reads dutch but there is no data to compare it to yet
+    if pm.language == "dutch":
+        raise NotImplementedError
+        filename = "PSC/words_dutch.pkl"
+    else: #NV: for all other languages
+        raise NotImplementedError("language is not implemented yet")
+        
+    if pm.run_exp:
+    # Run the reading model
+        (lexicon, all_data, unrecognized_words,highest_act_words, act_above_threshold, read_words) = reading_simulation(filepath_psc, parameters=[])
+        # GS these can be used for some debugging checks
+        #highest_act_words, act_above_threshold, read_words
+        # Save results: all_data...
+        all_data_file = open(output_file_all_data,"wb")
+        pickle.dump(all_data, all_data_file)
+        all_data_file.close()
+        # ...and unrecognized words
+        unrecognized_file = open(output_file_unrecognized_words, "wb")
+        pickle.dump(unrecognized_words, unrecognized_file)
+        unrecognized_file.close()
 
+    if pm.analyze_results:
+        get_results(filepath_psc,output_file_all_data,output_file_unrecognized_words)
 
-if pm.analyze_results:
-	get_results(filepath_psc,output_file_all_data,output_file_unrecognized_words)
+    if pm.optimize:
+        epsilon = pm.epsilon
+        parameters, bounds, names = get_params(pm) 
+        OLD_DISTANCE = np.inf
+        N_RUNS = 0
+        results = scipy.optimize.fmin_l_bfgs_b(func=reading_function, args=(names), x0=np.array(parameters), bounds=bounds, approx_grad=True, disp=True , epsilon=epsilon)
+        with open("results_optimization.pkl", "wb") as f: #TODO: look into this. Probably broken
+            pickle.dump(results, f)
 
-if pm.optimize:
-	epsilon = pm.epsilon
-	results = scipy.optimize.fmin_l_bfgs_b(func=reading_function, x0=np.array(parameters), bounds=bounds, approx_grad=True, disp=True , epsilon=epsilon)
-	with open("results_optimization.pkl", "wb") as f:
-		pickle.dump(results, f)
 
 time_elapsed = time.time()-start_time
 print("Time elapsed: "+str(time_elapsed))

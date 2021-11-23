@@ -1,9 +1,11 @@
 # CHANGED
 __author__ = 'Sam van Leipsig'
-import parameters as pm
-import numpy as np
-import math
 
+import numpy as np
+
+from parameters import return_params
+
+pm=return_params()
 
 ## Basic
 #---------------------------------------------------------------------------
@@ -11,11 +13,11 @@ def my_print(*args):
     if pm.print_all:
         for i in args:
             print(i)
-        print("")
+        #print("")
 
 
 def is_similar_word_length(word1, word2):
-    return abs(len(word1)-len(word2)) < (0.15 * max(len(word1), len(word2)))
+    return abs(len(word1)-len(word2)) < (pm.word_length_similarity_constant * max(len(word1), len(word2))) # NV: difference of word length  must be within 15% of the length of the longest word
 
 
 # returns the word center position of a surrounding word

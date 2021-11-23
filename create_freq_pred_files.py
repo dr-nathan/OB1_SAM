@@ -1,75 +1,112 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Oct 13 14:23:34 2021
+
+@author: nathanvaartjes
+
+This script creates a file that gets the words of the specific task, 
+appends their relatives frequencies and predictabilities, as calculated by the SUBTLEX or other relevant resource. 
+Also appends 200 most common words to the list 
+"""
+import chardet
+from parameters import return_params
 import numpy as np
 import pickle
-import codecs
-#import chardet
-from read_saccade_data import get_words, get_pred
+from read_saccade_data import get_words
 
-# Detect text encoding
-rawdata=open("Texts/frequency_german.txt","r").read()
-#print chardet.detect(rawdata)
+pm=return_params()
 
-#to prevent unicode errors
-# 'utf-8' 'cp1252' 'ISO-8859-1'
-# with codecs.open("frequency_german.txt", 'r', encoding = 'ISO-8859-1',errors = 'strict') as mytext:
 
-## Converter function to use
-comma_to_dot = lambda s: float(s.replace(",","."))
-decode_uft8 = lambda x: x.decode("utf-8", errors="strict")
-decode_ISO= lambda x: x.decode('ISO-8859-1', errors="strict")
-encode_uft8 = lambda x: x.encode("utf-8",errors="strict")
-#replace_german = lambda x: unidecode(x)
-to_lowercase = lambda x: x.lower()
+#NV: This script only builds freq_pred file for task specified as task_to_run in parameters.py
+task = pm.task_to_run 
+ 
+#NV: get appropriate freq dictionary (SUBTLEX-UK for english, Lexicon Project for french,...). Automatically detects encoding via Chardet and uses the value during import. Due to Chardet, its a bit slow however.
+if pm.language=='english':
+    freqlist_arrays = np.genfromtxt("Texts/frequency_english.txt", dtype=[('Spelling','U30'),('FreqCount','f4'),('LogFreqZipf','f4')],
+                                    usecols = (0,1,5),encoding=chardet.detect(open("Texts/frequency_english.txt","rb").read())['encoding'] , skip_header=1, delimiter="\t", filling_values = 0)
+    lang='en'
+elif pm.language=='french':
+    freqlist_arrays = np.genfromtxt("Texts/frequency_french.txt", dtype=[('Word','U30'),('cfreqmovies','f4'), ('lcfreqmovies','f4'),('cfreqbooks','f4'), ('lcfreqbooks','f4')],
+                                usecols = (0,7,8,9,10),encoding=chardet.detect(open("Texts/frequency_french.txt","rb").read())['encoding'] , skip_header=1, delimiter="\t", filling_values = 0)
+    lang='fr'
+elif pm.language=='german':
+    freqlist_arrays = np.genfromtxt("Texts/frequency_german.txt", dtype=[('Word','U30'),('FreqCount','i4'), ('CUMfreqcount','i4'),('Subtlex','f4'), ('lgSubtlex','f4'), ('lgGoogle','f4')],
+                                usecols = (0,1,3,4,5,9) , encoding=chardet.detect(open("Texts/frequency_german.txt","rb").read())['encoding'], skip_header=1, delimiter="\t", filling_values = 0)
+    lang='de'   
+else:
+    raise NotImplementedError(pm.language +" is not implemented yet!")
 
-## Set converters
-convert_dict = {0:decode_ISO,4:comma_to_dot, 5:comma_to_dot, 9:comma_to_dot}
-#{column:comma_to_dot for column in [4,5,9]}
-
-## Get selected columns from text
-freqlist_arrays = np.genfromtxt("Texts/frequency_german.txt", dtype=[('Word','U30'),('FreqCount','i4'), ('CUMfreqcount','i4'),('Subtlex','f4'), ('lgSubtlex','f4'), ('lgGoogle','f4')],
-                                    usecols = (0,1,3,4,5,9), converters= convert_dict , skip_header=1, delimiter="\t")
-
-freqthreshold = 1.5
+freqthreshold = 1.5 
 nr_highfreqwords = 200
 
-def create_freq_file(freqlist_arrays, freqthreshold, nr_highfreqwords):
-    ## Sort arrays ascending on subtlex by million
-    freqlist_arrays = np.sort(freqlist_arrays,order='lgSubtlex')[::-1]
-    select_by_freq = np.sum(freqlist_arrays['lgSubtlex']>freqthreshold)
-    freqlist_arrays = freqlist_arrays[0:select_by_freq]
 
-    ## Clean and select frequency words and frequency
-    freq_words = freqlist_arrays[['Word','lgSubtlex']]
+def create_freq_file(freqlist_arrays, freqthreshold, nr_highfreqwords):
+    
+    #NV: every SUBTLEX or SUBTLEX equivalent has its own column names for the same thing, namely, the log of frequency of a word in that language
+    
+    ## Sort arrays ascending on subtlex by million
+    if pm.language=='english':
+        freqlist_arrays = np.sort(freqlist_arrays,order='LogFreqZipf')[::-1]
+        select_by_freq = np.sum(freqlist_arrays['LogFreqZipf']>freqthreshold)
+        freqlist_arrays = freqlist_arrays[0:select_by_freq]
+        ## Clean and select frequency words and frequency
+        freq_words = freqlist_arrays[['Spelling','LogFreqZipf']]
+
+    elif pm.language=='french':
+        freqlist_arrays = np.sort(freqlist_arrays,order='lcfreqmovies')[::-1]
+        select_by_freq = np.sum(freqlist_arrays['lcfreqmovies']>freqthreshold)
+        freqlist_arrays = freqlist_arrays[0:select_by_freq]        
+        ## Clean and select frequency words and frequency
+        freq_words = freqlist_arrays[['Word','lcfreqmovies']]
+
+
+    elif pm.language=='german':
+        freqlist_arrays = np.sort(freqlist_arrays,order='lgSubtlex')[::-1]
+        select_by_freq = np.sum(freqlist_arrays['lgSubtlex']>freqthreshold)
+        freqlist_arrays = freqlist_arrays[0:select_by_freq]
+        ## Clean and select frequency words and frequency
+        freq_words = freqlist_arrays[['Word','lgSubtlex']]
+
+    
     frequency_words_np = np.empty([len(freq_words),1],dtype='U20')
     frequency_words_dict  = {}
     for i,line in enumerate(freq_words):
         frequency_words_dict[line[0].replace(".","").lower()] = line[1]
         frequency_words_np[i] = line[0].replace(".","").lower()
+        
+    cleaned_words = get_words(pm) #merged get_words wth get_words_task
+    overlapping_words = np.intersect1d(cleaned_words,frequency_words_np, assume_unique=False)
 
-    cleaned_psc_words = get_words()
-    print(cleened_psc_words)
-    overlapping_words = np.intersect1d(cleaned_psc_words,frequency_words_np, assume_unique=False)
 
-    ## IMPORTANT TO USE unicode() to place in dictionary, to replace NUMPY.UNICODE!!
-    ## Match PSC and freq words and put in dictionary with freq
+    print("words in task:\n",cleaned_words) #NV: uselful to check out if everything went well: see encoding of cleaned words, see percentage of overlap between dictionary and cleaned words
+    print("amount of words in task:",len(cleaned_words))
+    print("words in task AND in dictionnary:\n",overlapping_words)
+    print("amount of overlapping words",len(overlapping_words))
+
+
+    ## Match PSC/task and freq words and put in dictionary with freq
     file_freq_dict = {}
     for i,word in enumerate(overlapping_words):
-        file_freq_dict[unicode(word.lower())] = frequency_words_dict[word]
+        file_freq_dict[(word.lower()).strip()] = frequency_words_dict[word.strip()]
 
     ## Put top freq words in dict, can use np.shape(array)[0]):
-    for line_number in xrange(nr_highfreqwords):
-        file_freq_dict[unicode((freq_words[line_number][0]).lower())] = freq_words[line_number][1]
+    for line_number in range(nr_highfreqwords):
+        file_freq_dict[((freq_words[line_number][0]).lower())] = freq_words[line_number][1]
 
-    output_file_frequency_map = "Data\PSCall_frequency_map.dat"
-    #with open (output_file_frequency_map,"w") as f:
-    #    pickle.dump(file_freq_dict,f)
+    output_file_frequency_map = "Data/" + task + "_frequency_map_"+lang+".dat" #NV: input lang for every language. 
+    with open (output_file_frequency_map,"wb") as f:
+        pickle.dump(file_freq_dict,f)
+    print('frequency file stored in '+output_file_frequency_map)
+    return len(file_freq_dict)
 
 
-def create_pred_file():
-    file_pred_dict = get_pred()
+def create_pred_file(task, file_freq_dict_length):
+    file_pred_dict = np.repeat(0.25, file_freq_dict_length) #NV: why 539? Changed to file_freq_dict_length
+    output_file_predictions_map = "Data/" + task + "_predictions_map_"+lang+".dat"
+    with open (output_file_predictions_map,"wb") as f:
+         pickle.dump(file_pred_dict,f)
+    print('predictability file stored in '+output_file_predictions_map)
 
-    output_file_predictions_map = "Data\PSCall_predictions_map.dat"
-    #with open (output_file_predictions_map,"w") as f:
-	#    pickle.dump(file_pred_dict,f)
-
-create_freq_file(freqlist_arrays,freqthreshold,nr_highfreqwords)
-create_pred_file()
+file_freq_dict_length=create_freq_file(freqlist_arrays,freqthreshold,nr_highfreqwords)
+create_pred_file(task,file_freq_dict_length)

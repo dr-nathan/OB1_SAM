@@ -1,25 +1,25 @@
 __author__ = 'SAM'
-
+import os.path
+import pdb
+import chardet
+import sys
 import numpy as np
 import pickle
-import codecs
-#import chardet
 import pandas as pd
 from pandas import HDFStore
-import os.path
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-import pdb
-import parameters as pm
-import sys
+from parameters import return_params
+
+pm=return_params()
+
 
 ## lambda functions for converter
 comma_to_dot = lambda s: float(s.replace(",","."))
 remove_dot = lambda s: s.replace(".","")
 decode_ISO= lambda x: x.decode('ISO-8859-1', errors="strict").encode("utf-8")
 encode_uft8 = lambda x: x.encode("utf-8",errors="strict")
-decode_uft8 = lambda x: x.decode("utf-8",errors="strict")
 
 
 freqbins  = np.arange(0,7,1)
@@ -328,26 +328,14 @@ def get_grouped_sacctype_prob(freqbins,predbins):
     sacctype_grouped_prob['pred'] = df_sacctypes_grpby_pred.div(groupsizes_pred, axis=0)
     return sacctype_grouped_prob
 
-def get_freq_pred_files():
-    ## hardcoded to take freq/pred from all psc's
-    output_word_frequency_map = "Data/PSCall_frequency_map.dat"
-    with open (output_word_frequency_map,"r") as f:
-        #word_freq_dict = pickle.load(f, encoding="latin1") # For Python3
-        word_freq_dict = pickle.load(f)
-    output_word_predictions_map = "Data/PSCall_predictions_map.dat"
-    with open (output_word_predictions_map,"r") as p:
-        word_pred_dict = pickle.load(p)
-    return word_freq_dict, word_pred_dict
-
-def get_freq_pred_files_fr(task): ## NS added for experiment simulations (flanker task and sentence reading task)
-    output_word_frequency_map = "Data/"+task+ "_frequency_map_fr.dat"
+def get_freq_pred_files(task, pm): #NV: merged the de, fr and en versions. All files have now the task name and language embedded in file name
+        
+    output_word_frequency_map = "Data/"+task+"_frequency_map_"+pm.short[pm.language]+".dat"
     with open (output_word_frequency_map,"rb") as f:
-        word_freq_dict = pickle.load(f)#, encoding="utf-8") # For Python3
-        #word_freq_dict = pickle.load(f)
-    output_word_predictions_map = "Data/"+task+ "_predictions_map_fr.dat"
-
+        word_freq_dict = pickle.load(f, encoding="latin1") # For Python3
+    output_word_predictions_map = "Data/"+task+"_predictions_map_"+pm.short[pm.language]+".dat"
     with open (output_word_predictions_map,"rb") as p:
-        word_pred_dict = pickle.load(p)
+        word_pred_dict = pickle.load(p, encoding="latin1") # For Python3
     return word_freq_dict, word_pred_dict
 
 def get_saccade_data_df():
@@ -365,7 +353,7 @@ def get_freq():
 
 def get_pred():
     convert_dict = {0:decode_ISO,1:comma_to_dot, 2:comma_to_dot}
-    my_data = np.genfromtxt("Texts/PSCall_freq_pred.txt", names =True, dtype=['U20','f4','f4'], converters = convert_dict, skip_header=0, delimiter="\t")
+    my_data = pd.read_csv("Texts/PSCall_freq_pred.txt", delimiter="\t", encoding="ISO-8859-1")
     return my_data['pred']
     #predictions_dict = {}
     # for word_ix,word in enumerate(my_data['pred']):
@@ -378,8 +366,8 @@ def get_pred():
 def get_freq_and_pred():
     convert_dict = {0:decode_ISO,1:comma_to_dot, 2:comma_to_dot}
     # Changed this, old code threw an decode error
-    my_data = pd.read_csv("Texts/PSCall_freq_pred.txt",delimiter="\t")
-#    my_data = np.genfromtxt("Texts/PSCall_freq_pred.txt", names =True,encoding="latin-1",  dtype=['U2','f4','f4'], converters = convert_dict, skip_header=0, delimiter="\t")
+    my_data = pd.read_csv("Texts/PSCall_freq_pred.txt", delimiter="\t", encoding="ISO-8859-1") #NV: added encoding parameter. Got encoding via chardet.detect. #TODO: also, remove punctuation, captials, etc?
+    #my_data = np.genfromtxt("Texts/PSCall_freq_pred.txt", names =True, encoding="ISO-8859-1",  dtype=['U2','f4','f4'],  skip_header=0, converters = convert_dict, delimiter="\t") #converters = convert_dict,
     predictions_dict = {}
     return my_data
 
@@ -403,27 +391,13 @@ def get_freq_and_syntax_pred():
     predictions_dict = {}
     return my_data
 
-def get_words():
-    convert_dict = {0:decode_ISO}
-    my_data = np.genfromtxt("Texts/PSCall_freq_pred.txt", names =True, dtype=['U20'], converters= convert_dict, usecols=(0), skip_header=0, delimiter="\t")
+def get_words(pm): #NV: get_words_task merged with get_words
+    if pm.is_experiment: #NV: if experiment, get the relevant freq_pred.txt
+         my_data = np.genfromtxt("Texts/" +pm.task_to_run + "_freq_pred.txt",delimiter=',',dtype='U20', encoding=chardet.detect(open("Texts/"+pm.task_to_run +"_freq_pred.txt","rb").read())['encoding'])#NV: fixed this, threw the old decode error. Now it detecs encoding automatically 
+    else: #NV: structure of PSCAll txt is different, so file reading is different
+        my_data = pd.read_csv("Texts/PSCall_freq_pred.txt", usecols=[0], delimiter="\t", encoding='ISO-8859-1') # NV: changed this. Old code resulted in decode error. Actual function is identical
     cleaned_words = np.empty([len(my_data),1],dtype='U20')
     #print(cleaned_words)
     for i,word in enumerate(my_data):
         cleaned_words[i] = word.replace(".","").lower()
-    return cleaned_words
-
-
-def get_words_task(task):  ## NS added for experiment simulations (flanker task and sentence reading task)
-    #f = file("Texts/" +task + "_freq_pred.txt", 'r')
-    #my_data = f.read().decode('utf8')
-    convert_dict = {0:decode_uft8}
-    if task =="Sentence":
-        my_data = np.genfromtxt("Texts/" +task + "_freq_pred.txt", dtype='unicode')#converters=convert_dict,dtype='unicode')# dtype=['U20'])
-    elif task == "Flanker":
-        my_data = np.genfromtxt("Texts/" +task + "_freq_pred.txt",converters=convert_dict)#,dtype='unicode')# dtype=['U20'])
-    print(my_data)
-    #print(np.char.decode(my_data))
-    cleaned_words = np.empty([len(my_data),1],dtype='U20')
-    for i,word in enumerate(my_data):
-        cleaned_words[i] = word
     return cleaned_words

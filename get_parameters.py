@@ -10,9 +10,9 @@ def get_params(pm):
 	#bounds.append((-0.95,-0.01))
 	#names.append("decay")
 
-	#parameters.append(pm.bigram_to_word_excitation)
-	#bounds.append((0, None))
-	#names.append("bigram_to_word_excitation")
+	parameters.append(pm.bigram_to_word_excitation)
+	bounds.append((0, None))
+	names.append("bigram_to_word_excitation")
 
 	#parameters.append(pm.bigram_to_word_inhibition)
 	#bounds.append((None, 0))
@@ -66,9 +66,9 @@ def get_params(pm):
 	#bounds.append((0, 1))
 	#names.append("sacc_err_sigma_scaler")
 
-#	parameters.append(pm.mu)
-#	bounds.append((1, 10))
-#	names.append("mu")
+	parameters.append(pm.mu)
+	bounds.append((1, 10))
+	names.append("mu")
 
 #	parameters.append(pm.sigma)
 #	bounds.append((0.5, 8))

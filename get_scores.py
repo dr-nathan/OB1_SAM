@@ -15,8 +15,10 @@ import analyse_data_plot_qualitative as mod2
 from reading_common import get_stimulus_text_from_file
 import read_saccade_data as exp
 import analyse_data_transformation as trans
-import parameters as pm
+from parameters import return_params
 import matplotlib.lines as mlines
+
+pm=return_params()
 
 def kl_divergence(p, q):
     return np.sum(np.where(p != 0, p * np.log(p / q), 0))
