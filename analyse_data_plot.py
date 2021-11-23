@@ -14,11 +14,10 @@ import math
 import pickle
 from read_saccade_data import get_freq_pred_files
 from reading_common import get_stimulus_text_from_file
+from parameters import return_params
 
-if os.path.basename(__main__.__file__)=='main_exp.py':#NV: see parameters_exp import statement
-    import parameters_exp as pm
-else:
-    import parameters as pm
+pm=return_params()
+
 #from pandas.stats.moments import ewma
 
 

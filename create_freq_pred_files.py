@@ -5,9 +5,10 @@ Created on Wed Oct 13 14:23:34 2021
 
 @author: nathanvaartjes
 
-This script creates a file that gets the words of the specific task, 
+This script creates a pickle file that contains the words of the specific task, 
 appends their relatives frequencies and predictabilities, as calculated by the SUBTLEX or other relevant resource. 
-Also appends 200 most common words to the list 
+Also appends 200 most common words of the language to the list 
+It puts the generated .dat file in /Data
 """
 import chardet
 from parameters import return_params
@@ -23,15 +24,15 @@ task = pm.task_to_run
  
 #NV: get appropriate freq dictionary (SUBTLEX-UK for english, Lexicon Project for french,...). Automatically detects encoding via Chardet and uses the value during import. Due to Chardet, its a bit slow however.
 if pm.language=='english':
-    freqlist_arrays = np.genfromtxt("Texts/frequency_english.txt", dtype=[('Spelling','U30'),('FreqCount','f4'),('LogFreqZipf','f4')],
+    freqlist_arrays = np.genfromtxt("Texts/SUBTLEX_UK.txt", dtype=[('Spelling','U30'),('FreqCount','f4'),('LogFreqZipf','f4')],
                                     usecols = (0,1,5),encoding=chardet.detect(open("Texts/frequency_english.txt","rb").read())['encoding'] , skip_header=1, delimiter="\t", filling_values = 0)
     lang='en'
 elif pm.language=='french':
-    freqlist_arrays = np.genfromtxt("Texts/frequency_french.txt", dtype=[('Word','U30'),('cfreqmovies','f4'), ('lcfreqmovies','f4'),('cfreqbooks','f4'), ('lcfreqbooks','f4')],
+    freqlist_arrays = np.genfromtxt("Texts/French_Lexicon_Project.txt", dtype=[('Word','U30'),('cfreqmovies','f4'), ('lcfreqmovies','f4'),('cfreqbooks','f4'), ('lcfreqbooks','f4')],
                                 usecols = (0,7,8,9,10),encoding=chardet.detect(open("Texts/frequency_french.txt","rb").read())['encoding'] , skip_header=1, delimiter="\t", filling_values = 0)
     lang='fr'
 elif pm.language=='german':
-    freqlist_arrays = np.genfromtxt("Texts/frequency_german.txt", dtype=[('Word','U30'),('FreqCount','i4'), ('CUMfreqcount','i4'),('Subtlex','f4'), ('lgSubtlex','f4'), ('lgGoogle','f4')],
+    freqlist_arrays = np.genfromtxt("Texts/SUBTLEX_DE.txt", dtype=[('Word','U30'),('FreqCount','i4'), ('CUMfreqcount','i4'),('Subtlex','f4'), ('lgSubtlex','f4'), ('lgGoogle','f4')],
                                 usecols = (0,1,3,4,5,9) , encoding=chardet.detect(open("Texts/frequency_german.txt","rb").read())['encoding'], skip_header=1, delimiter="\t", filling_values = 0)
     lang='de'   
 else:
@@ -75,7 +76,7 @@ def create_freq_file(freqlist_arrays, freqthreshold, nr_highfreqwords):
         frequency_words_dict[line[0].replace(".","").lower()] = line[1]
         frequency_words_np[i] = line[0].replace(".","").lower()
         
-    cleaned_words = get_words(pm) #merged get_words wth get_words_task
+    cleaned_words = get_words(pm) #NV: merged get_words wth get_words_task
     overlapping_words = np.intersect1d(cleaned_words,frequency_words_np, assume_unique=False)
 
 

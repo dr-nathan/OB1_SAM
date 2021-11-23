@@ -12,11 +12,9 @@ import read_saccade_data as exp
 import analyse_data_plot as mod
 import analyse_data_plot_qualitative as mod2
 import analyse_data_transformation as trans
+from parameters import return_params
 
-if os.path.basename(__main__.__file__)=='main_exp.py' or os.path.basename(__main__.__file__)=='create_freq_pred_files_fr.py' or os.path.basename(__main__.__file__)=='create_freq_pred_files_en.py':#NV: I noticed that for main_exp, the parameters from parameters.py were loaded here, instead of parameters_exp.py. So if we run from main_exp, use paramters_exp instead
-    import parameters_exp as pm
-else:
-    import parameters as pm
+pm=return_params()
 
 
 
