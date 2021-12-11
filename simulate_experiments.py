@@ -12,16 +12,17 @@ from reading_common import stringToBigramsAndLocations, calcBigramExtInput,calcM
 from reading_functions import my_print, get_threshold, is_similar_word_length
     #calc_saccade_error, norm_distribution, normalize_pred_values, middle_char, index_middle_char, \
     #getMidwordPositionForSurroundingWord
-from read_saccade_data import get_freq_pred_files
+from read_saccade_data import get_freq_pred_files, get_affix_file
 import numpy as np
 import pickle
-#import parameters_exp as pm
 import sys
+
+from affixes import affixes_totalcount_en 
 
 
 def simulate_experiments(task, pm):
     
-    if pm.visualise: #NV: conditional import, so has to be imported later
+    if pm.visualise: #NV: conditional import, so has to be imported after pm is specified
         import Visualise_reading
 
     lexicon = []
@@ -31,7 +32,7 @@ def simulate_experiments(task, pm):
     #NV: generate list of individual words and their lengths
     individual_words = []
     lengtes=[]
-    textsplitbyspace = list(pm.stim['all'].str.split(' ', expand=True).stack().unique())
+    textsplitbyspace = list(pm.stim['all'].str.split(' ', expand=True).stack().unique()) #get stimulus words of task
     for word in textsplitbyspace: 
         if word.strip() != "":
             new_word = word.strip().lower() #For Python2
@@ -41,8 +42,10 @@ def simulate_experiments(task, pm):
     
 
     #NV load appropriate dictionaries
-    word_freq_dict, word_pred_values = get_freq_pred_files(task, pm)
-
+    word_freq_dict, word_pred_values = get_freq_pred_files(task, pm) #get file of words of task for which their is a frequency and 200 most common words of language
+    
+    affix_freq_dict=get_affix_file(pm) #NV: also get data on frequency of affixes. NOTE: only works for english at the moment (prototype)
+    
    # Replace prediction values with syntactic probabilities
     if pm.use_grammar_prob:
         print("grammar prob not implemented yet")
@@ -66,18 +69,17 @@ def simulate_experiments(task, pm):
     print("LENGTH of individual words: "+str(len(individual_words)))
 
     # make experiment lexicon (= dictionary + words in experiment)
-    # make sure it contains no double words
 
-    for word in individual_words:
+    for word in individual_words: # make sure it contains no double words
         if word not in lexicon:
             lexicon.append(word)
 
     if(len(word_freq_dict)>0):
         for freq_word in word_freq_dict.keys():
             if freq_word.lower() not in lexicon:
-                lexicon.append(freq_word.lower()) #NV: this is double work: Lexicon already contains all words of task, determined in create_freq_pred_files
+                lexicon.append(freq_word.lower()) #NV:word_freq_dict already contains all target words of task +eventual flankers or primers, determined in create_freq_pred_files. So the first part of individual words is probably double work
 
-    lexicon_file_name = 'Data/Lexicon_'+pm.short[pm.language]+'.dat' #NV: added another version for english
+    lexicon_file_name = 'Data/Lexicon_'+task+'.dat' #NV: Again, because word_freq_dict contained all words already, this is exactly the same file #ANSWER: Actually, the word_freq_dict is only made for words, for which there is a frequency. Other words are dicarderd. So concatenating word_freq_dict with individual_words puts those words back! So here again, the important question is: Why the threshols in create_freq_pred_files?
     with open(lexicon_file_name,"wb") as f:
         pickle.dump(lexicon,f)
 
@@ -136,10 +138,9 @@ def simulate_experiments(task, pm):
     N_ngrams_lexicon = []  # list with amount of ngrams per word in lexicon
     for word in range(LEXICON_SIZE):
         lexicon[word] = " "+lexicon[word]+" "
-        [all_word_bigrams, bigramLocations] = stringToBigramsAndLocations(lexicon[word])
+        (affix_bigrams, all_word_bigrams, bigramLocations) = stringToBigramsAndLocations(lexicon[word])
         lexicon[word] = lexicon[word][1:(len(lexicon[word]) - 1)]  # to get rid of spaces again
         lexicon_word_bigrams[lexicon[word]] = all_word_bigrams
-        #NV: save amount of all bigrams plus number of letters of word?
         N_ngrams_lexicon.append(len(all_word_bigrams) + len(lexicon[word]))  # append to list of N ngrams
 
     print("Amount of words in lexicon: ", LEXICON_SIZE)
@@ -348,7 +349,7 @@ def simulate_experiments(task, pm):
                 stimulus_padded=" "+stimulus+" "
                 my_print("Stimulus: "+stimulus)
 
-            [allNgrams, bigramsToLocations] = stringToBigramsAndLocations(stimulus_padded)# NV: else, just get the normal stimulus
+            (affix_bigrams, allNgrams, bigramsToLocations) = stringToBigramsAndLocations(stimulus_padded)# NV: else, just get the normal stimulus
             EyePosition = len(stimulus)//2 #NV: After prime, set eye position back to stimulus
             AttentionPosition = EyePosition
             allMonograms = []
@@ -356,18 +357,19 @@ def simulate_experiments(task, pm):
         
             for ngram in allNgrams: #NV: in elke cycle herbouw je de hele Ngram lijst, terwijl dat maar 1 keer hoeft (of 2 keer in priming task)
                 if len(ngram) == 2:
-                    allBigrams.append(ngram)
+                    allBigrams.append(ngram) #NV: why split into bigrams and monograms? are never used
                 else:
                     allMonograms.append(ngram)
 
-
+            allBigrams.append(affix_bigrams) #NV: add special affix bigrams to bigram list of stimulus
+            
             allBigrams_set = set(allBigrams)
             my_print(allBigrams)
         
-            unitActivations = {}  # reset after each trial #TODO: check what this means
+            unitActivations = {}  # reset after each trial
         
             # Reset
-            word_input_np.fill(0.0) #NV: reset word activity ?
+            word_input_np.fill(0.0) #NV: reset word activity at each cycle?
             lexicon_word_inhibition_np.fill(0.0)
             lexicon_word_inhibition_np2.fill(0.0)
             lexicon_activewords_np.fill(False)
@@ -376,7 +378,7 @@ def simulate_experiments(task, pm):
         
             ### Calculate ngram activity
             # MM: could also be done above at start fix, and then again after attention shift. is constant in btw shifts
-            for ngram in allNgrams:
+            for ngram in allNgrams: 
                 if len(ngram) == 2:
                     unitActivations[ngram] = calcBigramExtInput(ngram, 
                                                                 bigramsToLocations,

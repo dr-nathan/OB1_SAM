@@ -70,7 +70,7 @@ if pm.is_experiment: #NV: if the task is an experiment
     if pm.analyze_results: #NV: what does this do exactly?
         get_results_simulation(task,output_file_all_data,output_file_unrecognized_words) 
     
-    if pm.optimize: #NV: not coded yet (that i know of: check copies)
+    if pm.optimize: #NV: not coded for experiments yet (check copies)
         pass
                 
 else: #NV: if not a task, run simulation of text reading (german, PSC)

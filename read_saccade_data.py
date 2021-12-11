@@ -338,6 +338,15 @@ def get_freq_pred_files(task, pm): #NV: merged the de, fr and en versions. All f
         word_pred_dict = pickle.load(p, encoding="latin1") # For Python3
     return word_freq_dict, word_pred_dict
 
+def get_affix_file(pm): #NV: added function to read affixes frequency data from pickle, written by affixes.py. Which affixes to fetch is independent of task but dependent on language.
+    file="Data/affixes_frequency_"+pm.short[pm.language]+".dat"
+    with open (file,"rb") as f:
+       affix_freq_dict = pickle.load(f)
+       return affix_freq_dict
+       #NV: predictability does not really make sense in the context of affixes, hence they are not made nor imported
+       #But maybe something to look at in the future?
+
+
 def get_saccade_data_df():
     convert_dict = {0:decode_ISO}
     convert_dict = {column:comma_to_dot for column in [0,1,2,3,4,5]}
@@ -391,9 +400,9 @@ def get_freq_and_syntax_pred():
     predictions_dict = {}
     return my_data
 
-def get_words(pm): #NV: get_words_task merged with get_words
+def get_words(pm, task): #NV: get_words_task merged with get_words
     if pm.is_experiment: #NV: if experiment, get the relevant freq_pred.txt
-         my_data = np.genfromtxt("Texts/" +pm.task_to_run + "_freq_pred.txt",delimiter=',',dtype='U20', encoding=chardet.detect(open("Texts/"+pm.task_to_run +"_freq_pred.txt","rb").read())['encoding'])#NV: fixed this, threw the old decode error. Now it detecs encoding automatically 
+         my_data = np.genfromtxt("Texts/" +task+ "_freq_pred.txt",delimiter=',',dtype='U20', encoding=chardet.detect(open("Texts/"+task +"_freq_pred.txt","rb").read())['encoding'])#NV: fixed this, threw the old decode error. Now it detecs encoding automatically 
     else: #NV: structure of PSCAll txt is different, so file reading is different
         my_data = pd.read_csv("Texts/PSCall_freq_pred.txt", usecols=[0], delimiter="\t", encoding='ISO-8859-1') # NV: changed this. Old code resulted in decode error. Actual function is identical
     cleaned_words = np.empty([len(my_data),1],dtype='U20')

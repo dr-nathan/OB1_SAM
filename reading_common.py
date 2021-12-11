@@ -3,6 +3,7 @@ from __future__ import division
 import math
 import codecs
 import re
+import itertools
 
 from parameters import return_params
 
@@ -10,7 +11,7 @@ pm=return_params()
 
 
 
-def getStimulusSpacePositions(stimulus):
+def getStimulusSpacePositions(stimulus): #NV: get index of spaces in stimulus
     stimulus_space_positions = []
     stimulus_space_positions_append = stimulus_space_positions.append
     for letter_position in range(len(stimulus)):
@@ -85,9 +86,9 @@ def stringToBigramsAndLocations(stimulus):
         for first in range(len(stimulus) - 1):
             if(stimulus[first]==" "):
                 continue
-            for second in range(first + 1, min(first+1+gap+1,len(stimulus))):
-                if(stimulus[second]==" "):
-                    break
+            for second in range(first + 1, min(first+1+gap+1,len(stimulus))): #NV:pick first+1 + gap, as long as that is smaller than end of word
+                if(stimulus[second]==" "): #NV: if that is second lettter, you know you have reached the end of possible bigrams
+                    break #break out of second loop if second stim is __. This means symbols before word, or when end of word is reached.
                 bigram=stimulus[first]+stimulus[second]
                 if bigram!='  ':
                     if not bigram in allBigrams:
@@ -97,6 +98,9 @@ def stringToBigramsAndLocations(stimulus):
                         bigramsToLocations[bigram].append((first,second,bigramEdgePositionWeight))
                     else:
                         bigramsToLocations[bigram]=[(first,second,bigramEdgePositionWeight)]
+                        
+    #NV: space+first_letter, and last_letter+space must also be bigrams, for affixes reasons. 
+    
 
 # GS: test of dit werkt, dan geen monograms, die worden later toch weggefilterd
 #    """Also add monograms"""
@@ -113,7 +117,8 @@ def stringToBigramsAndLocations(stimulus):
 #            bigramsToLocations[monogram].append((position,monogramEdgePositionWeight))
 #        else:
 #            bigramsToLocations[monogram]=[(position,monogramEdgePositionWeight)]
-    return [allBigrams, bigramsToLocations]
+    affix_bigrams=["_"+stimulus[2],stimulus[-3]+"_"] #NV: added first and last bigram for affix recognition.
+    return  (affix_bigrams, allBigrams, bigramsToLocations)
 
 
 def get_attention_skewed(attentionWidth,attention_eccentricity,attention_skew):

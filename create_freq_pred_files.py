@@ -25,21 +25,21 @@ task = pm.task_to_run
 #NV: get appropriate freq dictionary (SUBTLEX-UK for english, Lexicon Project for french,...). Automatically detects encoding via Chardet and uses the value during import. Due to Chardet, its a bit slow however.
 if pm.language=='english':
     freqlist_arrays = np.genfromtxt("Texts/SUBTLEX_UK.txt", dtype=[('Spelling','U30'),('FreqCount','f4'),('LogFreqZipf','f4')],
-                                    usecols = (0,1,5),encoding=chardet.detect(open("Texts/frequency_english.txt","rb").read())['encoding'] , skip_header=1, delimiter="\t", filling_values = 0)
+                                    usecols = (0,1,5),encoding=chardet.detect(open("Texts/SUBTLEX_UK.txt","rb").read())['encoding'] , skip_header=1, delimiter="\t", filling_values = 0)
     lang='en'
 elif pm.language=='french':
     freqlist_arrays = np.genfromtxt("Texts/French_Lexicon_Project.txt", dtype=[('Word','U30'),('cfreqmovies','f4'), ('lcfreqmovies','f4'),('cfreqbooks','f4'), ('lcfreqbooks','f4')],
-                                usecols = (0,7,8,9,10),encoding=chardet.detect(open("Texts/frequency_french.txt","rb").read())['encoding'] , skip_header=1, delimiter="\t", filling_values = 0)
+                                usecols = (0,7,8,9,10),encoding=chardet.detect(open("Texts/French_Lexicon_Project.txt","rb").read())['encoding'] , skip_header=1, delimiter="\t", filling_values = 0)
     lang='fr'
 elif pm.language=='german':
     freqlist_arrays = np.genfromtxt("Texts/SUBTLEX_DE.txt", dtype=[('Word','U30'),('FreqCount','i4'), ('CUMfreqcount','i4'),('Subtlex','f4'), ('lgSubtlex','f4'), ('lgGoogle','f4')],
-                                usecols = (0,1,3,4,5,9) , encoding=chardet.detect(open("Texts/frequency_german.txt","rb").read())['encoding'], skip_header=1, delimiter="\t", filling_values = 0)
+                                usecols = (0,1,3,4,5,9) , encoding=chardet.detect(open("Texts/SUBTLEX_DE.txt","rb").read())['encoding'], skip_header=1, delimiter="\t", filling_values = 0)
     lang='de'   
 else:
     raise NotImplementedError(pm.language +" is not implemented yet!")
 
-freqthreshold = 1.5 
-nr_highfreqwords = 200
+freqthreshold = 0.15 #1.5 #NV: why a threshold? For the french lexicon project, this reduces words from 38'000 to 1871. Therefore, almost no overlap
+nr_highfreqwords = 500
 
 
 def create_freq_file(freqlist_arrays, freqthreshold, nr_highfreqwords):
@@ -76,8 +76,8 @@ def create_freq_file(freqlist_arrays, freqthreshold, nr_highfreqwords):
         frequency_words_dict[line[0].replace(".","").lower()] = line[1]
         frequency_words_np[i] = line[0].replace(".","").lower()
         
-    cleaned_words = get_words(pm) #NV: merged get_words wth get_words_task
-    overlapping_words = np.intersect1d(cleaned_words,frequency_words_np, assume_unique=False)
+    cleaned_words = get_words(pm, task) #NV: merged get_words with get_words_task
+    overlapping_words = np.intersect1d(cleaned_words,frequency_words_np, assume_unique=False) #NV: also removes duplicates
 
 
     print("words in task:\n",cleaned_words) #NV: uselful to check out if everything went well: see encoding of cleaned words, see percentage of overlap between dictionary and cleaned words
