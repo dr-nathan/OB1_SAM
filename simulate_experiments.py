@@ -13,13 +13,11 @@ import pickle
 
 import numpy as np
 
-# , calc_word_attention_right ,get_stimulus_text_from_file
 from reading_common import stringToBigramsAndLocations, calcBigramExtInput, calcMonogramExtInput
 from reading_functions import my_print, get_threshold, is_similar_word_length
 # calc_saccade_error, norm_distribution, normalize_pred_values, middle_char, index_middle_char, \
 # getMidwordPositionForSurroundingWord
 from read_saccade_data import get_freq_pred_files, get_affix_file
-from affixes import affixes_totalcount_en
 
 
 def simulate_experiments(task, pm):
@@ -38,17 +36,35 @@ def simulate_experiments(task, pm):
         ' ', expand=True).stack().unique())  # get stimulus words of task
     for word in textsplitbyspace:
         if word.strip() != "":
-            new_word = word.strip().lower()  # For Python2
+            # For Python2 #NV: add _ to words, for affix recognition system
+            new_word = f"_{word.strip().lower()}_"
             individual_words.append(new_word)
             lengtes.append(len(word))
-    print(individual_words)
+    my_print(f'individual words: {individual_words}')
 
     # NV load appropriate dictionaries
     # get file of words of task for which their is a frequency and 200 most common words of language
-    word_freq_dict, word_pred_values = get_freq_pred_files(task, pm)
+    word_freq_dict_temp, word_pred_values = get_freq_pred_files(task, pm)
+
+    # NV: also add _ to word_freq_dict, for affix modelling purposes.
+    word_freq_dict = {}
+    for word in word_freq_dict_temp.keys():
+        word_freq_dict[f"_{word}_"] = word_freq_dict_temp[word]
+    my_print('word freq dict (first 20): \n' +
+             str({k: word_freq_dict[k] for k in list(word_freq_dict)[:20]}))
 
     # NV: also get data on frequency of affixes. NOTE: only works for english at the moment (prototype)
-    affix_freq_dict = get_affix_file(pm)
+    affix_freq_dict_temp = get_affix_file(pm)
+    affix_freq_dict = {}
+    for word in affix_freq_dict_temp.keys():
+        affix_freq_dict[f"{word}_"] = affix_freq_dict_temp[word] #NV: 
+
+    affixes = list(affix_freq_dict.keys())
+    my_print(affixes)
+
+    # NV: add affix freq and pred to list
+    (word_freq_dict, word_pred_values) = (word_freq_dict | affix_freq_dict,
+                                          np.concatenate((word_pred_values, np.full(len(affix_freq_dict), 0.25))))
 
    # Replace prediction values with syntactic probabilities
     if pm.use_grammar_prob:
@@ -68,6 +84,7 @@ def simulate_experiments(task, pm):
     print("Length text: " + str(len(individual_words)) +
           "\nLength pred: " + str(len(word_pred_values)))
     # NV: uncommented, to make lists the same lengths
+    # NV: (should already be the same length)
     word_pred_values = word_pred_values[0:len(individual_words)]
 
     # Make individual words dependent variables
@@ -76,7 +93,6 @@ def simulate_experiments(task, pm):
     print("LENGTH of individual words: "+str(len(individual_words)))
 
     # make experiment lexicon (= dictionary + words in experiment)
-
     for word in individual_words:  # make sure it contains no double words
         if word not in lexicon:
             lexicon.append(word)
@@ -92,6 +108,9 @@ def simulate_experiments(task, pm):
         pickle.dump(lexicon, f)
 
     n_known_words = len(lexicon)  # nr of words known to model
+
+    my_print(f'size lexicon: {len(lexicon)}')
+
     # Make lexicon dependent variables
     LEXICON_SIZE = len(lexicon)
 
@@ -109,7 +128,7 @@ def simulate_experiments(task, pm):
     lexicon_word_activity_np = np.zeros((LEXICON_SIZE), dtype=float)
     lexicon_word_inhibition_np = np.zeros((LEXICON_SIZE), dtype=float)
     lexicon_word_inhibition_np2 = np.zeros((LEXICON_SIZE), dtype=float)
-    lexicon_activewords_np = np.zeros((LEXICON_SIZE), dtype=int)  # NV:print active words??
+    lexicon_activewords_np = np.zeros((LEXICON_SIZE), dtype=int)
     word_input_np = np.zeros((LEXICON_SIZE), dtype=float)
     lexicon_thresholds_np = np.zeros((LEXICON_SIZE), dtype=float)
 
@@ -145,20 +164,33 @@ def simulate_experiments(task, pm):
 
     # lexicon bigram dict
     N_ngrams_lexicon = []  # list with amount of ngrams per word in lexicon
-    for word in range(LEXICON_SIZE):
-        lexicon[word] = " "+lexicon[word]+" "
+    for word in lexicon:  # NV: was: range(LEXICON_SIZE):
+
+        # NV: create local variable to modify without interfering
+        word_local = word
+        # determine if the word is an affix, and remove _'s temporarily
+        is_affix = False
+        if word_local.startswith('_'):
+            word_local = word_local[1:-1]
+        else:
+            word_local = word_local[:-1]
+            is_affix = True
+        word_local = " "+word_local+" "
         (all_word_bigrams,
-         bigramLocations) = stringToBigramsAndLocations(lexicon[word])
-        lexicon[word] = lexicon[word][1:(len(lexicon[word]) - 1)]  # to get rid of spaces again
-        lexicon_word_bigrams[lexicon[word]] = all_word_bigrams
+         bigramLocations) = stringToBigramsAndLocations(word_local, is_affix)  # NV: now returns special _ bigrams as well #again should be called suffix #NV: #TODO: should be made more elegant
+        # lexicon[word] = lexicon[word][1:(len(lexicon[word]) - 1)]  # to get rid of spaces again
+
+        lexicon_word_bigrams[word] = all_word_bigrams
         # append to list of N ngrams
-        N_ngrams_lexicon.append(len(all_word_bigrams) + len(lexicon[word]))
+        # bigrams and monograms total amount
+        N_ngrams_lexicon.append(len(all_word_bigrams) + len(word))
 
     print("Amount of words in lexicon: ", LEXICON_SIZE)
     print("Amount of words in text:", TOTAL_WORDS)
     print("")
 
     # word-to-word inhibition matrix (redundant? we could also (re)compute it for every trial; only certain word combinations exist)
+    # NV: could also be done once and pickled
 
     print("Setting up word-to-word inhibition grid...")
     # Set up the list of word inhibition pairs, with amount of bigram/monograms
@@ -173,53 +205,52 @@ def simulate_experiments(task, pm):
         for word in range(LEXICON_SIZE):
 
             # NV: comment out temporarily, to investigate the effects of word-length-independent inhibition
-            # Take word length into account here (instead of below, where act of lexicon words is determined)
-            # if not is_similar_word_length(lexicon[word], lexicon[other_word]) or lexicon[word] == lexicon[other_word]:
-            #    continue
-            # else:
-            bigrams_common = []
-            bigrams_append = bigrams_common.append
-            bigram_overlap_counter = 0
-            for bigram in range(len(lexicon_word_bigrams[lexicon[word]])):
-                if lexicon_word_bigrams[lexicon[word]][bigram] in lexicon_word_bigrams[lexicon[other_word]]:
-                    bigrams_append(lexicon_word_bigrams[lexicon[word]][bigram])
-                    lexicon_word_bigrams_set[lexicon[word]] = set(
-                        lexicon_word_bigrams[lexicon[word]])
-                    bigram_overlap_counter += 1
+            if False: #not is_similar_word_length(lexicon[word], lexicon[other_word]) or lexicon[word] == lexicon[other_word]: # Take word length into account here (instead of below, where act of lexicon words is determined)
+                continue
+            else:
+                bigrams_common = []
+                bigrams_append = bigrams_common.append
+                bigram_overlap_counter = 0
+                for bigram in range(len(lexicon_word_bigrams[lexicon[word]])):
+                    if lexicon_word_bigrams[lexicon[word]][bigram] in lexicon_word_bigrams[lexicon[other_word]]:
+                        bigrams_append(lexicon_word_bigrams[lexicon[word]][bigram])
+                        lexicon_word_bigrams_set[lexicon[word]] = set(
+                            lexicon_word_bigrams[lexicon[word]])
+                        bigram_overlap_counter += 1
 
-            monograms_common = []
-            monograms_append = monograms_common.append
-            monogram_overlap_counter = 0
-            unique_word_letters = ''.join(set(lexicon[word]))
+                monograms_common = []
+                monograms_append = monograms_common.append
+                monogram_overlap_counter = 0
+                unique_word_letters = ''.join(set(lexicon[word]))
 
-            for pos in range(len(unique_word_letters)):
-                monogram = unique_word_letters[pos]
-                if monogram in lexicon[other_word]:
-                    monograms_append(monogram)
-                    monogram_overlap_counter += 1
+                for pos in range(len(unique_word_letters)):
+                    monogram = unique_word_letters[pos]
+                    if monogram in lexicon[other_word]:
+                        monograms_append(monogram)
+                        monogram_overlap_counter += 1
 
-            # take into account both bigrams and monograms for inhibition counters (equally)
-            total_overlap_counter = bigram_overlap_counter + monogram_overlap_counter
+                # take into account both bigrams and monograms for inhibition counters (equally)
+                total_overlap_counter = bigram_overlap_counter + monogram_overlap_counter
 
-            # if word or other word is larger than the initial lexicon
-            # (without PSC), overlap counter = 0, because words that are not
-            # known should not inhibit
-            if word >= n_known_words or other_word >= n_known_words:
-                total_overlap_counter = 0
-            min_overlap = pm.min_overlap  # MM: currently 2
+                # if word or other word is larger than the initial lexicon
+                # (without PSC), overlap counter = 0, because words that are not
+                # known should not inhibit
+                if word >= n_known_words or other_word >= n_known_words:
+                    total_overlap_counter = 0
+                min_overlap = pm.min_overlap  # MM: currently 2
 
-            if complete_selective_word_inhibition:
-                if total_overlap_counter > min_overlap:
-                    word_overlap_matrix[word, other_word] = total_overlap_counter - min_overlap
-                else:
-                    word_overlap_matrix[word, other_word] = 0
-            else:  # is_similar_word_length
-                if total_overlap_counter > min_overlap:
-                    word_inhibition_matrix[word, other_word] = True
-                    word_inhibition_matrix[other_word, word] = True
-                    overlap_list[word, other_word] = total_overlap_counter - min_overlap
-                    overlap_list[other_word, word] = total_overlap_counter - min_overlap
-                    sys.exit('Make sure to use slow version, fast/vectorized version not compatible')
+                if complete_selective_word_inhibition:  # NV: what does this do? #TODO
+                    if total_overlap_counter > min_overlap:
+                        word_overlap_matrix[word, other_word] = total_overlap_counter - min_overlap
+                    else:
+                        word_overlap_matrix[word, other_word] = 0
+                else:  # is_similar_word_length
+                    if total_overlap_counter > min_overlap:
+                        word_inhibition_matrix[word, other_word] = True
+                        word_inhibition_matrix[other_word, word] = True
+                        overlap_list[word, other_word] = total_overlap_counter - min_overlap
+                        overlap_list[other_word, word] = total_overlap_counter - min_overlap
+                        sys.exit('Make sure to use slow version, fast/vectorized version not compatible')
 
     # Save overlap matrix, with individual words selected
     # NV: to automatically add right abbreviaton in file name
@@ -248,7 +279,7 @@ def simulate_experiments(task, pm):
     # loop over trials
     stim = pm.stim
     stim['all'] = pm.stim['all']
-    unrecognized_words = []  # NV: init outside the for loop. Before, would only remember the last word
+    unrecognized_words = []  # NV: init empty list outside the for loop. Before, would only remember the last word
 
     for trial in range(0, len(stim['all'])):
 
@@ -335,11 +366,13 @@ def simulate_experiments(task, pm):
 
         highest = None  # NV: reset highest activation index
 
-        while cur_cycle < pm.totalcycles:  # NV: could be changed to a sequence of for loops. Or made abit more elegant via if crucycle in .. as described above
+        while cur_cycle < pm.totalcycles:  # NV: could be changed to a sequence of for loops. Or made abit more elegant via if curcycle in .. as described above
 
             # get allNgrams for current trial #NS added inside the loop to facilitate presentation of the stimulus in specific cycles
 
-            # NV: during blank stimulus presentation at the beginning or at the end #NV: dit is nu in het begin. IPV eerst bigrams ophalen en dan wissen, wordt nu gelijk de blank screen opgehaald
+            # NV: dit is nu in het begin. IPV eerst bigrams ophalen en dan wissen, wordt nu gelijk de blank screen opgehaald
+
+            # NV: during blank stimulus presentation at the beginning or at the end
             if cur_cycle < pm.blankscreen_cycles_begin or cur_cycle > pm.totalcycles-pm.blankscreen_cycles_end:
 
                 if pm.blankscreen_type == 'blank':  # NV decide what type of blank screen to show
@@ -354,21 +387,21 @@ def simulate_experiments(task, pm):
                     stimulus_padded = " ##### "
                     my_print("Stimulus: hashgrid screen")  # NV: show what is the actual stimulus
 
-            # NV: IF we are in priming cycle, stimulus is the prime
+            # NV: IF we are in priming cycle, set stimulus to the prime
             elif pm.is_priming_task and cur_cycle < (pm.blankscreen_cycles_begin+pm.ncyclesprime):
                 stimulus = prime  # NV: overwrite stimulus with prime
                 stimulus_padded = prime_padded
                 my_print("Stimulus: "+stimulus)  # NV: show what is the actual stimulus
 
             else:
-                # NV: reassign to change it back to original stimulus in case of prime or blankscreen.
-                stimulus = stimulus = stim['all'][trial]
+                # NV: reassign to change it back to original stimulus after prime or blankscreen.
+                stimulus = stim['all'][trial]
                 stimulus_padded = " "+stimulus+" "
                 my_print("Stimulus: "+stimulus)
-                
+
             # NV: else, just get the normal stimulus
             (allNgrams, bigramsToLocations) = stringToBigramsAndLocations(
-                stimulus_padded)
+                stimulus_padded, is_affix=False)
             EyePosition = len(stimulus)//2  # NV: After prime, set eye position back to stimulus
             AttentionPosition = EyePosition
             allMonograms = []
@@ -497,6 +530,9 @@ def simulate_experiments(task, pm):
             # recognized_indices = np.asarray(all_data[trial]['recognized words indices'], dtype=int)
             my_print("nr. above thresh. in lexicon: " + str(np.sum(above_tresh_lexicon_np)))
             #my_print("recognized lexicon: ", above_tresh_lexicon_np)
+            # NV: print words that are above threshold
+            my_print("recognized words " +
+                     str([x for i, x in enumerate(lexicon) if above_tresh_lexicon_np[i] == 1]))
 
             # NS: this final part of the loop is only for behavior (RT/errors)
             # array of zeros of len as lexicon, which will get 1 if wrd recognized
@@ -506,7 +542,9 @@ def simulate_experiments(task, pm):
             # MM: recognWrdsFittingLen_np: array with 1=wrd act above threshold, & approx same len
             # as to-be-recogn wrd (with 15% margin), 0=otherwise
             recognWrdsFittingLen_np = above_tresh_lexicon_np * \
-                np.array([int(is_similar_word_length(x, target)) for x in lexicon])
+                np.array([int(is_similar_word_length(x.replace('_', ''), target)) for x in lexicon]) #NV: replace('_', '') to remove underscores
+                  
+            # NV: #TODO: Build mechanism that splits word into stem + affix when affix is recognized
 
             # fast check whether there is at least one 1 in wrdsFittingLen_np
             if sum(recognWrdsFittingLen_np):

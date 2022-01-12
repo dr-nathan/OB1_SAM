@@ -49,7 +49,7 @@ def getNgramEdgePositionWeight(ngram, ngramLocations, stimulus_space_locations):
     return ngramEdgePositionWeight
 
 
-def stringToBigramsAndLocations(stimulus):
+def stringToBigramsAndLocations(stimulus, is_affix):
     stimulus_space_positions = getStimulusSpacePositions(stimulus)
     stimulus = "_"+stimulus+"_"  # GS try to recognize small words better, does not work doing this
     # For the current stimulus, bigrams will be made. Bigrams are only made
@@ -91,6 +91,8 @@ def stringToBigramsAndLocations(stimulus):
             # NV: this code implant is meant to insert special affix bigrams in bigram list
             if(stimulus[first] == " "):  # NV: means that first letter is index 1 or last+1
                 if first == 1:  # NV: if it is in the beginning of word
+                    if is_affix:
+                        continue #dont do the special _ at beginning of word if is affix
                     second_alt = 2  # NV: _alt not to interfere with loop variables
                     bigram = '_'+stimulus[second_alt]
                     if not bigram in allBigrams:
