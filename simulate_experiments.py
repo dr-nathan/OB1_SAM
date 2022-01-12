@@ -12,9 +12,10 @@ import sys
 import pickle
 
 import numpy as np
+import logging
 
 from reading_common import stringToBigramsAndLocations, calcBigramExtInput, calcMonogramExtInput
-from reading_functions import my_print, get_threshold, is_similar_word_length
+from reading_functions import get_threshold, is_similar_word_length
 # calc_saccade_error, norm_distribution, normalize_pred_values, middle_char, index_middle_char, \
 # getMidwordPositionForSurroundingWord
 from read_saccade_data import get_freq_pred_files, get_affix_file
@@ -40,7 +41,7 @@ def simulate_experiments(task, pm):
             new_word = f"_{word.strip().lower()}_"
             individual_words.append(new_word)
             lengtes.append(len(word))
-    my_print(f'individual words: {individual_words}')
+    logging.debug(f'individual words: {individual_words}')
 
     # NV load appropriate dictionaries
     # get file of words of task for which their is a frequency and 200 most common words of language
@@ -50,7 +51,7 @@ def simulate_experiments(task, pm):
     word_freq_dict = {}
     for word in word_freq_dict_temp.keys():
         word_freq_dict[f"_{word}_"] = word_freq_dict_temp[word]
-    my_print('word freq dict (first 20): \n' +
+    logging.debug('word freq dict (first 20): \n' +
              str({k: word_freq_dict[k] for k in list(word_freq_dict)[:20]}))
 
     # NV: also get data on frequency of affixes. NOTE: only works for english at the moment (prototype)
@@ -60,7 +61,7 @@ def simulate_experiments(task, pm):
         affix_freq_dict[f"{word}_"] = affix_freq_dict_temp[word] #NV: 
 
     affixes = list(affix_freq_dict.keys())
-    my_print(affixes)
+    logging.debug(affixes)
 
     # NV: add affix freq and pred to list
     (word_freq_dict, word_pred_values) = (word_freq_dict | affix_freq_dict,
@@ -76,22 +77,24 @@ def simulate_experiments(task, pm):
         # NS for the sentence experiment I will run this script twice, once with higher pred values (for the normal vs. scrambled conditions). Not the prettiest solution, but I would not know how to generate two different thresholds for the same word in the current framework.
         word_pred_values[:] = 0.25
 
-    my_print(word_freq_dict)
+    logging.debug('word freq dict (with affixes): '+ str(word_freq_dict))
 
     max_frequency_key = max(word_freq_dict, key=word_freq_dict.get)
     max_frequency = word_freq_dict[max_frequency_key]
     print("max freq:" + str(max_frequency))
     print("Length text: " + str(len(individual_words)) +
           "\nLength pred: " + str(len(word_pred_values)))
-    # NV: uncommented, to make lists the same lengths
-    # NV: (should already be the same length)
-    word_pred_values = word_pred_values[0:len(individual_words)]
+    logging.info("max freq:" + str(max_frequency))
+    logging.info("Length text: " + str(len(individual_words)) +
+          "\nLength pred: " + str(len(word_pred_values)))
 
     # Make individual words dependent variables
     TOTAL_WORDS = len(individual_words)
     print("LENGTH of freq dict: "+str(len(word_freq_dict)))
     print("LENGTH of individual words: "+str(len(individual_words)))
-
+    logging.info("LENGTH of freq dict: "+str(len(word_freq_dict)))
+    logging.info("LENGTH of individual words: "+str(len(individual_words)))
+    
     # make experiment lexicon (= dictionary + words in experiment)
     for word in individual_words:  # make sure it contains no double words
         if word not in lexicon:
@@ -109,7 +112,7 @@ def simulate_experiments(task, pm):
 
     n_known_words = len(lexicon)  # nr of words known to model
 
-    my_print(f'size lexicon: {len(lexicon)}')
+    logging.debug(f'size lexicon: {len(lexicon)}')
 
     # Make lexicon dependent variables
     LEXICON_SIZE = len(lexicon)
@@ -188,11 +191,14 @@ def simulate_experiments(task, pm):
     print("Amount of words in lexicon: ", LEXICON_SIZE)
     print("Amount of words in text:", TOTAL_WORDS)
     print("")
+    logging.info("Amount of words in lexicon: ", LEXICON_SIZE)
+    logging.info("Amount of words in text:", TOTAL_WORDS)
 
     # word-to-word inhibition matrix (redundant? we could also (re)compute it for every trial; only certain word combinations exist)
     # NV: could also be done once and pickled
 
     print("Setting up word-to-word inhibition grid...")
+    logging.info("Setting up word-to-word inhibition grid...")
     # Set up the list of word inhibition pairs, with amount of bigram/monograms
     # overlaps for every pair. Initialize inhibition matrix with false.
     word_inhibition_matrix = np.zeros((LEXICON_SIZE, LEXICON_SIZE), dtype=bool)
@@ -261,6 +267,7 @@ def simulate_experiments(task, pm):
     print("")
     print("BEGIN EXPERIMENT")
     print("")
+    logging.info("Inhibition grid ready. BEGIN EXPERIMENT")
 
     # Initialize Parameters
     # MM: voorste 3 kunnen weg toch?
@@ -284,6 +291,8 @@ def simulate_experiments(task, pm):
     for trial in range(0, len(stim['all'])):
 
         print("trial: " + str(trial+1))
+        logging.info("trial: " + str(trial+1))
+        
         all_data.append({})
 
         stimulus = stim['all'][trial]
@@ -319,7 +328,7 @@ def simulate_experiments(task, pm):
                            'wordlen_threshold': pm.word_length_similarity_constant,
                            'error_rate': 0}  # NV: info for plots in notebook
 
-        #my_print('attendWidth: '+str(attendWidth))
+        #logging.debug('attendWidth: '+str(attendWidth))
 
         shift = False
 
@@ -380,24 +389,24 @@ def simulate_experiments(task, pm):
                     stimulus_padded = ""
                     # NV: Note: stimulus is not padded, but next function expects padded input, hence the name. (for the empty string it does not matter)
                     stimulus_padded = ""
-                    my_print("Stimulus: blank screen")  # NV: show what is the actual stimulus
+                    logging.debug("Stimulus: blank screen")  # NV: show what is the actual stimulus
 
                 elif pm.blankscreen_type == 'hashgrid':
                     stimulus = "#####"  # NV: overwrite stimulus with hash grid
                     stimulus_padded = " ##### "
-                    my_print("Stimulus: hashgrid screen")  # NV: show what is the actual stimulus
+                    logging.debug("Stimulus: hashgrid screen")  # NV: show what is the actual stimulus
 
             # NV: IF we are in priming cycle, set stimulus to the prime
             elif pm.is_priming_task and cur_cycle < (pm.blankscreen_cycles_begin+pm.ncyclesprime):
                 stimulus = prime  # NV: overwrite stimulus with prime
                 stimulus_padded = prime_padded
-                my_print("Stimulus: "+stimulus)  # NV: show what is the actual stimulus
+                logging.debug("Stimulus: "+stimulus)  # NV: show what is the actual stimulus
 
             else:
                 # NV: reassign to change it back to original stimulus after prime or blankscreen.
                 stimulus = stim['all'][trial]
                 stimulus_padded = " "+stimulus+" "
-                my_print("Stimulus: "+stimulus)
+                logging.debug("Stimulus: "+stimulus)
 
             # NV: else, just get the normal stimulus
             (allNgrams, bigramsToLocations) = stringToBigramsAndLocations(
@@ -415,7 +424,7 @@ def simulate_experiments(task, pm):
                 else:
                     allMonograms.append(ngram)
             allBigrams_set = set(allBigrams)
-            my_print(allBigrams)
+            logging.debug(allBigrams)
 
             unitActivations = {}  # reset after each trial
 
@@ -492,7 +501,7 @@ def simulate_experiments(task, pm):
 
             # now comes the formula for computing word activity.
             # pm.decay has a neg value, that's why it's here added, not subtracted
-            # my_print("before:"+str(lexicon_word_activity_np[individual_to_lexicon_indices[fixation]]))
+            # logging.debug("before:"+str(lexicon_word_activity_np[individual_to_lexicon_indices[fixation]]))
             lexicon_word_activity_new = ((pm.max_activity - lexicon_word_activity_np) * lexicon_total_input_np) + \
                                         ((lexicon_word_activity_np - pm.min_activity) * pm.decay)
             lexicon_word_activity_np = np.add(lexicon_word_activity_np, lexicon_word_activity_new)
@@ -504,11 +513,11 @@ def simulate_experiments(task, pm):
             # Save current word activities (per cycle)
             target_lexicon_index = individual_to_lexicon_indices[[
                 idx for idx, element in enumerate(lexicon) if element == target]]
-            my_print("target index:" + str(target_lexicon_index))
+            logging.debug("target index:" + str(target_lexicon_index))
 
             #crt_word_total_input_np = lexicon_total_input_np[target_lexicon_index]
             crt_word_activity_np = lexicon_word_activity_np[target_lexicon_index]
-            my_print("target activity:" + str(crt_word_activity_np))
+            logging.debug("target activity:" + str(crt_word_activity_np))
 
             total_activity = 0
 
@@ -517,7 +526,8 @@ def simulate_experiments(task, pm):
             # MM: change tot act to act in all lexicon
             total_activity = sum(lexicon_word_activity_np)
             all_data[trial]['lexicon activity per cycle'].append(total_activity)
-            print("total activity: "+str(total_activity))
+
+            logging.debug("total activity: "+str(total_activity))
 
             # Enter any recognized word to the 'recognized words indices' list
             # creates array (MM: msk?) that is 1 if act(word)>thres, 0 otherwise
@@ -528,10 +538,11 @@ def simulate_experiments(task, pm):
 
             # array w. indices of recogn. words, not sure whether this still has a function
             # recognized_indices = np.asarray(all_data[trial]['recognized words indices'], dtype=int)
-            my_print("nr. above thresh. in lexicon: " + str(np.sum(above_tresh_lexicon_np)))
-            #my_print("recognized lexicon: ", above_tresh_lexicon_np)
+            logging.debug("nr. above thresh. in lexicon: " + str(np.sum(above_tresh_lexicon_np)))
+            #logging.debug("recognized lexicon: ", above_tresh_lexicon_np)
+            
             # NV: print words that are above threshold
-            my_print("recognized words " +
+            logging.debug("recognized words " +
                      str([x for i, x in enumerate(lexicon) if above_tresh_lexicon_np[i] == 1]))
 
             # NS: this final part of the loop is only for behavior (RT/errors)
@@ -563,14 +574,14 @@ def simulate_experiments(task, pm):
 
             try:
                 #print("target word: "+ target_word)
-                my_print("highest activation of fitting length: " +
+                logging.debug("highest activation of fitting length: " +
                          str(lexicon[highest])+", "+str(lexicon_word_activity_np[highest]))
                 # print("\n")
             except:
                 # NV: changed this, because the reason above print statement fails, is because there are no words above threshold
-                my_print("no words above threshold and of fitting length")
+                logging.debug("no words above threshold and of fitting length")
 
-            my_print("\n\n")  # NV: new lines for next cycle
+            logging.debug("\n\n")  # NV: new lines for next cycle
 
             # NV: stop condition: if the design of the task calls for an end of trial after response, break. For now, a response is simply whenever a word gets above threshold
             if pm.trial_ends_on_key_press and sum(recognWrdsFittingLen_np) >= 1:
@@ -602,6 +613,7 @@ def simulate_experiments(task, pm):
         reaction_time = (cycle_for_RT-(pm.blankscreen_cycles_begin +
                          pm.ncyclesprime)) * CYCLE_SIZE+300
         print("reaction time: " + str(reaction_time) + " ms")
+        logging.info("reaction time: " + str(reaction_time) + " ms")
         all_data[trial]['reaction time'].append(reaction_time)
         all_data[trial]['word threshold'] = word_thresh_dict.get(target, "")
         all_data[trial]['word frequency'] = word_freq_dict.get(target, "")
@@ -611,6 +623,7 @@ def simulate_experiments(task, pm):
         print("end of trial")
         print("----------------")
         print("\n")
+        logging.info("end of trial")
 
     # END OF EXPERIMENT. Return all data and a list of unrecognized words
     return lexicon, all_data, unrecognized_words
