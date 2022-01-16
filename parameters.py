@@ -144,7 +144,7 @@ def return_task_params(task_attributes):
         # 1.5 # inp. divded by #ngrams, so this param estimates excit per word [diff from paper]
         bigram_to_word_excitation = 1.25
         bigram_to_word_inhibition = 0  # -0.05
-        word_inhibition = -0.07  # -.0018 #-0.005#-0.0165
+        word_inhibition = -0.005  # -.0018 #-0.005#-0.07 #-0.0165
         # 0.35 #0.15 #NV: determines how similar the length of 2 words must be for them to be recognised as 'similar word length'
         word_length_similarity_constant = 0.15
 

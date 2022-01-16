@@ -14,8 +14,11 @@ Necessary for the simulation for the Embedded Words task (Beyersmann 2020)
 import numpy as np
 import pickle
 
-    
-affixes_totalcount_en={'tion':122,
+#TODO: in order to implement prefixes, get data on frequency from scientific literature, 
+# and implement following the suffix structure hereunder    
+
+
+suffix_totalcount_en={'tion':122,
                        'al':91,
                        'ial':91,
                        'er':85,
@@ -58,16 +61,16 @@ affixes_totalcount_en={'tion':122,
                        'hood':1,
                        'ify':1}
 
-affixes_zipf={}
+suffix_zipf={}
 
-for i,(j,k) in enumerate(affixes_totalcount_en.items()):
-    affixes_zipf[j]=np.log((k/24680)*1000000) #frequency per million (24680 words in text in total)
+for i,(j,k) in enumerate(suffix_totalcount_en.items()):
+    suffix_zipf[j]=np.log((k/24680)*1000000) #frequency per million (24680 words in text in total)
 
 
-with open('Data/affixes_frequency_en.dat', 'wb')  as f:
-    pickle.dump(affixes_zipf, f)
+with open('Data/suffix_frequency_en.dat', 'wb')  as f:
+    pickle.dump(suffix_zipf, f)
 
 if __name__=="__main__":
     
-    print(list(affixes_zipf.items()))
+    print(list(suffix_zipf.items()))
     

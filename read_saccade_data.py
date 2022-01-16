@@ -338,13 +338,22 @@ def get_freq_pred_files(task, pm): #NV: merged the de, fr and en versions. All f
         word_pred_dict = pickle.load(p, encoding="latin1") # For Python3
     return word_freq_dict, word_pred_dict
 
-def get_affix_file(pm): #NV: added function to read affixes frequency data from pickle, written by affixes.py. Which affixes to fetch is independent of task but dependent on language.
-    file="Data/affixes_frequency_"+pm.short[pm.language]+".dat"
+def get_suffix_file(pm): #NV: added function to read affixes frequency data from pickle, written by affixes.py. Which affixes to fetch is independent of task but dependent on language.
+    file="Data/suffix_frequency_"+pm.short[pm.language]+".dat"
     with open (file,"rb") as f:
-       affix_freq_dict = pickle.load(f)
-       return affix_freq_dict
+       suffix_freq_dict = pickle.load(f)
+       return suffix_freq_dict
        #NV: predictability does not really make sense in the context of affixes, hence they are not made nor imported
-       #But maybe something to look at in the future?
+       #But maybe something to look at in the future
+
+def get_prefix_file(pm): #NV: added function to read affixes frequency data from pickle, written by affixes.py. Which affixes to fetch is independent of task but dependent on language.
+    file="Data/prefix_frequency_"+pm.short[pm.language]+".dat"
+    with open (file,"rb") as f:
+       prefix_freq_dict = pickle.load(f)
+       return prefix_freq_dict
+       #NV: predictability does not really make sense in the context of affixes, hence they are not made nor imported
+       #But maybe something to look at in the future
+       
 
 
 def get_saccade_data_df():

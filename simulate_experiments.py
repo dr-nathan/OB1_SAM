@@ -18,7 +18,7 @@ from reading_common import stringToBigramsAndLocations, calcBigramExtInput, calc
 from reading_functions import get_threshold, is_similar_word_length
 # calc_saccade_error, norm_distribution, normalize_pred_values, middle_char, index_middle_char, \
 # getMidwordPositionForSurroundingWord
-from read_saccade_data import get_freq_pred_files, get_affix_file
+from read_saccade_data import get_freq_pred_files, get_suffix_file, get_prefix_file
 
 
 def simulate_experiments(task, pm):
@@ -37,7 +37,7 @@ def simulate_experiments(task, pm):
         ' ', expand=True).stack().unique())  # get stimulus words of task
     for word in textsplitbyspace:
         if word.strip() != "":
-            # For Python2 #NV: add _ to words, for affix recognition system
+            #NV: add _ to begin and end of words, for affix recognition system
             new_word = f"_{word.strip().lower()}_"
             individual_words.append(new_word)
             lengtes.append(len(word))
@@ -55,12 +55,19 @@ def simulate_experiments(task, pm):
              str({k: word_freq_dict[k] for k in list(word_freq_dict)[:20]}))
 
     # NV: also get data on frequency of affixes. NOTE: only works for english at the moment (prototype)
-    affix_freq_dict_temp = get_affix_file(pm)
-    affix_freq_dict = {}
-    for word in affix_freq_dict_temp.keys():
-        affix_freq_dict[f"{word}_"] = affix_freq_dict_temp[word] #NV: 
-
-    affixes = list(affix_freq_dict.keys())
+    suffix_freq_dict_temp = get_suffix_file(pm)
+    suffix_freq_dict = {}
+    for word in suffix_freq_dict_temp.keys():
+        suffix_freq_dict[f"{word}_"] = suffix_freq_dict_temp[word] #NV: add _ to end of suffix
+    suffixes = list(suffix_freq_dict.keys())
+    
+    # at the moment, only suffixes are implemented. To implement prefixes as well, head to read_saccade_data and affixes.py            
+    prefixes=[]
+    prefix_freq_dict={}
+    
+    affix_freq_dict=suffix_freq_dict | prefix_freq_dict
+    affixes=prefixes+suffixes
+    
     logging.debug(affixes)
 
     # NV: add affix freq and pred to list
@@ -118,7 +125,7 @@ def simulate_experiments(task, pm):
     LEXICON_SIZE = len(lexicon)
 
     # Normalize word inhibition to the size of the lexicon.
-    lexicon_normalized_word_inhibition = (100.0/LEXICON_SIZE) * pm.word_inhibition
+    lexicon_normalized_word_inhibition = (100.0/LEXICON_SIZE) * pm.word_inhibition #TODO: change pm.word_inhibition
 
     # Set activation of all words in lexicon to zero and make bigrams for each word.
     lexicon_word_activity = {}
@@ -127,7 +134,6 @@ def simulate_experiments(task, pm):
     lexicon_index_dict = {}
 
     # Lexicon word measures
-    # NV: print word activity ?? #TODO
     lexicon_word_activity_np = np.zeros((LEXICON_SIZE), dtype=float)
     lexicon_word_inhibition_np = np.zeros((LEXICON_SIZE), dtype=float)
     lexicon_word_inhibition_np2 = np.zeros((LEXICON_SIZE), dtype=float)
@@ -245,7 +251,7 @@ def simulate_experiments(task, pm):
                     total_overlap_counter = 0
                 min_overlap = pm.min_overlap  # MM: currently 2
 
-                if complete_selective_word_inhibition:  # NV: what does this do? #TODO
+                if complete_selective_word_inhibition:  # NV: what does this do? 
                     if total_overlap_counter > min_overlap:
                         word_overlap_matrix[word, other_word] = total_overlap_counter - min_overlap
                     else:
@@ -259,7 +265,6 @@ def simulate_experiments(task, pm):
                         sys.exit('Make sure to use slow version, fast/vectorized version not compatible')
 
     # Save overlap matrix, with individual words selected
-    # NV: to automatically add right abbreviaton in file name
     output_inhibition_matrix = 'Data/Inhibition_matrix_'+pm.short[pm.language]+'.dat'
     with open(output_inhibition_matrix, "wb") as f:
         pickle.dump(np.sum(word_overlap_matrix, axis=0)[individual_to_lexicon_indices], f)
@@ -268,6 +273,10 @@ def simulate_experiments(task, pm):
     print("BEGIN EXPERIMENT")
     print("")
     logging.info("Inhibition grid ready. BEGIN EXPERIMENT")
+    
+    #NV: COMMENT: what has been built above is an overlap matrix, not an inhibition matrix. I.e, 
+    # the matrix contains an amount of bigram and monogram overlap between every 2 words.
+    
 
     # Initialize Parameters
     # MM: voorste 3 kunnen weg toch?
@@ -429,7 +438,7 @@ def simulate_experiments(task, pm):
             unitActivations = {}  # reset after each trial
 
             # Reset
-            word_input_np.fill(0.0)  # NV: reset word activity at each cycle?
+            word_input_np.fill(0.0)
             lexicon_word_inhibition_np.fill(0.0)
             lexicon_word_inhibition_np2.fill(0.0)
             lexicon_activewords_np.fill(False)
@@ -460,8 +469,8 @@ def simulate_experiments(task, pm):
             all_data[trial]['ngrams'].append(len(allNgrams))
             # activation of word nodes
             # taking nr of ngrams, word-to-word inhibition etc. into account
-            wordBigramsInhibitionInput = 0
-            for ngram in allNgrams:
+            wordBigramsInhibitionInput = 0          
+            for ngram in allNgrams:   
                 wordBigramsInhibitionInput += pm.bigram_to_word_inhibition * \
                     unitActivations[ngram]
             # This is where input is computed (excit is specific to word, inhib same for all)

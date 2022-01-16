@@ -21,7 +21,7 @@ from reading_simulation import reading_simulation
 from reading_function_optimize import reading_function
 from analyse_data_pandas import get_results
 
-logging.basicConfig(filename='logfile.log', encoding='utf-8', filemode='w', level=logging.WARNING, force=True)
+logging.basicConfig(filename='logfile.log', encoding='utf-8', filemode='w', level=logging.DEBUG, force=True)
 
 pm = return_params()  # NV: get all parameters as an object
 task = pm.task_to_run  # NV: get name
