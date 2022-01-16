@@ -18,7 +18,7 @@ from reading_common import stringToBigramsAndLocations, calcBigramExtInput, calc
 from reading_functions import get_threshold, is_similar_word_length
 # calc_saccade_error, norm_distribution, normalize_pred_values, middle_char, index_middle_char, \
 # getMidwordPositionForSurroundingWord
-from read_saccade_data import get_freq_pred_files, get_suffix_file, get_prefix_file
+from read_saccade_data import get_freq_pred_files, get_suffix_file  # , get_prefix_file
 
 
 def simulate_experiments(task, pm):
@@ -37,7 +37,7 @@ def simulate_experiments(task, pm):
         ' ', expand=True).stack().unique())  # get stimulus words of task
     for word in textsplitbyspace:
         if word.strip() != "":
-            #NV: add _ to begin and end of words, for affix recognition system
+            # NV: add _ to begin and end of words, for affix recognition system
             new_word = f"_{word.strip().lower()}_"
             individual_words.append(new_word)
             lengtes.append(len(word))
@@ -52,22 +52,22 @@ def simulate_experiments(task, pm):
     for word in word_freq_dict_temp.keys():
         word_freq_dict[f"_{word}_"] = word_freq_dict_temp[word]
     logging.debug('word freq dict (first 20): \n' +
-             str({k: word_freq_dict[k] for k in list(word_freq_dict)[:20]}))
+                  str({k: word_freq_dict[k] for k in list(word_freq_dict)[:20]}))
 
     # NV: also get data on frequency of affixes. NOTE: only works for english at the moment (prototype)
     suffix_freq_dict_temp = get_suffix_file(pm)
     suffix_freq_dict = {}
     for word in suffix_freq_dict_temp.keys():
-        suffix_freq_dict[f"{word}_"] = suffix_freq_dict_temp[word] #NV: add _ to end of suffix
+        suffix_freq_dict[f"{word}_"] = suffix_freq_dict_temp[word]  # NV: add _ to end of suffix
     suffixes = list(suffix_freq_dict.keys())
-    
-    # at the moment, only suffixes are implemented. To implement prefixes as well, head to read_saccade_data and affixes.py            
-    prefixes=[]
-    prefix_freq_dict={}
-    
-    affix_freq_dict=suffix_freq_dict | prefix_freq_dict
-    affixes=prefixes+suffixes
-    
+
+    # at the moment, only suffixes are implemented. To implement prefixes as well, head to read_saccade_data and affixes.py
+    prefixes = []
+    prefix_freq_dict = {}
+
+    affix_freq_dict = suffix_freq_dict | prefix_freq_dict
+    affixes = prefixes+suffixes
+
     logging.debug(affixes)
 
     # NV: add affix freq and pred to list
@@ -84,7 +84,7 @@ def simulate_experiments(task, pm):
         # NS for the sentence experiment I will run this script twice, once with higher pred values (for the normal vs. scrambled conditions). Not the prettiest solution, but I would not know how to generate two different thresholds for the same word in the current framework.
         word_pred_values[:] = 0.25
 
-    logging.debug('word freq dict (with affixes): '+ str(word_freq_dict))
+    logging.debug('word freq dict (with affixes): ' + str(word_freq_dict))
 
     max_frequency_key = max(word_freq_dict, key=word_freq_dict.get)
     max_frequency = word_freq_dict[max_frequency_key]
@@ -93,7 +93,7 @@ def simulate_experiments(task, pm):
           "\nLength pred: " + str(len(word_pred_values)))
     logging.info("max freq:" + str(max_frequency))
     logging.info("Length text: " + str(len(individual_words)) +
-          "\nLength pred: " + str(len(word_pred_values)))
+                 "\nLength pred: " + str(len(word_pred_values)))
 
     # Make individual words dependent variables
     TOTAL_WORDS = len(individual_words)
@@ -101,7 +101,7 @@ def simulate_experiments(task, pm):
     print("LENGTH of individual words: "+str(len(individual_words)))
     logging.info("LENGTH of freq dict: "+str(len(word_freq_dict)))
     logging.info("LENGTH of individual words: "+str(len(individual_words)))
-    
+
     # make experiment lexicon (= dictionary + words in experiment)
     for word in individual_words:  # make sure it contains no double words
         if word not in lexicon:
@@ -125,7 +125,8 @@ def simulate_experiments(task, pm):
     LEXICON_SIZE = len(lexicon)
 
     # Normalize word inhibition to the size of the lexicon.
-    lexicon_normalized_word_inhibition = (100.0/LEXICON_SIZE) * pm.word_inhibition #TODO: change pm.word_inhibition
+    lexicon_normalized_word_inhibition = (
+        100.0/LEXICON_SIZE) * pm.word_inhibition  # TODO: change pm.word_inhibition
 
     # Set activation of all words in lexicon to zero and make bigrams for each word.
     lexicon_word_activity = {}
@@ -217,7 +218,7 @@ def simulate_experiments(task, pm):
         for word in range(LEXICON_SIZE):
 
             # NV: comment out temporarily, to investigate the effects of word-length-independent inhibition
-            if False: #not is_similar_word_length(lexicon[word], lexicon[other_word]) or lexicon[word] == lexicon[other_word]: # Take word length into account here (instead of below, where act of lexicon words is determined)
+            if False:  # not is_similar_word_length(lexicon[word], lexicon[other_word]) or lexicon[word] == lexicon[other_word]: # Take word length into account here (instead of below, where act of lexicon words is determined)
                 continue
             else:
                 bigrams_common = []
@@ -251,7 +252,7 @@ def simulate_experiments(task, pm):
                     total_overlap_counter = 0
                 min_overlap = pm.min_overlap  # MM: currently 2
 
-                if complete_selective_word_inhibition:  # NV: what does this do? 
+                if complete_selective_word_inhibition:  # NV: what does this do?
                     if total_overlap_counter > min_overlap:
                         word_overlap_matrix[word, other_word] = total_overlap_counter - min_overlap
                     else:
@@ -273,10 +274,9 @@ def simulate_experiments(task, pm):
     print("BEGIN EXPERIMENT")
     print("")
     logging.info("Inhibition grid ready. BEGIN EXPERIMENT")
-    
-    #NV: COMMENT: what has been built above is an overlap matrix, not an inhibition matrix. I.e, 
+
+    # NV: COMMENT: what has been built above is an overlap matrix, not an inhibition matrix. I.e,
     # the matrix contains an amount of bigram and monogram overlap between every 2 words.
-    
 
     # Initialize Parameters
     # MM: voorste 3 kunnen weg toch?
@@ -301,7 +301,7 @@ def simulate_experiments(task, pm):
 
         print("trial: " + str(trial+1))
         logging.info("trial: " + str(trial+1))
-        
+
         all_data.append({})
 
         stimulus = stim['all'][trial]
@@ -403,10 +403,11 @@ def simulate_experiments(task, pm):
                 elif pm.blankscreen_type == 'hashgrid':
                     stimulus = "#####"  # NV: overwrite stimulus with hash grid
                     stimulus_padded = " ##### "
-                    logging.debug("Stimulus: hashgrid screen")  # NV: show what is the actual stimulus
+                    # NV: show what is the actual stimulus
+                    logging.debug("Stimulus: hashgrid screen")
 
             # NV: IF we are in priming cycle, set stimulus to the prime
-            elif pm.is_priming_task and cur_cycle < (pm.blankscreen_cycles_begin+pm.ncyclesprime):
+            elif pm.is_priming_task: #and cur_cycle < (pm.blankscreen_cycles_begin+pm.ncyclesprime): #FIXME
                 stimulus = prime  # NV: overwrite stimulus with prime
                 stimulus_padded = prime_padded
                 logging.debug("Stimulus: "+stimulus)  # NV: show what is the actual stimulus
@@ -469,8 +470,8 @@ def simulate_experiments(task, pm):
             all_data[trial]['ngrams'].append(len(allNgrams))
             # activation of word nodes
             # taking nr of ngrams, word-to-word inhibition etc. into account
-            wordBigramsInhibitionInput = 0          
-            for ngram in allNgrams:   
+            wordBigramsInhibitionInput = 0
+            for ngram in allNgrams:
                 wordBigramsInhibitionInput += pm.bigram_to_word_inhibition * \
                     unitActivations[ngram]
             # This is where input is computed (excit is specific to word, inhib same for all)
@@ -520,6 +521,7 @@ def simulate_experiments(task, pm):
             lexicon_word_activity_np[lexicon_word_activity_np > pm.max_activity] = pm.max_activity
 
             # Save current word activities (per cycle)
+
             target_lexicon_index = individual_to_lexicon_indices[[
                 idx for idx, element in enumerate(lexicon) if element == target]]
             logging.debug("target index:" + str(target_lexicon_index))
@@ -549,22 +551,30 @@ def simulate_experiments(task, pm):
             # recognized_indices = np.asarray(all_data[trial]['recognized words indices'], dtype=int)
             logging.debug("nr. above thresh. in lexicon: " + str(np.sum(above_tresh_lexicon_np)))
             #logging.debug("recognized lexicon: ", above_tresh_lexicon_np)
-            
+
             # NV: print words that are above threshold
-            logging.debug("recognized words " +
-                     str([x for i, x in enumerate(lexicon) if above_tresh_lexicon_np[i] == 1]))
+            words_above_threshold = [x for i, x in enumerate(
+                lexicon) if above_tresh_lexicon_np[i] == 1]
+            logging.debug("recognized words " + str(words_above_threshold))
+
+            # NV: Here is checked wether affixes are recognized. If there are, the word length to be matched also contains the length of the stem without affix
+            # NV: replace('_', '') to remove underscores
+            word_lengths_to_be_matched = [len(stimulus.replace('_', ''))]
+            for word in words_above_threshold:
+                if word in affixes:
+                    word_lengths_to_be_matched.append(
+                        len(stimulus.replace('_', ''))-len(word.replace('_', '')))
+            logging.debug('words lenghts to be matched: ' + str(word_lengths_to_be_matched))
+
+            # MM: recognWrdsFittingLen_np: array with 1=wrd act above threshold, & approx same len
+            # as to-be-recogn wrd (with 15% margin), 0=otherwise
+            # NV: search for word for all the relevant lengths determined above
+            recognWrdsFittingLen_np = above_tresh_lexicon_np * \
+                                     np.array([int(is_similar_word_length(len(x.replace('_', '')), word_lengths_to_be_matched)) for x in lexicon])
 
             # NS: this final part of the loop is only for behavior (RT/errors)
             # array of zeros of len as lexicon, which will get 1 if wrd recognized
             new_recognized_words = np.zeros(LEXICON_SIZE)
-
-            # but here we only look at the target word
-            # MM: recognWrdsFittingLen_np: array with 1=wrd act above threshold, & approx same len
-            # as to-be-recogn wrd (with 15% margin), 0=otherwise
-            recognWrdsFittingLen_np = above_tresh_lexicon_np * \
-                np.array([int(is_similar_word_length(x.replace('_', ''), target)) for x in lexicon]) #NV: replace('_', '') to remove underscores
-                  
-            # NV: #TODO: Build mechanism that splits word into stem + affix when affix is recognized
 
             # fast check whether there is at least one 1 in wrdsFittingLen_np
             if sum(recognWrdsFittingLen_np):
@@ -584,7 +594,7 @@ def simulate_experiments(task, pm):
             try:
                 #print("target word: "+ target_word)
                 logging.debug("highest activation of fitting length: " +
-                         str(lexicon[highest])+", "+str(lexicon_word_activity_np[highest]))
+                              str(lexicon[highest])+", "+str(lexicon_word_activity_np[highest]))
                 # print("\n")
             except:
                 # NV: changed this, because the reason above print statement fails, is because there are no words above threshold
@@ -594,7 +604,8 @@ def simulate_experiments(task, pm):
 
             # NV: stop condition: if the design of the task calls for an end of trial after response, break. For now, a response is simply whenever a word gets above threshold
             if pm.trial_ends_on_key_press and sum(recognWrdsFittingLen_np) >= 1:
-                break
+                #break
+                pass   #NV: temporarily removed to check word affix split mechanism
 
             # NS: not yet implemented, potentially interesting for the future
             # "evaluate" response

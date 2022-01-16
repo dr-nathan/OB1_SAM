@@ -15,9 +15,12 @@ def my_print(*args):
             print(i)
         #print("")
 
-
-def is_similar_word_length(word1, word2):
-    return abs(len(word1)-len(word2)) < (pm.word_length_similarity_constant * max(len(word1), len(word2))) # NV: difference of word length  must be within 15% of the length of the longest word
+#NV: the fucntion has been adapted to handle multipe lenghts values to be tested. Returns true if at least one length is matched, otherwise False
+def is_similar_word_length(len1, lengths_to_be_macthed):
+    for len2 in lengths_to_be_macthed:
+        if abs(len1-len2) < (pm.word_length_similarity_constant * max(len1, len2)): # NV: difference of word length  must be within 15% of the length of the longest word
+            return True
+    return False
 
 
 # returns the word center position of a surrounding word

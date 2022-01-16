@@ -69,6 +69,9 @@ for i,(j,k) in enumerate(suffix_totalcount_en.items()):
 
 with open('Data/suffix_frequency_en.dat', 'wb')  as f:
     pickle.dump(suffix_zipf, f)
+    
+
+#insert prefix code here
 
 if __name__=="__main__":
     
