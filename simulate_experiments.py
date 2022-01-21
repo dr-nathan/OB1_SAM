@@ -35,6 +35,8 @@ def simulate_experiments(task, pm):
     lengtes = []
     textsplitbyspace = list(pm.stim['all'].str.split(
         ' ', expand=True).stack().unique())  # get stimulus words of task
+    
+    # NV: generate individual_words array
     for word in textsplitbyspace:
         if word.strip() != "":
             # NV: add _ to begin and end of words, for affix recognition system
@@ -51,21 +53,21 @@ def simulate_experiments(task, pm):
     word_freq_dict = {}
     for word in word_freq_dict_temp.keys():
         word_freq_dict[f"_{word}_"] = word_freq_dict_temp[word]
+        
     logging.debug('word freq dict (first 20): \n' +
                   str({k: word_freq_dict[k] for k in list(word_freq_dict)[:20]}))
 
-    # NV: also get data on frequency of affixes. NOTE: only works for english at the moment (prototype)
+    # NV: get data on frequency of affixes. NOTE: only works for english at the moment (prototype)   
     suffix_freq_dict_temp = get_suffix_file(pm)
     suffix_freq_dict = {}
     for word in suffix_freq_dict_temp.keys():
         suffix_freq_dict[f"{word}_"] = suffix_freq_dict_temp[word]  # NV: add _ to end of suffix
     suffixes = list(suffix_freq_dict.keys())
-
     # at the moment, only suffixes are implemented. To implement prefixes as well, head to read_saccade_data and affixes.py
     prefixes = []
     prefix_freq_dict = {}
 
-    affix_freq_dict = suffix_freq_dict | prefix_freq_dict
+    affix_freq_dict = suffix_freq_dict | prefix_freq_dict #NV: merge 2 dictionnaries
     affixes = prefixes+suffixes
 
     logging.debug(affixes)
@@ -113,7 +115,7 @@ def simulate_experiments(task, pm):
                 # NV:word_freq_dict already contains all target words of task +eventual flankers or primers, determined in create_freq_pred_files. So the first part of individual words is probably double work
                 lexicon.append(freq_word.lower())
 
-    lexicon_file_name = 'Data/Lexicon_'+task+'.dat'  # NV: Again, because word_freq_dict contained all words already, this is exactly the same file #ANSWER: Actually, the word_freq_dict is only made for words, for which there is a frequency. Other words are dicarderd. So concatenating word_freq_dict with individual_words puts those words back! So here again, the important question is: Why the threshols in create_freq_pred_files?
+    lexicon_file_name = 'Data/Lexicon_'+task+'.dat'  # NV: Again, because word_freq_dict contained all words already, this is exactly the same file #ANSWER: Actually, the word_freq_dict is only made for words, for which there is a frequency. Other words are discarded. So concatenating word_freq_dict with individual_words puts those words back! So here again, the important question is: Why the threshols in create_freq_pred_files?
     with open(lexicon_file_name, "wb") as f:
         pickle.dump(lexicon, f)
 
@@ -122,7 +124,10 @@ def simulate_experiments(task, pm):
     logging.debug(f'size lexicon: {len(lexicon)}')
 
     # Make lexicon dependent variables
-    LEXICON_SIZE = len(lexicon)
+    LEXICON_SIZE = len(lexicon)    
+    
+    logging.info("Amount of words in lexicon: "+ str(LEXICON_SIZE))
+    logging.info("Amount of words in text:"+ str(TOTAL_WORDS))
 
     # Normalize word inhibition to the size of the lexicon.
     lexicon_normalized_word_inhibition = (
@@ -178,105 +183,143 @@ def simulate_experiments(task, pm):
 
         # NV: create local variable to modify without interfering
         word_local = word
-        # determine if the word is an affix, and remove _'s temporarily
-        is_affix = False
-        if word_local.startswith('_'):
+        
+        #NV:  determine if the word is an affix, and remove _'s 
+        is_suffix = False
+        is_prefix = False
+        #NV: if word is normal word, remove both _'s
+        if word_local.startswith('_') and word_local.endswith('_'):
             word_local = word_local[1:-1]
-        else:
+        #NV: if prefix, remove first _ and set is_prefix to True
+        elif word_local.startswith('_'):
+            word_local = word_local[1:]
+            is_prefix = True
+        #idem for suffix
+        elif word_local.endswith('_'):
             word_local = word_local[:-1]
-            is_affix = True
+            is_suffix = True
+            
+        #add spaces to word, important for function hereunder
         word_local = " "+word_local+" "
+        #NV: convert words into bigrams and their locations
         (all_word_bigrams,
-         bigramLocations) = stringToBigramsAndLocations(word_local, is_affix)  # NV: now returns special _ bigrams as well #again should be called suffix #NV: #TODO: should be made more elegant
-        # lexicon[word] = lexicon[word][1:(len(lexicon[word]) - 1)]  # to get rid of spaces again
+         bigramLocations) = stringToBigramsAndLocations(word_local, is_prefix, is_suffix)  # NV: now returns special _ bigrams as well 
 
-        lexicon_word_bigrams[word] = all_word_bigrams
         # append to list of N ngrams
+        lexicon_word_bigrams[word] = all_word_bigrams
         # bigrams and monograms total amount
         N_ngrams_lexicon.append(len(all_word_bigrams) + len(word))
-
-    print("Amount of words in lexicon: ", LEXICON_SIZE)
-    print("Amount of words in text:", TOTAL_WORDS)
-    print("")
-    logging.info("Amount of words in lexicon: ", LEXICON_SIZE)
-    logging.info("Amount of words in text:", TOTAL_WORDS)
 
     # word-to-word inhibition matrix (redundant? we could also (re)compute it for every trial; only certain word combinations exist)
     # NV: could also be done once and pickled
 
     print("Setting up word-to-word inhibition grid...")
     logging.info("Setting up word-to-word inhibition grid...")
-    # Set up the list of word inhibition pairs, with amount of bigram/monograms
-    # overlaps for every pair. Initialize inhibition matrix with false.
+    
+    # Set up the list of word inhibition pairs, with amount of bigram/monograms overlaps for every pair. Initialize inhibition matrix with false.
+    #NV: COMMENT: here is actually built an overlap matrix rather than an inhibition matrix, containing how many bigrams of overlap any 2 words have 
     word_inhibition_matrix = np.zeros((LEXICON_SIZE, LEXICON_SIZE), dtype=bool)
     word_overlap_matrix = np.zeros((LEXICON_SIZE, LEXICON_SIZE), dtype=int)
 
     complete_selective_word_inhibition = True
     overlap_list = {}
 
-    for other_word in range(LEXICON_SIZE):
-        for word in range(LEXICON_SIZE):
-
-            # NV: comment out temporarily, to investigate the effects of word-length-independent inhibition
-            if False:  # not is_similar_word_length(lexicon[word], lexicon[other_word]) or lexicon[word] == lexicon[other_word]: # Take word length into account here (instead of below, where act of lexicon words is determined)
-                continue
-            else:
-                bigrams_common = []
-                bigrams_append = bigrams_common.append
-                bigram_overlap_counter = 0
-                for bigram in range(len(lexicon_word_bigrams[lexicon[word]])):
-                    if lexicon_word_bigrams[lexicon[word]][bigram] in lexicon_word_bigrams[lexicon[other_word]]:
-                        bigrams_append(lexicon_word_bigrams[lexicon[word]][bigram])
-                        lexicon_word_bigrams_set[lexicon[word]] = set(
-                            lexicon_word_bigrams[lexicon[word]])
-                        bigram_overlap_counter += 1
-
-                monograms_common = []
-                monograms_append = monograms_common.append
-                monogram_overlap_counter = 0
-                unique_word_letters = ''.join(set(lexicon[word]))
-
-                for pos in range(len(unique_word_letters)):
-                    monogram = unique_word_letters[pos]
-                    if monogram in lexicon[other_word]:
-                        monograms_append(monogram)
-                        monogram_overlap_counter += 1
-
-                # take into account both bigrams and monograms for inhibition counters (equally)
-                total_overlap_counter = bigram_overlap_counter + monogram_overlap_counter
-
-                # if word or other word is larger than the initial lexicon
-                # (without PSC), overlap counter = 0, because words that are not
-                # known should not inhibit
-                if word >= n_known_words or other_word >= n_known_words:
-                    total_overlap_counter = 0
-                min_overlap = pm.min_overlap  # MM: currently 2
-
-                if complete_selective_word_inhibition:  # NV: what does this do?
-                    if total_overlap_counter > min_overlap:
-                        word_overlap_matrix[word, other_word] = total_overlap_counter - min_overlap
-                    else:
-                        word_overlap_matrix[word, other_word] = 0
-                else:  # is_similar_word_length
-                    if total_overlap_counter > min_overlap:
-                        word_inhibition_matrix[word, other_word] = True
-                        word_inhibition_matrix[other_word, word] = True
-                        overlap_list[word, other_word] = total_overlap_counter - min_overlap
-                        overlap_list[other_word, word] = total_overlap_counter - min_overlap
-                        sys.exit('Make sure to use slow version, fast/vectorized version not compatible')
-
-    # Save overlap matrix, with individual words selected
-    output_inhibition_matrix = 'Data/Inhibition_matrix_'+pm.short[pm.language]+'.dat'
-    with open(output_inhibition_matrix, "wb") as f:
-        pickle.dump(np.sum(word_overlap_matrix, axis=0)[individual_to_lexicon_indices], f)
+    #NV: first, try to fetch parameters of previous inhib matrix
+    try:
+        with open('Data/Inhib_matrix_params_latest_run.dat', "rb") as f:
+            parameters_previous = pickle.load(f)
+        
+        #NV: compare the previous params with the actual ones.
+        #NV: #OPTIMIZE: currently turns all params into a string and compares strings. Could possibly be more efficient
+        if str(lexicon_word_bigrams)+str(LEXICON_SIZE)+str(pm.min_overlap)+str(complete_selective_word_inhibition)+str(n_known_words) == parameters_previous:
+            previous_matrix_usable=True
+        else:
+            previous_matrix_usable=False  
+    except:
+        logging.info('no previous inhibition matrix')
+        previous_matrix_usable=False
+    
+    #NV: if the current parameters currespond exactly to the fetched params of the previous run, use that matrix
+    if previous_matrix_usable:
+        with open('Data/Inhibition_matrix_previous.dat', "rb") as f:
+            word_overlap_matrix= pickle.load(f)
+        print('using pickled inhibition matrix')
+        logging.info('\n using pickled inhibition matrix \n')
+        
+    #NV: else, build it
+    else:
+        print('building inhibition matrix')
+        logging.info('\n Building new inhibition matrix \n')
+        for other_word in range(LEXICON_SIZE):
+            for word in range(LEXICON_SIZE):
+    
+                # NV: bypass temporarily, to investigate the effects of word-length-independent inhibition
+                if False:  # not is_similar_word_length(lexicon[word], lexicon[other_word]) or lexicon[word] == lexicon[other_word]: # Take word length into account here (instead of below, where act of lexicon words is determined)
+                    continue
+                else:
+                    bigrams_common = []
+                    bigrams_append = bigrams_common.append
+                    bigram_overlap_counter = 0
+                    for bigram in range(len(lexicon_word_bigrams[lexicon[word]])):
+                        if lexicon_word_bigrams[lexicon[word]][bigram] in lexicon_word_bigrams[lexicon[other_word]]:
+                            bigrams_append(lexicon_word_bigrams[lexicon[word]][bigram])
+                            lexicon_word_bigrams_set[lexicon[word]] = set(
+                                lexicon_word_bigrams[lexicon[word]])
+                            bigram_overlap_counter += 1
+    
+                    monograms_common = []
+                    monograms_append = monograms_common.append
+                    monogram_overlap_counter = 0
+                    unique_word_letters = ''.join(set(lexicon[word]))
+    
+                    for pos in range(len(unique_word_letters)):
+                        monogram = unique_word_letters[pos]
+                        if monogram in lexicon[other_word]:
+                            monograms_append(monogram)
+                            monogram_overlap_counter += 1
+    
+                    # take into account both bigrams and monograms for inhibition counters (equally)
+                    total_overlap_counter = bigram_overlap_counter + monogram_overlap_counter
+    
+                    # if word or other word is larger than the initial lexicon
+                    # (without PSC), overlap counter = 0, because words that are not
+                    # known should not inhibit
+                    if word >= n_known_words or other_word >= n_known_words:
+                        total_overlap_counter = 0
+                    min_overlap = pm.min_overlap  # MM: currently 2
+    
+                    if complete_selective_word_inhibition:  # NV: what does this do?
+                        if total_overlap_counter > min_overlap:
+                            word_overlap_matrix[word, other_word] = total_overlap_counter - min_overlap
+                        else:
+                            word_overlap_matrix[word, other_word] = 0
+                    else:  # is_similar_word_length
+                        if total_overlap_counter > min_overlap:
+                            word_inhibition_matrix[word, other_word] = True
+                            word_inhibition_matrix[other_word, word] = True
+                            overlap_list[word, other_word] = total_overlap_counter - min_overlap
+                            overlap_list[other_word, word] = total_overlap_counter - min_overlap
+                            sys.exit('Make sure to use slow version, fast/vectorized version not compatible')
+    
+        # Save overlap matrix, with individual words selected #TODO: NV: why individual words selected ?
+        output_inhibition_matrix = 'Data/Inhibition_matrix_'+pm.short[pm.language]+'.dat'
+        with open(output_inhibition_matrix, "wb") as f:
+            pickle.dump(np.sum(word_overlap_matrix, axis=0)[individual_to_lexicon_indices], f)
+        
+        # NV: pickle matrix for next time
+        with open('Data/Inhibition_matrix_previous.dat', "wb") as f:
+            pickle.dump(word_overlap_matrix, f)
+            
+        #NV: save parameters of this matrix
+        matrix_parameters_latest_run = 'Data/Inhib_matrix_params_latest_run.dat'
+        with open(matrix_parameters_latest_run, "wb") as f:
+            pickle.dump(str(lexicon_word_bigrams)+str(LEXICON_SIZE)+str(pm.min_overlap)+str(complete_selective_word_inhibition)+str(n_known_words), f)
+            
     print("Inhibition grid ready.")
     print("")
     print("BEGIN EXPERIMENT")
     print("")
     logging.info("Inhibition grid ready. BEGIN EXPERIMENT")
-
-    # NV: COMMENT: what has been built above is an overlap matrix, not an inhibition matrix. I.e,
-    # the matrix contains an amount of bigram and monogram overlap between every 2 words.
 
     # Initialize Parameters
     # MM: voorste 3 kunnen weg toch?
@@ -420,7 +463,7 @@ def simulate_experiments(task, pm):
 
             # NV: else, just get the normal stimulus
             (allNgrams, bigramsToLocations) = stringToBigramsAndLocations(
-                stimulus_padded, is_affix=False)
+                stimulus_padded, is_prefix=False, is_suffix=False)
             EyePosition = len(stimulus)//2  # NV: After prime, set eye position back to stimulus
             AttentionPosition = EyePosition
             allMonograms = []

@@ -9,7 +9,12 @@ Length pred: 722
 INFO:root:LENGTH of freq dict: 722
 INFO:root:LENGTH of individual words: 66
 DEBUG:root:size lexicon: 722
+INFO:root:Amount of words in lexicon: 722
+INFO:root:Amount of words in text:66
 INFO:root:Setting up word-to-word inhibition grid...
+INFO:root:
+ Building new inhibition matrix 
+
 INFO:root:Inhibition grid ready. BEGIN EXPERIMENT
 INFO:root:trial: 1
 DEBUG:root:Stimulus: hashgrid screen
@@ -268,7 +273,7 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 17.71661383729884
+DEBUG:root:total activity: 19.418101489760005
 DEBUG:root:nr. above thresh. in lexicon: 0
 DEBUG:root:recognized words []
 DEBUG:root:words lenghts to be matched: [6]
@@ -280,7 +285,7 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 21.54254415605293
+DEBUG:root:total activity: 24.857000178221142
 DEBUG:root:nr. above thresh. in lexicon: 0
 DEBUG:root:recognized words []
 DEBUG:root:words lenghts to be matched: [6]
@@ -292,7 +297,7 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 24.284523593400426
+DEBUG:root:total activity: 28.985216590317055
 DEBUG:root:nr. above thresh. in lexicon: 0
 DEBUG:root:recognized words []
 DEBUG:root:words lenghts to be matched: [6]
@@ -304,7 +309,7 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 26.32799077047939
+DEBUG:root:total activity: 32.25567268370596
 DEBUG:root:nr. above thresh. in lexicon: 0
 DEBUG:root:recognized words []
 DEBUG:root:words lenghts to be matched: [6]
@@ -316,7 +321,7 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 27.946051211856748
+DEBUG:root:total activity: 34.87418456264045
 DEBUG:root:nr. above thresh. in lexicon: 0
 DEBUG:root:recognized words []
 DEBUG:root:words lenghts to be matched: [6]
@@ -328,19 +333,7 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 29.267611082702064
-DEBUG:root:nr. above thresh. in lexicon: 0
-DEBUG:root:recognized words []
-DEBUG:root:words lenghts to be matched: [6]
-DEBUG:root:no words above threshold and of fitting length
-DEBUG:root:
-
-
-DEBUG:root:Stimulus: weaken
-DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
-DEBUG:root:target index:[]
-DEBUG:root:target activity:[]
-DEBUG:root:total activity: 30.30660231417031
+DEBUG:root:total activity: 36.99902742635277
 DEBUG:root:nr. above thresh. in lexicon: 1
 DEBUG:root:recognized words ['en_']
 DEBUG:root:words lenghts to be matched: [6, 4]
@@ -352,11 +345,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 31.186361164056713
+DEBUG:root:total activity: 38.761032567039635
 DEBUG:root:nr. above thresh. in lexicon: 3
 DEBUG:root:recognized words ['_we_', '_week_', 'en_']
 DEBUG:root:words lenghts to be matched: [6, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.7076361310282899
+DEBUG:root:highest activation of fitting length: _week_, 0.711734059981023
 DEBUG:root:
 
 
@@ -364,23 +357,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 31.93113561923314
-DEBUG:root:nr. above thresh. in lexicon: 3
-DEBUG:root:recognized words ['_we_', '_week_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.7312921009838185
-DEBUG:root:
-
-
-DEBUG:root:Stimulus: weaken
-DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
-DEBUG:root:target index:[]
-DEBUG:root:target activity:[]
-DEBUG:root:total activity: 32.53817177801297
+DEBUG:root:total activity: 40.2775691888765
 DEBUG:root:nr. above thresh. in lexicon: 4
 DEBUG:root:recognized words ['_weaken_', '_we_', '_week_', 'en_']
 DEBUG:root:words lenghts to be matched: [6, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.7508984143923508
+DEBUG:root:highest activation of fitting length: _weaken_, 0.7537309351508743
 DEBUG:root:
 
 
@@ -388,11 +369,23 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 33.05802824067895
+DEBUG:root:total activity: 41.59915378604114
+DEBUG:root:nr. above thresh. in lexicon: 4
+DEBUG:root:recognized words ['_weaken_', '_we_', '_week_', 'en_']
+DEBUG:root:words lenghts to be matched: [6, 4]
+DEBUG:root:highest activation of fitting length: _weaken_, 0.7701947295156127
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: weaken
+DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 42.748009861478806
 DEBUG:root:nr. above thresh. in lexicon: 5
 DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'en_']
 DEBUG:root:words lenghts to be matched: [6, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.7671866436265271
+DEBUG:root:highest activation of fitting length: _week_, 0.788148299626998
 DEBUG:root:
 
 
@@ -400,11 +393,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 33.512591640378254
+DEBUG:root:total activity: 43.737937692140704
 DEBUG:root:nr. above thresh. in lexicon: 5
 DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'en_']
 DEBUG:root:words lenghts to be matched: [6, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.7807427900307737
+DEBUG:root:highest activation of fitting length: _week_, 0.8052690695661645
 DEBUG:root:
 
 
@@ -412,11 +405,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 33.89068704688778
+DEBUG:root:total activity: 44.58723931379484
 DEBUG:root:nr. above thresh. in lexicon: 5
 DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'en_']
 DEBUG:root:words lenghts to be matched: [6, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.7920438331254369
+DEBUG:root:highest activation of fitting length: _week_, 0.8194274824410287
 DEBUG:root:
 
 
@@ -424,11 +417,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 34.21234915667109
+DEBUG:root:total activity: 45.316478943917716
 DEBUG:root:nr. above thresh. in lexicon: 5
 DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'en_']
 DEBUG:root:words lenghts to be matched: [6, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8014818094536741
+DEBUG:root:highest activation of fitting length: _week_, 0.831143822125011
 DEBUG:root:
 
 
@@ -436,11 +429,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 34.49731229878866
-DEBUG:root:nr. above thresh. in lexicon: 5
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8093676572785256
+DEBUG:root:total activity: 45.959672038214194
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4]
+DEBUG:root:highest activation of fitting length: _week_, 0.8408490397023991
 DEBUG:root:
 
 
@@ -448,11 +441,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 34.748993851271955
-DEBUG:root:nr. above thresh. in lexicon: 5
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8159579616200497
+DEBUG:root:total activity: 46.53189352878148
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4]
+DEBUG:root:highest activation of fitting length: _week_, 0.8488935801350234
 DEBUG:root:
 
 
@@ -460,11 +453,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 34.96703894535022
-DEBUG:root:nr. above thresh. in lexicon: 5
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8214668535819242
+DEBUG:root:total activity: 47.03220659037128
+DEBUG:root:nr. above thresh. in lexicon: 7
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_when_', '_week_', 'an_', 'en_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4]
+DEBUG:root:highest activation of fitting length: _week_, 0.8555643337217895
 DEBUG:root:
 
 
@@ -472,11 +465,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 35.15172316051101
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
+DEBUG:root:total activity: 47.48599916069792
+DEBUG:root:nr. above thresh. in lexicon: 7
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_when_', '_week_', 'an_', 'en_']
 DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8260753087837931
+DEBUG:root:highest activation of fitting length: _week_, 0.861099963328726
 DEBUG:root:
 
 
@@ -484,11 +477,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 35.30738104016937
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
+DEBUG:root:total activity: 47.886173913037645
+DEBUG:root:nr. above thresh. in lexicon: 7
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_when_', '_week_', 'an_', 'en_']
 DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8299349068924784
+DEBUG:root:highest activation of fitting length: _week_, 0.8656942169457214
 DEBUG:root:
 
 
@@ -496,11 +489,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 35.439640507427654
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
+DEBUG:root:total activity: 48.240609752688584
+DEBUG:root:nr. above thresh. in lexicon: 9
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_when_', '_week_', '_weeks_', 'an_', 'en_']
 DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8331706447782058
+DEBUG:root:highest activation of fitting length: _week_, 0.8695092341368911
 DEBUG:root:
 
 
@@ -508,11 +501,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 35.55292352600805
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
+DEBUG:root:total activity: 48.555939765862945
+DEBUG:root:nr. above thresh. in lexicon: 10
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_weeks_', 'an_', 'en_']
 DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8358858157768699
+DEBUG:root:highest activation of fitting length: _week_, 0.8726774748607589
 DEBUG:root:
 
 
@@ -520,11 +513,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 35.65150141563212
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
+DEBUG:root:total activity: 48.84028302854587
+DEBUG:root:nr. above thresh. in lexicon: 10
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_weeks_', 'an_', 'en_']
 DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8381659983956523
+DEBUG:root:highest activation of fitting length: _week_, 0.875309469833653
 DEBUG:root:
 
 
@@ -532,11 +525,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 35.74216022086619
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.840082253443066
+DEBUG:root:total activity: 49.10242495736224
+DEBUG:root:nr. above thresh. in lexicon: 11
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8774972252090937
 DEBUG:root:
 
 
@@ -544,11 +537,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 35.82591723392418
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8416933835579906
+DEBUG:root:total activity: 49.336488331267475
+DEBUG:root:nr. above thresh. in lexicon: 11
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8793123124587985
 DEBUG:root:
 
 
@@ -556,11 +549,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 35.91004639311783
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8430480057121197
+DEBUG:root:total activity: 49.55020485689455
+DEBUG:root:nr. above thresh. in lexicon: 11
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8808188624016322
 DEBUG:root:
 
 
@@ -568,11 +561,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 35.985717870401785
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8441816758542273
+DEBUG:root:total activity: 49.738797982366314
+DEBUG:root:nr. above thresh. in lexicon: 11
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.882069921742927
 DEBUG:root:
 
 
@@ -580,11 +573,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.05109151648661
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8451278764933383
+DEBUG:root:total activity: 49.90728056116719
+DEBUG:root:nr. above thresh. in lexicon: 11
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8831094564783548
 DEBUG:root:
 
 
@@ -592,11 +585,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.10812002316979
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8459176793821264
+DEBUG:root:total activity: 50.05778482929177
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8839737901302532
 DEBUG:root:
 
 
@@ -604,11 +597,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.16345416005409
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8465766807732845
+DEBUG:root:total activity: 50.192525713535225
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8846929557900499
 DEBUG:root:
 
 
@@ -616,11 +609,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.21406524469363
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8471228182910151
+DEBUG:root:total activity: 50.3128435934379
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8852917899696795
 DEBUG:root:
 
 
@@ -628,11 +621,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.25758424240011
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8475750729408055
+DEBUG:root:total activity: 50.42056033649511
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8857908388612763
 DEBUG:root:
 
 
@@ -640,11 +633,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.29687278975684
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8479497212675398
+DEBUG:root:total activity: 50.51723068631598
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8862071038986845
 DEBUG:root:
 
 
@@ -652,11 +645,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.33497085965237
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8482577027277808
+DEBUG:root:total activity: 50.604185872544384
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8865546582292965
 DEBUG:root:
 
 
@@ -664,11 +657,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.36793099422466
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8485093188453623
+DEBUG:root:total activity: 50.68256960515465
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8868451549168223
 DEBUG:root:
 
 
@@ -676,11 +669,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.39614252680943
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8487147358860748
+DEBUG:root:total activity: 50.75336784052354
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8870882461793468
 DEBUG:root:
 
 
@@ -688,11 +681,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.42039358620717
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8488823724406271
+DEBUG:root:total activity: 50.817433445413975
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.887291929439564
 DEBUG:root:
 
 
@@ -700,11 +693,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.44133056366582
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8490191110750945
+DEBUG:root:total activity: 50.8755399286176
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.887462833107021
 DEBUG:root:
 
 
@@ -712,11 +705,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.459484678670776
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.849130580502411
+DEBUG:root:total activity: 50.92911289910893
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8876064526903363
 DEBUG:root:
 
 
@@ -724,11 +717,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.47529345280496
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8492213853310979
+DEBUG:root:total activity: 50.97792110206677
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8877273461584508
 DEBUG:root:
 
 
@@ -736,11 +729,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.4891180830617
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8492952932885475
+DEBUG:root:total activity: 51.02269503390497
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8878293002242527
 DEBUG:root:
 
 
@@ -748,11 +741,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.501795643571754
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8493553879045957
+DEBUG:root:total activity: 51.063450686658115
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8879154576719721
 DEBUG:root:
 
 
@@ -760,11 +753,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.51322013943737
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8494040251698136
+DEBUG:root:total activity: 51.1005974257596
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8879884304725021
 DEBUG:root:
 
 
@@ -772,11 +765,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.523253359572685
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8494432339497443
+DEBUG:root:total activity: 51.13449595010923
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8880503858881366
 DEBUG:root:
 
 
@@ -784,11 +777,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.53209859425917
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.849474779562001
+DEBUG:root:total activity: 51.16546502951049
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8881031231678076
 DEBUG:root:
 
 
@@ -796,11 +789,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.5399254440524
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495001010175081
+DEBUG:root:total activity: 51.19378719106087
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8881481369287098
 DEBUG:root:
 
 
@@ -808,11 +801,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.54687581873118
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495203711638497
+DEBUG:root:total activity: 51.219713531698
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8881866695466417
 DEBUG:root:
 
 
@@ -820,11 +813,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.553068827043774
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495365457153776
+DEBUG:root:total activity: 51.243467802850226
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8882197544700894
 DEBUG:root:
 
 
@@ -832,11 +825,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.55860476649434
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495494032356145
+DEBUG:root:total activity: 51.265249887542176
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8882482520377591
 DEBUG:root:
 
 
@@ -844,11 +837,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.563568382456644
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495595777503193
+DEBUG:root:total activity: 51.28523876932291
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8882728791030692
 DEBUG:root:
 
 
@@ -856,11 +849,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.568031533650895
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.849567585355818
+DEBUG:root:total activity: 51.30359507517022
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8882942335414841
 DEBUG:root:
 
 
@@ -868,11 +861,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.572055374973544
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495738459327026
+DEBUG:root:total activity: 51.32046326039008
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8883128145289213
 DEBUG:root:
 
 
@@ -880,11 +873,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.57604856530021
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495787008684218
+DEBUG:root:total activity: 51.33597349191466
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8883290393246892
 DEBUG:root:
 
 
@@ -892,11 +885,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.5798642559857
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495824275244783
+DEBUG:root:total activity: 51.35024327684745
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8883432571647336
 DEBUG:root:
 
 
@@ -904,11 +897,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.583356108486214
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495851928381988
+DEBUG:root:total activity: 51.36337887523715
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8883557607656052
 DEBUG:root:
 
 
@@ -916,11 +909,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.586498214820345
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.849587189258002
+DEBUG:root:total activity: 51.37605792691534
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8883667958525886
 DEBUG:root:
 
 
@@ -928,11 +921,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.58958047505088
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495885923827898
+DEBUG:root:total activity: 51.38808908894109
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8883762375820976
 DEBUG:root:
 
 
@@ -940,11 +933,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.59241944377075
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495895409040798
+DEBUG:root:total activity: 51.39898273357712
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8883840885742391
 DEBUG:root:
 
 
@@ -952,11 +945,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.59497360304926
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495901509355127
+DEBUG:root:total activity: 51.40886497275575
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8883906465734575
 DEBUG:root:
 
 
@@ -964,11 +957,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.597277981142696
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495905139973675
+DEBUG:root:total activity: 51.41784541852395
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.888396151597723
 DEBUG:root:
 
 
@@ -976,11 +969,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.59936245060103
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.849590699943941
+DEBUG:root:total activity: 51.42601965077078
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884007971657102
 DEBUG:root:
 
 
@@ -988,11 +981,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.601252583412084
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495907617192834
+DEBUG:root:total activity: 51.43347128216303
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884047393566069
 DEBUG:root:
 
 
@@ -1000,11 +993,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.60297035466612
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495907391162563
+DEBUG:root:total activity: 51.44027368941291
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884081041170542
 DEBUG:root:
 
 
@@ -1012,11 +1005,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.6045347224791
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495906617416902
+DEBUG:root:total activity: 51.44649146780775
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884109931511018
 DEBUG:root:
 
 
@@ -1024,11 +1017,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.60596210674859
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495905513499626
+DEBUG:root:total activity: 51.45218165592547
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884134886652677
 DEBUG:root:
 
 
@@ -1036,11 +1029,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.60726678512219
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495904236748271
+DEBUG:root:total activity: 51.457394769239635
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.888415657189023
 DEBUG:root:
 
 
@@ -1048,11 +1041,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.608577482279635
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.849590289863245
+DEBUG:root:total activity: 51.46217567456721
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884175526490409
 DEBUG:root:
 
 
@@ -1060,11 +1053,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.60993931587025
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495901575940517
+DEBUG:root:total activity: 51.466564331758995
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884192188414904
 DEBUG:root:
 
 
@@ -1072,11 +1065,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.611175464424626
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.849590035383595
+DEBUG:root:total activity: 51.470596424466834
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884206914190609
 DEBUG:root:
 
 
@@ -1084,11 +1077,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.61228082626239
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.849589934416764
+DEBUG:root:total activity: 51.47430389806306
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884219994870227
 DEBUG:root:
 
 
@@ -1096,11 +1089,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.61327217390234
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495898615388773
+DEBUG:root:total activity: 51.477715419692764
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884231668845184
 DEBUG:root:
 
 
@@ -1108,11 +1101,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.614163773480364
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495898197164047
+DEBUG:root:total activity: 51.480856772888345
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884242132125949
 DEBUG:root:
 
 
@@ -1120,11 +1113,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.61496779760133
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495898092418199
+DEBUG:root:total activity: 51.483751197072486
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884251546586168
 DEBUG:root:
 
 
@@ -1132,11 +1125,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.61569466635743
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495898286329284
+DEBUG:root:total activity: 51.48641968053989
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884260046570871
 DEBUG:root:
 
 
@@ -1144,11 +1137,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.61635332938806
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495898752966096
+DEBUG:root:total activity: 51.48888121407523
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884267744191335
 DEBUG:root:
 
 
@@ -1156,11 +1149,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.61695149951045
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495899460118402
+DEBUG:root:total activity: 51.49118862354646
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884274733566384
 DEBUG:root:
 
 
@@ -1168,11 +1161,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.6174958465351
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495900372749178
+DEBUG:root:total activity: 51.493341077081666
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884281094219169
 DEBUG:root:
 
 
@@ -1180,11 +1173,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.61799215831906
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495901455403487
+DEBUG:root:total activity: 51.49532608818346
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884286897119917
 DEBUG:root:
 
 
@@ -1192,11 +1185,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.618445474833095
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495902673834014
+DEBUG:root:total activity: 51.49715771520714
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884292204466466
 DEBUG:root:
 
 
@@ -1204,11 +1197,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.61886019997663
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495903996044379
+DEBUG:root:total activity: 51.4988486969294
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884297068654035
 DEBUG:root:
 
 
@@ -1216,11 +1209,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.619240195023494
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495905392905153
+DEBUG:root:total activity: 51.50041059603799
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884301534202904
 DEBUG:root:
 
 
@@ -1228,11 +1221,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.619588856883325
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495906838461161
+DEBUG:root:total activity: 51.50185392432744
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884305639282223
 DEBUG:root:
 
 
@@ -1240,11 +1233,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.61990918379679
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.849590831002038
+DEBUG:root:total activity: 51.503188252272196
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884309416914117
 DEBUG:root:
 
 
@@ -1252,11 +1245,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.62020383061361
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495909788092583
+DEBUG:root:total activity: 51.50442230521852
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884312895925144
 DEBUG:root:
 
 
@@ -1264,11 +1257,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.62047515542431
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495911256228764
+DEBUG:root:total activity: 51.5055640480836
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884316101698345
 DEBUG:root:
 
 
@@ -1276,11 +1269,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.62072525900082
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495912700799132
+DEBUG:root:total activity: 51.5066207601521
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884319056768192
 DEBUG:root:
 
 
@@ -1288,11 +1281,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.62095601824816
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495914110737235
+DEBUG:root:total activity: 51.50759910131713
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884321781291915
 DEBUG:root:
 
 
@@ -1300,11 +1293,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.62116911465715
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495915477270022
+DEBUG:root:total activity: 51.508505170903746
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884324293423741
 DEBUG:root:
 
 
@@ -1312,11 +1305,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.621366058577
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495916793647702
+DEBUG:root:total activity: 51.50934456004513
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884326609612944
 DEBUG:root:
 
 
@@ -1324,11 +1317,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.62154820998492
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495918054882813
+DEBUG:root:total activity: 51.51012239843525
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884328744842225
 DEBUG:root:
 
 
@@ -1336,11 +1329,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.621716796313315
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495919257504569
+DEBUG:root:total activity: 51.510843396162855
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.888433071281939
 DEBUG:root:
 
 
@@ -1348,11 +1341,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.62187292780038
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495920399332126
+DEBUG:root:total activity: 51.51151188122984
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884332526132507
 DEBUG:root:
 
 
@@ -1360,11 +1353,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.62201761074952
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495921479268579
+DEBUG:root:total activity: 51.512131833272555
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884334196376521
 DEBUG:root:
 
 
@@ -1372,11 +1365,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.62215175902045
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.849592249711628
+DEBUG:root:total activity: 51.51270691393198
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884335734257567
 DEBUG:root:
 
 
@@ -1384,11 +1377,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.62227620401918
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495923453413147
+DEBUG:root:total activity: 51.51324049425916
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884337149679825
 DEBUG:root:
 
 
@@ -1396,11 +1389,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.622391703411346
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495924349289056
+DEBUG:root:total activity: 51.51373567948874
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884338451818711
 DEBUG:root:
 
 
@@ -1408,11 +1401,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.622498948745886
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495925186341036
+DEBUG:root:total activity: 51.51419533147259
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884339649183308
 DEBUG:root:
 
 
@@ -1420,11 +1413,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.62259857214671
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495925966525772
+DEBUG:root:total activity: 51.51462208902595
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884340749670339
 DEBUG:root:
 
 
@@ -1432,11 +1425,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.62269115220395
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495926692067824
+DEBUG:root:total activity: 51.51501838640709
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884341760611392
 DEBUG:root:
 
 
@@ -1444,11 +1437,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.622777219176655
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495927365381941
+DEBUG:root:total activity: 51.515386470125755
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.888434268881477
 DEBUG:root:
 
 
@@ -1456,11 +1449,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.622857259600146
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495927989007916
+DEBUG:root:total activity: 51.51572841424988
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884343540602991
 DEBUG:root:
 
 
@@ -1468,11 +1461,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.622931720378396
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495928565556486
+DEBUG:root:total activity: 51.51604613436222
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884344321846722
 DEBUG:root:
 
 
@@ -1480,11 +1473,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.62300101242841
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495929097664877
+DEBUG:root:total activity: 51.51634140029906
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884345037995772
 DEBUG:root:
 
 
@@ -1492,11 +1485,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.62306551393444
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495929587960727
+DEBUG:root:total activity: 51.5166158477901
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884345694107595
 DEBUG:root:
 
 
@@ -1504,11 +1497,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.62312557326065
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495930039033224
+DEBUG:root:total activity: 51.51687098910348
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884346294873661
 DEBUG:root:
 
 
@@ -1516,11 +1509,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.62318151156494
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495930453410415
+DEBUG:root:total activity: 51.51710822278996
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884346844643983
 DEBUG:root:
 
 
@@ -1528,11 +1521,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.62323362514898
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495930833541769
+DEBUG:root:total activity: 51.517328842610155
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884347347449997
 DEBUG:root:
 
 
@@ -1540,11 +1533,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.623282187576606
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495931181785155
+DEBUG:root:total activity: 51.517534045718385
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884347807025966
 DEBUG:root:
 
 
@@ -1552,11 +1545,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.62332745158643
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.849593150039754
+DEBUG:root:total activity: 51.5177249401717
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884348226829052
 DEBUG:root:
 
 
@@ -1564,11 +1557,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.623369650822426
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495931791528774
+DEBUG:root:total activity: 51.517902551823276
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884348610058138
 DEBUG:root:
 
 
@@ -1576,11 +1569,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.62340900140252
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495932057217899
+DEBUG:root:total activity: 51.51806783065483
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884348959671513
 DEBUG:root:
 
 
@@ -1588,11 +1581,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.62344570334245
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495932299391555
+DEBUG:root:total activity: 51.51822165659724
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884349278403476
 DEBUG:root:
 
 
@@ -1600,11 +1593,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.62347994185094
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495932519864043
+DEBUG:root:total activity: 51.51836484488319
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884349568779927
 DEBUG:root:
 
 
@@ -1612,11 +1605,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.62351188850876
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495932720338724
+DEBUG:root:total activity: 51.518498150972405
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884349833133003
 DEBUG:root:
 
 
@@ -1624,11 +1617,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.62354170234431
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495932902410466
+DEBUG:root:total activity: 51.51862227508516
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884350073614814
 DEBUG:root:
 
 
@@ -1636,11 +1629,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.623569530815395
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495933067568889
+DEBUG:root:total activity: 51.51873786637776
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884350292210307
 DEBUG:root:
 
 
@@ -1648,11 +1641,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.623595510707126
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495933217202207
+DEBUG:root:total activity: 51.51884552678897
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884350490749328
 DEBUG:root:
 
 
@@ -1660,11 +1653,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.62361976895356
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495933352601491
+DEBUG:root:total activity: 51.51894581458594
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884350670917903
 DEBUG:root:
 
 
@@ -1672,11 +1665,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.62364242339047
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495933474965227
+DEBUG:root:total activity: 51.51903924763293
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884350834268793
 DEBUG:root:
 
 
@@ -1684,11 +1677,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.623663583445975
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.849593358540404
+DEBUG:root:total activity: 51.519126306406655
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.888435098223134
 DEBUG:root:
 
 
@@ -1696,11 +1689,11 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.62368335077418
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495933684945497
+DEBUG:root:total activity: 51.51920743677826
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884351116120676
 DEBUG:root:
 
 
@@ -1708,11 +1701,23 @@ DEBUG:root:Stimulus: weaken
 DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 36.623701819837706
-DEBUG:root:nr. above thresh. in lexicon: 6
-DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_week_', 'an_', 'en_']
-DEBUG:root:words lenghts to be matched: [6, 4, 4]
-DEBUG:root:highest activation of fitting length: _week_, 0.8495933774538921
+DEBUG:root:total activity: 51.519283052581095
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884351237146286
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: weaken
+DEBUG:root:['_w', 'we', 'wa', 'wk', 'ea', 'ek', 'ee', 'en', 'ak', 'ae', 'an', 'ke', 'kn', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 51.519353537981225
+DEBUG:root:nr. above thresh. in lexicon: 12
+DEBUG:root:recognized words ['_weak_', '_weaken_', '_we_', '_been_', '_were_', '_when_', '_week_', '_seen_', '_weeks_', 'an_', 'en_', 'ern_']
+DEBUG:root:words lenghts to be matched: [6, 4, 4, 3]
+DEBUG:root:highest activation of fitting length: _week_, 0.8884351346420011
 DEBUG:root:
 
 
@@ -1975,7 +1980,7 @@ DEBUG:root:Stimulus: tighten
 DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 16.87136628161682
+DEBUG:root:total activity: 18.698342438129952
 DEBUG:root:nr. above thresh. in lexicon: 0
 DEBUG:root:recognized words []
 DEBUG:root:words lenghts to be matched: [7]
@@ -1987,7 +1992,7 @@ DEBUG:root:Stimulus: tighten
 DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 20.101258222878496
+DEBUG:root:total activity: 23.551372365399217
 DEBUG:root:nr. above thresh. in lexicon: 0
 DEBUG:root:recognized words []
 DEBUG:root:words lenghts to be matched: [7]
@@ -1999,7 +2004,7 @@ DEBUG:root:Stimulus: tighten
 DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
-DEBUG:root:total activity: 22.480630535442142
+DEBUG:root:total activity: 27.196202960518225
 DEBUG:root:nr. above thresh. in lexicon: 0
 DEBUG:root:recognized words []
 DEBUG:root:words lenghts to be matched: [7]
@@ -2011,3 +2016,1273 @@ DEBUG:root:Stimulus: tighten
 DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
 DEBUG:root:target index:[]
 DEBUG:root:target activity:[]
+DEBUG:root:total activity: 30.12055545716063
+DEBUG:root:nr. above thresh. in lexicon: 0
+DEBUG:root:recognized words []
+DEBUG:root:words lenghts to be matched: [7]
+DEBUG:root:no words above threshold and of fitting length
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 32.51217592702671
+DEBUG:root:nr. above thresh. in lexicon: 0
+DEBUG:root:recognized words []
+DEBUG:root:words lenghts to be matched: [7]
+DEBUG:root:no words above threshold and of fitting length
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 34.49701670147123
+DEBUG:root:nr. above thresh. in lexicon: 0
+DEBUG:root:recognized words []
+DEBUG:root:words lenghts to be matched: [7]
+DEBUG:root:no words above threshold and of fitting length
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 36.199765465421706
+DEBUG:root:nr. above thresh. in lexicon: 0
+DEBUG:root:recognized words []
+DEBUG:root:words lenghts to be matched: [7]
+DEBUG:root:no words above threshold and of fitting length
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 37.67080410411741
+DEBUG:root:nr. above thresh. in lexicon: 0
+DEBUG:root:recognized words []
+DEBUG:root:words lenghts to be matched: [7]
+DEBUG:root:no words above threshold and of fitting length
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 38.935294790205475
+DEBUG:root:nr. above thresh. in lexicon: 0
+DEBUG:root:recognized words []
+DEBUG:root:words lenghts to be matched: [7]
+DEBUG:root:no words above threshold and of fitting length
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 40.03034766614314
+DEBUG:root:nr. above thresh. in lexicon: 1
+DEBUG:root:recognized words ['_ten_']
+DEBUG:root:words lenghts to be matched: [7]
+DEBUG:root:no words above threshold and of fitting length
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 40.98703133640627
+DEBUG:root:nr. above thresh. in lexicon: 2
+DEBUG:root:recognized words ['_then_', '_ten_']
+DEBUG:root:words lenghts to be matched: [7]
+DEBUG:root:no words above threshold and of fitting length
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 41.84176579185851
+DEBUG:root:nr. above thresh. in lexicon: 3
+DEBUG:root:recognized words ['_the_', '_then_', '_ten_']
+DEBUG:root:words lenghts to be matched: [7]
+DEBUG:root:no words above threshold and of fitting length
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 42.59231533275105
+DEBUG:root:nr. above thresh. in lexicon: 4
+DEBUG:root:recognized words ['_the_', '_then_', '_ten_', 'en_']
+DEBUG:root:words lenghts to be matched: [7, 5]
+DEBUG:root:no words above threshold and of fitting length
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 43.2676305131268
+DEBUG:root:nr. above thresh. in lexicon: 4
+DEBUG:root:recognized words ['_the_', '_then_', '_ten_', 'en_']
+DEBUG:root:words lenghts to be matched: [7, 5]
+DEBUG:root:no words above threshold and of fitting length
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 43.87230029870486
+DEBUG:root:nr. above thresh. in lexicon: 4
+DEBUG:root:recognized words ['_the_', '_then_', '_ten_', 'en_']
+DEBUG:root:words lenghts to be matched: [7, 5]
+DEBUG:root:no words above threshold and of fitting length
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 44.407731726664
+DEBUG:root:nr. above thresh. in lexicon: 5
+DEBUG:root:recognized words ['_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.728656085904811
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 44.88444172656454
+DEBUG:root:nr. above thresh. in lexicon: 5
+DEBUG:root:recognized words ['_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7338722304810298
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 45.307724352712725
+DEBUG:root:nr. above thresh. in lexicon: 5
+DEBUG:root:recognized words ['_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7382894935138528
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 45.6881293639178
+DEBUG:root:nr. above thresh. in lexicon: 5
+DEBUG:root:recognized words ['_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7420347433373413
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 46.0285608888016
+DEBUG:root:nr. above thresh. in lexicon: 5
+DEBUG:root:recognized words ['_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7452060337226042
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 46.330507420714355
+DEBUG:root:nr. above thresh. in lexicon: 5
+DEBUG:root:recognized words ['_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7478959268129567
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 46.597599357985686
+DEBUG:root:nr. above thresh. in lexicon: 5
+DEBUG:root:recognized words ['_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7501823749869901
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 46.83478132486139
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7521309997843542
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 47.046177204107394
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7537959920480191
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 47.23524007376703
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7552222326697545
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 47.404873128541965
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7564469938502303
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 47.55752746469743
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7575013099712842
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 47.69703167352218
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7584110866269674
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 47.82394781906208
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.759197645607285
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 47.94020568706969
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7598793035549304
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 48.04610858678397
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7604714962888486
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 48.146194285507896
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7609871296618128
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 48.24243869832909
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7614334409800071
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 48.32880391749406
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7618139051426125
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 48.40696468791856
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7621394401494087
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 48.477767932108094
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7624190403242803
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 48.54173108908054
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7626601359631726
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 48.59963671903182
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7628688713359558
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 48.65318205102144
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7630503277882178
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 48.70186480316487
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.76320795572159
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 48.7460510070176
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7633454114128901
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 48.78622833097859
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7634658490793379
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 48.82282149292115
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7635718735210134
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 48.856489133984866
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7636656401229807
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 48.88810359843623
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7637488823762675
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 48.91695356847783
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7638228462625125
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 48.943333214231245
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7638888715622902
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 48.96753203766159
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.763948069340115
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 48.9896933274355
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7640013643161477
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.01001045863655
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7640495300492945
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.02948896315775
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7640932141766998
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.047361009007034
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7641323424286226
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.06374114366679
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7641675321704546
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.07887712411108
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7641993379993021
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.09276420532567
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7642282179384257
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.105517838922985
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7642545531244256
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.11724104302571
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7642786599954128
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.12802598398519
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7643008024505356
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.13795532635313
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7643212016858347
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.147103388475806
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7643400441467535
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.15553713470906
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.764357487955154
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.16331702999725
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7643736681015282
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.17067284288493
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7643887006384122
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.1776277326967
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7644025561958591
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.18402777115607
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.764415227165262
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.189921366679094
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7644268537109251
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.195352135489564
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7644375540425393
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.20054159029129
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.76444742832571
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.20541077143082
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.764456426771218
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.20987632643919
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7644645841422871
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.21397545633357
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7644720135455119
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.217741418333965
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7644788086610973
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.22120401408452
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7644850473676513
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.224390008516
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7644907946837987
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.2273234902325
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7644961051542395
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.23002618248953
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7645010247842763
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.23251771232659
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7645055926075675
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.23481584417544
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.764509841956139
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.23693668323256
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7645138014888491
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.238894853032384
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.764517496024029
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.24070365094504
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7645209472134837
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.242375184735735
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.76452417408807
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.24392049282964
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7645271934993957
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.24534965051789
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7645300204775611
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.24667186399881
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7645326685210994
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.247895553862335
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7645351498322054
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.249028429387344
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7645374755078577
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.25007755481992
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7645396556954055
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.25104940863345
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7645416997195527
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.25194993662814
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7645436161863315
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.25278459960821
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7645454130685788
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.25355841627419
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7645470977765463
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.25427600188157
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7645486772165678
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.25494160314368
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7645501578401326
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.2555591297952
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.764551545685245
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.25613218317919
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7645528464115819
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.256664082176094
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7645540653306523
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.25715788675226
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7645552074319226
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.25761641937421
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7645562774056769
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.258042284504725
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7645572796632211
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.258437886371254
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7645582183549198
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.2588054451777
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7645590973864487
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.25914701190869
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7645599204335696
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.259464481860945
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7645606909556699
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.259759607022445
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7645614122082577
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.26003400740478
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7645620872545641
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.260289181425996
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7645627189763735
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.260526515429646
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7645633100841758
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
+DEBUG:root:target index:[]
+DEBUG:root:target activity:[]
+DEBUG:root:total activity: 49.260747292416966
+DEBUG:root:nr. above thresh. in lexicon: 6
+DEBUG:root:recognized words ['_tight_', '_the_', '_then_', '_ten_', 'en_', 'ite_']
+DEBUG:root:words lenghts to be matched: [7, 5, 4]
+DEBUG:root:highest activation of fitting length: _then_, 0.7645638631267171
+DEBUG:root:
+
+
+DEBUG:root:Stimulus: tighten
+DEBUG:root:['_t', 'ti', 'tg', 'th', 'tt', 'ig', 'ih', 'it', 'ie', 'gh', 'gt', 'ge', 'gn', 'ht', 'he', 'hn', 'te', 'tn', 'en', 'n_']
