@@ -13,7 +13,7 @@ def return_global_params():
     """
     set parameters and task to run here
     possible tasks =  ["EmbeddedWords", "Sentence", "Flanker", "PSCall"] 
-    PSCall for normal text reading in german, even though it is not an exp.
+    NOTE: PSCall for normal text reading in german, even though it is not an exp.
 
     Returns
     -------
@@ -21,7 +21,7 @@ def return_global_params():
 
     """
 
-    task_to_run = 'EmbeddedWords'  # NV: task to run.
+    task_to_run = 'EmbeddedWords'  # NV: task to run. can be Flanker, Sentence, EmbeddedWords or PSCall
 
     # NV: dictionnary for abbreviations, useful for filenames
     short = {'french': 'fr', 'german': 'de', 'english': 'en'}
@@ -31,12 +31,11 @@ def return_global_params():
     optimize = False  # Should the parameters be optimized using evolutionary algorithms?
 
     print_all = True
+    plotting = True
 
     return dict(locals())  # return dict of all local variables
 
 # NV: Attributes of the relevant task, specified in global_params. In the form of object attributes. Allows all attributes to be bundled in one object. Also allows to set default values, which is useful when implementing new tasks
-
-
 class TaskAttributes:
 
     def __init__(self, stim, stimAll, language, stimcycles, is_experiment,
@@ -59,11 +58,10 @@ class TaskAttributes:
 
 
 # NV: When designing a new task, set its attributes here. csv must contain a column called 'all', which contains all elements that are on screen during target presentation
-
 # NV: function returns instance of TaskAttributes with corresponding attributes
 def return_attributes(task_to_run):
     if task_to_run == 'EmbeddedWords':
-        stim = pd.read_table('./Stimuli/EmbeddedWords_stimuli_all_csv.csv', sep=',')
+        stim = pd.read_csv('./Stimuli/EmbeddedWords_stimuli_all_csv.csv', sep=',')
         stim['all'] = stim['all'].astype('unicode')
         return TaskAttributes(
             stim,
@@ -141,10 +139,9 @@ def return_task_params(task_attributes):
 
         ## Monoweight = 1
         decay = -0.05  # 0.08 #-0.053
-        # 1.5 # inp. divded by #ngrams, so this param estimates excit per word [diff from paper]
-        bigram_to_word_excitation = 1.25
-        bigram_to_word_inhibition = 0  # -0.05
-        word_inhibition = -0.005  # -.0018 #-0.005#-0.07 #-0.0165
+        bigram_to_word_excitation = 3 #1.25 #inp. divided by #ngrams, so this param estimates excit per word [diff from paper]
+        bigram_to_word_inhibition = -0.05 #general inhibition on all words. The more active bigrams, the more general inhibition. #FIXME
+        word_inhibition = -0.2 #-0.005 #-0.001  # -.0018 #-0.005#-0.07 #-0.0165 
         # 0.35 #0.15 #NV: determines how similar the length of 2 words must be for them to be recognised as 'similar word length'
         word_length_similarity_constant = 0.15
 
@@ -156,7 +153,7 @@ def return_task_params(task_attributes):
         max_attend_width = 5.0
         min_attend_width = 3.0
         attention_skew = 4  # 1 equals symmetrical distribution # 4 (paper)
-        bigram_gap = 3  # How many in btw letters still lead to bigram? 6 (optimal) # 3 (paper)
+        bigram_gap = 2  # How many in btw letters still lead to bigram? 6 (optimal) # 3 (paper) 
         min_overlap = 2
         refix_size = 0.2
         salience_position = 4.99  # 1.29 # 5 (optimal) # 1.29 (paper)
@@ -185,13 +182,13 @@ def return_task_params(task_attributes):
 
         # Threshold parameters
         # MM: this is a HACK: a number of words have no freq because of a mistake, repaired by making freq less important
-        max_threshold = 0.8  # 1
+        max_threshold = 1  # 1
         # 0.4 # Max prop decrease in thresh for highest-freq wrd [different definition than in papers]
-        wordfreq_p = 0.2
+        wordfreq_p = 0.5 #0.2 #NV: difference between max and min threshold
         wordpred_p = 0.2  # 0.4 # Currently not used
 
         task_params = dict(locals())
-        # NV: is given as input, so would end up in the namespace if not removed.
+        # NV: task_attributes is given as input, so would end up in the namespace if not removed.
         task_params.pop('task_attributes')
 
         return task_params
@@ -290,7 +287,7 @@ def return_params():
     # NV: get parameters corresponding to type of given task (different set of parameters for experiment/non-experiment).returns dictionary
     task_params = return_task_params(task_attributes)
 
-    # put all attributes of separate objects into on pm object
+    # put all attributes of separate objects into one pm object
     pm = SimpleNamespace(**{**global_params, **task_attributes.__dict__, **task_params})
 
     return pm

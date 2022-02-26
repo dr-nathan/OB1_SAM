@@ -6,7 +6,8 @@
 # Specify what tasks to run in parameters.
 # If any of the experimental tasks are chosen, run body of main_exp,
 # of PSC is chosen, run body of what used to be main.py
-
+import matplotlib
+matplotlib.use('QtAgg')
 import pickle
 import time
 import numpy as np
@@ -25,6 +26,8 @@ logging.basicConfig(filename='logfile.log', encoding='utf-8', filemode='w', leve
 
 pm = return_params()  # NV: get all parameters as an object
 task = pm.task_to_run  # NV: get name
+
+logging.debug(pm)
 
 print("Task:"+task)
 

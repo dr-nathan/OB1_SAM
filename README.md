@@ -42,7 +42,7 @@ The code in main_exp.py and simulate_experiments.py allows one to simulate an ex
 The simulated data is stored in pickled fils called flankerlexicon.pkl and Sentencelexicon.pkl that can be read by Jupyter Notebooks written by Noor Seidel.
 The Notebooks expect the pickled files in "...\Data\OB1_data\". Run OB1_taskperformance before the other two (which compute ERPs and simulated ERPs, one for each task).
 #NOTE (NV):
-This had been changed. Both the text reading and teh experiment running are called from main.py. To specify what to do, set the task in task_to_run in parameters.py.
+This had been changed. Both the text reading and the experiment running are called from main.py. To specify what to do, set the task in task_to_run in parameters.py.
 
 
 **adding a new language**

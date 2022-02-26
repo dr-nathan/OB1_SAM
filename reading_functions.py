@@ -16,8 +16,8 @@ def my_print(*args):
         #print("")
 
 #NV: the fucntion has been adapted to handle multipe lenghts values to be tested. Returns true if at least one length is matched, otherwise False
-def is_similar_word_length(len1, lengths_to_be_macthed):
-    for len2 in lengths_to_be_macthed:
+def is_similar_word_length(len1, lengths_to_be_matched):
+    for len2 in lengths_to_be_matched:
         if abs(len1-len2) < (pm.word_length_similarity_constant * max(len1, len2)): # NV: difference of word length  must be within 15% of the length of the longest word
             return True
     return False
@@ -40,19 +40,24 @@ def getMidwordPositionForSurroundingWord(word_position,rightWordEdgeLetterIndexe
 #---------------------------------------------------------------------------
 
 #should always ensure that the maximum possible value of the threshold doesn't exceed the maximum allowable word activity
-def get_threshold(word,word_freq_dict,max_frequency,freq_p,max_threshold):  #word_pred_dict,pred_p
+def get_threshold(word,word_freq_dict,max_frequency,freq_p,max_threshold, affixes):  #word_pred_dict,pred_p
     # let threshold be fun of word freq. freq_p weighs how strongly freq is (1=max, then thresh. 0 for most freq. word; <1 means less havy weighting)
     word_threshold = max_threshold # from 0-1, inverse of frequency, scaled to 0(highest freq)-1(lowest freq)
     if pm.frequency_flag:
         try:
-            word_frequency = word_freq_dict[word]
-            word_threshold = max_threshold * ((max_frequency/freq_p) - word_frequency) / (max_frequency/freq_p)
+            if word in affixes: #word in affixes:
+                word_frequency = min(2*word_freq_dict[word], max_frequency) #NV: lower threshold for affixes (-> make freq higher, as it is linear), (but take max_frequency if freq is above max) 
+            else:
+                word_frequency = word_freq_dict[word]
+                      
+            word_threshold = max_threshold * ((max_frequency/freq_p) - word_frequency) / (max_frequency/freq_p) #threshold values between 0.8 and 1
         except KeyError:
             pass
         #GS Only lower threshold for short words
         #if len(word) < 4:
         #    word_threshold = word_threshold/3
         #return (word_frequency_multiplier * word_predictability_multiplier) * (pm.start_nonlin - (pm.nonlin_scaler*(math.exp(pm.wordlen_nonlin*len(word)))))
+        
         return (word_threshold)#/1.4)
 
 

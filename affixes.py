@@ -7,7 +7,7 @@ Created on Wed Nov 24 18:02:01 2021
 
 The purpose of this script is to build a dictionnary of affixes and their log frequency per million (zipf).
 This dictionary is then pickled to later be fetched when needed.
-Adapted from Jarmulowicz et al.(2002) NOTE: -ly not counted as suffix in this paper.
+Adapted from Jarmulowicz et al.(2002)(DOI: 10.1006/brln.2001.2517 ) NOTE: -ly not counted as suffix in this paper.
 Necessary for the simulation for the Embedded Words task (Beyersmann 2020)
 
 """
@@ -64,7 +64,7 @@ suffix_totalcount_en={'tion':122,
 suffix_zipf={}
 
 for i,(j,k) in enumerate(suffix_totalcount_en.items()):
-    suffix_zipf[j]=np.log((k/24680)*1000000) #frequency per million (24680 words in text in total)
+    suffix_zipf[j]=np.log((k/24680)*1000000) #log of frequency per million (24680 words in text in total)
 
 
 with open('Data/suffix_frequency_en.dat', 'wb')  as f:
