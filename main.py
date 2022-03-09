@@ -6,8 +6,8 @@
 # Specify what tasks to run in parameters.
 # If any of the experimental tasks are chosen, run body of main_exp,
 # of PSC is chosen, run body of what used to be main.py
-import matplotlib
-matplotlib.use('QtAgg')
+import matplotlib.pyplot as plt
+plt.plot([1])
 import pickle
 import time
 import numpy as np
@@ -60,7 +60,7 @@ if pm.is_experiment:  # NV: if the task is an experiment
     if pm.run_exp:
         # Run experiment simulation
         (lexicon, all_data, unrecognized_words) = simulate_experiments(task, pm)
-        # Save results: all_data...
+        # Save results: all_data
         # NV: Changed syntax of writing to file.
         with open(output_file_all_data, "wb") as all_data_file:
             pickle.dump(all_data, all_data_file)

@@ -32,10 +32,14 @@ def return_global_params():
 
     print_all = True
     plotting = True
+    
+    affix_system=False #NV: relates to the affix-priming theories, as in Beyersmann (2016)
 
     return dict(locals())  # return dict of all local variables
 
 # NV: Attributes of the relevant task, specified in global_params. In the form of object attributes. Allows all attributes to be bundled in one object. Also allows to set default values, which is useful when implementing new tasks
+
+
 class TaskAttributes:
 
     def __init__(self, stim, stimAll, language, stimcycles, is_experiment,
@@ -72,7 +76,7 @@ def return_attributes(task_to_run):
             is_priming_task=True,
             blankscreen_type='hashgrid',
             trial_ends_on_key_press=True,
-            blankscreen_cycles_begin=20,
+            blankscreen_cycles_begin=5,  # FIXME : 20
             blankscreen_cycles_end=0,
             ncyclesprime=2
         )
@@ -139,10 +143,12 @@ def return_task_params(task_attributes):
 
         ## Monoweight = 1
         decay = -0.05  # 0.08 #-0.053
-        bigram_to_word_excitation = 3 #1.25 #inp. divided by #ngrams, so this param estimates excit per word [diff from paper]
-        bigram_to_word_inhibition = -0.05 #general inhibition on all words. The more active bigrams, the more general inhibition. #FIXME
-        word_inhibition = -0.2 #-0.005 #-0.001  # -.0018 #-0.005#-0.07 #-0.0165 
-        # 0.35 #0.15 #NV: determines how similar the length of 2 words must be for them to be recognised as 'similar word length'
+        #inp. divided by #ngrams, so this param estimates excit per word [diff from paper]
+        bigram_to_word_excitation = 3 # 1.25 
+        # general inhibition on all words. The more active bigrams, the more general inhibition. #FIXME
+        bigram_to_word_inhibition = -0.05 
+        word_inhibition = -0.4  # -0.005 #-0.001  # -.0018 #-0.005#-0.07 #-0.0165
+        # NV: determines how similar the length of 2 words must be for them to be recognised as 'similar word length'
         word_length_similarity_constant = 0.15
 
         letPerDeg = .3
@@ -153,7 +159,7 @@ def return_task_params(task_attributes):
         max_attend_width = 5.0
         min_attend_width = 3.0
         attention_skew = 4  # 1 equals symmetrical distribution # 4 (paper)
-        bigram_gap = 2  # How many in btw letters still lead to bigram? 6 (optimal) # 3 (paper) 
+        bigram_gap = 2  # How many in btw letters still lead to bigram? 6 (optimal) # 3 (paper)
         min_overlap = 2
         refix_size = 0.2
         salience_position = 4.99  # 1.29 # 5 (optimal) # 1.29 (paper)
@@ -184,7 +190,7 @@ def return_task_params(task_attributes):
         # MM: this is a HACK: a number of words have no freq because of a mistake, repaired by making freq less important
         max_threshold = 1  # 1
         # 0.4 # Max prop decrease in thresh for highest-freq wrd [different definition than in papers]
-        wordfreq_p = 0.5 #0.2 #NV: difference between max and min threshold
+        wordfreq_p = 0.5  # 0.2 #NV: difference between max and min threshold
         wordpred_p = 0.2  # 0.4 # Currently not used
 
         task_params = dict(locals())
