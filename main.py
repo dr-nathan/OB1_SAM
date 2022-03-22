@@ -6,23 +6,24 @@
 # Specify what tasks to run in parameters.
 # If any of the experimental tasks are chosen, run body of main_exp,
 # of PSC is chosen, run body of what used to be main.py
+from analyse_data_pandas import get_results
+from reading_function_optimize import reading_function
+from reading_simulation import reading_simulation
+from parameters import return_params
+from analyse_data_pandas import get_results_simulation
+from get_parameters import get_params  # for optimizing
+from simulate_experiments import simulate_experiments
+import logging
+import scipy
+import numpy as np
+import time
+import pickle
 import matplotlib
 matplotlib.use('QtAgg')
-import pickle
-import time
-import numpy as np
-import scipy
-import logging
 
-from simulate_experiments import simulate_experiments
-from get_parameters import get_params  # for optimizing
-from analyse_data_pandas import get_results_simulation
-from parameters import return_params
-from reading_simulation import reading_simulation
-from reading_function_optimize import reading_function
-from analyse_data_pandas import get_results
 
-logging.basicConfig(filename='logfile.log', encoding='utf-8', filemode='w', level=logging.DEBUG, force=True)
+logging.basicConfig(filename='logfile.log', encoding='utf-8',
+                    filemode='w', level=logging.DEBUG, force=True)
 
 pm = return_params()  # NV: get all parameters as an object
 task = pm.task_to_run  # NV: get name
@@ -123,10 +124,10 @@ else:  # NV: if not a task, run simulation of text reading (german, PSC)
         OLD_DISTANCE = np.inf
         N_RUNS = 0
         results = scipy.optimize.fmin_l_bfgs_b(func=reading_function,
-                                               args=(names), 
-                                               x0=np.array(parameters), 
+                                               args=(names),
+                                               x0=np.array(parameters),
                                                bounds=bounds,
-                                               approx_grad=True, disp=True, 
+                                               approx_grad=True, disp=True,
                                                epsilon=epsilon)
         # TODO: look into this. Doesnt work just yet
         with open("results_optimization.pkl", "wb") as f:
