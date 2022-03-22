@@ -19,6 +19,7 @@ import pickle
 
 
 suffix_totalcount_en={'tion':122,
+                      'ion':122,
                        'al':91,
                        'ial':91,
                        'er':85,
@@ -70,8 +71,6 @@ for i,(j,k) in enumerate(suffix_totalcount_en.items()):
 with open('Data/suffix_frequency_en.dat', 'wb')  as f:
     pickle.dump(suffix_zipf, f)
     
-
-#insert prefix code here
 
 if __name__=="__main__":
     

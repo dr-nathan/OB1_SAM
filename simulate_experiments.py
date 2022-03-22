@@ -17,13 +17,15 @@ import seaborn as sns
 import numpy as np
 import matplotlib.pyplot as plt
 import copy
+import nltk
+from strsimpy.longest_common_subsequence import LongestCommonSubsequence
+lcs = LongestCommonSubsequence()
 
 from reading_common import stringToBigramsAndLocations, calcBigramExtInput, calcMonogramExtInput
 from reading_functions import get_threshold, is_similar_word_length
 # calc_saccade_error, norm_distribution, normalize_pred_values, middle_char, index_middle_char, \
 # getMidwordPositionForSurroundingWord
 from read_saccade_data import get_freq_pred_files, get_suffix_file  # , get_prefix_file
-
 
 def simulate_experiments(task, pm):
 
@@ -183,7 +185,7 @@ def simulate_experiments(task, pm):
                                                  pm.wordfreq_p,
                                                  pm.max_threshold,
                                                  affixes)
-    
+
         lexicon_index_dict[word] = i
         lexicon_word_activity[word] = 0.0
 
@@ -248,7 +250,7 @@ def simulate_experiments(task, pm):
         # NV: compare the previous params with the actual ones.
         # NV: currently turns all params into a string and compares strings. Could possibly be more efficient
         if str(lexicon_word_bigrams)+str(LEXICON_SIZE)+str(pm.min_overlap)+str(complete_selective_word_inhibition)+str(n_known_words) == parameters_previous:
-            previous_matrix_usable = False # FIXME
+            previous_matrix_usable = False  # FIXME
         else:
             previous_matrix_usable = False
     except:
@@ -268,16 +270,34 @@ def simulate_experiments(task, pm):
         logging.info('\n Building new inhibition matrix \n')
 
         overlap_percentage_matrix = np.zeros((LEXICON_SIZE, LEXICON_SIZE))
+        complex_stem_pairs=[]
 
         for other_word in range(LEXICON_SIZE):
+            # NV: determine if word is affixed and extract affix, if any
+            matching = [s for s in affixes if s in lexicon[other_word]] #if other word is in word, the word is affixed
+            # if matched affix is same as word, then that word is the affix: skip it
+            if any(matching) and matching[0] != lexicon[other_word]:
+                if len(matching) > 1:  # if more than 1 affix recognized
+                    match = max(matching, key=len)  # take longest match (ity instead of y)
+                else:
+                    match = matching[0]
+                # substract len of affix from len of word to get stem len 
+                stem_len = len(lexicon[other_word].strip('_'))-len(match.strip('_'))
+                if match in suffixes:
+                    inferred_stem = lexicon[other_word].strip(
+                        '_')[:stem_len]  # remove last part of word to get stem
+                elif match in prefixes:
+                    # remove first part of word to get stem
+                    inferred_stem = lexicon[other_word].strip('_')[stem_len:]
+                else:
+                    raise NameError('affix not in suffixes nor in prefixes??')
+
             for word in range(LEXICON_SIZE):
 
                 # NV: bypass temporarily, to investigate the effects of word-length-independent inhibition
-                #if not is_similar_word_length(lexicon[word], lexicon[other_word]) or lexicon[word] == lexicon[other_word]: # Take word length into account here (instead of below, where act of lexicon words is determined)
-                
-                #if any(affixes in word):
+                # if not is_similar_word_length(lexicon[word], lexicon[other_word]) or lexicon[word] == lexicon[other_word]: # Take word length into account here (instead of below, where act of lexicon words is determined)
                 #    pass
-                
+
                 bigrams_common = []
                 bigrams_append = bigrams_common.append
                 bigram_overlap_counter = 0
@@ -309,12 +329,22 @@ def simulate_experiments(task, pm):
                     total_overlap_counter = 0
                 min_overlap = pm.min_overlap  # MM: currently 2
 
-                #NV: affixes dont exert inhbition on normal words, and between each other
+                # NV: affixes dont exert inhibition on normal words, and between each other
                 if (lexicon[word] in affixes) or (lexicon[other_word] in affixes):
+                    affix_only=True
                     total_overlap_counter = 0
-
+                else:
+                  affix_only=False  
+                    
+                #NV: if word is affixed and the inferred stem matches the present word, and the word is not the other word
+                if not(affix_only) \
+                and any(matching) \
+                and lexicon[other_word].strip('_').startswith(lexicon[word].strip('_')) \
+                and word!=other_word: #: and any(matching) and word!=other_word and lcs.distance(lexicon[word].strip('_'), inferred_stem) <= pm.max_edit_dist: 
+                    complex_stem_pairs.append((lexicon[word],lexicon[other_word]))
+                    
                 if complete_selective_word_inhibition:  # NV: what does this do?
-                    if total_overlap_counter > min_overlap:
+                    if total_overlap_counter > min_overlap and word!=other_word: #NV: added, because i usppose a word does not onhibi itself.
                         # NV: remove min overlap from total?
                         word_overlap_matrix[word,
                                             other_word] = total_overlap_counter - min_overlap
@@ -332,12 +362,20 @@ def simulate_experiments(task, pm):
                 # also build matrix of total ngrams, to calculate overlap percentage
                 bigrams_sum = N_ngrams_lexicon[word]+N_ngrams_lexicon[other_word]
                 overlap_percentage_matrix[word, other_word] = total_overlap_counter/bigrams_sum
+                
+        #NV: affix system: WEAKEN does not inhibit WEAK, and WEAK does not inhibit WEAKEN
+        for word1, word2 in complex_stem_pairs:
+            word_overlap_matrix[lexicon.index(word1), lexicon.index(word2)]=0
+            word_overlap_matrix[lexicon.index(word2), lexicon.index(word1)]=0
+            
 
         # Save overlap matrix, with individual words selected
         output_inhibition_matrix = 'Data/Inhibition_matrix_'+pm.short[pm.language]+'.dat'
         with open(output_inhibition_matrix, "wb") as f:
             pickle.dump(np.sum(word_overlap_matrix, axis=0)[individual_to_lexicon_indices], f)
-
+        
+        with open('Data/complex_stem_pairs_startswith_2.dat', "wb") as f:
+            pickle.dump(complex_stem_pairs, f)
         # NV: pickle whole matrix for next time
         with open('Data/Inhibition_matrix_previous.dat', "wb") as f:
             pickle.dump(word_overlap_matrix, f)
@@ -345,10 +383,10 @@ def simulate_experiments(task, pm):
         with open('Data/Inhib_matrix_params_latest_run.dat', "wb") as f:
             pickle.dump(str(lexicon_word_bigrams)+str(LEXICON_SIZE)+str(pm.min_overlap) +
                         str(complete_selective_word_inhibition)+str(n_known_words), f)
-            
-            
-    word_overlap_matrix_backup=copy.deepcopy(word_overlap_matrix) #for affix system 
+
+    word_overlap_matrix_backup = copy.deepcopy(word_overlap_matrix)  # for affix system
     
+
     print("Inhibition grid ready.")
     print("")
     print("BEGIN EXPERIMENT")
@@ -458,8 +496,8 @@ def simulate_experiments(task, pm):
         cur_cycle = 0  # MM: current cycle (cycle counter)
 
         highest = None  # NV: reset highest activation index
-        
-        word_overlap_matrix=copy.deepcopy(word_overlap_matrix_backup) #NV: revert changes
+
+        word_overlap_matrix = copy.deepcopy(word_overlap_matrix_backup)  # NV: revert changes
 
         while cur_cycle < pm.totalcycles:  # NV: could be changed to a sequence of for loops. Or made a bit more elegant via if curcycle in .. as described above
 
@@ -540,16 +578,16 @@ def simulate_experiments(task, pm):
             all_data[trial]['bigram activity per cycle'].append(sum(unitActivations.values()))
             logging.debug(f'bigram activity per cycle: {sum(unitActivations.values())}')
             all_data[trial]['ngrams'].append(len(allNgrams))
-            
-            ### activation of word nodes
-            
+
+            # activation of word nodes
+
             # taking nr of ngrams, word-to-word inhibition etc. into account
             wordBigramsInhibitionInput = 0
             for ngram in allNgrams:
                 wordBigramsInhibitionInput += pm.bigram_to_word_inhibition * \
-                    unitActivations[ngram]  # NV: the idea seems to be: the more bigrams you have, the more all lexicon will be equally inhibited.
+                    unitActivations[ngram]  # NV: the idea seems to be: the more bigrams you have, the more all lexicon will be equally inhibited. So, long words end up with more inhibition
                 # therefore, this should allow you to improve contrast. Activated words will be activated anyway, but words that are in between will be inhibited more -> only the most active words will be selcetd for
-                # comment: the effect is linear (every word recieves same inhibition), so the max word does not change. However, effects can occur on which word reaches threshold first. -> high value: words with low threshold and low activations get disadvantaged.
+                # comment: the effect is linear (every word receives same inhibition), so the max word does not change. However, effects can occur on which word reaches threshold first. -> high value: words with low threshold and low activations get disadvantaged.
 
             # This is where input is computed (excit is specific to word, inhib same for all)
             for lexicon_ix, lexicon_word in enumerate(lexicon):  # NS: why is this?
@@ -571,7 +609,7 @@ def simulate_experiments(task, pm):
             # divide input by nr ngrams (normalize)
             word_input_np = word_input_np / np.array(N_ngrams_lexicon)
 
-            #### NV: by now, all bigram excitation/inhibition effects are calculated. Hereunder, inter-word inhibition is adressed.
+            # NV: by now, all bigram excitation/inhibition effects are calculated. Hereunder, inter-word inhibition is adressed.
 
             # Active words selection vector (makes computations efficient)
             lexicon_activewords_np[(lexicon_word_activity_np > 0.0) | (word_input_np > 0.0)] = True
@@ -580,14 +618,13 @@ def simulate_experiments(task, pm):
             # Matrix * Vector (4x faster than vector)
             overlap_select = word_overlap_matrix[:, (lexicon_activewords_np == True)]
 
-            #!!!: here, lexicon_word_activity_np is used but is not yet updated with the newest activation values. Shouldnt it be word_input_np? #NV: added +word_input. 
+            #!!!: here, lexicon_word_activity_np is used but is not yet updated with the newest activation values. Shouldnt it be word_input_np? #NV: added +word_input.
             lexicon_select = (lexicon_word_activity_np+word_input_np)[(
                 lexicon_activewords_np == True)] * lexicon_normalized_word_inhibition  # NV: the more active a certain word is, the more inhibition it will execute on its peers -> activity is multiplied by inhibition constant.
             # NV: then, this inhibition value is weighed by how much overlap there is between that word and every other. BUT! longer words will have more overlap, and will be more inhibited. Should that be corrected?
             lexicon_word_inhibition_np = np.dot(
                 overlap_select, lexicon_select) / np.array(N_ngrams_lexicon)
-            
-            
+
             # Combine word inhibition and input, and update word activity
             lexicon_total_input_np = np.add(
                 lexicon_word_inhibition_np, word_input_np)
@@ -599,15 +636,13 @@ def simulate_experiments(task, pm):
                                         ((lexicon_word_activity_np - pm.min_activity) * pm.decay)
             lexicon_word_activity_np = np.add(lexicon_word_activity_np, lexicon_word_activity_new)
 
-
             # Correct activity beyond minimum and maximum activity to min and max
             lexicon_word_activity_np[lexicon_word_activity_np < pm.min_activity] = pm.min_activity
             lexicon_word_activity_np[lexicon_word_activity_np > pm.max_activity] = pm.max_activity
-        
-            
-            if pm.plotting and (not '#' in stimulus) and trial == 0: #only plot when target is in sight
 
-                fig, axes = plt.subplots(2,2)
+            if pm.plotting and (not '#' in stimulus) and trial == 0:  # only plot when target is in sight
+
+                fig, axes = plt.subplots(2, 2)
                 fig.suptitle(f'stimulus:{stimulus}')
 
                 sns.stripplot(ax=axes[0][0], x=np.array(N_ngrams_lexicon)[
@@ -626,10 +661,10 @@ def simulate_experiments(task, pm):
                               lexicon_activewords_np == True], y=lexicon_thresholds_np[lexicon_activewords_np == True])
                 axes[1][1].set_title('thresholds, per length')
 
-                fig.set_size_inches(10,10)
+                fig.set_size_inches(10, 10)
                 plt.show()
                 logging.info('done plotting')
-            
+
             # Save current word activities (per cycle)
             target_lexicon_index = individual_to_lexicon_indices[[
                 idx for idx, element in enumerate(lexicon) if element == '_'+target+'_']]
@@ -669,17 +704,18 @@ def simulate_experiments(task, pm):
             word_lengths_to_be_matched = [len(stimulus.replace('_', ''))]
 
             logging.debug('words lenghts to be matched: ' + str(word_lengths_to_be_matched))
-            
+
             # FIXME : Mechanism for processing of affixes:
-            stem_recognized=False
-            if pm.affix_system:
-                for word in words_above_threshold:
-                    if word in affixes:
-                        stem_recognized=True
-                if stem_recognized :
-                    #if stimulus contains affix, then that stimulus does not exert inhibition anymore (so, CORN wouldnt be inhibited by CORNER anymore)
-                    word_overlap_matrix[:,lexicon.index("_"+stimulus+"_")] =0 #?
-                    #fitting_stem - word: 0 overlap? is that enough?
+            # stem_recognized = False
+            # if pm.affix_system:
+            #     for word in words_above_threshold:
+            #         if word in affixes:
+            #             stem_recognized = True
+            #     if stem_recognized:
+            #         # if stimulus contains affix, then that stimulus does not exert inhibition anymore (so, CORN wouldnt be inhibited by CORNER anymore)
+            #         word_overlap_matrix[:, lexicon.index("_"+stimulus+"_")] = 0  # ?
+            #         #!!! Cant do that!! stimulus is unknown yet, so you cant reduce inhibition before perceiving it.
+            #         # fitting_stem - word: 0 overlap? is that enough?
 
             # MM: recognWrdsFittingLen_np: array with 1=wrd act above threshold, & approx same len
             # as to-be-recogn wrd (with 15% margin), 0=otherwise

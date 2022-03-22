@@ -7,7 +7,7 @@
 # If any of the experimental tasks are chosen, run body of main_exp,
 # of PSC is chosen, run body of what used to be main.py
 import matplotlib.pyplot as plt
-plt.plot([1])
+plt.plot([1]) #NV: very weird, but this must be done in order for the seaborn plotting in simulate_experiments to work. Will be repaired, eventually
 import pickle
 import time
 import numpy as np

@@ -17,9 +17,7 @@ def my_print(*args):
             print(i)
         # print("")
 
-# NV: the fucntion has been adapted to handle multipe lenghts values to be tested. Returns true if at least one length is matched, otherwise False
-
-
+# NV: the function has been adapted to handle multipe lenghts values to be tested. Returns true if at least one length is matched, otherwise False
 def is_similar_word_length(len1, lengths_to_be_matched):
     for len2 in lengths_to_be_matched:
         # NV: difference of word length  must be within 15% of the length of the longest word
