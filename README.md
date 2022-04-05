@@ -1,11 +1,7 @@
 # Note on this version (MM, sept 2021)
 This code based on Gina's handover version of April 2021, with Noor Seidel's code for simulating expts integrated in it. 
 The code for experiments works well, that for reading text works but with hacks that are difficult to follow (must be rewritten).
-# Update November 2021 (NV):
-Embedded Words has been added to the list of tasks that can be simulated with OB1
-The structure of the model has changed a bit:
-When implementing a new task, head to parameters.py, input it in the list of possible tasks, and set its attributes. Add a CSV with stimuli in the Stimuli map. 
-Be careful to match the structure of the other CSV's
+
 
 # OB1 reader
 OB1 is a reading-model that simulates the cognitive processes behind reading. 
@@ -13,14 +9,22 @@ For more information about the theory behind OB1 and how it works see: https://w
 
 The code can be used for different purposes (code file mentioned are explained below). 
 
-**Reading a text**:
+**Reading a text or running an experiment**:
 
-In order to run a "normal" (Which means reading the input text-file once and comparing the results to an eye-tracking 
-experiment) experiment one should set "run_exp" and "analyze_results" in *parameters.py* to True and "optimize" to False, and set task_to_run to "PSCall".
-In the standard version it reads a german text and uses word frequency as well as
+In order to run a text reading or an experiment, one should set "run_exp" and "analyze_results" in *parameters.py* to True and "optimize" to False. 
+### Text reading
+To run the "normal" text reading task (Which means reading the input text-file once and comparing the results to an eye-tracking 
+experiment), set task_to_run in *parameters.py* to "PSCall". In the standard version it reads a german text and uses word frequency as well as
 word predictability (cloze probability) to recognize words presented in its visual field.
+### Experiment 
+To run an experiment, set task_to_run to the task in question. Can be "Flanker", from Snell et al (2019, Neuropsychologia), "Sentence", a reading experiment from Wen et al. 
+(2019, Cognition), or "EmbeddedWords", a priming task from Beyersmann et al. (2016, Psychonomic Society).
+The simulated experiment data is stored in pickled files called alldata_Flanker.pkl, etc. that can be read by Jupyter Notebooks written by Noor Seidel.
+The Notebooks expect the pickled files in "...\Results". Run OB1_taskperformance before the other two (which compute ERPs and simulated ERPs, one for each task).
+### NV: Update March 2022
+in the latest version, a system for processing affixes has been implemented, to account for the priming results found by i.e. doi:10.3758/s13423-015-0927-z. In the present state, word pairs of the complex words and their stem (i.e. weaken - weak),
+are detected and their inhibition is set to 0. That means that the word pairs dont inhibit each other, which explains why WEAKEN primes WEAK, but CASHEW does not prime CASH (no affix).
 
-Plots are produced and saved in "/plots"
 
 **Parameter-tuning**
 
@@ -36,14 +40,11 @@ False if you want to **just optimize**.
 The parameters are saved if they are better than the parameters from the previous iteration. They are saved
 as a text file named after the tuning measure and the distance between experiment and simulation. 
 
-**Running an experiment**:
 
-The code in main_exp.py and simulate_experiments.py allows one to simulate an experiment. 
-The simulated data is stored in pickled fils called flankerlexicon.pkl and Sentencelexicon.pkl that can be read by Jupyter Notebooks written by Noor Seidel.
-The Notebooks expect the pickled files in "...\Data\OB1_data\". Run OB1_taskperformance before the other two (which compute ERPs and simulated ERPs, one for each task).
-#NOTE (NV):
-This had been changed. Both the text reading and the experiment running are called from main.py. To specify what to do, set the task in task_to_run in parameters.py.
+** adding a new experiment **
 
+When implementing a new task, head to parameters.py, input it in the list of possible tasks, and set its attributes. Add a CSV with stimuli in the /Stimuli map. 
+Be careful to match the column structure of the other CSV's.
 
 **adding a new language**
 
@@ -76,13 +77,13 @@ reading_simulation_BT.py is meant for the boundary task (BT). This sim has not b
 
 ### simulate_experiments.py
 This file has the code for simulating concrete experiments, currently a flanker expt from Snell et al (2019, Neuropsychologia), and a sentence reading experiment from Wen et al. 
-(2019, Cognition), or an Embedded Words task (Beyersmann et al. 2020). In the flanker expt, a target word is presented either alone or surrounded by two flanker words on the screen. 
+(2019, Cognition), or an Embedded Words task (Beyersmann et al. 2016). In the flanker expt, a target word is presented either alone or surrounded by two flanker words on the screen. 
 A hit is scored if the target word is recognized in timely fashion. In the sentence reading expt, a sentence (either correct or scrambled) is presented, and the reader has to read aloud a word indicated by a post cue. 
 In the Embedded Words task, a prime is presented for 50ms, followed by a target. The user presses a button when the target word is recognized. The prime can be truly suffixed, pseudo suffixed or non-sufixed. head to Beyersamnn et al. (2020) for more info.
 In the simulation, we count a hit when the cued word was recognized on time. In both experiments, total activity of word units is added up as substrate of the N400. This is then compared with experimental data using Jupyter Notebooks (see below). 
 
 ### reading_common.py
-Helper-functions for the reading simulation in *reading_simulation.py* 
+Helper-functions for the reading and experiment simulation 
 
 ### read_saccade_data.py
 This file provides functions to read in the eye-tracking data collected during the experiment where participants had to read the same text that is presented to the OB1-reader. The functions for reading lexicons, word frequencies and cloze data are also here.
