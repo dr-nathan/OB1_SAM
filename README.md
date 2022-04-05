@@ -1,4 +1,4 @@
-# Note on this version (MM, sept 2021)
+### Note on this version (MM, sept 2021)
 This code based on Gina's handover version of April 2021, with Noor Seidel's code for simulating expts integrated in it. 
 The code for experiments works well, that for reading text works but with hacks that are difficult to follow (must be rewritten).
 
@@ -9,7 +9,7 @@ For more information about the theory behind OB1 and how it works see: https://w
 
 The code can be used for different purposes (code file mentioned are explained below). 
 
-**Reading a text or running an experiment**:
+## Reading a text or running an experiment
 
 In order to run a text reading or an experiment, one should set "run_exp" and "analyze_results" in *parameters.py* to True and "optimize" to False. 
 ### Text reading
@@ -25,8 +25,7 @@ The Notebooks expect the pickled files in "...\Results". Run OB1_taskperformance
 in the latest version, a system for processing affixes has been implemented, to account for the priming results found by i.e. doi:10.3758/s13423-015-0927-z. In the present state, word pairs of the complex words and their stem (i.e. weaken - weak),
 are detected and their inhibition is set to 0. That means that the word pairs dont inhibit each other, which explains why WEAKEN primes WEAK, but CASHEW does not prime CASH (no affix).
 
-
-**Parameter-tuning**
+## Parameter-tuning 
 
 In this version the model is executed multiple times in order to find the set of parameters that enables the model to 
 read in a way that is similar to how a human would read the text. The optimization is done by using the *L-BFGS-B* 
@@ -41,19 +40,19 @@ The parameters are saved if they are better than the parameters from the previou
 as a text file named after the tuning measure and the distance between experiment and simulation. 
 
 
-** adding a new experiment **
+## adding a new experiment 
 
 When implementing a new task, head to parameters.py, input it in the list of possible tasks, and set its attributes. Add a CSV with stimuli in the /Stimuli map. 
 Be careful to match the column structure of the other CSV's.
 
-**adding a new language**
+## adding a new language
 
 To add a new language there has to be the plain text as input data for the reading simulation (file location defined in main.py, see *PSC_ALL.txt* as an example for the format), 
 a lexicon (see word_freq.pkl as an example, file location defined in function "get_freq..." in read_saccade_data) as well as the preprocessed eyetracking-data recorded during an experiment
  where participants had to read the text that is presented to OB1. For an example of the input data derived from an eye-tracking experiment see the table stored in *Fixation_durations_german.pkl*.
 The right files are now only available fo German/Potsdam corpus.
 
-### files in the directory
+## files in the directory
 The following files are the most important: 
 
 ### parameters.py
