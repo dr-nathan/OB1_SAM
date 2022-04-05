@@ -19,11 +19,6 @@ import logging
 import seaborn as sns
 import numpy as np
 import matplotlib.pyplot as plt
-import copy
-
-# calc_saccade_error, norm_distribution, normalize_pred_values, middle_char, index_middle_char, \
-# getMidwordPositionForSurroundingWord
-
 
 def simulate_experiments(task, pm):
 

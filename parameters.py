@@ -13,7 +13,7 @@ def return_global_params():
     """
     set parameters and task to run here
     possible tasks =  ["EmbeddedWords", "Sentence", "Flanker", "PSCall"] 
-    NOTE: PSCall for normal text reading in german, even though it is not an exp.
+    NOTE: PSCall for normal text reading in german
 
     Returns
     -------
@@ -41,8 +41,6 @@ def return_global_params():
     return dict(locals())  # return dict of all local variables
 
 # NV: Attributes of the relevant task, specified in global_params. In the form of object attributes. Allows all attributes to be bundled in one object. Also allows to set default values, which is useful when implementing new tasks
-
-
 class TaskAttributes:
 
     def __init__(self, stim, stimAll, language, stimcycles, is_experiment,
