@@ -1,7 +1,9 @@
 ### Note on this version (MM, sept 2021)
 This code based on Gina's handover version of April 2021, with Noor Seidel's code for simulating expts integrated in it. 
 The code for experiments works well, that for reading text works but with hacks that are difficult to follow (must be rewritten).
-
+### Note March 2022
+Thge inhibition matrix calculation is the most expensive step in the model. Therefore, the code now first checks if the last run was with the same parameters relevant for inhibition,
+and if so, uses the previous inhibition matrix, thereby saving redundant computation.
 
 # OB1 reader
 OB1 is a reading-model that simulates the cognitive processes behind reading. 
@@ -12,6 +14,7 @@ The code can be used for different purposes (code file mentioned are explained b
 ## Reading a text or running an experiment
 
 In order to run a text reading or an experiment, one should set "run_exp" and "analyze_results" in *parameters.py* to True and "optimize" to False. 
+
 ### Text reading
 To run the "normal" text reading task (Which means reading the input text-file once and comparing the results to an eye-tracking 
 experiment), set task_to_run in *parameters.py* to "PSCall". In the standard version it reads a german text and uses word frequency as well as
@@ -24,6 +27,8 @@ The Notebooks expect the pickled files in "...\Results". Run OB1_taskperformance
 ### NV: Update March 2022
 in the latest version, a system for processing affixes has been implemented, to account for the priming results found by i.e. doi:10.3758/s13423-015-0927-z. In the present state, word pairs of the complex words and their stem (i.e. weaken - weak),
 are detected and their inhibition is set to 0. That means that the word pairs dont inhibit each other, which explains why WEAKEN primes WEAK, but CASHEW does not prime CASH (no affix).
+The affix system can be turned on or off by setting *affix_system* in parameters.py to True or False.
+Additionally, the internal state of OB1 is recorded for every time step. This data can be consulted in the logfile.log
 
 ## Parameter-tuning 
 
@@ -41,12 +46,10 @@ as a text file named after the tuning measure and the distance between experimen
 
 
 ## adding a new experiment 
-
 When implementing a new task, head to parameters.py, input it in the list of possible tasks, and set its attributes. Add a CSV with stimuli in the /Stimuli map. 
 Be careful to match the column structure of the other CSV's.
 
 ## adding a new language
-
 To add a new language there has to be the plain text as input data for the reading simulation (file location defined in main.py, see *PSC_ALL.txt* as an example for the format), 
 a lexicon (see word_freq.pkl as an example, file location defined in function "get_freq..." in read_saccade_data) as well as the preprocessed eyetracking-data recorded during an experiment
  where participants had to read the text that is presented to OB1. For an example of the input data derived from an eye-tracking experiment see the table stored in *Fixation_durations_german.pkl*.

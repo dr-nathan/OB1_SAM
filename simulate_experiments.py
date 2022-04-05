@@ -10,7 +10,7 @@
 
 from __future__ import division
 from read_saccade_data import get_freq_pred_files, get_suffix_file  # , get_prefix_file
-from reading_functions import get_threshold, is_similar_word_length, extract_stem, word_stem_similar
+from reading_functions import get_threshold, is_similar_word_length, extract_stem, word_stem_match
 from reading_common import stringToBigramsAndLocations, calcBigramExtInput, calcMonogramExtInput
 import sys
 import pickle
@@ -19,6 +19,7 @@ import logging
 import seaborn as sns
 import numpy as np
 import matplotlib.pyplot as plt
+
 
 def simulate_experiments(task, pm):
 
@@ -241,9 +242,11 @@ def simulate_experiments(task, pm):
             parameters_previous = pickle.load(f)
 
         # NV: compare the previous params with the actual ones.
-        # NV: currently turns all params into a string and compares strings. Could possibly be more efficient
-        if str(lexicon_word_bigrams)+str(LEXICON_SIZE)+str(pm.min_overlap)+str(complete_selective_word_inhibition)+str(n_known_words) == parameters_previous:
-            previous_matrix_usable = False  # FIXME
+        # NV: currently turns all params into a string and compares strings. Could possibly be more elegant
+        if str(lexicon_word_bigrams)+str(LEXICON_SIZE)+str(pm.min_overlap)+\
+           str(complete_selective_word_inhibition)+str(n_known_words)+str(pm.affix_system)+\
+           str(pm.simil_algo)+str(pm.max_edit_dist)+ str(pm.short_word_cutoff) == parameters_previous:
+            previous_matrix_usable = True  # FIXME: turned off for now, inhib matrix is being worked on
         else:
             previous_matrix_usable = False
     except:
@@ -268,7 +271,9 @@ def simulate_experiments(task, pm):
         for other_word in range(LEXICON_SIZE):
 
             # passed test
-            inferred_stem, matching = extract_stem(lexicon[other_word], prefixes, suffixes, affixes)
+            if pm.affix_system:
+                inferred_stem, matching = extract_stem(
+                    lexicon[other_word], prefixes, suffixes, affixes)
 
             for word in range(LEXICON_SIZE):
 
@@ -313,15 +318,17 @@ def simulate_experiments(task, pm):
                 else:
                     affix_only = False
 
-                # NV: if word is affixed, but is not only an affix itself, and the 2 words arent the same, and also larger than 1 (otherwise artifacts such a 'm' are returned)
-                if not(affix_only) and any(matching) and lexicon[word] != lexicon[other_word] and len(inferred_stem) > 1:
+                # NV: long conditional, to make sure that no unnecessary calcutaions are done.
+                # if affix system is turned on:
+                # if word is affixed (matching contains affixes), but is not only an affix itself, and the 2 words arent the same, and also larger than 1 (otherwise artifacts such a 'm' are returned)             
+                if pm.affix_system and not(affix_only) and any(matching) and lexicon[word] != lexicon[other_word] and len(inferred_stem) > 1:
 
-                    # determine if word-stem distance is within threshold
-                    # passed test
-                    if word_stem_similar(pm.simil_algo, pm.max_edit_dist, pm.short_word_cutoff,
+                    # NV: determine if word-stem distance is within threshold, given max allowed edit distance, edit distance algorithm,
+                    # and cutoff (under cutoff (short words), stem and word must be exactly the same.)
+                    if word_stem_match(pm.simil_algo, pm.max_edit_dist, pm.short_word_cutoff,
                                          lexicon[word].strip('_'), inferred_stem):
                         complex_stem_pairs.append(
-                            (lexicon[other_word], lexicon[word]))  #order:complex-stem (weaken, weak)
+                            (lexicon[other_word], lexicon[word]))  # order:complex-stem (weaken, weak)
 
                 if complete_selective_word_inhibition:  # NV: what does this do?
                     # NV: added, because i suppose a word does not inhibit itself.
@@ -349,20 +356,22 @@ def simulate_experiments(task, pm):
             word_overlap_matrix[lexicon.index(word1), lexicon.index(word2)] = 0
             word_overlap_matrix[lexicon.index(word2), lexicon.index(word1)] = 0
 
-        # Save overlap matrix, with individual words selected
+        # Save overlap matrix, with individual words selected (why is this needed?)
         output_inhibition_matrix = 'Data/Inhibition_matrix_'+pm.short[pm.language]+'.dat'
         with open(output_inhibition_matrix, "wb") as f:
             pickle.dump(np.sum(word_overlap_matrix, axis=0)[individual_to_lexicon_indices], f)
-        #NV: for performance analysis with different values of edit dist and cutoff
-        with open(f'Data/word_stem_matching_results/complex_stem_pairs_{pm.simil_algo}_dist{pm.max_edit_dist}_cutoff{pm.short_word_cutoff}.dat', "wb") as f:
-            pickle.dump(complex_stem_pairs, f)
+        # NV: for performance analysis with different values of edit dist and cutoff. Dont save if affix system is off (will overwrite previious values with empty list )
+        if pm.affix_system:     
+            with open(f'Data/word_stem_matching_results/complex_stem_pairs_{pm.simil_algo}_dist{pm.max_edit_dist}_cutoff{pm.short_word_cutoff}.dat', "wb") as f:
+                pickle.dump(complex_stem_pairs, f)
         # NV: pickle whole matrix for next time
         with open('Data/Inhibition_matrix_previous.dat', "wb") as f:
             pickle.dump(word_overlap_matrix, f)
         # NV: save parameters of this matrix
         with open('Data/Inhib_matrix_params_latest_run.dat', "wb") as f:
-            pickle.dump(str(lexicon_word_bigrams)+str(LEXICON_SIZE)+str(pm.min_overlap) +
-                        str(complete_selective_word_inhibition)+str(n_known_words), f)
+            pickle.dump( str(lexicon_word_bigrams)+str(LEXICON_SIZE)+str(pm.min_overlap)+\
+               str(complete_selective_word_inhibition)+str(n_known_words)+str(pm.affix_system)+\
+               str(pm.simil_algo)+str(pm.max_edit_dist)+ str(pm.short_word_cutoff), f)
 
     print("Inhibition grid ready.")
     print("")
@@ -560,9 +569,8 @@ def simulate_experiments(task, pm):
             wordBigramsInhibitionInput = 0
             for ngram in allNgrams:
                 wordBigramsInhibitionInput += pm.bigram_to_word_inhibition * \
-                    unitActivations[ngram]  # NV: the idea seems to be: the more bigrams you have, the more all lexicon will be equally inhibited. So, long words end up with more inhibition
-                # therefore, this should allow you to improve contrast. Activated words will be activated anyway, but words that are in between will be inhibited more -> only the most active words will be selcetd for
-                # comment: the effect is linear (every word receives same inhibition), so the max word does not change. However, effects can occur on which word reaches threshold first. -> high value: words with low threshold and low activations get disadvantaged.
+                    unitActivations[ngram]  # NV: the idea seems to be: the more bigrams you have, and the more they are activated, the more they will be inhibited. So this serves as a normalization for length?
+
 
             # This is where input is computed (excit is specific to word, inhib same for all)
             for lexicon_ix, lexicon_word in enumerate(lexicon):  # NS: why is this?

@@ -108,7 +108,7 @@ def index_middle_char(txt):
 # word-stem functions relating to affix mechanism
 # ---------------------------------------------------------------------------
 
-def word_stem_similar(simil_algo, max_edit_dist, short_word_cutoff, word, stem):
+def word_stem_match(simil_algo, max_edit_dist, short_word_cutoff, word, stem):
 
     if simil_algo == 'startswith':
         return word.startswith(stem)
