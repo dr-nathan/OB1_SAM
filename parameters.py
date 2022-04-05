@@ -33,8 +33,10 @@ def return_global_params():
     print_all = True
     plotting = False
     
-    affix_system=False #NV: relates to the affix-priming theories, as in Beyersmann (2016)
+    #for affix system
+    simil_algo='lcs' #can be lev, lcs, startswith
     max_edit_dist=1 #NV: maximum allowed distance between word and inferred stem, to be considered matching (relates to affix system)
+    short_word_cutoff=3
 
     return dict(locals())  # return dict of all local variables
 

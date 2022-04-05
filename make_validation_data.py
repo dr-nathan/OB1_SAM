@@ -1,5 +1,5 @@
 import pandas as pd
-imp√ort pickle as pkl
+import pickle as pkl
 
 validation_data = pd.read_hdf("Fixation_durations_complete.hdf")
 dutch_data = pd.read_excel("L1ReadingData.xlsx")

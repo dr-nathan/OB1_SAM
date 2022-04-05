@@ -4,7 +4,10 @@ __author__ = 'Sam van Leipsig'
 import numpy as np
 
 from parameters import return_params
+from strsimpy.longest_common_subsequence import LongestCommonSubsequence
+import nltk
 
+lcs = LongestCommonSubsequence()
 pm = return_params()
 
 # Basic
@@ -51,7 +54,7 @@ def get_threshold(word, word_freq_dict, max_frequency, freq_p, max_threshold, af
     word_threshold = max_threshold
     if pm.frequency_flag:
         try:
-            if False: # word in affixes:
+            if False:  # word in affixes:
                 # NV: lower threshold for affixes (-> make freq higher, as it is linear), (but take max_frequency if freq is above max)
                 word_frequency = min(2*word_freq_dict[word], max_frequency)
             else:
@@ -100,3 +103,52 @@ def middle_char(txt):
 
 def index_middle_char(txt):
     return ((len(txt))//2)
+
+
+# word-stem functions relating to affix mechanism
+# ---------------------------------------------------------------------------
+
+def word_stem_similar(simil_algo, max_edit_dist, short_word_cutoff, word, stem):
+
+    if simil_algo == 'startswith':
+        return word.startswith(stem)
+
+    elif simil_algo == 'lcs':
+        if len(word) > short_word_cutoff:  # if word is long, the distance must be above the threshold
+            return lcs.distance(word, stem) <= max_edit_dist
+        else:
+            return lcs.distance(word, stem) == 0  # for short words, distance is stricter: must be 0
+
+    elif simil_algo == 'lev':
+        if len(word) > short_word_cutoff:
+            return nltk.edit_distance(word, stem) <= max_edit_dist
+        else:
+            return nltk.edit_distance(word, stem) == 0
+
+    else:
+        raise NotImplementedError('this edit distance function is not implemented!')
+
+# NV: python is pass by reference, so this is not extra memory
+def extract_stem(word, prefixes, suffixes, affixes):
+
+    inferred_stem = None
+    # NV: determine if word is affixed and extract affix, if any
+    # if other word is in word, the word is affixed
+    matching = [s for s in affixes if s in word]
+    # if matched affix is same as word, then that word is the affix: skip it
+    if any(matching) and matching[0] != word:
+        if len(matching) > 1:  # if more than 1 affix recognized
+            match = max(matching, key=len)  # take longest match (ity instead of y)
+        else:
+            match = matching[0]
+        # substract len of affix from len of word to get stem len
+        stem_len = len(word.strip('_'))-len(match.strip('_'))
+        if match in suffixes:
+            inferred_stem = word.strip(
+                '_')[:stem_len]  # remove last part of word to get stem
+        elif match in prefixes:
+            # remove first part of word to get stem
+            inferred_stem = word.strip('_')[stem_len:]
+        else:
+            raise NameError('affix not in suffixes nor in prefixes??')
+    return inferred_stem, matching
