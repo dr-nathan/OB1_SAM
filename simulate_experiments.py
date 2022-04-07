@@ -267,8 +267,9 @@ def simulate_experiments(task, pm):
 
         overlap_percentage_matrix = np.zeros((LEXICON_SIZE, LEXICON_SIZE))
         complex_stem_pairs = []
-
-        for other_word in range(LEXICON_SIZE):
+        
+        #TODO: make inhibition one-sided
+        for other_word in range(LEXICON_SIZE): #range(word:lexicon_size)
 
             # passed test
             if pm.affix_system:
@@ -325,6 +326,8 @@ def simulate_experiments(task, pm):
 
                     # NV: determine if word-stem distance is within threshold, given max allowed edit distance, edit distance algorithm,
                     # and cutoff (under cutoff (short words), stem and word must be exactly the same.)
+                    # here, we determined best valus to be max_edit_dist = 1, cutoff=3, with algo = lcs. 
+                    # cutoff 4 yields slightly better precision, for slightly worse recall. 
                     if word_stem_match(pm.simil_algo, pm.max_edit_dist, pm.short_word_cutoff,
                                          lexicon[word].strip('_'), inferred_stem):
                         complex_stem_pairs.append(
@@ -623,7 +626,7 @@ def simulate_experiments(task, pm):
             lexicon_word_activity_np[lexicon_word_activity_np < pm.min_activity] = pm.min_activity
             lexicon_word_activity_np[lexicon_word_activity_np > pm.max_activity] = pm.max_activity
 
-            if pm.plotting and (not '#' in stimulus) and trial == 0:  # only plot when target is in sight
+            if pm.plotting and (not '#' in stimulus) and trial == 131:  # only plot when target is in sight
 
                 fig, axes = plt.subplots(2, 2)
                 fig.suptitle(f'stimulus:{stimulus}')
@@ -691,8 +694,9 @@ def simulate_experiments(task, pm):
             # MM: recognWrdsFittingLen_np: array with 1=wrd act above threshold, & approx same len
             # as to-be-recogn wrd (with 15% margin), 0=otherwise
             # NV: search for word for all the relevant lengths determined above
+            # NV: exclude affixes to be recognized as words
             recognWrdsFittingLen_np = above_thresh_lexicon_np * \
-                np.array([int(is_similar_word_length(len(x.replace('_', '')),
+                np.array([0 if x in affixes else int(is_similar_word_length(len(x.replace('_', '')),
                          word_lengths_to_be_matched)) for x in lexicon])
 
             # NS: this final part of the loop is only for behavior (RT/errors)
@@ -700,6 +704,7 @@ def simulate_experiments(task, pm):
             new_recognized_words = np.zeros(LEXICON_SIZE)
 
             # fast check whether there is at least one 1 in wrdsFittingLen_np
+            #TODO: disable recognition of affixes as words
             if sum(recognWrdsFittingLen_np):
                 # find word with the highest activation in all words that have a similar length
                 highest = np.argmax(recognWrdsFittingLen_np * lexicon_word_activity_np)

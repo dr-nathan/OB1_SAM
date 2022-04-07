@@ -121,6 +121,7 @@ def word_stem_match(simil_algo, max_edit_dist, short_word_cutoff, word, stem):
 
     elif simil_algo == 'lev':
         if len(word) > short_word_cutoff:
+            #NV: comment more
             return nltk.edit_distance(word, stem) <= max_edit_dist
         else:
             return nltk.edit_distance(word, stem) == 0

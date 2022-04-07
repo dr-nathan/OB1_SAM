@@ -27,7 +27,7 @@ def return_global_params():
     short = {'french': 'fr', 'german': 'de', 'english': 'en'}
 
     run_exp = True  # Should the experiment simulation run?
-    analyze_results = False  # Should the results be analyzed?
+    analyze_results = True  # Should the results be analyzed?
     optimize = False  # Should the parameters be optimized using evolutionary algorithms?
 
     print_all = True
@@ -150,10 +150,10 @@ def return_task_params(task_attributes):
         ## Monoweight = 1
         decay = -0.05  # 0.08 #-0.053
         # inp. divided by #ngrams, so this param estimates excit per word [diff from paper]
-        bigram_to_word_excitation = 4  # 1.25
+        bigram_to_word_excitation = 2.8  # 1.25
         # general inhibition on all words. The more active bigrams, the more general inhibition. #FIXME
-        bigram_to_word_inhibition = 0 #cant figure out why this exists
-        word_inhibition = -0.75  # -0.005 #-0.001  # -.0018 #-0.005#-0.07 #-0.0165
+        bigram_to_word_inhibition = 0 #-0.001 #cant figure out why this exists
+        word_inhibition = -0.55    # -.0018 #-0.005#-0.07 #-0.0165
         # NV: determines how similar the length of 2 words must be for them to be recognised as 'similar word length'
         word_length_similarity_constant = 0.15
 

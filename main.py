@@ -84,6 +84,7 @@ if pm.is_experiment:  # NV: if the task is an experiment
                 f.write(str(uword))
             f.write("\n")
 
+    #TODO: look into this
     if pm.analyze_results:  # NV: what does this do exactly?
         get_results_simulation(task, output_file_all_data,
                                output_file_unrecognized_words)
