@@ -21,6 +21,8 @@ def my_print(*args):
         # print("")
 
 # NV: the function has been adapted to handle multipe lenghts values to be tested. Returns true if at least one length is matched, otherwise False
+
+
 def is_similar_word_length(len1, lengths_to_be_matched):
     for len2 in lengths_to_be_matched:
         # NV: difference of word length  must be within 15% of the length of the longest word
@@ -54,11 +56,7 @@ def get_threshold(word, word_freq_dict, max_frequency, freq_p, max_threshold, af
     word_threshold = max_threshold
     if pm.frequency_flag:
         try:
-            if False:  # word in affixes:
-                # NV: lower threshold for affixes (-> make freq higher, as it is linear), (but take max_frequency if freq is above max)
-                word_frequency = min(2*word_freq_dict[word], max_frequency)
-            else:
-                word_frequency = word_freq_dict[word]
+            word_frequency = word_freq_dict[word]
 
             # threshold values between 0.8 and 1
             word_threshold = max_threshold * \
@@ -121,7 +119,7 @@ def word_stem_match(simil_algo, max_edit_dist, short_word_cutoff, word, stem):
 
     elif simil_algo == 'lev':
         if len(word) > short_word_cutoff:
-            #NV: comment more
+            # NV: comment more
             return nltk.edit_distance(word, stem) <= max_edit_dist
         else:
             return nltk.edit_distance(word, stem) == 0
@@ -130,6 +128,8 @@ def word_stem_match(simil_algo, max_edit_dist, short_word_cutoff, word, stem):
         raise NotImplementedError('this edit distance function is not implemented!')
 
 # NV: python is pass by reference, so this is not extra memory
+
+
 def extract_stem(word, prefixes, suffixes, affixes):
 
     inferred_stem = None

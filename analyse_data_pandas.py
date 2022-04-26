@@ -233,7 +233,7 @@ def get_results_simulation(task,input_file_all_data,input_file_unrecognized_word
         if task=="Flanker":
             stim = pd.read_table('./Stimuli/Flanker_stimuli_all_csv.csv', sep=',')
         if task=="EmbeddedWords":
-            stim = pd.read_table('./Stimuli/EmbeddedWords_stimuli_all_csv.csv', sep=',')
+            stim = pd.read_table('./Stimuli/EmbeddedWords_stimuli_all_csv.csv', sep=';')
 
         #print(stim.head(10))
         stim['all'] = stim['all'].astype(str)

@@ -33,13 +33,6 @@ def return_global_params():
     print_all = True
     plotting = False
 
-    # for affix system
-    affix_system= True
-    simil_algo = 'lcs'  # can be lev, lcs, startswith
-    # NV: maximum allowed distance between word and inferred stem, to be considered matching (relates to affix system)
-    max_edit_dist = 1
-    short_word_cutoff = 3
-
     return dict(locals())  # return dict of all local variables
 
 # NV: Attributes of the relevant task, specified in global_params. In the form of object attributes. Allows all attributes to be bundled in one object. Also allows to set default values, which is useful when implementing new tasks
@@ -48,8 +41,7 @@ def return_global_params():
 class TaskAttributes:
 
     def __init__(self, stim, stimAll, language, stimcycles, is_experiment,
-                 is_priming_task=False, blankscreen_type='blank',
-                 trial_ends_on_key_press=False, blankscreen_cycles_begin=0,
+                 is_priming_task=False, blankscreen_type='blank', blankscreen_cycles_begin=0,
                  blankscreen_cycles_end=0, ncyclesprime=0):
         self.stim = stim
         self.stim['all'] = stimAll
@@ -58,7 +50,6 @@ class TaskAttributes:
         self.is_experiment = is_experiment
         self.is_priming_task = is_priming_task
         self.blankscreen_type = blankscreen_type
-        self.trial_ends_on_key_press = trial_ends_on_key_press
         self.blankscreen_cycles_begin = blankscreen_cycles_begin
         self.blankscreen_cycles_end = blankscreen_cycles_end
         self.ncyclesprime = ncyclesprime
@@ -71,7 +62,7 @@ class TaskAttributes:
 def return_attributes(task_to_run):
     
     if task_to_run == 'EmbeddedWords':
-        stim = pd.read_csv('./Stimuli/EmbeddedWords_stimuli_all_csv.csv', sep=',')
+        stim = pd.read_csv('./Stimuli/EmbeddedWords_stimuli_all_csv.csv', sep=';')
         stim['all'] = stim['all'].astype('unicode')
         return TaskAttributes(
             stim,
@@ -81,7 +72,6 @@ def return_attributes(task_to_run):
             is_experiment=True,
             is_priming_task=True,
             blankscreen_type='hashgrid',
-            trial_ends_on_key_press=True,
             blankscreen_cycles_begin=5,  # FIXME : 20
             blankscreen_cycles_end=0,
             ncyclesprime=2
@@ -129,6 +119,16 @@ def return_task_params(task_attributes):
     # NV: if task is an experiment, choose this specific set of params (previously in parameters_exp.py)
     if task_attributes.is_experiment:
 
+        # whether trial ends when word is recognized, or should keep going until end of cycle (3350 ms)
+        trial_ends_on_key_press = True
+        
+        # for affix system
+        affix_system = True
+        simil_algo = 'lcs'  # can be lev, lcs, startswith
+        # NV: maximum allowed distance between word and inferred stem, to be considered matching (relates to affix system)
+        max_edit_dist = 1
+        short_word_cutoff = 3
+
         use_grammar_prob = False  # True for using grammar probabilities, False for using cloze, overwritten by uniform_pred
         uniform_pred = True  # Overwrites cloze/grammar probabilities with 0.25 for all words
 
@@ -152,7 +152,7 @@ def return_task_params(task_attributes):
         # inp. divided by #ngrams, so this param estimates excit per word [diff from paper]
         bigram_to_word_excitation = 2.8  # 1.25
         # general inhibition on all words. The more active bigrams, the more general inhibition. #FIXME
-        bigram_to_word_inhibition = 0 #-0.001 #cant figure out why this exists
+        bigram_to_word_inhibition = 0 #-0.05 #-0.001 #cant figure out why this exists
         word_inhibition = -0.55    # -.0018 #-0.005#-0.07 #-0.0165
         # NV: determines how similar the length of 2 words must be for them to be recognised as 'similar word length'
         word_length_similarity_constant = 0.15

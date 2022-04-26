@@ -19,7 +19,7 @@ from read_saccade_data import get_words
 pm=return_params()
 
 
-#NV: This script only builds freq_pred file for task specified as task_to_run in parameters.py
+#NV: This script only builds freq_pred file for task specified as task_to_run in parameters.py, and only for the language specified in parameters pm.language
 task = pm.task_to_run 
  
 #NV: get appropriate freq dictionary (SUBTLEX-UK for english, Lexicon Project for french,...). Automatically detects encoding via Chardet and uses the value during import. Due to Chardet, its a bit slow however.
