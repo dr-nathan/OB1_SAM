@@ -1,9 +1,17 @@
-### Note on this version (MM, sept 2021)
-This code based on Gina's handover version of April 2021, with Noor Seidel's code for simulating expts integrated in it. 
-The code for experiments works well, that for reading text works but with hacks that are difficult to follow (must be rewritten).
-### Note March 2022
+### Note April 2022: current state of model and recent mods
 The inhibition matrix calculation is the most expensive step in the model. Therefore, the code now first checks if the last run was with the same parameters relevant for inhibition,
 and if so, uses the previous inhibition matrix, thereby saving redundant computation.
+In parallel, it also iterates through every word once instead of twice. 
+
+The affix system is fully functional for english, which means there exists a pickle file containing affix frequencies, which can be used to anaylse affix-effects in simulations. However, frequency values are in the process of being updated, and added for french. The file affixes.py is in construction.
+
+Turn affix_system in on in parameters.py for this functionality. 
+
+For plotting inhibition and activation values during simulation, set plotting=True in parameters.py
+
+### Note sept 2021 (MM)
+This code based on Gina's handover version of April 2021, with Noor Seidel's code for simulating expts integrated in it. 
+The code for experiments works well, that for reading text works but with hacks that are difficult to follow (must be rewritten).
 
 # OB1 reader
 OB1 is a reading-model that simulates the cognitive processes behind reading. 
