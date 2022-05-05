@@ -2,7 +2,7 @@
 This code based on Gina's handover version of April 2021, with Noor Seidel's code for simulating expts integrated in it. 
 The code for experiments works well, that for reading text works but with hacks that are difficult to follow (must be rewritten).
 ### Note March 2022
-Thge inhibition matrix calculation is the most expensive step in the model. Therefore, the code now first checks if the last run was with the same parameters relevant for inhibition,
+The inhibition matrix calculation is the most expensive step in the model. Therefore, the code now first checks if the last run was with the same parameters relevant for inhibition,
 and if so, uses the previous inhibition matrix, thereby saving redundant computation.
 
 # OB1 reader
