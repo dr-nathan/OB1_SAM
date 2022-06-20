@@ -15,6 +15,8 @@ import numpy as np
 import pandas as pd
 import pickle
 import copy
+import matplotlib.pyplot as plt
+import seaborn as sns
 import string
 
 prefixes_EN = pd.ExcelFile('Texts/MorphoLEX_en.xlsx').parse('All prefixes')
@@ -22,36 +24,77 @@ suffixes_EN = pd.ExcelFile('Texts/MorphoLEX_en.xlsx').parse('All suffixes')
 prefixes_FR = pd.ExcelFile('Texts/Morpholex_FR.xlsx').parse('prefixes')
 suffixes_FR = pd.ExcelFile('Texts/Morpholex_FR.xlsx').parse('suffixes')
 
+# column has no name in Morpholex_FR: add it
 prefixes_FR.rename(columns={"Unnamed: 0": "morpheme"}, inplace=True)
 suffixes_FR.rename(columns={"Unnamed: 0": "morpheme"}, inplace=True)
 
-prefixes_EN["morpheme"] = prefixes_EN["morpheme"].map(lambda L: L.strip("<"))
-suffixes_EN["morpheme"] = suffixes_EN["morpheme"].map(lambda L: L.strip(">"))
-prefixes_FR["morpheme"] = prefixes_FR["morpheme"].map(lambda L: L.strip("<"))
+# cleanup: remove punctuation: >en> becomes en
+prefixes_EN["morpheme"] = prefixes_EN["morpheme"].str.replace(f'[{string.punctuation}]', '')
+suffixes_EN["morpheme"] = suffixes_EN["morpheme"].str.replace(f'[{string.punctuation}]', '')
+prefixes_FR["morpheme"] = prefixes_FR["morpheme"].str.replace(f'[{string.punctuation}]', '')
 
-#suffixes FR is a bit more complicated
-suffixes_FR["morpheme"] = suffixes_FR["morpheme"].map(lambda L: L.strip("<"))
-suffixes_FR["morpheme"] = suffixes_FR["morpheme"].map(lambda L: L.strip(">"))
-suffixes_FR["morpheme"] = suffixes_FR["morpheme"].map(lambda L: L.replace("[VB]", ""))
-suffixes_FR["morpheme"] = suffixes_FR["morpheme"].map(lambda L: L.translate(str.maketrans("-"," ", string.punctuation)))
+# suffixes FR: also have to remove [VB] such as in >er>[VB]
+suffixes_FR["morpheme"] = suffixes_FR["morpheme"].str.replace("[VB]", "")
+suffixes_FR["morpheme"] = suffixes_FR["morpheme"].str.replace(f'[{string.punctuation}]', '')
 
 
 to_remove = []
 for ix, row in suffixes_FR.iterrows():
-    #ant/ent became antent after punct removal, so keep ant and add ent at the end of df
+    # ant/ent became antent after punct removal, so keep ant and add ent at the end of df
     if row["morpheme"] == 'antent':
         suffixes_FR.at[ix, "morpheme"] = 'ant'
         to_append = copy.deepcopy(row)
-        to_append["morpheme"]='ent'
-        
+        to_append["morpheme"] = 'ent'
+    # remove words that are now empty (were only [VB] or punctuation)
     if row["morpheme"] == '':
         to_remove.append(ix)
 
 suffixes_FR.drop(index=to_remove, inplace=True)
-suffixes_FR=suffixes_FR.append(to_append,ignore_index=True)
+suffixes_FR = suffixes_FR.append(to_append, ignore_index=True)
 
 
-#old data (Jarmulowicz, 2002), kept for reference for now
+
+#convert from HAL to Zipf
+prefixes_EN["Zipf_freq"]= [0 if x == 0 else np.log10((x/400000000)*1E9) for x in prefixes_EN["HAL_freq"]]
+suffixes_EN["Zipf_freq"]= [0 if x == 0 else np.log10((x/400000000)*1E9) for x in suffixes_EN["HAL_freq"]]
+
+#convert from freq per million to Zipf
+prefixes_FR["Zipf_freq"] = [0 if x == 0 else np.log10(x*1000) for x in prefixes_FR["summed_freq"]] 
+suffixes_FR["Zipf_freq"] = [0 if x == 0 else np.log10(x*1000) for x in suffixes_FR["summed_freq"]] 
+
+#make dict and pickle
+prefixes_EN_dict = dict(zip(prefixes_EN["morpheme"], prefixes_EN["Zipf_freq"]))
+with open('Data/prefix_frequency_en.dat', 'wb') as f:
+    pickle.dump(prefixes_EN_dict, f)
+    
+suffixes_EN_dict = dict(zip(suffixes_EN["morpheme"],suffixes_EN["Zipf_freq"]))
+with open('Data/suffix_frequency_en.dat', 'wb') as f:
+    pickle.dump(suffixes_EN_dict, f)
+    
+prefixes_FR_dict = dict(zip(prefixes_FR["morpheme"], prefixes_FR["Zipf_freq"]))
+with open('Data/prefix_frequency_fr.dat', 'wb') as f:
+    pickle.dump(prefixes_FR_dict, f)
+    
+suffixes_FR_dict = dict(zip(suffixes_FR["morpheme"] ,suffixes_FR["Zipf_freq"]))
+with open('Data/suffix_frequency_fr.dat', 'wb') as f:
+    pickle.dump(suffixes_FR_dict, f)
+
+
+diag_plots = True
+
+if diag_plots == True:
+    
+    pdconcat=pd.concat([prefixes_EN["Zipf_freq"], 
+                        suffixes_EN["Zipf_freq"], 
+                        prefixes_FR["Zipf_freq"], 
+                        suffixes_FR["Zipf_freq"]],
+                       keys=['pre_EN', 'suf_EN', 'pre_FR', 'suf_FR'], names=['Series name', 'Row ID']).to_frame()
+    sns.histplot(pdconcat, x="Zipf_freq", hue='Series name', element="step")
+    plt.show()
+    
+
+
+# old data (Jarmulowicz, 2002), kept for reference for now
 
 # suffix_totalcount_en = {'tion': 122,
 #                         'ion': 122,
@@ -102,35 +145,3 @@ suffixes_FR=suffixes_FR.append(to_append,ignore_index=True)
 # for i, (j, k) in enumerate(suffix_totalcount_en.items()):
 #     # log10 of frequency per billion (24680 words in text in total)
 #     suffix_zipf[j] = np.log10((k/24680)*1E9)
-
-
-# with open('Data/suffix_frequency_en.dat', 'wb') as f:
-#     pickle.dump(suffix_zipf, f)
-
-
-names=['prefix_frequency_en',"suffix_frequency_en" ,"prefix_frequency_fr", "suffix_frequency_fr" ]
-
-for ix, frame in enumerate([prefixes_EN, suffixes_EN, prefixes_FR, suffixes_FR]):
-    
-    #Morpholex EN has freq values as total count in HAL corpus. So, convert to Zipf
-    if names[ix].endswith("_en"):
-        
-        freq_dict={}
-        for ix2,  row in frame.iterrows():
-            freq_dict[row["morpheme"]]=np.log10((row["HAL_freq"]/130000000)*1E9)
-        
-        with open(f'Data/{names[ix]}.dat', 'wb') as f:
-            pickle.dump(freq_dict, f)
-            
-            
-    # elif names[ix].endswith("_fr"):
-        
-    #     #TODO: scale of morpholex FR is still unclear! refer to emails, and correct when known
-    #     freq_dict={}
-    #     for ix2,  row in frame.iterrows():
-    #         freq_dict[row["morpheme"]]=np.log10((row["HAL_freq"]/130000000)*1E9)
-    
-            
-        
-
-        
