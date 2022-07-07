@@ -24,7 +24,7 @@ def return_global_params():
     task_to_run = 'EmbeddedWords'  # NV: task to run. can be one of: Flanker, Sentence, EmbeddedWords, Classification, Transposed or PSCall
 
     # NV: dictionnary for abbreviations, useful for filenames
-    short = {'french': 'fr', 'german': 'de', 'english': 'en'}
+    short = {'french': 'fr', 'german': 'de', 'english': 'en', 'dutch': 'nl'}
 
     run_exp = True  # Should the experiment simulation run?
     analyze_results = False  # Should the results be analyzed?
@@ -102,7 +102,37 @@ def return_attributes(task_to_run):
             blankscreen_cycles_begin=8,
             blankscreen_cycles_end=18
         )
-    elif task_to_run == 'PSCall':  # TODO
+    elif task_to_run == 'Transposed':
+        stim = pd.read_table('./Stimuli/Transposed_stimuli_all.csv', sep=',', encoding='utf-8')
+        stim['all'] = stim['all'].astype('unicode')
+        return TaskAttributes(
+            stim, 
+            stim['all'], 
+            language='french',
+            is_experiment=True,
+            is_priming_task = False,
+            fixcycles = 8,  # 200 ms #FIXME: fixcycles?
+            ncycles = 32,  # 800 ms
+            stimcycles = 120,  # Stimulus on screen for 3000 ms
+            attendWidth = 3,  # 5 words, but focus on the 3 centre ones
+            bigram_to_word_excitation = 2.18  # c1, used to calculate activity of a work
+        )
+    elif task_to_run == 'Classification':
+        stim = pd.read_table('./Stimuli/Classification_stimuli_all.csv', sep=',', encoding='utf-8')
+        stim['all'] = stim['all'].astype('unicode')
+        return TaskAttributes(
+            stim, 
+            stim['all'], 
+            language='dutch',
+            is_experiment=True,
+            is_priming_task = False,
+            fixcycles = 8,  # 200 ms
+            ncycles = 32,  # 3 words
+            stimcycles = 7,  # Stimulus on screen for 170ms
+            attendWidth = 3,  # Because the stimuli contain 3 words
+            bigram_to_word_excitation = 1.48  # c1, used to calculate activity of a word
+        )
+    elif task_to_run == 'PSCall':
         stim = None
         stim['all'] = None
         return TaskAttributes(
