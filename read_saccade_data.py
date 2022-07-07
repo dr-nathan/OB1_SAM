@@ -415,3 +415,4 @@ def get_words(pm, task): #NV: get_words_task merged with get_words
     for i,word in enumerate(my_data):
         cleaned_words[i] = word.replace(".","").lower()
     return cleaned_words
+                                                                                         
