@@ -12,7 +12,7 @@ from types import SimpleNamespace
 def return_global_params():
     """
     set parameters and task to run here
-    possible tasks =  ["EmbeddedWords", "Sentence", "Flanker", "PSCall"] 
+    possible tasks =  ["EmbeddedWords", "Sentence", "Flanker", "Classification", "Transposed", "PSCall"] 
     NOTE: PSCall for normal text reading in german
 
     Returns
@@ -21,7 +21,7 @@ def return_global_params():
 
     """
 
-    task_to_run = 'EmbeddedWords'  # NV: task to run. can be Flanker, Sentence, EmbeddedWords or PSCall
+    task_to_run = 'EmbeddedWords'  # NV: task to run. can be one of: Flanker, Sentence, EmbeddedWords, Classification, Transposed or PSCall
 
     # NV: dictionnary for abbreviations, useful for filenames
     short = {'french': 'fr', 'german': 'de', 'english': 'en'}

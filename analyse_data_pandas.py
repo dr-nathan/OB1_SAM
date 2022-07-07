@@ -224,14 +224,27 @@ def get_results_simulation(task,input_file_all_data,input_file_unrecognized_word
         all_data = pickle.load(f)
         if not os.path.exists("plots/"):
             os.makedirs("plots/")
+            
+          ## Parameters
+        freqbins  = np.arange(-0.0,8,2.0)
+        predbins = np.arange(-0.0,1.01,0.333)
+        distancebins = np.arange(-0.0,20,2.0)
+        neighborbins = np.arange(0,10,3)
 
         # generate / read in stimuli list from file (fixed items for both experiments)
         if task=="Sentence":
             stim = pd.read_table('./Stimuli/Sentence_stimuli_all_csv.csv', sep=',')
-        if task=="Flanker":
+        elif task=="Flanker":
             stim = pd.read_table('./Stimuli/Flanker_stimuli_all_csv.csv', sep=',')
-        if task=="EmbeddedWords":
+        elif task=="EmbeddedWords":
             stim = pd.read_table('./Stimuli/EmbeddedWords_stimuli_all_csv.csv', sep=';')
+        elif task == "Transposed":
+            stim = pd.read_table('./Stimuli/Transposed_stimuli_all.csv', sep=',')
+        elif task == "Classification":
+            stim = pd.read_table('./Stimuli/Classification_stimuli_all.csv', sep=',')
+            
+            
+            
 
         #print(stim.head(10))
         stim['all'] = stim['all'].astype(str)
