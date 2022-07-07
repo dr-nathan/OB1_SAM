@@ -14,6 +14,7 @@ from reading_functions import get_threshold, is_similar_word_length, extract_ste
 from reading_common import stringToBigramsAndLocations, calcBigramExtInput, calcMonogramExtInput
 import sys
 import pickle
+from parameters import return_params
 
 import logging
 import seaborn as sns
@@ -150,7 +151,8 @@ def simulate_experiments(task, pm):
 
     word_thresh_dict = {}
 
-    # NV: find mimimum dict value of freq dict
+    # NV: find mimimum dict value of freq dict'
+    # NV: instead of 0, insert 7th smallets value of dict (just to test)
     value_list = np.sort(list(word_freq_dict.values()))
     value_to_insert = value_list[7]
 
@@ -167,7 +169,6 @@ def simulate_experiments(task, pm):
         try:
             word_freq_dict[word]
         except KeyError:
-            # NV: instead of 0, insert 7th smallets value of dict (just to test)
             word_freq_dict[word] = value_to_insert
 
     # list with trheshold values for words in lexicon
@@ -245,7 +246,7 @@ def simulate_experiments(task, pm):
         if str(lexicon_word_bigrams)+str(LEXICON_SIZE)+str(pm.min_overlap) +\
            str(complete_selective_word_inhibition)+str(n_known_words)+str(pm.affix_system) +\
            str(pm.simil_algo)+str(pm.max_edit_dist) + str(pm.short_word_cutoff) == parameters_previous:
-            previous_matrix_usable = True  # FIXME: turn off if need to work on inihibition matrix specifically
+            previous_matrix_usable = False  # FIXME: turn off if need to work on inihibition matrix specifically
         else:
             previous_matrix_usable = False
     except:
@@ -327,7 +328,7 @@ def simulate_experiments(task, pm):
                     # if word is affixed (matching contains affixes)
                     # NV: determine if word-stem distance is within threshold, given max allowed edit distance, edit distance algorithm,
                     # and cutoff (under cutoff (short words), stem and word must be exactly the same.)
-                    # here, we determined best valus to be max_edit_dist = 1, cutoff=3, with algo = lcs.
+                    # here, we determined best values to be max_edit_dist = 1, cutoff=3, with algo = lcs.
                     # cutoff 4 yields slightly better precision, for slightly worse recall.
                     if (any(matching_otherword) and len(inferred_stem_otherword) > 1) and \
                         word_stem_match(pm.simil_algo, pm.max_edit_dist, pm.short_word_cutoff,
@@ -375,7 +376,8 @@ def simulate_experiments(task, pm):
         output_inhibition_matrix = 'Data/Inhibition_matrix_'+pm.short[pm.language]+'.dat'
         with open(output_inhibition_matrix, "wb") as f:
             pickle.dump(np.sum(word_overlap_matrix, axis=0)[individual_to_lexicon_indices], f)
-        # NV: for performance analysis with different values of edit dist and cutoff. Dont save if affix system is off (will overwrite previious values with empty list )
+            
+        # NV: for performance analysis with different values of edit dist and cutoff. Dont save if affix system is off (will overwrite previous values with empty list )
         if pm.affix_system:
             with open(f'Data/word_stem_matching_results/complex_stem_pairs_{pm.simil_algo}_dist{pm.max_edit_dist}_cutoff{pm.short_word_cutoff}.dat', "wb") as f:
                 pickle.dump(complex_stem_pairs, f)
@@ -393,14 +395,6 @@ def simulate_experiments(task, pm):
     print("BEGIN EXPERIMENT")
     print("")
     logging.info("Inhibition grid ready. BEGIN EXPERIMENT")
-
-    # Initialize Parameters
-    # MM: voorste 3 kunnen weg toch?
-    attendWidth = 8.0
-    EyePosition = 0    #
-    AttentionPosition = 0
-    # milliseconds that one model cycle is supposed to last (brain time, not model time)
-    CYCLE_SIZE = 25
 
     if pm.visualise:
         Visualise_reading
@@ -562,7 +556,7 @@ def simulate_experiments(task, pm):
                                                                 bigramsToLocations,
                                                                 EyePosition,
                                                                 AttentionPosition,
-                                                                attendWidth,
+                                                                pm.attendWidth,
                                                                 shift,
                                                                 cur_cycle)
                 else:
@@ -570,7 +564,7 @@ def simulate_experiments(task, pm):
                                                                   bigramsToLocations,
                                                                   EyePosition,
                                                                   AttentionPosition,
-                                                                  attendWidth,
+                                                                  pm.attendWidth,
                                                                   shift,
                                                                   cur_cycle)
 
@@ -618,8 +612,9 @@ def simulate_experiments(task, pm):
             lexicon_select = (lexicon_word_activity_np+word_input_np)[(
                 lexicon_activewords_np == True)] * lexicon_normalized_word_inhibition  # NV: the more active a certain word is, the more inhibition it will execute on its peers -> activity is multiplied by inhibition constant.
             # NV: then, this inhibition value is weighed by how much overlap there is between that word and every other. BUT! longer words will have more overlap, and will be more inhibited. Should that be corrected?
-            lexicon_word_inhibition_np = np.dot(
-                overlap_select, lexicon_select) / np.array(N_ngrams_lexicon)
+            
+            #FIXME: test to make inhibition exponential/squared: will concentrate inhibition on the most activate and overlapping words
+            lexicon_word_inhibition_np = -(np.dot(overlap_select, lexicon_select)/ np.array(N_ngrams_lexicon))**2 
 
             # Combine word inhibition and input, and update word activity
             lexicon_total_input_np = np.add(
@@ -635,8 +630,9 @@ def simulate_experiments(task, pm):
             # Correct activity beyond minimum and maximum activity to min and max
             lexicon_word_activity_np[lexicon_word_activity_np < pm.min_activity] = pm.min_activity
             lexicon_word_activity_np[lexicon_word_activity_np > pm.max_activity] = pm.max_activity
+    
 
-            if pm.plotting and (not '#' in stimulus) and trial == 10:  # only plot when target is in sight. also plot only one trial, to not clutter the plot space
+            if pm.plotting and (not '#' in stimulus) and trial == 0:  # only plot when target is in sight. also plot only one trial, to not clutter the plot space
 
                 fig, axes = plt.subplots(2, 2)
                 fig.suptitle(f'stimulus:{stimulus}')
@@ -774,7 +770,7 @@ def simulate_experiments(task, pm):
             all_data[trial]['correct'].append(1)
 
         # MM: CHECK WHAT AVERAGE NON-DECISION TIME IS? OR RESPONSE EXECUTION TIME?
-        reaction_time = ((cycle_for_RT+1-pm.blankscreen_cycles_begin) * CYCLE_SIZE)+300
+        reaction_time = ((cycle_for_RT+1-pm.blankscreen_cycles_begin) * pm.CYCLE_SIZE)+300
         print("reaction time: " + str(reaction_time) + " ms")
         logging.info("reaction time: " + str(reaction_time) + " ms")
         all_data[trial]['reaction time'].append(reaction_time)
@@ -790,3 +786,8 @@ def simulate_experiments(task, pm):
 
     # END OF EXPERIMENT. Return all data and a list of unrecognized words
     return lexicon, all_data, unrecognized_words
+
+
+if __name__ == '__main__': 
+    pm = return_params()
+    (lexicon, all_data, unrecognized_words) = simulate_experiments('EmbeddedWords', pm)

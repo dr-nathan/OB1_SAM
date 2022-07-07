@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 __author__ = 'Phillip Kersten, adapted from Sam van Leipsig'
 
-import matplotlib
 from time import time
-import matplotlib
-matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy import stats

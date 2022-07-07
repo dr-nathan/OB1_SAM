@@ -53,29 +53,30 @@ suffixes_FR.drop(index=to_remove, inplace=True)
 suffixes_FR = suffixes_FR.append(to_append, ignore_index=True)
 
 
+# EN: convert from HAL to Zipf
+prefixes_EN["Zipf_freq"] = [0 if x == 0 else np.log10((x/400000000)*1E9)
+                            for x in prefixes_EN["HAL_freq"]]
+suffixes_EN["Zipf_freq"] = [0 if x == 0 else np.log10((x/400000000)*1E9)
+                            for x in suffixes_EN["HAL_freq"]]
 
-#convert from HAL to Zipf
-prefixes_EN["Zipf_freq"]= [0 if x == 0 else np.log10((x/400000000)*1E9) for x in prefixes_EN["HAL_freq"]]
-suffixes_EN["Zipf_freq"]= [0 if x == 0 else np.log10((x/400000000)*1E9) for x in suffixes_EN["HAL_freq"]]
+# FR: convert from freq per million to Zipf
+prefixes_FR["Zipf_freq"] = [0 if x == 0 else np.log10(x*1000) for x in prefixes_FR["summed_freq"]]
+suffixes_FR["Zipf_freq"] = [0 if x == 0 else np.log10(x*1000) for x in suffixes_FR["summed_freq"]]
 
-#convert from freq per million to Zipf
-prefixes_FR["Zipf_freq"] = [0 if x == 0 else np.log10(x*1000) for x in prefixes_FR["summed_freq"]] 
-suffixes_FR["Zipf_freq"] = [0 if x == 0 else np.log10(x*1000) for x in suffixes_FR["summed_freq"]] 
-
-#make dict and pickle
+# make dict and pickle
 prefixes_EN_dict = dict(zip(prefixes_EN["morpheme"], prefixes_EN["Zipf_freq"]))
 with open('Data/prefix_frequency_en.dat', 'wb') as f:
     pickle.dump(prefixes_EN_dict, f)
-    
-suffixes_EN_dict = dict(zip(suffixes_EN["morpheme"],suffixes_EN["Zipf_freq"]))
+
+suffixes_EN_dict = dict(zip(suffixes_EN["morpheme"], suffixes_EN["Zipf_freq"]))
 with open('Data/suffix_frequency_en.dat', 'wb') as f:
     pickle.dump(suffixes_EN_dict, f)
-    
+
 prefixes_FR_dict = dict(zip(prefixes_FR["morpheme"], prefixes_FR["Zipf_freq"]))
 with open('Data/prefix_frequency_fr.dat', 'wb') as f:
     pickle.dump(prefixes_FR_dict, f)
-    
-suffixes_FR_dict = dict(zip(suffixes_FR["morpheme"] ,suffixes_FR["Zipf_freq"]))
+
+suffixes_FR_dict = dict(zip(suffixes_FR["morpheme"], suffixes_FR["Zipf_freq"]))
 with open('Data/suffix_frequency_fr.dat', 'wb') as f:
     pickle.dump(suffixes_FR_dict, f)
 
@@ -83,15 +84,15 @@ with open('Data/suffix_frequency_fr.dat', 'wb') as f:
 diag_plots = True
 
 if diag_plots == True:
-    
-    pdconcat=pd.concat([prefixes_EN["Zipf_freq"], 
-                        suffixes_EN["Zipf_freq"], 
-                        prefixes_FR["Zipf_freq"], 
-                        suffixes_FR["Zipf_freq"]],
-                       keys=['pre_EN', 'suf_EN', 'pre_FR', 'suf_FR'], names=['Series name', 'Row ID']).to_frame()
+
+    pdconcat = pd.concat([prefixes_EN["Zipf_freq"],
+                          suffixes_EN["Zipf_freq"],
+                          prefixes_FR["Zipf_freq"],
+                          suffixes_FR["Zipf_freq"]],
+                         keys=['pre_EN', 'suf_EN', 'pre_FR', 'suf_FR'], 
+                         names=['Series name', 'Row ID']).to_frame()
     sns.histplot(pdconcat, x="Zipf_freq", hue='Series name', element="step")
     plt.show()
-    
 
 
 # old data (Jarmulowicz, 2002), kept for reference for now
@@ -145,3 +146,8 @@ if diag_plots == True:
 # for i, (j, k) in enumerate(suffix_totalcount_en.items()):
 #     # log10 of frequency per billion (24680 words in text in total)
 #     suffix_zipf[j] = np.log10((k/24680)*1E9)
+
+# with open('Data/suffix_frequency_en.dat', 'wb') as f:
+#     pickle.dump(suffix_zipf, f)
+
+

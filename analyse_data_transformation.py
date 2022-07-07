@@ -29,7 +29,7 @@ def correct_wordskips(df_alldata):
     return df_alldata
 
 def correct_offset(df_alldata):
-    for i in xrange(0,len(df_alldata['Offset'])):
+    for i in range(0,len(df_alldata['Offset'])):
         if df_alldata.loc[i,'word length'] % 2 == 0:
             df_alldata.loc[i,'Offset']-=0.5
     return df_alldata

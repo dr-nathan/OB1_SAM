@@ -27,11 +27,11 @@ def return_global_params():
     short = {'french': 'fr', 'german': 'de', 'english': 'en'}
 
     run_exp = True  # Should the experiment simulation run?
-    analyze_results = True  # Should the results be analyzed?
+    analyze_results = False  # Should the results be analyzed?
     optimize = False  # Should the parameters be optimized using evolutionary algorithms?
 
     print_all = True
-    plotting = False
+    plotting = True
 
     return dict(locals())  # return dict of all local variables
 
@@ -128,6 +128,10 @@ def return_task_params(task_attributes):
         # NV: maximum allowed distance between word and inferred stem, to be considered matching (relates to affix system)
         max_edit_dist = 1
         short_word_cutoff = 3
+        
+        # milliseconds that one model cycle is supposed to last (brain time, not model time)
+        CYCLE_SIZE = 25
+        attendWidth = 8.0
 
         use_grammar_prob = False  # True for using grammar probabilities, False for using cloze, overwritten by uniform_pred
         uniform_pred = True  # Overwrites cloze/grammar probabilities with 0.25 for all words
@@ -150,10 +154,10 @@ def return_task_params(task_attributes):
         ## Monoweight = 1
         decay = -0.05  # 0.08 #-0.053
         # inp. divided by #ngrams, so this param estimates excit per word [diff from paper]
-        bigram_to_word_excitation = 2.8  # 1.25
+        bigram_to_word_excitation = 3.0 # 1.25
         # general inhibition on all words. The more active bigrams, the more general inhibition. #FIXME
         bigram_to_word_inhibition = 0 #-0.05 #-0.001 #cant figure out why this exists
-        word_inhibition = -0.55    # -.0018 #-0.005#-0.07 #-0.0165
+        word_inhibition = -0.3  # -.0018 #-0.005#-0.07 #-0.0165
         # NV: determines how similar the length of 2 words must be for them to be recognised as 'similar word length'
         word_length_similarity_constant = 0.15
 
@@ -196,7 +200,7 @@ def return_task_params(task_attributes):
         # MM: this is a HACK: a number of words have no freq because of a mistake, repaired by making freq less important
         max_threshold = 1  # 1
         # 0.4 # Max prop decrease in thresh for highest-freq wrd [different definition than in papers]
-        wordfreq_p = 0.5  # 0.2 #NV: difference between max and min threshold
+        wordfreq_p = 0.4  # 0.2 #NV: difference between max and min threshold
         wordpred_p = 0.2  # 0.4 # Currently not used
 
         task_params = dict(locals())
@@ -222,7 +226,11 @@ def return_task_params(task_attributes):
         objective = []  # empty list for total SSE/KL, for single objectives: "total viewing time",
         # "Gaze durations", "Single fixations", "First fixation duration",
         # "Second fixation duration", "Regression"
-
+        
+        # milliseconds that one model cycle is supposed to last (brain time, not model time)
+        CYCLE_SIZE = 25
+        attendWidth = 8.0
+        
         output_dir = time.time()
         epsilon = 0.1  # Step-size for approximation of the gradient
 
@@ -303,7 +311,6 @@ def return_params():
     pm = SimpleNamespace(**{**global_params, **task_attributes.__dict__, **task_params})
 
     return pm
-
 
 if __name__ == '__main__':
     pm = return_params()

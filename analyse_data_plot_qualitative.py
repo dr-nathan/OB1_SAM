@@ -2,8 +2,6 @@ __author__ = 'Sam van Leipsig'
 
 import pandas as pd
 import pickle
-import matplotlib
-matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import matplotlib.mlab as mlab
 import numpy as np

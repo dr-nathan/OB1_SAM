@@ -7,8 +7,6 @@ import numpy as np
 import pickle
 import pandas as pd
 from pandas import HDFStore
-import matplotlib
-matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from parameters import return_params
 
@@ -354,8 +352,6 @@ def get_prefix_file(pm): #NV: added function to read affixes frequency data from
        #NV: predictability does not really make sense in the context of affixes, hence they are not made nor imported
        #But maybe something to look at in the future
        
-
-
 def get_saccade_data_df():
     convert_dict = {0:decode_ISO}
     convert_dict = {column:comma_to_dot for column in [0,1,2,3,4,5]}

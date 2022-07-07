@@ -68,9 +68,7 @@ def create_freq_file(freqlist_arrays, freqthreshold, nr_highfreqwords):
         freq_words = freqlist_arrays[['Word', 'cfreqmovies']]
 
         # NV: convert to Zipf scale
-        freq_words['LogFreq(Zipf)'] = [np.log10(row['cfreqmovies']*1000)
-                                       if np.log10(row['cfreqmovies']*1000) > 0 else 1
-                                       for ix, row in freq_words.iterrows()]  # from frequency per million to zipf. Also, replace -inf with 1
+        freq_words['LogFreq(Zipf)'] = freq_words['cfreqmovies'].apply(lambda x: np.log10(x*1000) if x>0 else 0) # from frequency per million to zipf. Also, replace -inf with 1
 
         freq_words.drop(columns=['cfreqmovies'], inplace=True)
 
