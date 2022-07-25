@@ -21,7 +21,9 @@ def return_global_params():
 
     """
 
-    task_to_run = 'EmbeddedWords'  # NV: task to run. can be one of: Flanker, Sentence, EmbeddedWords, Classification, Transposed or PSCall
+    task_to_run = 'Classification'  # NV: task to run. can be one of: Flanker, Sentence, EmbeddedWords, Classification, Transposed or PSCall
+    
+    possible_tasks =  ["EmbeddedWords", "Sentence", "Flanker", "Classification", "Transposed", "PSCall"] 
 
     # NV: dictionnary for abbreviations, useful for filenames
     short = {'french': 'fr', 'german': 'de', 'english': 'en', 'dutch': 'nl'}
@@ -42,7 +44,9 @@ class TaskAttributes:
 
     def __init__(self, stim, stimAll, language, stimcycles, is_experiment,
                  is_priming_task=False, blankscreen_type='blank', blankscreen_cycles_begin=0,
-                 blankscreen_cycles_end=0, ncyclesprime=0):
+                 blankscreen_cycles_end=0, ncyclesprime=0, POS_implemented=False, 
+                 affix_implemented = False):
+        
         self.stim = stim
         self.stim['all'] = stimAll
         self.language = language
@@ -53,6 +57,8 @@ class TaskAttributes:
         self.blankscreen_cycles_begin = blankscreen_cycles_begin
         self.blankscreen_cycles_end = blankscreen_cycles_end
         self.ncyclesprime = ncyclesprime
+        self.POS_implemented = POS_implemented
+        self.affix_implemented = affix_implemented
         self.totalcycles = self.blankscreen_cycles_begin + \
             self.ncyclesprime+self.stimcycles + self.blankscreen_cycles_end
 
@@ -74,7 +80,9 @@ def return_attributes(task_to_run):
             blankscreen_type='hashgrid',
             blankscreen_cycles_begin=5,  # FIXME : 20
             blankscreen_cycles_end=0,
-            ncyclesprime=2
+            ncyclesprime=2, 
+            POS_implemented = False, 
+            affix_implemented = True
         )
     elif task_to_run == 'Sentence':
         stim = pd.read_table('./Stimuli/Sentence_stimuli_all_csv.csv', sep=',')
@@ -86,7 +94,9 @@ def return_attributes(task_to_run):
             is_experiment=True,
             stimcycles=8,
             blankscreen_cycles_begin=8,
-            blankscreen_cycles_end=16
+            blankscreen_cycles_end=16, 
+            POS_implemented = True, 
+            affix_implemented = True
         )
     elif task_to_run == 'Flanker':
         # NV: extra assignments needed for this task
@@ -100,10 +110,12 @@ def return_attributes(task_to_run):
             stimcycles=6,
             is_experiment=True,
             blankscreen_cycles_begin=8,
-            blankscreen_cycles_end=18
+            blankscreen_cycles_end=18, 
+            POS_implemented = False, 
+            affix_implemented = True
         )
     elif task_to_run == 'Transposed':
-        stim = pd.read_table('./Stimuli/Transposed_stimuli_all.csv', sep=',', encoding='utf-8')
+        stim = pd.read_table('./Stimuli/Transposed_stimuli_all_csv.csv', sep=',', encoding='utf-8')
         stim['all'] = stim['all'].astype('unicode')
         return TaskAttributes(
             stim, 
@@ -111,14 +123,14 @@ def return_attributes(task_to_run):
             language='french',
             is_experiment=True,
             is_priming_task = False,
-            fixcycles = 8,  # 200 ms #FIXME: fixcycles?
-            ncycles = 32,  # 800 ms
-            stimcycles = 120,  # Stimulus on screen for 3000 ms
-            attendWidth = 3,  # 5 words, but focus on the 3 centre ones
-            bigram_to_word_excitation = 2.18  # c1, used to calculate activity of a work
+            blankscreen_cycles_begin = 8,
+            blankscreen_type='fixation cross',
+            stimcycles = 120,  # Stimulus on screen for 3000 ms 
+            POS_implemented = True, 
+            affix_implemented = True
         )
     elif task_to_run == 'Classification':
-        stim = pd.read_table('./Stimuli/Classification_stimuli_all.csv', sep=',', encoding='utf-8')
+        stim = pd.read_table('./Stimuli/Classification_stimuli_all_csv.csv', sep=',', encoding='utf-8')
         stim['all'] = stim['all'].astype('unicode')
         return TaskAttributes(
             stim, 
@@ -126,11 +138,11 @@ def return_attributes(task_to_run):
             language='dutch',
             is_experiment=True,
             is_priming_task = False,
-            fixcycles = 8,  # 200 ms
-            ncycles = 32,  # 3 words
+            blankscreen_cycles_begin = 8,  # 200 ms
+            blankscreen_type='fixation cross',
             stimcycles = 7,  # Stimulus on screen for 170ms
-            attendWidth = 3,  # Because the stimuli contain 3 words
-            bigram_to_word_excitation = 1.48  # c1, used to calculate activity of a word
+            POS_implemented = True, 
+            affix_implemented = False
         )
     elif task_to_run == 'PSCall':
         stim = None
@@ -141,7 +153,6 @@ def return_attributes(task_to_run):
             stimcycles=None,
             language='german',
             is_experiment=False)
-
 
 # Control-flow parameters, that should be returned on a per-task basis
 def return_task_params(task_attributes):
@@ -161,10 +172,11 @@ def return_task_params(task_attributes):
         
         # milliseconds that one model cycle is supposed to last (brain time, not model time)
         CYCLE_SIZE = 25
-        attendWidth = 8.0
+        attendWidth = 8.0 # was set to 3 for transposed and classification
 
-        use_grammar_prob = False  # True for using grammar probabilities, False for using cloze, overwritten by uniform_pred
-        uniform_pred = True  # Overwrites cloze/grammar probabilities with 0.25 for all words
+        use_grammar_prob = True  # True for using grammar probabilities, False for using cloze, overwritten by uniform_pred                   
+        uniform_pred = False  # Overwrites cloze/grammar probabilities with 0.25 for all words
+        grammar_weight = 0.5 #only used when using grammar_prob
 
         include_sacc_type_sse = True  # Include the sse score based on the saccade type probability plot
         sacc_type_objective = "total"  # If "total" all subplots will be included in the final sse,
@@ -184,7 +196,7 @@ def return_task_params(task_attributes):
         ## Monoweight = 1
         decay = -0.05  # 0.08 #-0.053
         # inp. divided by #ngrams, so this param estimates excit per word [diff from paper]
-        bigram_to_word_excitation = 3.0 # 1.25
+        bigram_to_word_excitation = 3.0 # 1.25  #2.18 for classification and transposed
         # general inhibition on all words. The more active bigrams, the more general inhibition. #FIXME
         bigram_to_word_inhibition = 0 #-0.05 #-0.001 #cant figure out why this exists
         word_inhibition = -0.3  # -.0018 #-0.005#-0.07 #-0.0165
@@ -239,7 +251,7 @@ def return_task_params(task_attributes):
 
         return task_params
 
-    # NV: different set of parameters if task is not an experiment. (previously in parameters.py). This way, one can change params for experiments without interfering in PSC and vice versa
+    # NV: different set of parameters if task is not an experiment. (previously in parameters.py). This way, one can change params for experiments without interfering in PSC and vice versa. Will need to be merged eventually
     else:
 
         use_grammar_prob = False  # True for using grammar probabilities, False for using cloze, overwritten by uniform_pred
@@ -315,9 +327,6 @@ def return_task_params(task_attributes):
 
         # Threshold parameters
         linear = False
-
-        use_sentence_task = True
-        use_flanker_task = False
 
         task_params = dict(locals())
         # NV: is given as input, so is a local variable. Would end up in the dictionary if not removed.

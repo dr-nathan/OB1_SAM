@@ -11,7 +11,7 @@ import re
 from reading_common import stringToBigramsAndLocations, calcBigramExtInput, calcMonogramExtInput, get_stimulus_text_from_file, calc_word_attention_right
 from reading_functions import my_print, get_threshold, getMidwordPositionForSurroundingWord, is_similar_word_length, \
     calc_saccade_error, norm_distribution, normalize_pred_values
-from read_saccade_data import get_freq_pred_files, get_freq_and_syntax_pred
+from freq_pred_files import get_freq_pred_files, get_freq_and_syntax_pred
 import numpy as np
 import pickle
 import sys

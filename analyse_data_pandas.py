@@ -73,6 +73,8 @@ def get_results(input_text_filename,input_file_all_data,input_file_unrecognized_
                     df_freq_pred["pred"][:] = 0.1
                     df_freq_pred["word"] = df_freq_pred.index
                     df_freq_pred.index = range(0,len(df_freq_pred))
+                    
+                    
                 #print(df_freq_pred)
                 # TODO fix
                 #import copy_reg

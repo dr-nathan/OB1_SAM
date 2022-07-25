@@ -326,32 +326,6 @@ def get_grouped_sacctype_prob(freqbins,predbins):
     sacctype_grouped_prob['pred'] = df_sacctypes_grpby_pred.div(groupsizes_pred, axis=0)
     return sacctype_grouped_prob
 
-def get_freq_pred_files(task, pm): #NV: merged the de, fr and en versions. All files have now the task name and language embedded in file name
-        
-    output_word_frequency_map = "Data/"+task+"_frequency_map_"+pm.short[pm.language]+".dat"
-    with open (output_word_frequency_map,"rb") as f:
-        word_freq_dict = pickle.load(f, encoding="latin1") # For Python3
-    output_word_predictions_map = "Data/"+task+"_predictions_map_"+pm.short[pm.language]+".dat"
-    with open (output_word_predictions_map,"rb") as p:
-        word_pred_dict = pickle.load(p, encoding="latin1") # For Python3
-    return word_freq_dict, word_pred_dict
-
-def get_suffix_file(pm): #NV: added function to read affixes frequency data from pickle, written by affixes.py. Which affixes to fetch is independent of task but dependent on language.
-    file="Data/suffix_frequency_"+pm.short[pm.language]+".dat"
-    with open (file,"rb") as f:
-       suffix_freq_dict = pickle.load(f)
-       return suffix_freq_dict
-       #NV: predictability does not really make sense in the context of affixes, hence they are not made nor imported
-       #But maybe something to look at in the future
-
-def get_prefix_file(pm): #NV: added function to read affixes frequency data from pickle, written by affixes.py. Which affixes to fetch is independent of task but dependent on language.
-    file="Data/prefix_frequency_"+pm.short[pm.language]+".dat"
-    with open (file,"rb") as f:
-       prefix_freq_dict = pickle.load(f)
-       return prefix_freq_dict
-       #NV: predictability does not really make sense in the context of affixes, hence they are not made nor imported
-       #But maybe something to look at in the future
-       
 def get_saccade_data_df():
     convert_dict = {0:decode_ISO}
     convert_dict = {column:comma_to_dot for column in [0,1,2,3,4,5]}
@@ -359,60 +333,3 @@ def get_saccade_data_df():
     saccade_data = pd.DataFrame(my_arrays)
 
 
-def get_freq():
-    convert_dict = {0:decode_ISO,1:comma_to_dot, 2:comma_to_dot}
-    my_data = np.genfromtxt("Texts/PSCall_freq_pred.txt", names =True, dtype=['U20','f4','f4'], converters = convert_dict, skip_header=0, delimiter="\t")
-    return my_data['freq']
-
-
-def get_pred():
-    convert_dict = {0:decode_ISO,1:comma_to_dot, 2:comma_to_dot}
-    my_data = pd.read_csv("Texts/PSCall_freq_pred.txt", delimiter="\t", encoding="ISO-8859-1")
-    return my_data['pred']
-    #predictions_dict = {}
-    # for word_ix,word in enumerate(my_data['pred']):
-    #     #tempcleanedword = unicode(word['word'].replace(".","").lower())
-    #     #predictions_dict[[word_ix,tempcleanedword]] = word['pred']
-    #     pred_values_by_index[]
-    # return predictions_dict
-
-
-def get_freq_and_pred():
-    convert_dict = {0:decode_ISO,1:comma_to_dot, 2:comma_to_dot}
-    # Changed this, old code threw an decode error
-    my_data = pd.read_csv("Texts/PSCall_freq_pred.txt", delimiter="\t", encoding="ISO-8859-1") #NV: added encoding parameter. Got encoding via chardet.detect. #TODO: also, remove punctuation, captials, etc?
-    #my_data = np.genfromtxt("Texts/PSCall_freq_pred.txt", names =True, encoding="ISO-8859-1",  dtype=['U2','f4','f4'],  skip_header=0, converters = convert_dict, delimiter="\t") #converters = convert_dict,
-    predictions_dict = {}
-    return my_data
-
-# def get_freq_and_pred_fr(task):  ## NS added for experiment simulations (flanker task and sentence reading task)
-#     convert_dict = {0:decode_ISO,1:comma_to_dot, 2:comma_to_dot}
-#     # Changed this, old code threw an decode error
-#     my_data = pd.read_csv("Texts/"+ task + "_freq_pred.txt",delimiter="\t")
-# #    my_data = np.genfromtxt("Texts/PSCall_freq_pred.txt", names =True,encoding="latin-1",  dtype=['U2','f4','f4'], converters = convert_dict, skip_header=0, delimiter="\t")
-#     predictions_dict = {}
-#     return my_data
-
-def get_freq_and_syntax_pred():
-    convert_dict = {0:decode_ISO,1:comma_to_dot, 2:comma_to_dot}
-    # Changed this, old code threw an decode error
-    my_data = pd.read_csv("Texts/PSCall_freq_pred.txt",delimiter="\t")
-    sys.path.append("Data")
-    print("Using syntax pred values")
-    with open("Data/PSCALLsyntax_probabilites.pkl", "r") as f:
-        my_data["pred"] = pickle.load(f)
-#    my_data = np.genfromtxt("Texts/PSCall_freq_pred.txt", names =True,encoding="latin-1",  dtype=['U2','f4','f4'], converters = convert_dict, skip_header=0, delimiter="\t")
-    predictions_dict = {}
-    return my_data
-
-def get_words(pm, task): #NV: get_words_task merged with get_words
-    if pm.is_experiment: #NV: if experiment, get the relevant freq_pred.txt
-         my_data = np.genfromtxt("Texts/" +task+ "_freq_pred.txt",delimiter=',',dtype='U20', encoding=chardet.detect(open("Texts/"+task +"_freq_pred.txt","rb").read())['encoding'])#NV: fixed this, threw the old decode error. Now it detecs encoding automatically 
-    else: #NV: structure of PSCAll txt is different, so file reading is different
-        my_data = pd.read_csv("Texts/PSCall_freq_pred.txt", usecols=[0], delimiter="\t", encoding='ISO-8859-1') # NV: changed this. Old code resulted in decode error. Actual function is identical
-    cleaned_words = np.empty([len(my_data),1],dtype='U20')
-    #print(cleaned_words)
-    for i,word in enumerate(my_data):
-        cleaned_words[i] = word.replace(".","").lower()
-    return cleaned_words
-                                                                                         

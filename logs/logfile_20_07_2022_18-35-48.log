@@ -1,0 +1,26 @@
+DEBUG:root:namespace(task_to_run='Classification', possible_tasks=['EmbeddedWords', 'Sentence', 'Flanker', 'Classification', 'Transposed', 'PSCall'], short={'french': 'fr', 'german': 'de', 'english': 'en', 'dutch': 'nl'}, run_exp=True, analyze_results=False, optimize=False, print_all=True, plotting=True, stim=     item_nr               all  target    condition
+0          1   hoes zicht hoes       2    congruent
+1          2  vlees brug vlees       2    congruent
+2          3    kool eend kool       2    congruent
+3          4    lava auto lava       2    congruent
+4          5    wolk grot wolk       2    congruent
+..       ...               ...     ...          ...
+195      196    hond zakt hond       2  incongruent
+196      197    kool gaan kool       2  incongruent
+197      198    kurk rent kurk       2  incongruent
+198      199  koper hang koper       2  incongruent
+199      200    ober wist ober       2  incongruent
+
+[200 rows x 4 columns], language='dutch', stimcycles=7, is_experiment=True, is_priming_task=False, blankscreen_type='fixation cross', blankscreen_cycles_begin=8, blankscreen_cycles_end=0, ncyclesprime=0, POS_implemented=True, totalcycles=15, trial_ends_on_key_press=True, affix_system=True, simil_algo='lcs', max_edit_dist=1, short_word_cutoff=3, CYCLE_SIZE=25, attendWidth=8.0, use_grammar_prob=True, uniform_pred=False, grammar_weight=0.5, include_sacc_type_sse=True, sacc_type_objective='total', include_sacc_dist_sse=True, tuning_measure='SSE', discretization='bin', objective=[], output_dir=1658334948.8002863, epsilon=0.1, decay=-0.05, bigram_to_word_excitation=3.0, bigram_to_word_inhibition=0, word_inhibition=-0.3, word_length_similarity_constant=0.15, letPerDeg=0.3, min_activity=0.0, max_activity=1.3, max_attend_width=5.0, min_attend_width=3.0, attention_skew=4, bigram_gap=2, min_overlap=2, refix_size=0.2, salience_position=4.99, corpora_repeats=0, frequency_flag=True, prediction_flag=True, similarity_based_recognition=True, use_saccade_error=True, use_attendposition_change=True, visualise=False, slow_word_activity=False, pauze_allocation_errors=False, use_boundary_task=False, sacc_optimal_distance=9.99, saccErr_scaler=0.2, saccErr_sigma=0.17, saccErr_sigma_scaler=0.06, mu=10.09, sigma=5.36, distribution_param=5.0, max_threshold=1, wordfreq_p=0.4, wordpred_p=0.2)
+DEBUG:root:individual words: ['_hoes_', '_zicht_', '_vlees_', '_brug_', '_kool_', '_eend_', '_lava_', '_auto_', '_wolk_', '_grot_', '_vlok_', '_lijst_', '_vocht_', '_broek_', '_worp_', '_hand_', '_mopje_', '_kern_', '_huig_', '_kaars_', '_plek_', '_zaal_', '_slak_', '_zalm_', '_vlaag_', '_wrak_', '_snot_', '_titel_', '_stand_', '_hond_', '_ewrt_', '_pees_', '_traan_', '_cola_', '_stank_', '_naam_', '_ijzer_', '_boon_', '_jurk_', '_muur_', '_beton_', '_lamp_', '_huis_', '_stro_', '_duif_', '_takje_', '_trede_', '_kurk_', '_meid_', '_klank_', '_ster_', '_pruik_', '_wang_', '_waas_', '_poos_', '_wesp_', '_arend_', '_vrouw_', '_hout_', '_druif_', '_teen_', '_oksel_', '_kiwi_', '_worm_', '_tram_', '_kruk_', '_gang_', '_koper_', '_stad_', '_kous_', '_arts_', '_dorp_', '_snoet_', '_kroop_', '_balde_', '_laaf_', '_hief_', '_dool_', '_beef_', '_ging_', '_gewed_', '_maak_', '_stook_', '_leun_', '_doet_', '_hang_', '_zwalk_', '_volg_', '_leef_', '_rees_', '_laat_', '_baar_', '_drijf_', '_gaan_', '_moet_', '_loos_', '_gehad_', '_vrat_', '_laak_', '_duwde_', '_klots_', '_belde_', '_waak_', '_zend_', '_sleep_', '_klikt_', '_vier_', '_woon_', '_vijns_', '_reken_', '_reeg_', '_aaide_', '_loert_', '_raak_', '_zoek_', '_bent_', '_breek_', '_ween_', '_houd_', '_blijf_', '_stelp_', '_hakt_', '_gunde_', '_tril_', '_roei_', '_snap_', '_rouw_', '_bekt_', '_stak_', '_weet_', '_zakt_', '_sterf_', '_kapte_', '_train_', '_eerde_', '_zegt_', '_lukt_', '_viel_', '_past_', '_zinde_', '_kopt_', '_beken_', '_rent_', '_geef_', '_zijn_', '_word_', '_werd_', '_stond_', '_wist_', '_trim_', '_wekte_', '_meen_', '_pupil_', '_graan_', '_wrok_', '_zaad_', '_ober_']
+DEBUG:root:word freq dict (first 20): 
+{'_ween_': 3.263987346, '_huig_': 2.133653577, '_duif_': 3.726570189, '_stad_': 5.431851444, '_takje_': 2.697925008, '_vrat_': 2.935285923, '_zakt_': 3.796411409, '_wist_': 5.770425561, '_eend_': 3.950998549, '_lukt_': 5.008135395, '_laaf_': 1.832623582, '_hang_': 4.447872026, '_kapte_': 2.832623582, '_druif_': 3.133653577, '_balde_': 1.832623582, '_sleep_': 3.813384224, '_graan_': 3.643304057, '_zinde_': 1.957562318, '_lamp_': 4.139405906, '_vlok_': 1.957562318}
+WARNING:root:language does not support affix system yet! Switching to non-affix version
+INFO:root:max freq:7.597064496
+INFO:root:Length text: 157
+Length pred: 2
+INFO:root:LENGTH of freq dict: 629
+INFO:root:LENGTH of individual words: 157
+DEBUG:root:size lexicon: 632
+INFO:root:Amount of words in lexicon: 632
+INFO:root:Amount of words in text:157

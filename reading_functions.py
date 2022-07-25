@@ -50,7 +50,7 @@ def getMidwordPositionForSurroundingWord(word_position, rightWordEdgeLetterIndex
 # ---------------------------------------------------------------------------
 
 # should always ensure that the maximum possible value of the threshold doesn't exceed the maximum allowable word activity
-def get_threshold(word, word_freq_dict, max_frequency, freq_p, max_threshold, affixes):  # word_pred_dict,pred_p
+def get_threshold(word, word_freq_dict, max_frequency, freq_p, max_threshold):  # word_pred_dict,pred_p
     # let threshold be fun of word freq. freq_p weighs how strongly freq is (1=max, then thresh. 0 for most freq. word; <1 means less havy weighting)
     # from 0-1, inverse of frequency, scaled to 0(highest freq)-1(lowest freq)
     word_threshold = max_threshold

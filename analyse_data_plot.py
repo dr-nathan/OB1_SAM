@@ -6,13 +6,14 @@ from time import time
 import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.mlab as mlab
+import seaborn as sns
 import numpy as np
 from scipy import stats
 import pdb
 import pandas as pd
 import math
 import pickle
-from read_saccade_data import get_freq_pred_files
+from freq_pred_files import get_freq_pred_files
 from reading_common import get_stimulus_text_from_file
 from parameters import return_params
 
@@ -884,3 +885,26 @@ def plot_overlapmatrix_by(df_alldata_grouped_all,freqbins):
     axes[0].set_ylabel('Total overlap')
     df_overlap_grpby_length.plot(ax=axes[0])
     df_overlap_grpby_freq.plot(ax=axes[1])
+
+def plot_runtime(stimulus, N_ngrams_lexicon,lexicon_activewords_np, lexicon_word_inhibition_np, word_input_np, lexicon_total_input_np, lexicon_thresholds_np):
+    fig, axes = plt.subplots(2, 2)
+    fig.suptitle(f'stimulus:{stimulus}')
+    
+    sns.stripplot(ax=axes[0][0], x=np.array(N_ngrams_lexicon)[
+                  lexicon_activewords_np == True], y=word_input_np[lexicon_activewords_np == True])
+    axes[0][0].set_title('word activation per length ')
+    
+    sns.stripplot(ax=axes[0][1], x=np.array(N_ngrams_lexicon)[
+                  lexicon_activewords_np == True], y=lexicon_word_inhibition_np[lexicon_activewords_np == True])
+    axes[0][1].set_title('word inhibition per length ')
+    
+    sns.stripplot(ax=axes[1][0], x=np.array(N_ngrams_lexicon)[
+                  lexicon_activewords_np == True], y=lexicon_total_input_np[lexicon_activewords_np == True])
+    axes[1][0].set_title('total word activity per length, for active words')
+    
+    sns.stripplot(ax=axes[1][1], x=np.array(N_ngrams_lexicon)[
+                  lexicon_activewords_np == True], y=lexicon_thresholds_np[lexicon_activewords_np == True])
+    axes[1][1].set_title('thresholds, per length')
+    
+    fig.set_size_inches(10, 10)
+    plt.show()
