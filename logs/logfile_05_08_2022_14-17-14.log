@@ -1,0 +1,947 @@
+__main__ DEBUG:namespace(task_to_run='Classification', possible_tasks=['EmbeddedWords', 'Sentence', 'Flanker', 'Classification', 'Transposed', 'PSCall'], short={'french': 'fr', 'german': 'de', 'english': 'en', 'dutch': 'nl'}, run_exp=True, analyze_results=False, optimize=False, print_all=True, plotting=True, stim=     item_nr               all  target    condition
+0          1   hoes zicht hoes       2    congruent
+1          2  vlees brug vlees       2    congruent
+2          3    kool eend kool       2    congruent
+3          4    lava auto lava       2    congruent
+4          5    wolk grot wolk       2    congruent
+..       ...               ...     ...          ...
+195      196    hond zakt hond       2  incongruent
+196      197    kool gaan kool       2  incongruent
+197      198    kurk rent kurk       2  incongruent
+198      199  koper hang koper       2  incongruent
+199      200    ober wist ober       2  incongruent
+
+[200 rows x 4 columns], language='dutch', stimcycles=7, is_experiment=True, is_priming_task=False, blankscreen_type='fixation cross', blankscreen_cycles_begin=8, blankscreen_cycles_end=0, ncyclesprime=0, POS_implemented=True, affix_implemented=False, totalcycles=15, trial_ends_on_key_press=True, affix_system=True, simil_algo='lcs', max_edit_dist=1, short_word_cutoff=3, CYCLE_SIZE=25, attendWidth=8.0, use_grammar_prob=True, uniform_pred=False, grammar_weight=0.5, include_sacc_type_sse=True, sacc_type_objective='total', include_sacc_dist_sse=True, tuning_measure='SSE', discretization='bin', objective=[], output_dir=1659701834.5310922, epsilon=0.1, decay=-0.05, bigram_to_word_excitation=3.0, bigram_to_word_inhibition=0, word_inhibition=-0.3, word_length_similarity_constant=0.15, letPerDeg=0.3, min_activity=0.0, max_activity=1.3, max_attend_width=5.0, min_attend_width=3.0, attention_skew=4, bigram_gap=2, min_overlap=2, refix_size=0.2, salience_position=4.99, corpora_repeats=0, frequency_flag=True, prediction_flag=True, similarity_based_recognition=True, use_saccade_error=True, use_attendposition_change=True, visualise=False, slow_word_activity=False, pauze_allocation_errors=False, use_boundary_task=False, sacc_optimal_distance=9.99, saccErr_scaler=0.2, saccErr_sigma=0.17, saccErr_sigma_scaler=0.06, mu=10.09, sigma=5.36, distribution_param=5.0, max_threshold=1, wordfreq_p=0.4, wordpred_p=0.2)
+simulate_experiments WARNING:language/task does not support affix system yet! Switching to non-affix version
+simulate_experiments WARNING:Task is not a classical word recognition task and cannot be terminated by key press.                      Switching to trial_ends_on_key_press = False
+simulate_experiments DEBUG:individual words: ['_hoes_', '_zicht_', '_vlees_', '_brug_', '_kool_', '_eend_', '_lava_', '_auto_', '_wolk_', '_grot_', '_vlok_', '_lijst_', '_vocht_', '_broek_', '_worp_', '_hand_', '_mopje_', '_kern_', '_huig_', '_kaars_', '_plek_', '_zaal_', '_slak_', '_zalm_', '_vlaag_', '_wrak_', '_snot_', '_titel_', '_stand_', '_hond_', '_ewrt_', '_pees_', '_traan_', '_cola_', '_stank_', '_naam_', '_ijzer_', '_boon_', '_jurk_', '_muur_', '_beton_', '_lamp_', '_huis_', '_stro_', '_duif_', '_takje_', '_trede_', '_kurk_', '_meid_', '_klank_', '_ster_', '_pruik_', '_wang_', '_waas_', '_poos_', '_wesp_', '_arend_', '_vrouw_', '_hout_', '_druif_', '_teen_', '_oksel_', '_kiwi_', '_worm_', '_tram_', '_kruk_', '_gang_', '_koper_', '_stad_', '_kous_', '_arts_', '_dorp_', '_snoet_', '_kroop_', '_balde_', '_laaf_', '_hief_', '_dool_', '_beef_', '_ging_', '_gewed_', '_maak_', '_stook_', '_leun_', '_doet_', '_hang_', '_zwalk_', '_volg_', '_leef_', '_rees_', '_laat_', '_baar_', '_drijf_', '_gaan_', '_moet_', '_loos_', '_gehad_', '_vrat_', '_laak_', '_duwde_', '_klots_', '_belde_', '_waak_', '_zend_', '_sleep_', '_klikt_', '_vier_', '_woon_', '_vijns_', '_reken_', '_reeg_', '_aaide_', '_loert_', '_raak_', '_zoek_', '_bent_', '_breek_', '_ween_', '_houd_', '_blijf_', '_stelp_', '_hakt_', '_gunde_', '_tril_', '_roei_', '_snap_', '_rouw_', '_bekt_', '_stak_', '_weet_', '_zakt_', '_sterf_', '_kapte_', '_train_', '_eerde_', '_zegt_', '_lukt_', '_viel_', '_past_', '_zinde_', '_kopt_', '_beken_', '_rent_', '_geef_', '_zijn_', '_word_', '_werd_', '_stond_', '_wist_', '_trim_', '_wekte_', '_meen_', '_pupil_', '_graan_', '_wrok_', '_zaad_', '_ober_']
+simulate_experiments DEBUG:word freq dict (first 20): 
+{'_vlees_': 4.786544272, '_zalm_': 3.720990312, '_huis_': 5.909518775, '_laat_': 6.304360119, '_blijf_': 5.746931472, '_lijst_': 4.821033884, '_grot_': 4.238595685, '_roei_': 3.23056359, '_hief_': 2.677721622, '_stond_': 5.220902445, '_geef_': 5.93517162, '_past_': 4.645314166, '_gunde_': 2.817900325, '_mopje_': 2.55962231, '_poos_': 3.540193758, '_raak_': 4.918983412, '_pees_': 2.817900325, '_vrat_': 2.935285923, '_rouw_': 3.596051575, '_vlaag_': 3.054472331}
+simulate_experiments INFO:max freq:7.597064496
+simulate_experiments INFO:Length text: 157
+Length pred: 2
+simulate_experiments INFO:LENGTH of freq dict: 629
+simulate_experiments INFO:LENGTH of individual words: 157
+simulate_experiments DEBUG:size lexicon: 632
+simulate_experiments INFO:Amount of words in lexicon: 632
+simulate_experiments INFO:Amount of words in text:157
+simulate_experiments INFO:Setting up word-to-word inhibition grid...
+simulate_experiments INFO:
+ using pickled inhibition matrix 
+
+simulate_experiments INFO:Inhibition grid ready. BEGIN EXPERIMENT
+simulate_experiments INFO:trial: 1
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[1]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[1]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[1]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[1]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[1]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[1]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[1]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[1]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: hoes zicht hoes
+simulate_experiments DEBUG:['_h', 'ho', 'he', 'hs', 'oe', 'os', 'es', ' z', ' i', ' c', 'zi', 'zc', 'zh', 'ic', 'ih', 'it', 'ch', 'ct', 'ht', ' h', ' o', ' e', 's_']
+simulate_experiments DEBUG:bigram activity per cycle: 4.940246722841367
+simulate_experiments DEBUG:target index:[1]
+simulate_experiments DEBUG:target activity:[0.42058836]
+simulate_experiments DEBUG:stimulus activity:1.4253576694014596
+simulate_experiments DEBUG:total activity: 19.12052366635023
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: hoes zicht hoes
+simulate_experiments DEBUG:['_h', 'ho', 'he', 'hs', 'oe', 'os', 'es', ' z', ' i', ' c', 'zi', 'zc', 'zh', 'ic', 'ih', 'it', 'ch', 'ct', 'ht', ' h', ' o', ' e', 's_']
+simulate_experiments DEBUG:bigram activity per cycle: 4.940246722841367
+simulate_experiments DEBUG:target index:[1]
+simulate_experiments DEBUG:target activity:[0.66730404]
+simulate_experiments DEBUG:stimulus activity:2.1160245404368094
+simulate_experiments DEBUG:total activity: 30.291525901301714
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: hoes zicht hoes
+simulate_experiments DEBUG:['_h', 'ho', 'he', 'hs', 'oe', 'os', 'es', ' z', ' i', ' c', 'zi', 'zc', 'zh', 'ic', 'ih', 'it', 'ch', 'ct', 'ht', ' h', ' o', ' e', 's_']
+simulate_experiments DEBUG:bigram activity per cycle: 4.940246722841367
+simulate_experiments DEBUG:target index:[1]
+simulate_experiments DEBUG:target activity:[0.81505406]
+simulate_experiments DEBUG:stimulus activity:2.467642191422661
+simulate_experiments DEBUG:total activity: 36.03053423902896
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 2
+simulate_experiments DEBUG:recognized words ['_zicht_', '_zich_']
+
+simulate_experiments DEBUG:Stimulus: hoes zicht hoes
+simulate_experiments DEBUG:['_h', 'ho', 'he', 'hs', 'oe', 'os', 'es', ' z', ' i', ' c', 'zi', 'zc', 'zh', 'ic', 'ih', 'it', 'ch', 'ct', 'ht', ' h', ' o', ' e', 's_']
+simulate_experiments DEBUG:bigram activity per cycle: 4.940246722841367
+simulate_experiments DEBUG:target index:[1]
+simulate_experiments DEBUG:target activity:[0.37086603]
+simulate_experiments DEBUG:stimulus activity:2.2795257129108606
+simulate_experiments DEBUG:total activity: 38.55524864333711
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 1
+simulate_experiments DEBUG:recognized words ['_hoes_']
+
+simulate_experiments DEBUG:Stimulus: hoes zicht hoes
+simulate_experiments DEBUG:['_h', 'ho', 'he', 'hs', 'oe', 'os', 'es', ' z', ' i', ' c', 'zi', 'zc', 'zh', 'ic', 'ih', 'it', 'ch', 'ct', 'ht', ' h', ' o', ' e', 's_']
+simulate_experiments DEBUG:bigram activity per cycle: 4.940246722841367
+simulate_experiments DEBUG:target index:[1]
+simulate_experiments DEBUG:target activity:[0.6395356]
+simulate_experiments DEBUG:stimulus activity:1.088613639854951
+simulate_experiments DEBUG:total activity: 40.932409358283586
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 1
+simulate_experiments DEBUG:recognized words ['_hoe_']
+
+simulate_experiments DEBUG:Stimulus: hoes zicht hoes
+simulate_experiments DEBUG:['_h', 'ho', 'he', 'hs', 'oe', 'os', 'es', ' z', ' i', ' c', 'zi', 'zc', 'zh', 'ic', 'ih', 'it', 'ch', 'ct', 'ht', ' h', ' o', ' e', 's_']
+simulate_experiments DEBUG:bigram activity per cycle: 4.940246722841367
+simulate_experiments DEBUG:target index:[1]
+simulate_experiments DEBUG:target activity:[0.78171887]
+simulate_experiments DEBUG:stimulus activity:1.530852976206646
+simulate_experiments DEBUG:total activity: 42.849069327543496
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 3
+simulate_experiments DEBUG:recognized words ['_zicht_', '_hoe_', '_zich_']
+
+simulate_experiments DEBUG:Stimulus: hoes zicht hoes
+simulate_experiments DEBUG:['_h', 'ho', 'he', 'hs', 'oe', 'os', 'es', ' z', ' i', ' c', 'zi', 'zc', 'zh', 'ic', 'ih', 'it', 'ch', 'ct', 'ht', ' h', ' o', ' e', 's_']
+simulate_experiments DEBUG:bigram activity per cycle: 4.940246722841367
+simulate_experiments DEBUG:target index:[1]
+simulate_experiments DEBUG:target activity:[0.87662875]
+simulate_experiments DEBUG:stimulus activity:1.842333599335194
+simulate_experiments DEBUG:total activity: 44.032077894280285
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 3
+simulate_experiments DEBUG:recognized words ['_zicht_', '_hoe_', '_zich_']
+
+simulate_experiments INFO:reaction time: 350 ms
+simulate_experiments INFO:end of trial
+simulate_experiments INFO:trial: 2
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[3]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[3]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[3]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[3]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[3]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[3]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[3]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[3]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: vlees brug vlees
+simulate_experiments DEBUG:['_v', 'vl', 've', 'le', 'ls', 'ee', 'es', ' b', ' r', ' u', 'br', 'bu', 'bg', 'ru', 'rg', 'ug', ' v', ' l', ' e', 's_']
+simulate_experiments DEBUG:bigram activity per cycle: 5.273631553899402
+simulate_experiments DEBUG:target index:[3]
+simulate_experiments DEBUG:target activity:[0.4236984]
+simulate_experiments DEBUG:stimulus activity:1.651149020403838
+simulate_experiments DEBUG:total activity: 24.27152766790425
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: vlees brug vlees
+simulate_experiments DEBUG:['_v', 'vl', 've', 'le', 'ls', 'ee', 'es', ' b', ' r', ' u', 'br', 'bu', 'bg', 'ru', 'rg', 'ug', ' v', ' l', ' e', 's_']
+simulate_experiments DEBUG:bigram activity per cycle: 5.273631553899402
+simulate_experiments DEBUG:target index:[3]
+simulate_experiments DEBUG:target activity:[0.68238851]
+simulate_experiments DEBUG:stimulus activity:2.318272513441393
+simulate_experiments DEBUG:total activity: 32.17283939902111
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 1
+simulate_experiments DEBUG:recognized words ['_vlees_']
+
+simulate_experiments DEBUG:Stimulus: vlees brug vlees
+simulate_experiments DEBUG:['_v', 'vl', 've', 'le', 'ls', 'ee', 'es', ' b', ' r', ' u', 'br', 'bu', 'bg', 'ru', 'rg', 'ug', ' v', ' l', ' e', 's_']
+simulate_experiments DEBUG:bigram activity per cycle: 5.273631553899402
+simulate_experiments DEBUG:target index:[3]
+simulate_experiments DEBUG:target activity:[0.87495648]
+simulate_experiments DEBUG:stimulus activity:1.5815464530662473
+simulate_experiments DEBUG:total activity: 36.34787781946177
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 1
+simulate_experiments DEBUG:recognized words ['_brug_']
+
+simulate_experiments DEBUG:Stimulus: vlees brug vlees
+simulate_experiments DEBUG:['_v', 'vl', 've', 'le', 'ls', 'ee', 'es', ' b', ' r', ' u', 'br', 'bu', 'bg', 'ru', 'rg', 'ug', ' v', ' l', ' e', 's_']
+simulate_experiments DEBUG:bigram activity per cycle: 5.273631553899402
+simulate_experiments DEBUG:target index:[3]
+simulate_experiments DEBUG:target activity:[0.40640377]
+simulate_experiments DEBUG:stimulus activity:1.6490321706264661
+simulate_experiments DEBUG:total activity: 38.70185684689763
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 1
+simulate_experiments DEBUG:recognized words ['_alles_']
+
+simulate_experiments DEBUG:Stimulus: vlees brug vlees
+simulate_experiments DEBUG:['_v', 'vl', 've', 'le', 'ls', 'ee', 'es', ' b', ' r', ' u', 'br', 'bu', 'bg', 'ru', 'rg', 'ug', ' v', ' l', ' e', 's_']
+simulate_experiments DEBUG:bigram activity per cycle: 5.273631553899402
+simulate_experiments DEBUG:target index:[3]
+simulate_experiments DEBUG:target activity:[0.66304376]
+simulate_experiments DEBUG:stimulus activity:2.1390202815338584
+simulate_experiments DEBUG:total activity: 40.43007362877741
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: vlees brug vlees
+simulate_experiments DEBUG:['_v', 'vl', 've', 'le', 'ls', 'ee', 'es', ' b', ' r', ' u', 'br', 'bu', 'bg', 'ru', 'rg', 'ug', ' v', ' l', ' e', 's_']
+simulate_experiments DEBUG:bigram activity per cycle: 5.273631553899402
+simulate_experiments DEBUG:target index:[3]
+simulate_experiments DEBUG:target activity:[0.82588553]
+simulate_experiments DEBUG:stimulus activity:2.4496669890643465
+simulate_experiments DEBUG:total activity: 41.94597673526795
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 3
+simulate_experiments DEBUG:recognized words ['_vlees_', '_brug_', '_zes_']
+
+simulate_experiments DEBUG:Stimulus: vlees brug vlees
+simulate_experiments DEBUG:['_v', 'vl', 've', 'le', 'ls', 'ee', 'es', ' b', ' r', ' u', 'br', 'bu', 'bg', 'ru', 'rg', 'ug', ' v', ' l', ' e', 's_']
+simulate_experiments DEBUG:bigram activity per cycle: 5.273631553899402
+simulate_experiments DEBUG:target index:[3]
+simulate_experiments DEBUG:target activity:[0.92960745]
+simulate_experiments DEBUG:stimulus activity:2.6535516962639702
+simulate_experiments DEBUG:total activity: 43.015478760687685
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 4
+simulate_experiments DEBUG:recognized words ['_vlees_', '_brug_', '_wees_', '_zes_']
+
+simulate_experiments INFO:reaction time: 350 ms
+simulate_experiments INFO:end of trial
+simulate_experiments INFO:trial: 3
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[5]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[5]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[5]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[5]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[5]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[5]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[5]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[5]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: kool eend kool
+simulate_experiments DEBUG:['_k', 'ko', 'kl', 'oo', 'ol', ' e', ' n', 'ee', 'en', 'ed', 'nd', ' k', ' o', 'l_']
+simulate_experiments DEBUG:bigram activity per cycle: 4.946377998236459
+simulate_experiments DEBUG:target index:[5]
+simulate_experiments DEBUG:target activity:[0.37385654]
+simulate_experiments DEBUG:stimulus activity:1.678905904707909
+simulate_experiments DEBUG:total activity: 26.989380685465395
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: kool eend kool
+simulate_experiments DEBUG:['_k', 'ko', 'kl', 'oo', 'ol', ' e', ' n', 'ee', 'en', 'ed', 'nd', ' k', ' o', 'l_']
+simulate_experiments DEBUG:bigram activity per cycle: 4.946377998236459
+simulate_experiments DEBUG:target index:[5]
+simulate_experiments DEBUG:target activity:[0.4136141]
+simulate_experiments DEBUG:stimulus activity:2.2572183815035247
+simulate_experiments DEBUG:total activity: 25.833049909137348
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 1
+simulate_experiments DEBUG:recognized words ['_kool_']
+
+simulate_experiments DEBUG:Stimulus: kool eend kool
+simulate_experiments DEBUG:['_k', 'ko', 'kl', 'oo', 'ol', ' e', ' n', 'ee', 'en', 'ed', 'nd', ' k', ' o', 'l_']
+simulate_experiments DEBUG:bigram activity per cycle: 4.946377998236459
+simulate_experiments DEBUG:target index:[5]
+simulate_experiments DEBUG:target activity:[0.51856337]
+simulate_experiments DEBUG:stimulus activity:1.7661755240326942
+simulate_experiments DEBUG:total activity: 33.28936245663155
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: kool eend kool
+simulate_experiments DEBUG:['_k', 'ko', 'kl', 'oo', 'ol', ' e', ' n', 'ee', 'en', 'ed', 'nd', ' k', ' o', 'l_']
+simulate_experiments DEBUG:bigram activity per cycle: 4.946377998236459
+simulate_experiments DEBUG:target index:[5]
+simulate_experiments DEBUG:target activity:[0.55932451]
+simulate_experiments DEBUG:stimulus activity:2.2993549011524825
+simulate_experiments DEBUG:total activity: 36.545240215668315
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 2
+simulate_experiments DEBUG:recognized words ['_kool_', '_kom_']
+
+simulate_experiments DEBUG:Stimulus: kool eend kool
+simulate_experiments DEBUG:['_k', 'ko', 'kl', 'oo', 'ol', ' e', ' n', 'ee', 'en', 'ed', 'nd', ' k', ' o', 'l_']
+simulate_experiments DEBUG:bigram activity per cycle: 4.946377998236459
+simulate_experiments DEBUG:target index:[5]
+simulate_experiments DEBUG:target activity:[0.63318033]
+simulate_experiments DEBUG:stimulus activity:1.644763182620157
+simulate_experiments DEBUG:total activity: 38.74117583198755
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 4
+simulate_experiments DEBUG:recognized words ['_dool_', '_kom_', '_kop_', '_vol_']
+
+simulate_experiments DEBUG:Stimulus: kool eend kool
+simulate_experiments DEBUG:['_k', 'ko', 'kl', 'oo', 'ol', ' e', ' n', 'ee', 'en', 'ed', 'nd', ' k', ' o', 'l_']
+simulate_experiments DEBUG:bigram activity per cycle: 4.946377998236459
+simulate_experiments DEBUG:target index:[5]
+simulate_experiments DEBUG:target activity:[0.64934789]
+simulate_experiments DEBUG:stimulus activity:2.2195770734069686
+simulate_experiments DEBUG:total activity: 40.3624645958098
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 4
+simulate_experiments DEBUG:recognized words ['_kom_', '_school_', '_kop_', '_vol_']
+
+simulate_experiments DEBUG:Stimulus: kool eend kool
+simulate_experiments DEBUG:['_k', 'ko', 'kl', 'oo', 'ol', ' e', ' n', 'ee', 'en', 'ed', 'nd', ' k', ' o', 'l_']
+simulate_experiments DEBUG:bigram activity per cycle: 4.946377998236459
+simulate_experiments DEBUG:target index:[5]
+simulate_experiments DEBUG:target activity:[0.65957686]
+simulate_experiments DEBUG:stimulus activity:2.528700953066796
+simulate_experiments DEBUG:total activity: 42.15222955021368
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 6
+simulate_experiments DEBUG:recognized words ['_kool_', '_kroop_', '_kom_', '_school_', '_kop_', '_vol_']
+
+simulate_experiments INFO:reaction time: 475 ms
+simulate_experiments INFO:end of trial
+simulate_experiments INFO:trial: 4
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[7]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[7]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[7]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[7]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[7]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[7]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[7]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[7]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: lava auto lava
+simulate_experiments DEBUG:['_l', 'la', 'lv', 'av', 'aa', 'va', ' a', ' u', ' t', 'au', 'at', 'ao', 'ut', 'uo', 'to', ' l', ' v', 'a_']
+simulate_experiments DEBUG:bigram activity per cycle: 4.946377998236459
+simulate_experiments DEBUG:target index:[7]
+simulate_experiments DEBUG:target activity:[0.42326911]
+simulate_experiments DEBUG:stimulus activity:1.6237065363821923
+simulate_experiments DEBUG:total activity: 13.19154880810922
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: lava auto lava
+simulate_experiments DEBUG:['_l', 'la', 'lv', 'av', 'aa', 'va', ' a', ' u', ' t', 'au', 'at', 'ao', 'ut', 'uo', 'to', ' l', ' v', 'a_']
+simulate_experiments DEBUG:bigram activity per cycle: 4.946377998236459
+simulate_experiments DEBUG:target index:[7]
+simulate_experiments DEBUG:target activity:[0.67967838]
+simulate_experiments DEBUG:stimulus activity:2.4433393149203444
+simulate_experiments DEBUG:total activity: 22.649429586142514
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 1
+simulate_experiments DEBUG:recognized words ['_lava_']
+
+simulate_experiments DEBUG:Stimulus: lava auto lava
+simulate_experiments DEBUG:['_l', 'la', 'lv', 'av', 'aa', 'va', ' a', ' u', ' t', 'au', 'at', 'ao', 'ut', 'uo', 'to', ' l', ' v', 'a_']
+simulate_experiments DEBUG:bigram activity per cycle: 4.946377998236459
+simulate_experiments DEBUG:target index:[7]
+simulate_experiments DEBUG:target activity:[0.83536483]
+simulate_experiments DEBUG:stimulus activity:2.047708072536782
+simulate_experiments DEBUG:total activity: 28.805991238279994
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 1
+simulate_experiments DEBUG:recognized words ['_auto_']
+
+simulate_experiments DEBUG:Stimulus: lava auto lava
+simulate_experiments DEBUG:['_l', 'la', 'lv', 'av', 'aa', 'va', ' a', ' u', ' t', 'au', 'at', 'ao', 'ut', 'uo', 'to', ' l', ' v', 'a_']
+simulate_experiments DEBUG:bigram activity per cycle: 4.946377998236459
+simulate_experiments DEBUG:target index:[7]
+simulate_experiments DEBUG:target activity:[0.41791806]
+simulate_experiments DEBUG:stimulus activity:2.135844305991732
+simulate_experiments DEBUG:total activity: 32.95068809742632
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 2
+simulate_experiments DEBUG:recognized words ['_lava_', '_laat_']
+
+simulate_experiments DEBUG:Stimulus: lava auto lava
+simulate_experiments DEBUG:['_l', 'la', 'lv', 'av', 'aa', 'va', ' a', ' u', ' t', 'au', 'at', 'ao', 'ut', 'uo', 'to', ' l', ' v', 'a_']
+simulate_experiments DEBUG:bigram activity per cycle: 4.946377998236459
+simulate_experiments DEBUG:target index:[7]
+simulate_experiments DEBUG:target activity:[0.68475198]
+simulate_experiments DEBUG:stimulus activity:1.7095621583647118
+simulate_experiments DEBUG:total activity: 35.858067219242756
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 1
+simulate_experiments DEBUG:recognized words ['_laat_']
+
+simulate_experiments DEBUG:Stimulus: lava auto lava
+simulate_experiments DEBUG:['_l', 'la', 'lv', 'av', 'aa', 'va', ' a', ' u', ' t', 'au', 'at', 'ao', 'ut', 'uo', 'to', ' l', ' v', 'a_']
+simulate_experiments DEBUG:bigram activity per cycle: 4.946377998236459
+simulate_experiments DEBUG:target index:[7]
+simulate_experiments DEBUG:target activity:[0.82464615]
+simulate_experiments DEBUG:stimulus activity:2.4016338593573545
+simulate_experiments DEBUG:total activity: 38.270653360798484
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 2
+simulate_experiments DEBUG:recognized words ['_auto_', '_laat_']
+
+simulate_experiments DEBUG:Stimulus: lava auto lava
+simulate_experiments DEBUG:['_l', 'la', 'lv', 'av', 'aa', 'va', ' a', ' u', ' t', 'au', 'at', 'ao', 'ut', 'uo', 'to', ' l', ' v', 'a_']
+simulate_experiments DEBUG:bigram activity per cycle: 4.946377998236459
+simulate_experiments DEBUG:target index:[7]
+simulate_experiments DEBUG:target activity:[0.91612756]
+simulate_experiments DEBUG:stimulus activity:2.7981039408571204
+simulate_experiments DEBUG:total activity: 39.85684319695304
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 3
+simulate_experiments DEBUG:recognized words ['_lava_', '_auto_', '_laat_']
+
+simulate_experiments INFO:reaction time: 475 ms
+simulate_experiments INFO:end of trial
+simulate_experiments INFO:trial: 5
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[9]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[9]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[9]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[9]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[9]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[9]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[9]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[9]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: wolk grot wolk
+simulate_experiments DEBUG:['_w', 'wo', 'wl', 'wk', 'ol', 'ok', 'lk', ' g', ' r', ' o', 'gr', 'go', 'gt', 'ro', 'rt', 'ot', ' w', ' l', 'k_']
+simulate_experiments DEBUG:bigram activity per cycle: 4.946377998236459
+simulate_experiments DEBUG:target index:[9]
+simulate_experiments DEBUG:target activity:[0.41871857]
+simulate_experiments DEBUG:stimulus activity:1.511059215740847
+simulate_experiments DEBUG:total activity: 14.83027014050834
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: wolk grot wolk
+simulate_experiments DEBUG:['_w', 'wo', 'wl', 'wk', 'ol', 'ok', 'lk', ' g', ' r', ' o', 'gr', 'go', 'gt', 'ro', 'rt', 'ot', ' w', ' l', 'k_']
+simulate_experiments DEBUG:bigram activity per cycle: 4.946377998236459
+simulate_experiments DEBUG:target index:[9]
+simulate_experiments DEBUG:target activity:[0.6612069]
+simulate_experiments DEBUG:stimulus activity:2.2906852899161794
+simulate_experiments DEBUG:total activity: 25.239496988963985
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 1
+simulate_experiments DEBUG:recognized words ['_wolk_']
+
+simulate_experiments DEBUG:Stimulus: wolk grot wolk
+simulate_experiments DEBUG:['_w', 'wo', 'wl', 'wk', 'ol', 'ok', 'lk', ' g', ' r', ' o', 'gr', 'go', 'gt', 'ro', 'rt', 'ot', ' w', ' l', 'k_']
+simulate_experiments DEBUG:bigram activity per cycle: 4.946377998236459
+simulate_experiments DEBUG:target index:[9]
+simulate_experiments DEBUG:target activity:[0.80232692]
+simulate_experiments DEBUG:stimulus activity:1.856539293437229
+simulate_experiments DEBUG:total activity: 31.78094064556885
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 1
+simulate_experiments DEBUG:recognized words ['_grot_']
+
+simulate_experiments DEBUG:Stimulus: wolk grot wolk
+simulate_experiments DEBUG:['_w', 'wo', 'wl', 'wk', 'ol', 'ok', 'lk', ' g', ' r', ' o', 'gr', 'go', 'gt', 'ro', 'rt', 'ot', ' w', ' l', 'k_']
+simulate_experiments DEBUG:bigram activity per cycle: 4.946377998236459
+simulate_experiments DEBUG:target index:[9]
+simulate_experiments DEBUG:target activity:[0.36213209]
+simulate_experiments DEBUG:stimulus activity:1.8746586628532866
+simulate_experiments DEBUG:total activity: 35.982637419433104
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 2
+simulate_experiments DEBUG:recognized words ['_grote_', '_groot_']
+
+simulate_experiments DEBUG:Stimulus: wolk grot wolk
+simulate_experiments DEBUG:['_w', 'wo', 'wl', 'wk', 'ol', 'ok', 'lk', ' g', ' r', ' o', 'gr', 'go', 'gt', 'ro', 'rt', 'ot', ' w', ' l', 'k_']
+simulate_experiments DEBUG:bigram activity per cycle: 4.946377998236459
+simulate_experiments DEBUG:target index:[9]
+simulate_experiments DEBUG:target activity:[0.56473189]
+simulate_experiments DEBUG:stimulus activity:2.3369506275201957
+simulate_experiments DEBUG:total activity: 39.06938733215134
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 3
+simulate_experiments DEBUG:recognized words ['_wolk_', '_grote_', '_groot_']
+
+simulate_experiments DEBUG:Stimulus: wolk grot wolk
+simulate_experiments DEBUG:['_w', 'wo', 'wl', 'wk', 'ol', 'ok', 'lk', ' g', ' r', ' o', 'gr', 'go', 'gt', 'ro', 'rt', 'ot', ' w', ' l', 'k_']
+simulate_experiments DEBUG:bigram activity per cycle: 4.946377998236459
+simulate_experiments DEBUG:target index:[9]
+simulate_experiments DEBUG:target activity:[0.73838887]
+simulate_experiments DEBUG:stimulus activity:1.498666950219702
+simulate_experiments DEBUG:total activity: 40.89373727959576
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 4
+simulate_experiments DEBUG:recognized words ['_wrok_', '_wil_', '_grote_', '_groot_']
+
+simulate_experiments DEBUG:Stimulus: wolk grot wolk
+simulate_experiments DEBUG:['_w', 'wo', 'wl', 'wk', 'ol', 'ok', 'lk', ' g', ' r', ' o', 'gr', 'go', 'gt', 'ro', 'rt', 'ot', ' w', ' l', 'k_']
+simulate_experiments DEBUG:bigram activity per cycle: 4.946377998236459
+simulate_experiments DEBUG:target index:[9]
+simulate_experiments DEBUG:target activity:[0.82386399]
+simulate_experiments DEBUG:stimulus activity:2.0582074659335543
+simulate_experiments DEBUG:total activity: 42.6225507649883
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 5
+simulate_experiments DEBUG:recognized words ['_grot_', '_wrok_', '_wil_', '_grote_', '_groot_']
+
+simulate_experiments INFO:reaction time: 475 ms
+simulate_experiments INFO:end of trial
+simulate_experiments INFO:trial: 6
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[11]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[11]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[11]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[11]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[11]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[11]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[11]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: fixation cross
+simulate_experiments DEBUG:['_+', '+_']
+simulate_experiments DEBUG:bigram activity per cycle: 0.5398160162368384
+simulate_experiments DEBUG:target index:[11]
+simulate_experiments DEBUG:target activity:[0.]
+simulate_experiments DEBUG:stimulus activity:0
+simulate_experiments DEBUG:total activity: 0.0
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: vlok lijst vlok
+simulate_experiments DEBUG:['_v', 'vl', 'vo', 'vk', 'lo', 'lk', 'ok', ' l', ' i', ' j', 'li', 'lj', 'ls', 'ij', 'is', 'it', 'js', 'jt', 'st', ' v', ' o', 'k_']
+simulate_experiments DEBUG:bigram activity per cycle: 4.9402467228413665
+simulate_experiments INFO:done plotting
+simulate_experiments DEBUG:target index:[11]
+simulate_experiments DEBUG:target activity:[0.41875726]
+simulate_experiments DEBUG:stimulus activity:1.4631718277854797
+simulate_experiments DEBUG:total activity: 15.346684575209803
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: vlok lijst vlok
+simulate_experiments DEBUG:['_v', 'vl', 'vo', 'vk', 'lo', 'lk', 'ok', ' l', ' i', ' j', 'li', 'lj', 'ls', 'ij', 'is', 'it', 'js', 'jt', 'st', ' v', ' o', 'k_']
+simulate_experiments DEBUG:bigram activity per cycle: 4.9402467228413665
+simulate_experiments INFO:done plotting
+simulate_experiments DEBUG:target index:[11]
+simulate_experiments DEBUG:target activity:[0.6592389]
+simulate_experiments DEBUG:stimulus activity:2.246802053076263
+simulate_experiments DEBUG:total activity: 26.40556169735112
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: vlok lijst vlok
+simulate_experiments DEBUG:['_v', 'vl', 'vo', 'vk', 'lo', 'lk', 'ok', ' l', ' i', ' j', 'li', 'lj', 'ls', 'ij', 'is', 'it', 'js', 'jt', 'st', ' v', ' o', 'k_']
+simulate_experiments DEBUG:bigram activity per cycle: 4.9402467228413665
+simulate_experiments INFO:done plotting
+simulate_experiments DEBUG:target index:[11]
+simulate_experiments DEBUG:target activity:[0.79687168]
+simulate_experiments DEBUG:stimulus activity:2.6688669951912374
+simulate_experiments DEBUG:total activity: 33.74681189330736
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 2
+simulate_experiments DEBUG:recognized words ['_vlok_', '_lijst_']
+
+simulate_experiments DEBUG:Stimulus: vlok lijst vlok
+simulate_experiments DEBUG:['_v', 'vl', 'vo', 'vk', 'lo', 'lk', 'ok', ' l', ' i', ' j', 'li', 'lj', 'ls', 'ij', 'is', 'it', 'js', 'jt', 'st', ' v', ' o', 'k_']
+simulate_experiments DEBUG:bigram activity per cycle: 4.9402467228413665
+simulate_experiments INFO:done plotting
+simulate_experiments DEBUG:target index:[11]
+simulate_experiments DEBUG:target activity:[0.34869577]
+simulate_experiments DEBUG:stimulus activity:1.2285544496039758
+simulate_experiments DEBUG:total activity: 37.94410589336628
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 0
+simulate_experiments DEBUG:recognized words []
+
+simulate_experiments DEBUG:Stimulus: vlok lijst vlok
+simulate_experiments DEBUG:['_v', 'vl', 'vo', 'vk', 'lo', 'lk', 'ok', ' l', ' i', ' j', 'li', 'lj', 'ls', 'ij', 'is', 'it', 'js', 'jt', 'st', ' v', ' o', 'k_']
+simulate_experiments DEBUG:bigram activity per cycle: 4.9402467228413665
+simulate_experiments INFO:done plotting
+simulate_experiments DEBUG:target index:[11]
+simulate_experiments DEBUG:target activity:[0.54019074]
+simulate_experiments DEBUG:stimulus activity:1.9262983817666681
+simulate_experiments DEBUG:total activity: 41.53132994649829
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 3
+simulate_experiments DEBUG:recognized words ['_is_', '_ook_', '_vol_']
+
+simulate_experiments DEBUG:Stimulus: vlok lijst vlok
+simulate_experiments DEBUG:['_v', 'vl', 'vo', 'vk', 'lo', 'lk', 'ok', ' l', ' i', ' j', 'li', 'lj', 'ls', 'ij', 'is', 'it', 'js', 'jt', 'st', ' v', ' o', 'k_']
+simulate_experiments DEBUG:bigram activity per cycle: 4.9402467228413665
+simulate_experiments INFO:done plotting
+simulate_experiments DEBUG:target index:[11]
+simulate_experiments DEBUG:target activity:[0.66961416]
+simulate_experiments DEBUG:stimulus activity:2.3582340192907836
+simulate_experiments DEBUG:total activity: 43.81020520925293
+simulate_experiments DEBUG:nr. above thresh. in lexicon: 3
+simulate_experiments DEBUG:recognized words ['_is_', '_ook_', '_vol_']
+
+simulate_experiments DEBUG:Stimulus: vlok lijst vlok
+simulate_experiments DEBUG:['_v', 'vl', 'vo', 'vk', 'lo', 'lk', 'ok', ' l', ' i', ' j', 'li', 'lj', 'ls', 'ij', 'is', 'it', 'js', 'jt', 'st', ' v', ' o', 'k_']
+simulate_experiments DEBUG:bigram activity per cycle: 4.9402467228413665

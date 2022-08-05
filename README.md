@@ -1,3 +1,19 @@
+
+### note august 2022
+The mechanisms concerning the grammar predictability for the tasks Classification and Transposed 
+have been merged into the main model. Code written by Beatriz
+
+The slot-matching mechanism written by Martijn has also been merged. 
+
+TODO: the slot matching mechanism contains faults, as it creates some obvious mistakes during sentence reading. 
+The grammar prob code of Beatriz is functional, but is a little disorganized. The goals of the code should be cleared up with Beatriz 
+in order to better comprehend the code and clean it up. 
+
+A lot of foreign code has been integrated into the model. As such, it is harder to comprehend and verify. 
+The code should still be thoroughly tested for typos and coding mistakes, once above mentionned steps have been taken.
+
+Contact Nathan vaartjes if in trouble
+
 ### Note April 2022: current state of model and recent mods
 The inhibition matrix calculation is the most expensive step in the model. Therefore, the code now first checks if the last run was with the same parameters relevant for inhibition,
 and if so, uses the previous inhibition matrix, thereby saving redundant computation.

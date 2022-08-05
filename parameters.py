@@ -21,7 +21,7 @@ def return_global_params():
 
     """
 
-    task_to_run = 'Classification'  # NV: task to run. can be one of: Flanker, Sentence, EmbeddedWords, Classification, Transposed or PSCall
+    task_to_run = 'Flanker'  # NV: task to run. can be one of: Flanker, Sentence, EmbeddedWords, Classification, Transposed or PSCall
     
     possible_tasks =  ["EmbeddedWords", "Sentence", "Flanker", "Classification", "Transposed", "PSCall"] 
 
@@ -172,7 +172,7 @@ def return_task_params(task_attributes):
         
         # milliseconds that one model cycle is supposed to last (brain time, not model time)
         CYCLE_SIZE = 25
-        attendWidth = 8.0 # was set to 3 for transposed and classification
+        attendWidth = 8.0 # NV: #!!!: was set to 15 for flanker, 20 for sentence and 3 for transposed
 
         use_grammar_prob = True  # True for using grammar probabilities, False for using cloze, overwritten by uniform_pred                   
         uniform_pred = False  # Overwrites cloze/grammar probabilities with 0.25 for all words

@@ -26,13 +26,15 @@ now = datetime.now()
 dt_string = now.strftime("_%d_%m_%Y_%H-%M-%S")
 
 # will create a new file everytime, stamped with date and time. #TODO; build system to keep only last X logs
-logging.basicConfig(filename=f'logs/logfile{dt_string}.log', encoding='utf-8',
-                    filemode='w', level=logging.DEBUG, force=True)
+logging.basicConfig(filename=f'logs/logfile{dt_string}.log', encoding='utf-8', force=True,
+                    filemode='w', level=logging.DEBUG, format='%(name)s %(levelname)s:%(message)s')
+
+logger = logging.getLogger(__name__)
 
 pm = return_params()  # NV: get all parameters as an object
 task = pm.task_to_run  # NV: get name
 
-logging.debug(pm)
+logger.debug(pm)
 
 print("Task:"+task)
 

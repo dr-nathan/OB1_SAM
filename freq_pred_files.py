@@ -157,6 +157,9 @@ def create_freq_file(freqthreshold, nr_highfreqwords):
 
 
 def create_pred_file(task, file_freq_dict_length):
+    
+    #!!!: this file, as of now, does not create pred files, but imports precomputed pred values 
+    # for the Classification and Transposed tasks only. 
        
     #for these tasks, grammar prob is not implemented. So output list with 1's, that will be overwritten later on 
     # (just so the function does not crash)
@@ -182,19 +185,30 @@ def create_pred_file(task, file_freq_dict_length):
     output_file_pred_map = "Data/"+task+"_predictions_map_"+pm.short[pm.language]+".dat"
     with open(output_file_pred_map, "wb") as f:
         pickle.dump(word_pred_values, f)
+
         
-def get_freq_pred_files(task, pm): #NV: merged the de, fr and en versions. All files have now the task name and language embedded in file name
+def get_freq_files(task, pm): #NV: merged the de, fr and en versions. All files have now the task name and language embedded in file name
         
     try: 
         output_word_frequency_map = "Data/"+task+"_frequency_map_"+pm.short[pm.language]+".dat"
         with open (output_word_frequency_map,"rb") as f:
             word_freq_dict = pickle.load(f, encoding="latin1") # For Python3
             
+        
+        return word_freq_dict
+    
+    #NV: hint to help troubleshoot
+    except:
+        raise(FileNotFoundError("Run freq_pred_files.py first!"))
+    
+def get_pred_files(task, pm): #NV: merged the de, fr and en versions. All files have now the task name and language embedded in file name
+
+    try:
         output_word_predictions_map = "Data/"+task+"_predictions_map_"+pm.short[pm.language]+".dat"
         with open (output_word_predictions_map,"rb") as p:
             word_pred_dict = pickle.load(p, encoding="latin1") # For Python3
         
-        return word_freq_dict, word_pred_dict
+        return word_pred_dict
     
     #NV: hint to help troubleshoot
     except:
