@@ -956,7 +956,8 @@ def plot_runtime(stimulus, N_ngrams_lexicon, lexicon_activewords_np, lexicon_wor
         
     
 def plot_inhib_spectrum(lexicon, lexicon_activewords_np, inhib_spectrum1, inhib_spectrum2,
-                        index_num1, index_num2):
+                        index_num1, index_num2, inhib_spectrum1_indices, inhib_spectrum2_indices, 
+                        cur_cycle):
 
     if any(lexicon_activewords_np):
         fig, axes = plt.subplots(1, 2)
@@ -964,17 +965,15 @@ def plot_inhib_spectrum(lexicon, lexicon_activewords_np, inhib_spectrum1, inhib_
         
         x_coord=0
         
-        for (IS, index_num) in [(inhib_spectrum1,index_num1) , (inhib_spectrum2, index_num2)]:
-            
-            highest_words = IS.argsort()[:10]
+        for (IS, index_num, indices) in [(inhib_spectrum1,index_num1, inhib_spectrum1_indices) , (inhib_spectrum2, index_num2, inhib_spectrum2_indices)]:
         
             sns.stripplot(ax=axes[x_coord],
-                          x=np.array(lexicon)[lexicon_activewords_np == True][highest_words], 
-                          y = IS[highest_words])
+                          x=np.array(lexicon)[lexicon_activewords_np == True][indices][:10], 
+                          y = IS[:10])
             axes[x_coord].set_title(lexicon[index_num])
             x_coord+=1
             
-        plt.suptitle('inhib spectrum overlap+lexicon squared')
+        plt.suptitle(f'{cur_cycle = }')
         plt.show()
     else:
         pass

@@ -22,8 +22,6 @@ def return_global_params():
     """
 
     task_to_run = 'EmbeddedWords'  # NV: task to run. can be one of: Flanker, Sentence, EmbeddedWords, Classification, Transposed or PSCall
-    
-    possible_tasks =  ["EmbeddedWords", "Sentence", "Flanker", "Classification", "Transposed", "PSCall"] 
 
     # NV: dictionnary for abbreviations, useful for filenames
     short = {'french': 'fr', 'german': 'de', 'english': 'en', 'dutch': 'nl'}
@@ -33,7 +31,7 @@ def return_global_params():
     optimize = False  # Should the parameters be optimized using evolutionary algorithms?
 
     print_all = True
-    plotting = True
+    plotting = False
 
     return dict(locals())  # return dict of all local variables
 
@@ -41,6 +39,7 @@ def return_global_params():
 
 
 class TaskAttributes:
+    #class to have an object that holds all parameters of task. Also permits to set defaults
 
     def __init__(self, stim, stimAll, language, stimcycles, is_experiment,
                  is_priming_task=False, blankscreen_type='blank', blankscreen_cycles_begin=0,
@@ -196,10 +195,10 @@ def return_task_params(task_attributes):
         ## Monoweight = 1
         decay = -0.05  # 0.08 #-0.053
         # inp. divided by #ngrams, so this param estimates excit per word [diff from paper]
-        bigram_to_word_excitation = 3.0 # 1.25  #2.18 for classification and transposed
+        bigram_to_word_excitation = 1.65 # 1.25  #2.18 for classification and transposed
         # general inhibition on all words. The more active bigrams, the more general inhibition. 
         bigram_to_word_inhibition = 0 #-0.05 #-0.001 
-        word_inhibition = -0.6 #-0.015  # -.0018 #-0.005#-0.07 #-0.0165
+        word_inhibition = -1.2 #-0.015  # -.0018 #-0.005#-0.07 #-0.0165
         # NV: determines how similar the length of 2 words must be for them to be recognised as 'similar word length'
         word_length_similarity_constant = 0.15
 
@@ -280,7 +279,7 @@ def return_task_params(task_attributes):
         decay = -0.08  # -0.053
         # 2.18 # inp. divded by #ngrams, so this param estimates excit per word [diff from paper]
         bigram_to_word_excitation = 3.09269333333
-        bigram_to_word_inhibition = -0.20625  # -0.6583500000000001 # -0.55
+        bigram_to_word_inhibition = -0.20625  # -0.65835 # -0.55
         word_inhibition = -0.0165  # -0.016093 #-0.011 # -0.002
         word_length_similarity_constant = 0.35
 

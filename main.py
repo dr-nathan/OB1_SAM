@@ -32,22 +32,24 @@ logging.basicConfig(filename=f'logs/logfile{dt_string}.log', encoding='utf-8', f
 logger = logging.getLogger(__name__)
 
 pm = return_params()  # NV: get all parameters as an object
-task = pm.task_to_run  # NV: get name
+task = pm.task_to_run  # NV: get name of task as individual object
 
 logger.debug(pm)
 
 print("Task:"+task)
-
 print("_----PARAMETERS----_")
 print("reading in " + pm.language)
 
 # NV: added uniform pred, which overwrites the 2 others if set to true
+
+#TODO: move to consistency checks in simulate_expriments
 if pm.uniform_pred:
     print("Using uniform 0.25 probabilities")
 elif pm.use_grammar_prob:
     print("Using syntax probabilities")
 else:
     print("Using cloze probabilities")
+    
 if pm.optimize:
     print("Using: "+pm.tuning_measure)
     if any(pm.objective):
@@ -60,7 +62,7 @@ print("-------------------")
 output_file_all_data, output_file_unrecognized_words = (
     "Results/alldata_"+task+".pkl", "Results/unrecognized_"+task+".pkl")
 
-start_time = time.time()
+start_time = time.perf_counter()
 
 if pm.is_experiment:  # NV: if the task is an experiment
     if pm.run_exp:
@@ -99,18 +101,19 @@ if pm.is_experiment:  # NV: if the task is an experiment
 
 else:  # NV: if not a task, run simulation of text reading (german, PSC)
 
+
     if pm.language == "german":
         filename = "PSCmini"  # "PSC_ALL"
         filepath_psc = "PSC/" + filename + ".txt"
     # NV: for all other languages
     else:
-        raise NotImplementedError("language is not implemented yet")
+        raise NotImplementedError("language is not implemented for text reading")
 
     if pm.run_exp:
         # Run the reading model
         (lexicon, all_data, unrecognized_words, highest_act_words,
          act_above_threshold,
-         read_words) = reading_simulation(filepath_psc, parameters=[])
+         read_words) = reading_simulation(filepath_psc, parameters=pm)
         # GS these can be used for some debugging checks
         #highest_act_words, act_above_threshold, read_words
         # Save results: all_data...
@@ -140,5 +143,6 @@ else:  # NV: if not a task, run simulation of text reading (german, PSC)
             pickle.dump(results, f)
 
 
-time_elapsed = time.time()-start_time
+time_elapsed = time.perf_counter()-start_time
 print("Time elapsed: "+str(time_elapsed))
+
