@@ -10,10 +10,11 @@ import seaborn as sns
 import numpy as np
 from scipy import stats
 import pdb
+import nltk
 import pandas as pd
 import math
 import pickle
-from freq_pred_files import get_freq_pred_files
+from freq_pred_files import get_freq_files, get_pred_files
 from reading_common import get_stimulus_text_from_file
 from parameters import return_params
 
@@ -886,25 +887,96 @@ def plot_overlapmatrix_by(df_alldata_grouped_all,freqbins):
     df_overlap_grpby_length.plot(ax=axes[0])
     df_overlap_grpby_freq.plot(ax=axes[1])
 
-def plot_runtime(stimulus, N_ngrams_lexicon,lexicon_activewords_np, lexicon_word_inhibition_np, word_input_np, lexicon_total_input_np, lexicon_thresholds_np):
+def plot_runtime(stimulus, N_ngrams_lexicon, lexicon_activewords_np, lexicon_word_inhibition_np, 
+                 word_input_np, lexicon_word_activity_np, lexicon_thresholds_np, lexicon,
+                 words_to_annotate):
+    
+    ### Plot 1: plot 4 metrics per Ngram length
+    
     fig, axes = plt.subplots(2, 2)
-    fig.suptitle(f'stimulus:{stimulus}')
-    
-    sns.stripplot(ax=axes[0][0], x=np.array(N_ngrams_lexicon)[
-                  lexicon_activewords_np == True], y=word_input_np[lexicon_activewords_np == True])
-    axes[0][0].set_title('word activation per length ')
-    
-    sns.stripplot(ax=axes[0][1], x=np.array(N_ngrams_lexicon)[
-                  lexicon_activewords_np == True], y=lexicon_word_inhibition_np[lexicon_activewords_np == True])
-    axes[0][1].set_title('word inhibition per length ')
-    
-    sns.stripplot(ax=axes[1][0], x=np.array(N_ngrams_lexicon)[
-                  lexicon_activewords_np == True], y=lexicon_total_input_np[lexicon_activewords_np == True])
-    axes[1][0].set_title('total word activity per length, for active words')
-    
-    sns.stripplot(ax=axes[1][1], x=np.array(N_ngrams_lexicon)[
-                  lexicon_activewords_np == True], y=lexicon_thresholds_np[lexicon_activewords_np == True])
-    axes[1][1].set_title('thresholds, per length')
+    fig.suptitle(f'{stimulus = }')
     
     fig.set_size_inches(10, 10)
+    
+    #get highest active words to mark them
+    highest_words = np.argpartition(word_input_np, -4)[-4:]
+    words_to_annotate.extend(highest_words)
+    
+    #make list of affix indexes
+    affixes=np.array(['word' if word.startswith('_') else 'affix' for word in lexicon])[lexicon_activewords_np == True]
+    
+    #loop over plots
+    for (x_coord, y_coord, x_type, y_type, title) in [(0,0,N_ngrams_lexicon, word_input_np, 'word activation per length '),
+                                               (0,1,N_ngrams_lexicon, lexicon_word_inhibition_np, 'word inhibition per length '),
+                                               (1,0,N_ngrams_lexicon, lexicon_word_activity_np, 'total word activity per length'),
+                                               (1,1,N_ngrams_lexicon, lexicon_thresholds_np, 'word thresholds per length')]:
+        
+        #plot relevant metric (only plot active words) on relevant axes
+        sns.stripplot(ax=axes[x_coord][y_coord], x=np.array(x_type)[lexicon_activewords_np == True],
+                      y=y_type[lexicon_activewords_np == True], hue = affixes)
+        axes[x_coord][y_coord].set_title(title)
+        
+        #annotate most active words
+        for word in words_to_annotate:
+            x = x_type[word]
+            y = y_type[word]
+            axes[x_coord][y_coord].plot(x, y, 'ro')
+            axes[x_coord][y_coord].text(x, y, f'{lexicon[word]}')
+
+    
+    
     plt.show()
+    
+    ### Plot 2: plot 4 metrics per distance from stimulus
+    
+    fig, axes = plt.subplots(2, 2)
+    fig.suptitle(f'{stimulus = }')
+    fig.set_size_inches(10, 10)
+    
+    #x axis: distance from stimulus
+    x_type = np.array([nltk.edit_distance(stimulus.replace('_', ''), x.replace('_', '')) for x in lexicon])
+    
+    for (x_coord, y_coord, x_type, y_type, title) in \
+        [(0,0, x_type, word_input_np, 'word activation per distance '),
+        (0,1,x_type, lexicon_word_inhibition_np, 'word inhibition per distance '),
+        (1,0, x_type, lexicon_word_activity_np, 'total word activity per distance'),
+        (1,1, x_type, lexicon_thresholds_np, 'word thresholds per distance')]:
+    
+        sns.stripplot(ax=axes[x_coord][y_coord], x=np.array(x_type)[lexicon_activewords_np == True], 
+                      y=y_type[lexicon_activewords_np == True], hue = affixes)
+        axes[x_coord][y_coord].set_title(title)
+        
+        for word in words_to_annotate:
+            x = x_type[word]
+            y = y_type[word]
+            axes[x_coord][y_coord].plot(x, y, 'ro')
+            axes[x_coord][y_coord].text(x, y, f'{lexicon[word]}')
+
+    plt.show()
+        
+    
+def plot_inhib_spectrum(lexicon, lexicon_activewords_np, inhib_spectrum1, inhib_spectrum2,
+                        index_num1, index_num2):
+
+    if any(lexicon_activewords_np):
+        fig, axes = plt.subplots(1, 2)
+        fig.set_size_inches(15, 7)
+        
+        x_coord=0
+        
+        for (IS, index_num) in [(inhib_spectrum1,index_num1) , (inhib_spectrum2, index_num2)]:
+            
+            highest_words = IS.argsort()[:10]
+        
+            sns.stripplot(ax=axes[x_coord],
+                          x=np.array(lexicon)[lexicon_activewords_np == True][highest_words], 
+                          y = IS[highest_words])
+            axes[x_coord].set_title(lexicon[index_num])
+            x_coord+=1
+            
+        plt.suptitle('inhib spectrum overlap+lexicon squared')
+        plt.show()
+    else:
+        pass
+
+                

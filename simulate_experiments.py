@@ -22,7 +22,7 @@ from freq_pred_files import get_freq_files, get_pred_files
 from affixes import get_suffix_file  # , get_prefix_file
 from reading_functions import get_threshold, is_similar_word_length, extract_stem, word_stem_match
 from reading_common import stringToBigramsAndLocations, calcBigramExtInput, calcMonogramExtInput
-from analyse_data_plot import plot_runtime
+from analyse_data_plot import plot_runtime, plot_inhib_spectrum
 
 logger = logging.getLogger(__name__)
 
@@ -71,6 +71,11 @@ def simulate_experiments(task, pm):
     lengtes = []
     textsplitbyspace = list(pm.stim['all'].str.split(
         ' ', expand=True).stack().unique())  # get stimulus words of task
+    
+    #NV: also add prime words to list if applicable
+    if pm.is_priming_task:
+        textsplitbyspace.extend(list(pm.stim['prime'].str.split(
+            ' ', expand=True).stack().unique()))
 
     # NV: generate individual_words array
     for word in textsplitbyspace:
@@ -113,19 +118,13 @@ def simulate_experiments(task, pm):
 
         # NV: add affix freq and pred to list
         # affixes have no pred values, so fill in with mean pred of normal words
-        # NV: pred values not used expect in grammar_prob cases, so for now only add freq of affixes.
         word_freq_dict = word_freq_dict | affix_freq_dict
-        # (word_freq_dict, word_pred_values) = (word_freq_dict | affix_freq_dict,
-        #                                       np.concatenate(
-        #     (word_pred_values, np.full(len(affix_freq_dict), np.mean(word_pred_values)))))
 
         logger.debug('word freq dict (with affixes): ' + str(word_freq_dict))
 
     if pm.use_grammar_prob:
 
         # FIXME:  what is the use of this code block? make pred files? TODO: figure out. Might dissolve confusion
-
-        # and in parallel, where will word_pred_values be used?
         
         word_pred_values = get_pred_files(task, pm)
         
@@ -156,11 +155,9 @@ def simulate_experiments(task, pm):
     max_frequency_key = max(word_freq_dict, key=word_freq_dict.get)
     max_frequency = word_freq_dict[max_frequency_key]
     print("max freq:" + str(max_frequency))
-    print("Length text: " + str(len(individual_words)) +
-          "\nLength pred: " + str(len(word_pred_values)))
+    print("Length text: " + str(len(individual_words)))
     logger.info("max freq:" + str(max_frequency))
-    logger.info("Length text: " + str(len(individual_words)) +
-                "\nLength pred: " + str(len(word_pred_values)))
+    logger.info("Length text: " + str(len(individual_words)))
 
     # Make individual words dependent variables
     TOTAL_WORDS = len(individual_words)
@@ -252,9 +249,9 @@ def simulate_experiments(task, pm):
 
     # NV: this code body is for stringToBigramsAndLocations execution, which splits words into their bigrams and positions within the word.
     # the first lines are for preparing the word for entering the stringToBigramsAndLocations function
-    # TODO: in the long term, change stringToBigramsAndLocations instead of changing its input
+    # TODO: in the long run, should change stringToBigramsAndLocations instead of changing its input
     N_ngrams_lexicon = []  # list with amount of ngrams per word in lexicon
-    for word in lexicon:  # NV: was: range(LEXICON_SIZE):
+    for word in lexicon:
 
         # NV: create local variable to modify without interfering
         # NV: strings are immutable so no need to deep copy
@@ -344,7 +341,7 @@ def simulate_experiments(task, pm):
             # as loop is symmetric, only go through every pair (word1-word2 or word2-word1) once.
             for word in range(other_word, LEXICON_SIZE):
 
-                ### NV: 1. calculate mon0gram and bigram overlap
+                ### NV: 1. calculate monogram and bigram overlap
                 
                 # NV: bypass to investigate the effects of word-length-independent inhibition
                 # if not is_similar_word_length(lexicon[word], lexicon[other_word]) or lexicon[word] == lexicon[other_word]: # Take word length into account here (instead of below, where act of lexicon words is determined)
@@ -429,6 +426,7 @@ def simulate_experiments(task, pm):
                     else:
                         word_overlap_matrix[word, other_word] = 0
                         word_overlap_matrix[other_word, word] = 0
+                        
                 else:  # is_similar_word_length
                     if total_overlap_counter > min_overlap:
                         word_inhibition_matrix[word, other_word] = True
@@ -481,7 +479,6 @@ def simulate_experiments(task, pm):
     # BEGIN EXPERIMENT
     # loop over trials
     stim = pm.stim
-    stim['all'] = pm.stim['all']  # NV: redundant?
     unrecognized_words = []  # NV: init empty list outside the for loop. Before, would only remember the last word
 
     for trial in range(0, len(stim['all'])):
@@ -531,6 +528,7 @@ def simulate_experiments(task, pm):
                            'position': [],
                            'inhibition_value': pm.word_inhibition,  # NV: info for plots in notebook
                            'wordlen_threshold': pm.word_length_similarity_constant,
+                           'target_inhib': [],
                            'error_rate': 0}  # NV: info for plots in notebook
 
         shift = False
@@ -538,7 +536,7 @@ def simulate_experiments(task, pm):
         # # Lexicon word measures
         lexicon_word_inhibition_np = np.zeros((LEXICON_SIZE), dtype=float)
         lexicon_total_input_np = np.zeros((LEXICON_SIZE), dtype=float)
-        lexicon_word_activity_new = np.zeros((LEXICON_SIZE), dtype=float)
+        lexicon_word_activity_change = np.zeros((LEXICON_SIZE), dtype=float)
         lexicon_word_activity_np = np.zeros((LEXICON_SIZE), dtype=float)
         crt_word_activity_np = 0
         
@@ -618,7 +616,7 @@ def simulate_experiments(task, pm):
             # Words checked in order of attentwght of word. To ease computation, we assume eye& attend in center.
             # Then attentweight highest on middle, fixated word, then on word just right of fixation
             n_words_in_stim = len(stimulus.split())
-            if (n_words_in_stim == 1):
+            if (n_words_in_stim <2):
                 # if stim 1 wrd, it is checked first (note, indexing starts at 0!)
                 order_match_check = [0]
             if (n_words_in_stim == 2):
@@ -641,6 +639,8 @@ def simulate_experiments(task, pm):
             
             # NV: these lists should reset when stimulus changes or when its the first stimulus
             # therefore they are computed within the cycle loop   
+            
+            #TODO: nadenken over wat er gebeurt als stimulus verandert
             if len(stimulus_list) <= 1 or stimulus_list[-2] != stimulus_list[-1]:
                 
                 # Now create list that will hold the recognized words
@@ -742,9 +742,10 @@ def simulate_experiments(task, pm):
                 lexicon_activewords_np == True)] * lexicon_normalized_word_inhibition  # NV: the more active a certain word is, the more inhibition it will execute on its peers -> activity is multiplied by inhibition constant.
             # NV: then, this inhibition value is weighed by how much overlap there is between that word and every other. BUT! longer words will have more overlap, and will be more inhibited. Should that be corrected?
 
-            # FIXME: test to make inhibition exponential/squared: will concentrate inhibition on the most activate and overlapping words
-            lexicon_word_inhibition_np = - \
-                (np.dot(overlap_select, lexicon_select) / np.array(N_ngrams_lexicon))**2
+            # FIXME: test to make inhibition exponential/squared: will concentrate inhibition on the most active and overlapping words
+            #lexicon_word_inhibition_np = np.dot(overlap_select, -np.sqrt(np.abs(lexicon_select))) / np.array(N_ngrams_lexicon)
+            #lexicon_word_inhibition_np = np.dot(overlap_select, lexicon_select) / np.array(N_ngrams_lexicon)
+            lexicon_word_inhibition_np = np.dot((overlap_select**2), (lexicon_select**2)) / np.array(N_ngrams_lexicon)
 
             # Combine word inhibition and input, and update word activity
             lexicon_total_input_np = np.add(
@@ -753,28 +754,44 @@ def simulate_experiments(task, pm):
             # now comes the formula for computing word activity.
             # pm.decay has a neg value, that's why it's here added, not subtracted
             # logger.debug("before:"+str(lexicon_word_activity_np[individual_to_lexicon_indices[fixation]]))
-            lexicon_word_activity_new = ((pm.max_activity - lexicon_word_activity_np) * lexicon_total_input_np) + \
+            
+            lexicon_word_activity_change = ((pm.max_activity - lexicon_word_activity_np) * lexicon_total_input_np) + \
                                         ((lexicon_word_activity_np - pm.min_activity) * pm.decay)
-            lexicon_word_activity_np = np.add(lexicon_word_activity_np, lexicon_word_activity_new)
+            lexicon_word_activity_np = np.add(lexicon_word_activity_np, lexicon_word_activity_change)
 
             # Correct activity beyond minimum and maximum activity to min and max
             lexicon_word_activity_np[lexicon_word_activity_np < pm.min_activity] = pm.min_activity
             lexicon_word_activity_np[lexicon_word_activity_np > pm.max_activity] = pm.max_activity
-
-            # only plot when not blanscreen/mask. also plot only one trial, to not clutter the plot space
-            if pm.plotting and cur_cycle >= pm.blankscreen_cycles_begin and trial == 5:
-
-                plot_runtime(stimulus, N_ngrams_lexicon, lexicon_activewords_np,
-                             lexicon_word_inhibition_np, word_input_np, lexicon_total_input_np,
-                             lexicon_thresholds_np)
-
-                logger.info('done plotting')
-
+            
             # Save current word activities (per cycle)
             target_lexicon_index = individual_to_lexicon_indices[[
                 idx for idx, element in enumerate(lexicon) if element == '_'+target+'_']]
             logger.debug("target index:" + str(target_lexicon_index))
+            
+            #plot_inhibition_matrix 
+            if pm.plotting and trial == 88:
+                index_num1=lexicon.index('_case_')
+                inhib_spectrum1 = ((overlap_select[index_num1,:]**2) * lexicon_select**2) / N_ngrams_lexicon[index_num1]
+                
+                index_num2=lexicon.index('_cash_')
+                inhib_spectrum2 = ((overlap_select[index_num2,:]**2) * lexicon_select**2 )/ N_ngrams_lexicon[index_num2]
+                
+                plot_inhib_spectrum(lexicon, lexicon_activewords_np, inhib_spectrum1, inhib_spectrum2,
+                                    index_num1, index_num2)
+                
+            # only plot when not blanscreen/mask. also plot only one trial, to not clutter the plot space
+            if False and pm.plotting and cur_cycle >= pm.blankscreen_cycles_begin  and cur_cycle <= pm.totalcycles-pm.blankscreen_cycles_end and trial in (5, 88, 49):
 
+                plot_runtime(stimulus, N_ngrams_lexicon, lexicon_activewords_np,
+                             lexicon_word_inhibition_np, word_input_np, lexicon_word_activity_np,
+                             lexicon_thresholds_np, lexicon, [lexicon.index(f'_{prime}_'), lexicon.index(f'_{target}_')])
+
+                logger.info('done plotting')
+        
+                        
+            all_data[trial]['target_inhib'].append(lexicon_word_inhibition_np[target_lexicon_index])
+            
+            
             #crt_word_total_input_np = lexicon_total_input_np[target_lexicon_index]
             crt_word_activity_np = lexicon_word_activity_np[target_lexicon_index]
             all_data[trial]['target activity per cycle'].append(crt_word_activity_np)
@@ -825,7 +842,6 @@ def simulate_experiments(task, pm):
                 # slot_num is the slot in the stim (spot of still-unrecogn word) that we're checking
                 slot_num = order_match_check[slot_to_check]
                 # if the slot has not yet been filled..
-                # NV: check if already recognized in slot
                 if len(stim_matched_slots[slot_num]) == 0:
                     
                     # Check words that have the same length as word in the slot we're now looking for
@@ -837,18 +853,12 @@ def simulate_experiments(task, pm):
                     recognWrdsFittingLen_np = above_thresh_lexicon_np * \
                         np.array([0 if x in affixes else int(is_similar_word_length(len(x.replace('_', '')),
                                   [len(word_searched)])) for x in lexicon])
-                    
-                    #compute inverse matrix of already matched words
-                    not_yet_matched = 1 - new_recognized_words
 
                     # Fast check whether there is at least one 1 in wrdsFittingLen_np (thus above thresh.)
-                    # NV: also check if word hasnt been matched yet
-                    if sum(recognWrdsFittingLen_np): # * not_yet_matched):
+                    if sum(recognWrdsFittingLen_np): 
 
                         # Find the word with the highest activation in all words that have a similar length
                         # and recognise that word's POS
-                        #NV: also multiply with inverse of new_recognized words (1 is 0 and 0 is 1) to prevent already matched word to also match an other slot!
-                        #!!!: problem with the already_matched mechanism is that if a word appears twice in the stimulus, it wil never be matched a second time
                         highest = np.argmax(recognWrdsFittingLen_np * lexicon_word_activity_np) # * not_yet_matched )
                         highest_word = lexicon[highest]
                         
@@ -860,7 +870,6 @@ def simulate_experiments(task, pm):
                         above_thresh_lexicon_np[highest] = 0
                         lexicon_word_activity_np[highest] = pm.min_activity
 
-                        # TODO: also check if the target is in the right slot?
                         if target == highest_word.replace('_', '') and stimulus.split().index(target) == slot_num:
                             recognized = True
                             logger.info('matched word is target word')
@@ -992,3 +1001,5 @@ def simulate_experiments(task, pm):
 if __name__ == '__main__':
     pm = return_params()
     (lexicon, all_data, unrecognized_words) = simulate_experiments('EmbeddedWords', pm)
+
+	

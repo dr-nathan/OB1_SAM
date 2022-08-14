@@ -21,7 +21,7 @@ def return_global_params():
 
     """
 
-    task_to_run = 'Flanker'  # NV: task to run. can be one of: Flanker, Sentence, EmbeddedWords, Classification, Transposed or PSCall
+    task_to_run = 'EmbeddedWords'  # NV: task to run. can be one of: Flanker, Sentence, EmbeddedWords, Classification, Transposed or PSCall
     
     possible_tasks =  ["EmbeddedWords", "Sentence", "Flanker", "Classification", "Transposed", "PSCall"] 
 
@@ -197,9 +197,9 @@ def return_task_params(task_attributes):
         decay = -0.05  # 0.08 #-0.053
         # inp. divided by #ngrams, so this param estimates excit per word [diff from paper]
         bigram_to_word_excitation = 3.0 # 1.25  #2.18 for classification and transposed
-        # general inhibition on all words. The more active bigrams, the more general inhibition. #FIXME
-        bigram_to_word_inhibition = 0 #-0.05 #-0.001 #cant figure out why this exists
-        word_inhibition = -0.3  # -.0018 #-0.005#-0.07 #-0.0165
+        # general inhibition on all words. The more active bigrams, the more general inhibition. 
+        bigram_to_word_inhibition = 0 #-0.05 #-0.001 
+        word_inhibition = -0.6 #-0.015  # -.0018 #-0.005#-0.07 #-0.0165
         # NV: determines how similar the length of 2 words must be for them to be recognised as 'similar word length'
         word_length_similarity_constant = 0.15
 
