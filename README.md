@@ -11,8 +11,14 @@ This code based on Gina's handover version of April 2021, with Noor Seidel's cod
 The code for experiments works well, that for reading text works but with hacks that are difficult to follow (must be rewritten).
 
 # OB1 reader
+
 OB1 is a reading-model that simulates the cognitive processes behind reading. 
 For more information about the theory behind OB1 and how it works see: https://www.ncbi.nlm.nih.gov/pubmed/30080066
+
+## Runnign the code
+First, clone this repo and install the requirements with '''git install -r requirements.txt''' (make sure you cd into the OB1 folder)
+
+Then, set your parameters in parameters.py (which task to run, etc.) and run the code by running main.py.
 
 The code can be used for different purposes (code file mentioned are explained below). 
 
