@@ -1,5 +1,5 @@
 
-### note august 2022
+### Note august 2022
 
 The slot-matching mechanism written by Martijn has been merged. 
 
@@ -15,7 +15,7 @@ The code for experiments works well, that for reading text works but with hacks 
 OB1 is a reading-model that simulates the cognitive processes behind reading. 
 For more information about the theory behind OB1 and how it works see: https://www.ncbi.nlm.nih.gov/pubmed/30080066
 
-## Runnign the code
+## Running the code
 First, clone this repo and install the requirements with '''git install -r requirements.txt''' (make sure you cd into the OB1 folder)
 
 Then, set your parameters in parameters.py (which task to run, etc.) and run the code by running main.py.
@@ -30,6 +30,7 @@ In order to run a text reading or an experiment, one should set "run_exp" and "a
 To run the "normal" text reading task (Which means reading the input text-file once and comparing the results to an eye-tracking 
 experiment), set task_to_run in *parameters.py* to "PSCall". In the standard version it reads a german text and uses word frequency as well as
 word predictability (cloze probability) to recognize words presented in its visual field.
+
 ### Experiment 
 To run an experiment, set task_to_run to the task in question. Can be :
 "Flanker", from Snell et al (2019, Neuropsychologia), 
