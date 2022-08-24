@@ -1,29 +1,10 @@
 
 ### note august 2022
-The mechanisms concerning the grammar predictability for the tasks Classification and Transposed 
-have been merged into the main model. Code written by Beatriz
 
-The slot-matching mechanism written by Martijn has also been merged. 
+The slot-matching mechanism written by Martijn has been merged. 
 
-TODO: the slot matching mechanism contains faults, as it creates some obvious mistakes during sentence reading. 
-The grammar prob code of Beatriz is functional, but is a little disorganized. The goals of the code should be cleared up with Beatriz 
-in order to better comprehend the code and clean it up. 
+Additionally, the internal state of OB1 is recorded for every time step. This data can be consulted in the logs/ folder.
 
-A lot of foreign code has been integrated into the model. As such, it is harder to comprehend and verify. 
-The code should still be thoroughly tested for typos and coding mistakes, once above mentionned steps have been taken.
-
-Contact Nathan vaartjes if in trouble
-
-### Note April 2022: current state of model and recent mods
-The inhibition matrix calculation is the most expensive step in the model. Therefore, the code now first checks if the last run was with the same parameters relevant for inhibition,
-and if so, uses the previous inhibition matrix, thereby saving redundant computation.
-In parallel, it also iterates through every word once instead of twice. 
-
-The affix system is fully functional for english, which means there exists a pickle file containing affix frequencies, which can be used to anaylse affix-effects in simulations. However, frequency values are in the process of being updated, and added for french. The file affixes.py is in construction.
-
-Turn affix_system in on in parameters.py for this functionality. 
-
-For plotting inhibition and activation values during simulation, set plotting=True in parameters.py
 
 ### Note sept 2021 (MM)
 This code based on Gina's handover version of April 2021, with Noor Seidel's code for simulating expts integrated in it. 
@@ -44,15 +25,21 @@ To run the "normal" text reading task (Which means reading the input text-file o
 experiment), set task_to_run in *parameters.py* to "PSCall". In the standard version it reads a german text and uses word frequency as well as
 word predictability (cloze probability) to recognize words presented in its visual field.
 ### Experiment 
-To run an experiment, set task_to_run to the task in question. Can be "Flanker", from Snell et al (2019, Neuropsychologia), "Sentence", a reading experiment from Wen et al. 
-(2019, Cognition), or "EmbeddedWords", a priming task from Beyersmann et al. (2016, Psychonomic Society).
-The simulated experiment data is stored in pickled files called alldata_Flanker.pkl, etc. that can be read by Jupyter Notebooks written by Noor Seidel.
-The Notebooks expect the pickled files in "...\Results". Run OB1_taskperformance before the other two (which compute ERPs and simulated ERPs, one for each task).
-### NV: Update March 2022
-in the latest version, a system for processing affixes has been implemented, to account for the priming results found by i.e. doi:10.3758/s13423-015-0927-z. In the present state, word pairs of the complex words and their stem (i.e. weaken - weak),
-are detected and their inhibition is set to 0. That means that the word pairs dont inhibit each other, which explains why WEAKEN primes WEAK, but CASHEW does not prime CASH (no affix).
+To run an experiment, set task_to_run to the task in question. Can be :
+"Flanker", from Snell et al (2019, Neuropsychologia), 
+
+"Sentence", a reading experiment from Wen et al. (2019, Cognition), 
+
+"EmbeddedWords", a priming task from Beyersmann et al. (2016, Psychonomic Society),
+For this task, a system for processing affixes has been implemented, to account for the priming results found by i.e. doi:10.3758/s13423-015-0927-z. In the present state, word pairs of the complex words and their stem (i.e. weaken - weak), are detected and their inhibition is set to 0. That means that the word pairs dont inhibit each other, which explains why WEAKEN primes WEAK, but CASHEW does not prime CASH (no affix).
 The affix system can be turned on or off by setting *affix_system* in parameters.py to True or False.
-Additionally, the internal state of OB1 is recorded for every time step. This data can be consulted in the logfile.log
+At the moment, the affix system is fully functional for english and french, which means there exists a pickle file containing affix frequencies for those lamguages, which can be used to anaylse affix-effects in simulations. 
+
+"Classification" and " Transposed ".
+These last two experiments make use of the grammar predictability of words and their POS. The POS and grammar prob have been implemented only for these two tasks (english and dutch). The grammar prob code of Beatriz is functional, but is a little disorganized. it works, but if needed to extend for PSC or other tasks, should contact Beatriz.
+
+The simulated experiment data is stored in pickled files called alldata_Flanker.pkl, etc. that can be read by Jupyter Notebooks written by Noor Seidel.
+The Notebooks expect the pickled files in "...\Results". Run OB1_taskperformance (stiutated in the OB1_analysis folder) before the other two (which compute ERPs and simulated ERPs, one for each task).
 
 ## Parameter-tuning 
 
@@ -86,7 +73,8 @@ The following files are the most important:
 This is the most important function for controlling the behavior of *main.py*. Here the user can specify which parts of the programm should be run and also set the initial parameters when tuning. 
 Furthermore the user can define which measures are used as error-function for the tuning process. 
 This is also where the specifics of every task are specified.
-**TODO:** Change to that locations text and lexicon are defined in parameters.
+
+For plotting inhibition and activation values during simulation, set plotting=True in parameters.py (useful for debugging and insight in to the model at simulation time).
 
 ### main.py
 In this file the main program flow is defined. In case of text reading it has calls to the reading_function, which simulates the actual reading, as imported from *reading_simulation.py*, the analyze function as imported from *analyse_data_pandas.py* and the optimize function, 
@@ -100,10 +88,18 @@ The resulting (correctly or incorrectly) recognized words are saved in **all_dat
 At the end of the simulation this data-representation of the reading process is saved as a pickle file ( *all_data_INPUT_LANGUAGE.pkl* ) for analysis in a later stage together with all **unrecognized_words** ( *unrecognized_INPUT_LANGUAGE.pkl* ).
 reading_simulation_BT.py is meant for the boundary task (BT). This sim has not been updated for a long while. If BT sims must be run, better use reading_simulation as basis and take whatever needed to do boundary from the BT file.
 **TODO:** remake the code to the image of simulate_experiments.py
+**NOTE:** deprecated
 
 ### simulate_experiments.py
 This file has the code for simulating concrete experiments, currently a flanker expt from Snell et al (2019, Neuropsychologia), and a sentence reading experiment from Wen et al. 
 (2019, Cognition), or an Embedded Words task (Beyersmann et al. 2016). In the flanker expt, a target word is presented either alone or surrounded by two flanker words on the screen. 
+
+It starts off with importing the stimulus list, and building the lexicon and inter-word inhibition matrix.
+The inhibition matrix calculation is the most expensive step in the model. Therefore, the code now first checks if the last run was with the same parameters relevant for inhibition, and if so, uses the previous inhibition matrix, thereby saving redundant computation.
+In parallel, it also iterates through every word once instead of twice. 
+
+It then enters the loop, where the stimulus is presented and the word activations are updated at every iteration.
+
 A hit is scored if the target word is recognized in timely fashion. In the sentence reading expt, a sentence (either correct or scrambled) is presented, and the reader has to read aloud a word indicated by a post cue. 
 In the Embedded Words task, a prime is presented for 50ms, followed by a target. The user presses a button when the target word is recognized. The prime can be truly suffixed, pseudo suffixed or non-sufixed. head to Beyersamnn et al. (2020) for more info.
 In the simulation, we count a hit when the cued word was recognized on time. In both experiments, total activity of word units is added up as substrate of the N400. This is then compared with experimental data using Jupyter Notebooks (see below). 
